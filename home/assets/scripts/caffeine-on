@@ -1,0 +1,1 @@
+gsettings --schemadir /etc/profiles/per-user/$USER/share/gnome-shell/extensions/caffeine@patapon.info/schemas/ set org.gnome.shell.extensions.caffeine toggle-state true
