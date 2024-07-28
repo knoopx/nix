@@ -12,6 +12,5 @@
     ./defaults/users.nix
   ];
 
-  nixpkgs.hostPlatform = "x86_64-linux";
   documentation.nixos.enable = false;
 }

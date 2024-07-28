@@ -4,15 +4,6 @@
   defaults,
   ...
 }: {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
-
-  system = {
-    autoUpgrade.enable = true;
-    stateVersion = "24.05";
-  };
-
   hardware = {
     enableAllFirmware = true;
     enableRedistributableFirmware = true;
@@ -25,28 +16,11 @@
     };
   };
 
-  boot = {
-    plymouth.enable = false;
-    crashDump.enable = false;
-    tmp.cleanOnBoot = true;
-
-    loader = {
-      grub = {
-        enable = true;
-        device = "nodev";
-        # useOSProber = true;
-        efiSupport = true;
-      };
-      efi.canTouchEfiVariables = true;
-    };
-  };
-
   environment = {
     variables = {
       EDITOR = defaults.editor;
     };
   };
-
 
   time.timeZone = defaults.timeZone;
   i18n.defaultLocale = defaults.defaultLocale;

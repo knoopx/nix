@@ -20,7 +20,7 @@
     ollama = {
       enable = true;
       acceleration = "cuda";
-      home = "/home/${defaults.username}/.ollama";
+      # home = "/home/${defaults.username}/.ollama";
     };
   };
 }

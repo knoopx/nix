@@ -2,6 +2,7 @@
   pkgs,
   defaults,
   inputs,
+  system,
   ...
 }: let
   dev-tools = with pkgs; [
@@ -28,7 +29,7 @@
     firefox
     gitg
     gnome.gnome-control-center
-    inputs.nix-software-center.packages.x86_64-linux.nix-software-center
+    inputs.nix-software-center.packages.${system}.nix-software-center
     kitty
     nautilus
     seahorse

@@ -8,17 +8,6 @@
   users.defaultUserShell = pkgs.fish;
   users.users.root.initialPassword = defaults.password;
 
-  boot.initrd.preLVMCommands = ''
-    echo
-    echo '################################### NOTICE ###################################'
-    echo
-    echo 'This device is property of ${defaults.full-name}'
-    echo 'If found please contact ${defaults.personal-email}'
-    echo
-    echo '################################### NOTICE ###################################'
-    echo
-  '';
-
   # TODO: avatars
   # system.activationScripts.script.text = ''
   #   cp /home/knoopx/.dotfiles/profile-pic.png /var/lib/AccountsService/icons/knoopx

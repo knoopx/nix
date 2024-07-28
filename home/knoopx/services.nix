@@ -20,8 +20,10 @@
     }
   '';
 
-  services.easyeffects = {
-    enable = true;
-    preset = "default";
+  services = {
+    easyeffects = {
+      enable = true;
+      preset = "default";
+    };
   };
 }

@@ -5,13 +5,13 @@
   ...
 }: {
   services = {
-    xserver = {
-      xkb.layout = defaults.keyMap;
-    };
-
     timesyncd.enable = lib.mkDefault true;
     fwupd.enable = true;
     printing.enable = false;
+
+    xserver = {
+      xkb.layout = defaults.keyMap;
+    };
 
     pipewire = {
       enable = true;
