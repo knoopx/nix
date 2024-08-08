@@ -68,7 +68,7 @@
       modesetting.enable = true;
 
       powerManagement = {
-        enable = true;
+        enable = false;
         finegrained = false;
       };
 
@@ -76,7 +76,7 @@
       nvidiaSettings = false;
 
       # nvidiaPersistenced = true;
-      # forceFullCompositionPipeline = true;
+      forceFullCompositionPipeline = false;
 
       # https://http.download.nvidia.com/XFree86/Linux-x86_64/
       # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {

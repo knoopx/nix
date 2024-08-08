@@ -16,7 +16,7 @@
         gdm = {
           enable = true;
           wayland = true;
-          autoSuspend = false;
+          # autoSuspend = false;
         };
       };
     };

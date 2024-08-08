@@ -48,6 +48,7 @@
     nautilus
     zed-editor
     seahorse
+    drawing
     xdg-desktop-portal-gnome
 
     # livecaptions
