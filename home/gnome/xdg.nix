@@ -3,6 +3,8 @@
   file-manager = "org.gnome.Nautilus.desktop";
   image-viewer = "org.gnome.eog.desktop";
   # image-viewer = "org.gnome.Loupe.desktop";
+  video-player = "mpv.desktop";
+  music-player = "io.bassi.Amberol.desktop";
   text-editor = "code.desktop";
 in {
   xdg = {
@@ -73,6 +75,7 @@ in {
     mimeApps = {
       enable = true;
 
+      # https://mimetype.io/
       # xdg-mime query filetype input.png
       # xdg-mime query default "image/*"
 
@@ -82,8 +85,9 @@ in {
         "application/x-gzip" = "org.gnome.FileRoller.desktop";
         "application/x-tar" = "org.gnome.FileRoller.desktop";
         "application/zip" = "org.gnome.FileRoller.desktop";
-        "audio/mp3" = "mpv.desktop";
-        "audio/x-matroska" = "mpv.desktop";
+        "audio/mpeg" = music-player;
+        "audio/flac" = music-player;
+        "audio/vnd.wave" = music-player;
         "image/gif" = image-viewer;
         "image/jpeg" = image-viewer;
         "image/png" = image-viewer;
@@ -95,9 +99,9 @@ in {
         "text/json" = text-editor;
         "text/markdown" = text-editor;
         "text/plain" = text-editor;
-        "video/mp4" = "mpv.desktop";
-        "video/webm" = "mpv.desktop";
-        "video/x-matroska" = "mpv.desktop";
+        "video/mpeg" = video-player;
+        "video/webm" = video-player;
+        "video/x-matroska" = video-player;
         "x-scheme-handler/http" = browser;
         "x-scheme-handler/https" = browser;
         "x-scheme-handler/mailto" = "mailto-gmail.desktop";
