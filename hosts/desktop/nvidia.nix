@@ -4,6 +4,7 @@
   ...
 }: {
   nixpkgs.config.nvidia.acceptLicense = true;
+  programs.gamemode.enable = true;
 
   environment = {
     sessionVariables = {

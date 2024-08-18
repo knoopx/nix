@@ -29,6 +29,11 @@
     btrfs.autoScrub.enable = true;
     fstrim.enable = true;
 
+    earlyoom = {
+      enable = false;
+      enableNotifications = true;
+    };
+
     sunshine = {
       enable = true;
       autoStart = true;

@@ -42,7 +42,8 @@
     defaults = {
       inherit colorScheme;
 
-      keyMap = "us";
+      # cat $(nix-build --no-out-link '<nixpkgs>' -A xkeyboard_config)/etc/X11/xkb/rules/base.lst
+      keyMap = "eu";
       timeZone = "Europe/Madrid";
       defaultLocale = "en_US.UTF-8";
       region = "es_ES.UTF-8";
@@ -88,8 +89,10 @@
         };
 
         emoji = {
-          name = "Noto Color Emoji";
-          package = pkgs.noto-fonts-color-emoji;
+          # name = "Noto Color Emoji";
+          # package = pkgs.noto-fonts-color-emoji;
+          name = "Twitter Color Emoji";
+          package = pkgs.twitter-color-emoji;
         };
 
         monospace = {

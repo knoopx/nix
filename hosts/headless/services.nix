@@ -10,6 +10,8 @@
     printing.enable = false;
     libinput.enable = false;
 
+    # atd.enable = true;
+
     # https://www.reddit.com/r/linux_gaming/comments/11yp7ig/pipewire_audio_stuttering_when_playing_games_or/
     pipewire = {
       enable = true;

@@ -5,6 +5,7 @@ _: {
     ./gnome/packages.nix
     ./gnome/programs.nix
     ./gnome/easy-effects-irs.nix
+    ./gnome/emulation.nix
     ./gnome/xdg.nix
     ./gnome/gtk.nix
     ./headless/programs.nix

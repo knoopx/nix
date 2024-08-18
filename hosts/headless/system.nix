@@ -59,7 +59,7 @@
   };
 
   console = {
-    inherit (defaults) keyMap;
+    # inherit (defaults) keyMap;
     earlySetup = true;
   };
 

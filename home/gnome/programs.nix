@@ -52,6 +52,7 @@
       ];
 
       userSettings = {
+        "terminal.integrated.enableImages" = true;
         "terminal.integrated.enableMultiLinePasteWarning" = false;
         "terminal.integrated.env.linux" = {};
         "security.workspace.trust.enabled" = false;
@@ -100,6 +101,9 @@
         "commitollama.custom.model" = "mistral-nemo:12b-instruct-2407-q4_K_M";
 
         "[javascript]" = {
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        };
+        "[json]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
         "[typescriptreact]" = {
@@ -166,6 +170,7 @@
       # bind \ew yazi # alt-w
 
       shellAliases = {
+        ollamark = "$HOME/ollamark/src/ollamark.tsx";
         codestral = "ollamark -t 0.3 --model codestral";
         nemo = "ollamark -t 0.3 --model mistral-nemo";
         llama3 = "ollamark -t 0.3 --model llama3";
@@ -194,6 +199,7 @@
         set -px --path PATH "$HOME/.local/share/gem/ruby/3.1.0/bin/:$PATH"
         set -px --path PATH "/etc/profiles/per-user/$USER/bin/:$PATH"
         set -x LD_LIBRARY_PATH "/run/opengl-driver/lib/:$NIX_LD_LIBRARY_PATH"
+        set -gx TRITON_LIBCUDA_PATH /run/opengl-driver/lib/
       '';
     };
 

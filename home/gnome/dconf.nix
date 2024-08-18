@@ -190,9 +190,7 @@ in {
     "org/gnome/desktop/input-sources" = {
       per-window = false;
       show-all-sources = true;
-      # TODO
-      # mru-sources = [mkTuple ["xkb" "eu"]];
-      # sources = [mkTuple ["xkb" "eu"]];
+      sources = [(mkTuple ["xkb" defaults.keyMap])];
     };
 
     "org/gnome/nautilus/icon-view" = {

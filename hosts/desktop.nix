@@ -6,6 +6,8 @@
   };
 in {
   imports = [
+    ../scripts/silverbullet.nix
+
     ./headless.nix
 
     ./gnome/overlays.nix
@@ -14,6 +16,7 @@ in {
     ./gnome/services.nix
     ./gnome/xdg.nix
 
+    ./desktop/containers.nix
     ./desktop/boot.nix
     ./desktop/filesystems.nix
     ./desktop/hardware.nix

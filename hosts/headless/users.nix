@@ -26,7 +26,7 @@
     initialPassword = defaults.password;
 
     shell = pkgs.fish;
-    extraGroups = ["wheel" "networkmanager" "audio" "video" "docker" "lxd" "libvirtd"];
+    extraGroups = ["wheel" "networkmanager" "audio" "video" "docker" "lxd" "kvm" "libvirtd"];
 
     openssh.authorizedKeys.keys = let
       authorizedKeys = pkgs.fetchurl defaults.pubKeys;
