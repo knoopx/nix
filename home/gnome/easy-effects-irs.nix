@@ -33,6 +33,16 @@ in {
   services = {
     easyeffects = {
       enable = true;
+
+      package = pkgs.easyeffects.overrideAttrs (prev: {
+        preFixup = "";
+        buildInputs = pkgs.lib.filter (item:
+          !(pkgs.lib.elem item [
+            pkgs.deepfilternet
+            pkgs.rubberband
+          ]))
+        pkgs.easyeffects.buildInputs;
+      });
     };
   };
 }

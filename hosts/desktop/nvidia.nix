@@ -3,7 +3,6 @@
   pkgs,
   ...
 }: {
-  nixpkgs.config.nvidia.acceptLicense = true;
   programs.gamemode.enable = true;
 
   environment = {
@@ -18,7 +17,7 @@
     };
     systemPackages = with pkgs; [
       vulkan-loader
-      vulkan-validation-layers
+      # vulkan-validation-layers
       vulkan-tools
       libva
       libva-utils
@@ -54,6 +53,8 @@
 
     blacklistedKernelModules = ["nouveau"];
   };
+
+  nixpkgs.config.nvidia.acceptLicense = true;
 
   hardware = {
     graphics = {

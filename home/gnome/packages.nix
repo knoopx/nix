@@ -9,6 +9,7 @@
     authenticator
     commit
     czkawka
+    blender
     eog
     evince
     transmission_4-gtk
