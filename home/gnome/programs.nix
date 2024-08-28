@@ -131,6 +131,10 @@
 
         "solargraph.commandPath" = "${pkgs.solargraph}/bin/solargraph";
 
+        "python.analysis.typeCheckingMode" = "basic";
+        "python.analysis.autoImportCompletions" = true;
+        "python.analysis.autoImportUserSymbols" = true;
+
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
         "nix.serverSettings" = {

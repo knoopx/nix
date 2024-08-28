@@ -5,6 +5,8 @@
   ...
 }: let
   gtk-apps = with pkgs; [
+    vial
+    plasticity
     amberol
     authenticator
     commit
