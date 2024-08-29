@@ -45,11 +45,6 @@
       '';
     in
       script;
-
-  retroDeck = fetchTarball {
-    url = "https://github.com/RetroDECK/RetroDECK/archive/refs/tags/0.8.3b.tar.gz";
-    sha256 = "";
-  };
 in {
   # TODO:
   # home.files."/.config/retroarch/system" = {
@@ -76,61 +71,6 @@ in {
     # dosbox
     # https://redream.io/download/redream.x86_64-linux-v1.5.0-1131-gafdfc1a.tar.gz
 
-    # (
-    # datutil
-    #   let
-    #     pname = "datutil";
-    #     version = "2.46";
-    #     name = "${pname}-${version}";
-    #   in
-    #     stdenv.mkDerivation
-    #     {
-    #       inherit name;
-    #       dontUnpack = true;
-    #       sourceRoot = ".";
-    #       src = fetchurl {
-    #         url = "https://hitchhiker-linux.org/pub/stable/arch/x86_64/packages/DatUtil-2.46.tgz";
-    #         sha256 = "sha256-raLkq1n0kQ9iPUqESLmGYd707W3zzq8+laaZszCVsro=";
-    #       };
-
-    #       installPhase = ''
-    #         ${pkgs.gnutar}/bin/tar xf $src -C $out
-    #       '';
-    #     }
-    # )
-
-    (
-      let
-        pname = "es-de";
-        version = "3.0.3";
-        name = "${pname}-${version}";
-      in (buildFHSEnv
-        {
-          inherit pname version;
-          runScript = pname;
-
-          targetPkgs = p: [
-            libgpg-error
-            e2fsprogs
-            fribidi
-            gmp
-            (let
-              src = appimageTools.extractType2 {
-                inherit name;
-                src = fetchurl {
-                  url = "https://gitlab.com/es-de/emulationstation-de/-/package_files/132901118/download";
-                  sha256 = "sha256-cMLmTvnH4CGhIZsrTk/LsJBBxuNwFHyMchJQCG7EoOE=";
-                };
-              };
-            in
-              stdenv.mkDerivation
-              {
-                inherit name;
-                src = "${src}/usr";
-                installPhase = "cp -r $src $out";
-              })
-          ];
-        })
-    )
+    (callPackage ../../pkgs/es-de.nix {})
   ];
 }

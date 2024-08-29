@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   # chaotic.scx.enable = true;
+  # chaotic.scx.scheduler = "scx_simple";
 
   boot = {
     kernelModules = ["kvm-intel" "vfio-pci"];

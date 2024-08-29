@@ -1,5 +1,4 @@
 {
-  lib,
   stdenv,
   cmake,
   fetchzip,
@@ -14,46 +13,40 @@
   pugixml,
   SDL2,
   ...
-}:
-stdenv.mkDerivation {
+}: let
   pname = "es-de";
   version = "3.0.3";
+in
+  stdenv.mkDerivation {
+    inherit pname version;
 
-  src = fetchzip {
-    url = "https://gitlab.com/es-de/emulationstation-de/-/archive/v3.0.3/emulationstation-de-v3.0.3.tar.gz";
-    hash = "";
-  };
+    src = fetchzip {
+      url = "https://gitlab.com/es-de/emulationstation-de/-/archive/v${version}/emulationstation-de-v${version}.tar.gz";
+      hash = "sha256-w/Kz9Hox5/Ed8n/e2qUF3tfm+a0YNTK1hC1hDp3Xa9w=";
+    };
 
-  # patches = [./001-add-nixpkgs-retroarch-cores.patch];
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+    ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+    buildInputs = [
+      alsa-lib
+      curl
+      ffmpeg
+      freeimage
+      freetype
+      libgit2
+      poppler
+      pugixml
+      SDL2
+    ];
 
-  buildInputs = [
-    # alsa-lib
-    # curl
-    # ffmpeg
-    # freeimage
-    # freetype
-    # libgit2
-    # poppler
-    # pugixml
-    # SDL2
-  ];
+    installPhase = ''
+      install -D ../${pname} $out/bin/${pname}
+      install -Dm755 ../es-app/assets/org.es_de.frontend.desktop $out/share/applications/${pname}.desktop
+      install -Dm644 ../es-app/assets/org.es_de.frontend.svg $out/share/icons/hicolor/scalable/apps/org.es_de.frontend.svg
 
-  installPhase = ''
-    install -D ../emulationstation $out/bin/emulationstation
-    cp -r ../resources/ $out/bin/resources/
-  '';
-
-  meta = {
-    description = "EmulationStation Desktop Edition is a frontend for browsing and launching games from your multi-platform game collection.";
-    homepage = "https://es-de.org";
-    maintainers = with lib.maintainers; [ivarmedi];
-    license = lib.licenses.mit;
-    platforms = lib.platforms.linux;
-    mainProgram = "emulationstation";
-  };
-}
+      cp -r ../resources/ $out/bin/resources/
+    '';
+  }
