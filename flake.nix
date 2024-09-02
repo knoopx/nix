@@ -2,20 +2,22 @@
   description = "kOS";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
-    # nixpkgs.url = "github:NixOS/nixpkgs";
-
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-    chaotic.inputs.nixpkgs.follows = "nixpkgs";
-
-    nix-colors.url = "github:misterio77/nix-colors";
-    # nix-colors.inputs.nixpkgs-lib.follows = "nixpkgs";
-
-    stylix.url = "github:danth/stylix";
-    stylix.inputs.nixpkgs.follows = "nixpkgs";
+    # nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    chaotic.inputs.nixpkgs.follows = "nixpkgs";
+    chaotic.inputs.home-manager.follows = "home-manager";
+
+    nix-colors.url = "github:misterio77/nix-colors";
+    nix-colors.inputs.nixpkgs-lib.follows = "nixpkgs";
+
+    stylix.url = "github:danth/stylix";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.inputs.home-manager.follows = "home-manager";
   };
 
   outputs = {
@@ -99,15 +101,6 @@
           name = "JetBrainsMono Nerd Font";
           package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
         };
-
-        # monospace = {
-        #   name = "Sudo";
-        #   package = pkgs.sudo-font;
-        # };
-
-        # monospace = nerdFont {name = "ZedMono";};
-        # monospace = nerdFont {name = "CommitMono";};
-        # monospace = nerdFont {name = "Menlo";};
       };
 
       display = {

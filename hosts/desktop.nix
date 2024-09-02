@@ -6,7 +6,11 @@
   };
 in {
   imports = [
-    ../scripts/silverbullet.nix
+    ../modules/traefik.nix
+    ../modules/immich.nix
+    ../modules/silverbullet.nix
+    # ../modules/baserow.nix
+    # ../modules/eidos.nix
 
     ./headless.nix
 
@@ -16,7 +20,6 @@ in {
     ./gnome/services.nix
     ./gnome/xdg.nix
 
-    ./desktop/containers.nix
     ./desktop/boot.nix
     ./desktop/filesystems.nix
     ./desktop/hardware.nix

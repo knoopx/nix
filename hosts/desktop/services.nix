@@ -1,36 +1,10 @@
-{
-  pkgs,
-  defaults,
-  config,
-  lib,
-  ...
-}: {
-  systemd = {
-    services = {
-      # searxng = {
-      # };
-      # environment.systemPackages = with pkgs; [
-      #     searxng
-      #   ];
-      # ollama = {
-      #   serviceConfig = {
-      #     DeviceAllow = lib.mkForce [
-      #       "char-nvidia-caps"
-      #       "char-nvidia-frontend"
-      #       "char-nvidia-uvm"
-      #       "char-nvidiactl"
-      #     ];
-      #   };
-      # };
-    };
-  };
-
+{...}: {
   services = {
-    btrfs.autoScrub.enable = true;
     fstrim.enable = true;
+    btrfs.autoScrub.enable = true;
 
     earlyoom = {
-      enable = false;
+      enable = true;
       enableNotifications = true;
     };
 
@@ -60,31 +34,6 @@
       '';
 
       network.listenAddress = "any";
-    };
-
-    silverbullet = {
-      enable = true;
-      user = defaults.username;
-      group = "users";
-      listenPort = 3900;
-    };
-
-    caddy = {
-      enable = true;
-
-      email = defaults.primary-email;
-
-      globalConfig = ''
-        http_port    80
-        auto_https   off
-        admin        off
-        persist_config off
-        skip_install_trust
-      '';
-
-      virtualHosts."silverbullet.knoopx.net:80".extraConfig = ''
-        reverse_proxy http://localhost:${toString config.services.silverbullet.listenPort}
-      '';
     };
 
     # plex = {

@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  modulesPath,
-  ...
-}: {
+{...}: {
   hardware = {
     ksm.enable = true;
     cpu.intel.updateMicrocode = true;

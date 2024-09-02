@@ -44,9 +44,8 @@ in
 
     installPhase = ''
       install -D ../${pname} $out/bin/${pname}
-      install -Dm755 ../es-app/assets/org.es_de.frontend.desktop $out/share/applications/${pname}.desktop
+      install -Dm755 ../es-app/assets/org.es_de.frontend.desktop $out/share/applications/org.es_de.frontend.desktop
       install -Dm644 ../es-app/assets/org.es_de.frontend.svg $out/share/icons/hicolor/scalable/apps/org.es_de.frontend.svg
-
       cp -r ../resources/ $out/bin/resources/
     '';
   }

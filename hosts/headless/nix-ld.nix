@@ -56,12 +56,14 @@
       libtiff
       libudev0-shim
       libusb1
+      libuv
       libva
       libvdpau
       libvorbis
       libvpx
       libxkbcommon
       libxml2
+      lz4
       mesa
       nspr
       nss

@@ -1,9 +1,6 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
+    onlyoffice-bin
     # orca-slicer
     alejandra
     android-tools

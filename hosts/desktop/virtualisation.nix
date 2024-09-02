@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  modulesPath,
-  ...
-}: {
+{pkgs, ...}: {
   virtualisation = {
     # lxd.enable = true;
     # virtualbox.host.enable = true;
@@ -27,11 +22,19 @@
       };
     };
 
+    oci-containers.backend = "docker";
+    # defaultNetwork.settings.dns_enabled = true;
+
     docker = {
       enable = true;
       autoPrune.enable = true;
       autoPrune.dates = "daily";
       enableOnBoot = true;
+
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
     };
   };
 }

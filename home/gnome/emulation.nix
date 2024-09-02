@@ -59,18 +59,16 @@ in {
   home.packages = with pkgs; [
     mame-tools
     ryujinx
-    retroarch
-
+    retroarchFull
+    xemu
+    cemu
+    (callPackage ../../pkgs/es-de.nix {})
+    # melonDS
+    # dosbox
     # bottles
-    # xemu
     # protonup
     # wineWowPackages.waylandFull
-    # melonDS
-    # cemu
     # lutris
-    # dosbox
     # https://redream.io/download/redream.x86_64-linux-v1.5.0-1131-gafdfc1a.tar.gz
-
-    (callPackage ../../pkgs/es-de.nix {})
   ];
 }

@@ -5,7 +5,6 @@
   ...
 }: {
   programs = {
-    # TODO: make config RW so vscode doesn't complain
     vscode = {
       enable = true;
       package =

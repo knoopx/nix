@@ -98,10 +98,6 @@ in {
       cycle-group = ["<Super>Escape" "<Alt>Escape"];
       cycle-group-backward = ["<Shift><Super>escape"];
       toggle-fullscreen = ["<Super>f"];
-      # cycle-windows=['<Alt><Super>Escape']
-      # maximize=['<Super>Up']
-      # switch-input-source=['XF86Keyboard']
-      # switch-input-source-backward=['<Shift>XF86Keyboard']
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system-monitor" = {
@@ -127,18 +123,10 @@ in {
       font-antialiasing = "grayscale";
       font-hinting = "slight";
       gtk-theme = lib.mkDefault "adw-gtk3-dark";
-      # gtk-theme = "adw-gtk3";
       scaling-factor = 1;
       text-scaling-factor = 1.0;
       toolbar-style = "text";
       toolkit-accessibility = false;
-
-      # cursor-size = 24;
-      # cursor-theme = "Adwaita";
-      # document-font-name = "Cantarell 9";
-      # font-name = "Rubik 11";
-      # icon-theme = "Adwaita";
-      # monospace-font-name = "CommitMono Nerd Font Propo 9";
     };
 
     "org/gnome/desktop/background" = {

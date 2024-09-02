@@ -1,11 +1,16 @@
-{pkgs, ...}: let
-in {
+{...}: {
   nixpkgs.overlays = [
     (final: prev: {
       htop = prev.htop.overrideAttrs (origAttrs: {
         postInstall =
           (origAttrs.postInstall or "")
           + "rm $out/share/applications/htop.desktop";
+      });
+
+      micro = prev.micro.overrideAttrs (origAttrs: {
+        postInstall =
+          (origAttrs.postInstall or "")
+          + "rm $out/share/applications/micro.desktop";
       });
     })
 

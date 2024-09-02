@@ -1,13 +1,11 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.gamemode.enable = true;
 
   environment = {
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
+      # NVIDIA_VISIBLE_DEVICES = "all";
+      # NVIDIA_DRIVER_CAPABILITIES = "all";
       # WLR_NO_HARDWARE_CURSORS = "1";
       # WLR_DRM_NO_ATOMIC = "1";
       # NVD_BACKEND = "direct";
@@ -15,9 +13,10 @@
       # LIBVA_DRIVER_NAME = "nvidia";
       # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     };
+
     systemPackages = with pkgs; [
       vulkan-loader
-      # vulkan-validation-layers
+      vulkan-validation-layers
       vulkan-tools
       libva
       libva-utils
@@ -56,7 +55,18 @@
 
   nixpkgs.config.nvidia.acceptLicense = true;
 
+  virtualisation.docker = {
+    rootless = {
+      daemon.settings = {
+        default-runtime = "nvidia";
+        runtimes.nvidia.path = "${pkgs.nvidia-docker}/bin/nvidia-container-runtime";
+      };
+    };
+  };
+
   hardware = {
+    nvidia-container-toolkit.enable = true;
+
     graphics = {
       enable = true;
       extraPackages = with pkgs; [
