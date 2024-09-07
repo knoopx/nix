@@ -59,10 +59,12 @@ in {
   home.packages = with pkgs; [
     mame-tools
     ryujinx
+    rpcs3
     retroarchFull
     xemu
     cemu
-    (callPackage ../../pkgs/es-de.nix {})
+    higan
+    (callPackage ../../pkgs/es-de-appimage.nix {})
     # melonDS
     # dosbox
     # bottles

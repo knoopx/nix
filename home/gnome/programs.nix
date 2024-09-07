@@ -51,6 +51,7 @@
       ];
 
       userSettings = {
+        "extensions.ignoreRecommendations" = true;
         "terminal.integrated.enableImages" = true;
         "terminal.integrated.enableMultiLinePasteWarning" = false;
         "terminal.integrated.env.linux" = {};
