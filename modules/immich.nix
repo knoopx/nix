@@ -28,6 +28,7 @@ in {
         "${root}/photos:/photos"
         "${root}/config:/config"
         "${photos}:/external:ro"
+        "/home/knoopx:/knoopx:ro"
       ];
 
       environment = {

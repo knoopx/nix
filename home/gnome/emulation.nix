@@ -61,6 +61,7 @@ in {
     ryujinx
     rpcs3
     retroarchFull
+    pcsx2
     xemu
     cemu
     higan

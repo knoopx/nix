@@ -1,10 +1,9 @@
 {pkgs, ...}: let
-  # TODO: scraper crashes probably due to freeimage
   pname = "es-de";
-  version = "3.0.3";
+  version = "3.1.0";
   src = pkgs.fetchurl {
-    url = "https://gitlab.com/es-de/emulationstation-de/-/package_files/132901118/download";
-    sha256 = "sha256-cMLmTvnH4CGhIZsrTk/LsJBBxuNwFHyMchJQCG7EoOE=";
+    url = "https://gitlab.com/es-de/emulationstation-de/-/package_files/147580930/download";
+    sha256 = "sha256-TmjFjQ995dwO00mIjHA2d1SLEUTeyULAzik6psruF/w=";
   };
   appimage = pkgs.appimageTools.extractType2 {inherit pname version src;};
 in

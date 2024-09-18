@@ -15,14 +15,13 @@
   ...
 }: let
   pname = "es-de";
-  version = "3.0.3";
+  version = "3.1.0";
 in
   stdenv.mkDerivation {
     inherit pname version;
-
     src = fetchzip {
       url = "https://gitlab.com/es-de/emulationstation-de/-/archive/v${version}/emulationstation-de-v${version}.tar.gz";
-      hash = "sha256-w/Kz9Hox5/Ed8n/e2qUF3tfm+a0YNTK1hC1hDp3Xa9w=";
+      hash = "";
     };
 
     nativeBuildInputs = [
