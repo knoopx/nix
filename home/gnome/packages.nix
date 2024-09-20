@@ -31,6 +31,7 @@
     vial
     xdg-desktop-portal-gnome
     zed-editor
+    rclone
   ];
 in {
   home = {

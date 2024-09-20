@@ -30,6 +30,8 @@
     python311
     ruby
     ruby-lsp
+    dotnet-sdk_8
+    # dotnet-netcore
     rufo
     rust-analyzer
     rustc

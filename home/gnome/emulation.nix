@@ -58,7 +58,23 @@ in {
 
   home.packages = with pkgs; [
     mame-tools
-    ryujinx
+    (ryujinx.overrideAttrs (props: {
+      version = "1.1.1396";
+      src = fetchFromGitHub {
+        owner = "Ryujinx";
+        repo = "Ryujinx";
+        rev = "2387b81deacad46f3e4f5f7e26ad4fe2dd7d754e";
+        hash = "sha256-i0aXaQtAaGLWbMGZNYvkhnnA8aoHOYDxEYYDMy+GpIk=";
+      };
+      patches = [
+        (pkgs.fetchurl {
+          url = "https://github.com/knoopx/Ryujinx/commit/8759c6ebc.patch";
+          sha256 = "sha256-qCm3BIek0+hTTgynYNayLPwIVv1y4bg/5XYYajnzJzA=";
+        })
+      ];
+      makeWrapperArgs = [];
+    }))
+
     rpcs3
     retroarchFull
     pcsx2
@@ -66,6 +82,7 @@ in {
     cemu
     higan
     (callPackage ../../pkgs/es-de-appimage.nix {})
+    # (callPackage ../../pkgs/sudachi.nix {})
     # melonDS
     # dosbox
     # bottles
