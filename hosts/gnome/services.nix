@@ -22,7 +22,7 @@
     };
 
     displayManager = {
-      sessionPackages = [pkgs.gnome.gnome-session.sessions];
+      sessionPackages = [pkgs.gnome-session.sessions];
     };
 
     gnome = {
