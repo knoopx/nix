@@ -27,8 +27,7 @@ in {
       volumes = [
         "${root}/photos:/photos"
         "${root}/config:/config"
-        "${photos}:/external:ro"
-        "/home/knoopx:/knoopx:ro"
+        "${photos}:/external"
       ];
 
       environment = {

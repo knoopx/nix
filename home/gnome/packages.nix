@@ -10,7 +10,7 @@
     # livecaptions
     amberol
     authenticator
-    blender
+    # blender
     commit
     czkawka
     drawing
@@ -30,8 +30,9 @@
     transmission_4-gtk
     vial
     xdg-desktop-portal-gnome
-    zed-editor
+    # zed-editor
     rclone
+    f3d
   ];
 in {
   home = {

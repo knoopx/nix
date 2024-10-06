@@ -3,6 +3,19 @@
     fstrim.enable = true;
     btrfs.autoScrub.enable = true;
 
+    systembus-notify = {
+      enable = true;
+    };
+
+    smartd = {
+      enable = true;
+      autodetect = true;
+      notifications = {
+        x11.enable = true;
+        # wall.enable = true;
+      };
+    };
+
     earlyoom = {
       enable = true;
       enableNotifications = true;

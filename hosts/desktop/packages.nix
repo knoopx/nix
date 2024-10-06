@@ -14,8 +14,8 @@
     fclones
     fdupes
     duperemove
-    virt-manager
-    libvirt
+    # virt-manager
+    # libvirt
     libguestfs
     libsecret
     nh

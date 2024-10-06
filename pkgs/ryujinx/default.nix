@@ -16,12 +16,12 @@
   ...
 }: let
   pname = "ryujinx";
-  version = "1.1.1397";
+  version = "1.1.1400";
   src = pkgs.fetchFromGitHub {
     owner = "Ryujinx";
     repo = "Ryujinx";
-    rev = "d717aef2be6043ef5a5f064e13db444ef873f6bb";
-    hash = "sha256-i0aXaQtAaGLWbMGZNYvkhnnA8aoHOYDxEYYDMy+GpIk=";
+    rev = version;
+    hash = "sha256-QoA3d7C+b1X5l089TGMrOyxPz8w97dZfJrozBoLJ/T8=";
   };
 in (
   pkgs.buildDotnetModule {

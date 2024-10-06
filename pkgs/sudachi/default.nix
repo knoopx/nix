@@ -1,18 +1,19 @@
-{pkgs, ...}: let
-  lib = pkgs.lib;
+{
+  pkgs,
+  fetchurl,
+  ...
+}: let
   nx_tzdb = pkgs.callPackage ./nx_tzdb.nix {};
 in
-  pkgs.stdenv.mkDerivation rec {
+  pkgs.stdenv.mkDerivation {
     pname = "sudachi";
-    version = "128b258427ec9a836343a0738fb09e335377174d";
+    version = "1.0.10";
 
     src =
-      pkgs.fetchgit
+      fetchurl
       {
-        url = "https://git.nya.network/yuzu-emu/sudachi.git";
-        rev = version;
-        fetchSubmodules = true;
-        hash = "sha256-lY5NrCgirgWmzT1mHu7niirUDGb7kyAti+YdjwaIUeE=";
+        url = "https://github.com/emuplace/sudachi.emuplace.app/releases/download/v1.0.10/latest.zip";
+        sha256 = "sha256-t1suU+JK4SYXfxwCq703dKmB+QrwgEvm7kM+yqtHN0g=";
       };
 
     nativeBuildInputs = with pkgs; [
@@ -21,6 +22,7 @@ in
       glslang
       kdePackages.wrapQtAppsHook
       kdePackages.qttools
+      libtool
       # breakpointHook
     ];
 
@@ -37,8 +39,8 @@ in
       enet
       # vendored ffmpeg deps
       autoconf
-      ffmpeg
       fmt
+      nasm
       # intentionally omitted: gamemode - loaded dynamically at runtime
       # intentionally omitted: httplib - upstream requires an older version than what we have
       libopus
@@ -60,48 +62,53 @@ in
       zstd
     ];
 
-    dontFixCmake = true;
+    # dontFixCmake = true;
 
     cmakeFlags = [
       # actually has a noticeable performance impact
-      "-DSUDACHI_ENABLE_LTO=ON"
+      # "-DSUDACHI_ENABLE_LTO=ON"
 
-      # build with qt6
-      "-DENABLE_QT6=ON"
-      "-DENABLE_LIBUSB=OFF"
-      "-DENABLE_QT_TRANSLATION=ON"
+      # # build with qt6
+      # "-DENABLE_QT6=ON"
+      # "-DENABLE_LIBUSB=OFF"
+      # "-DENABLE_QT_TRANSLATION=ON"
 
-      # use system libraries
-      "-DSUDACHI_USE_EXTERNAL_SDL2=OFF"
-      "-DSUDACHI_USE_EXTERNAL_VULKAN_HEADERS=OFF"
+      # # use system libraries
+      # "-DSUDACHI_USE_EXTERNAL_SDL2=OFF"
+      # "-DSUDACHI_USE_EXTERNAL_VULKAN_HEADERS=OFF"
 
-      "-DSUDACHI_USE_BUNDLED_FFMPEG=OFF"
+      # "-DSUDACHI_USE_BUNDLED_FFMPEG=ON"
 
-      # don't check for missing submodules
+      # # don't check for missing submodules
       "-DSUDACHI_CHECK_SUBMODULES=OFF"
 
-      # enable some optional features
-      "-DSUDACHI_USE_QT_WEB_ENGINE=ON"
-      "-DSUDACHI_USE_QT_MULTIMEDIA=ON"
-      "-DUSE_DISCORD_PRESENCE=OFF"
+      # # enable some optional features
+      # "-DSUDACHI_USE_QT_WEB_ENGINE=ON"
+      # "-DSUDACHI_USE_QT_MULTIMEDIA=ON"
+      # "-DUSE_DISCORD_PRESENCE=OFF"
 
-      # We dont want to bother upstream with potentially outdated compat reports
-      "-DSUDACHI_ENABLE_COMPATIBILITY_REPORTING=OFF"
-      "-DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF" # We provide this deterministically
+      # # We dont want to bother upstream with potentially outdated compat reports
+      # "-DSUDACHI_ENABLE_COMPATIBILITY_REPORTING=OFF"
+      # "-DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF" # We provide this deterministically
     ];
 
-    qtWrapperArgs = [
-      "--prefix LD_LIBRARY_PATH : ${pkgs.vulkan-loader}/lib"
-    ];
-    env.NIX_CFLAGS_COMPILE = lib.optionalString pkgs.stdenv.hostPlatform.isx86_64 "-msse4.1";
+    # qtWrapperArgs = [
+    #   "--prefix LD_LIBRARY_PATH : ${pkgs.vulkan-loader}/lib"
+    # ];
+    # env.NIX_CFLAGS_COMPILE = lib.optionalString pkgs.stdenv.hostPlatform.isx86_64 "-msse4.1";
     # In the original, we changed the title bar. I decided to keep
     # it at its default
-    preConfigure = ''
-      mkdir -p build/externals/nx_tzdb
-      ln -s ${nx_tzdb} build/externals/nx_tzdb/nx_tzdb
-    '';
+    # preConfigure = ''
+    #   mkdir -p build/externals/nx_tzdb
+    #   ln -s ${nx_tzdb} build/externals/nx_tzdb/nx_tzdb
+    # '';
 
-    postInstall = ''
-      install -Dm444 $src/dist/72-sudachi-input.rules $out/lib/udev/rules.d/72-sudachi-input.rules
+    unpackPhase = ''
+      ${pkgs.unzip}/bin/unzip $src
+      ${pkgs.git}/bin/git init .
+      ${pkgs.git}/bin/git submodule update --init --recursive
     '';
+    # postInstall = ''
+    #   install -Dm444 $src/dist/72-SUDACHI-input.rules $out/lib/udev/rules.d/72-SUDACHI-input.rules
+    # '';
   }

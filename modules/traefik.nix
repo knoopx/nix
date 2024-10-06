@@ -18,8 +18,8 @@ in {
       ];
       labels = {
         "traefik.http.services.traefik.loadbalancer.server.port" = "8080";
-        "traefik.http.routers.api.service" = "api@internal";
-        "traefik.http.routers.api.middlewares" = "authelia@docker";
+        # "traefik.http.routers.api.service" = "api@internal";
+        # "traefik.http.routers.api.middlewares" = "authelia@docker";
       };
       extraOptions = ["--network=host"];
     };

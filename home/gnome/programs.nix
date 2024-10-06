@@ -159,6 +159,9 @@
           "[Stylix]" = {
           };
         };
+
+        "qalc.output.notation" = "auto";
+        "qalc.output.lowerExponentBound" = -4;
       };
     };
 

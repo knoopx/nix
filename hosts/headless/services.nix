@@ -15,10 +15,10 @@
     # https://www.reddit.com/r/linux_gaming/comments/11yp7ig/pipewire_audio_stuttering_when_playing_games_or/
     pipewire = {
       enable = true;
-      alsa.enable = false;
-      pulse.enable = true;
-      # jack.enable = false;
+      # alsa.enable = false;
+      # pulse.enable = true;
       # wireplumber.enable = false;
+      # jack.enable = false;
       # systemWide = true;
 
       # extraConfig.pipewire."92-low-latency" = {
@@ -26,19 +26,12 @@
       #     "default.clock.rate" = 48000;
       #     "default.clock.quantum" = 32;
       #     "default.clock.min-quantum" = 32;
-      #     "default.clock.max-quantum" = 64;
-      #     #   "default.clock.allowed-rates" = [48000];
-      #     #   "default.clock.quantum" = 2048;
-      #     #   "default.clock.min-quantum" = 1024;
+      #     "default.clock.max-quantum" = 32;
 
-      #     # "default.clock.quantum" = 32;
-      #     # "default.clock.min-quantum" = 32;
-      #     # "default.clock.max-quantum" = 32;
-
-      #     # "default.clock.rate" = 44100;
-      #     # "default.clock.quantum" = 512;
-      #     # "default.clock.min-quantum" = 512;
-      #     # "default.clock.max-quantum" = 512;
+      #     # default.clock.rate = 48000;
+      #     # default.clock.allowed-rates = [48000];
+      #     # default.clock.quantum = 2048;
+      #     # default.clock.min-quantum = 1024;
       #   };
       # };
     };
