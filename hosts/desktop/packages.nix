@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     onlyoffice-bin
-    # orca-slicer
     alejandra
     android-tools
     aria2
@@ -25,7 +24,6 @@
     nixd
     nodejs
     pipx
-    prusa-slicer
     python3
     python311
     ruby
@@ -38,5 +36,8 @@
     shfmt
     tokei
     uv
+
+    # orca-slicer
+    # prusa-slicer
   ];
 }

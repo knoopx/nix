@@ -101,5 +101,6 @@
     yazi
     yq
     zip
+    git-lfs
   ];
 }

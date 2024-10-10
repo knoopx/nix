@@ -131,6 +131,7 @@
 
       extraConfig = {
         color = {
+          ui = true;
           diff = "auto";
           status = "auto";
           branch = "auto";
@@ -153,6 +154,15 @@
         };
 
         pull.rebase = true;
+        rebase.autoStash = true;
+        filter.lfs.clean = "git-lfs clean -- %f";
+        filter.lfs.smudge = "git-lfs smudge -- %f";
+        filter.lfs.process = "git-lfs filter-process";
+        filter.lfs.required = true;
+        submodule.recurse = true;
+        remote.origin.prune = true;
+        init.defaultBranch = "main";
+        rerere.enabled = true;
 
         branch = {
           autosetupmerge = true;
@@ -163,10 +173,6 @@
           statusHints = false;
           pushNonFastForward = false;
         };
-
-        init.defaultBranch = "main";
-        rerere.enabled = true;
-        color.ui = true;
 
         apply = {
           whitespace = "fix";
