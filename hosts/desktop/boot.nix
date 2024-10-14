@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  chaotic.scx.enable = true;
+  # chaotic.scx.enable = true;
   # chaotic.scx.scheduler = "scx_simple";
 
   boot = {

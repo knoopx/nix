@@ -95,11 +95,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728587571,
-        "narHash": "sha256-vQmYKJ9sLQP6VivCdKNdpisXrB6xpDaaTif5U+IogzQ=",
+        "lastModified": 1728835058,
+        "narHash": "sha256-GbcJ90E8+wBkBh9C1HxBTwKsOkGU41CRaPrd1ksFPtA=",
         "owner": "chaotic-cx",
         "repo": "nyx",
-        "rev": "d73c548a001f367048d4f22cf2ae626cd2002503",
+        "rev": "ec6b449d3d096a0e79db5f8c4a321ea9ec836e40",
         "type": "github"
       },
       "original": {
@@ -222,11 +222,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728588172,
-        "narHash": "sha256-wCLcOMOyiFHa4MfAT1SR8jj47GcmCXiR93kgFs38bVY=",
+        "lastModified": 1728791962,
+        "narHash": "sha256-nr5QiXwQcZmf6/auC1UpX8iAtINMtdi2mH+OkqJQVmU=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8bb5d53c5847d9a9b2ad1bda49f9aa9df0de282a",
+        "rev": "64c6325b28ebd708653dd41d88f306023f296184",
         "type": "github"
       },
       "original": {
@@ -363,11 +363,11 @@
         "tinted-tmux": "tinted-tmux"
       },
       "locked": {
-        "lastModified": 1728312564,
-        "narHash": "sha256-z01cTK5VeLFOUekhAXrJHLDzE74uAxxMwE2p6+Wp9Sg=",
+        "lastModified": 1728640680,
+        "narHash": "sha256-JH2+RXJNooFtZIN6ZhaGZWn2KChMrso4H7Fkp1Ujrdo=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "63426a59e714c4389c5a8e559dee05a0087a3043",
+        "rev": "f95022bb6e74f726a87975aec982a5aa9fad8691",
         "type": "github"
       },
       "original": {
@@ -410,16 +410,17 @@
     "tinted-kitty": {
       "flake": false,
       "locked": {
-        "lastModified": 1665001328,
-        "narHash": "sha256-aRaizTYPpuWEcvoYE9U+YRX+Wsc8+iG0guQJbvxEdJY=",
+        "lastModified": 1716423189,
+        "narHash": "sha256-2xF3sH7UIwegn+2gKzMpFi3pk5DlIlM18+vj17Uf82U=",
         "owner": "tinted-theming",
         "repo": "tinted-kitty",
-        "rev": "06bb401fa9a0ffb84365905ffbb959ae5bf40805",
+        "rev": "eb39e141db14baef052893285df9f266df041ff8",
         "type": "github"
       },
       "original": {
         "owner": "tinted-theming",
         "repo": "tinted-kitty",
+        "rev": "eb39e141db14baef052893285df9f266df041ff8",
         "type": "github"
       }
     },

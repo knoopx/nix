@@ -3,7 +3,7 @@
     mame-tools
     retroarchFull
     (callPackage ../../pkgs/es-de-appimage.nix {})
-    (callPackage ../../pkgs/ryujinx {})
+    # (callPackage ../../pkgs/ryujinx {})
 
     # higan
     # rpcs3
