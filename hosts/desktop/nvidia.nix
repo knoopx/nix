@@ -34,13 +34,13 @@
     # options nvidia NVreg_EnableMSI=1
     # options nvidia NVreg_InitializeSystemMemoryAllocations=1
     # options nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1; PowerMizerLevel=0x3; PowerMizerDefault=0x3; PowerMizerDefaultAC=0x3; PerfLevelSrc=0x3333; OverrideMaxPerf=0x1"
-    extraModprobeConfig = ''
-      options nvidia_drm modeset=1
-      options nvidia_drm fbdev=1
-      options nvidia NVreg_UsePageAttributeTable=1
-      options nvidia NVreg_EnableGpuFirmware=0
-      options nvidia NVreg_PreserveVideoMemoryAllocations=1
-    '';
+    # extraModprobeConfig = ''
+    #   options nvidia_drm modeset=1
+    #   options nvidia_drm fbdev=1
+    #   options nvidia NVreg_UsePageAttributeTable=1
+    #   options nvidia NVreg_EnableGpuFirmware=0
+    #   options nvidia NVreg_PreserveVideoMemoryAllocations=1
+    # '';
 
     kernelParams = [
       "nomodeset"
@@ -59,7 +59,7 @@
     rootless = {
       daemon.settings = {
         default-runtime = "nvidia";
-        runtimes.nvidia.path = "${pkgs.nvidia-docker}/bin/nvidia-container-runtime";
+        # runtimes.nvidia.path = "${pkgs.nvidia-docker}/bin/nvidia-container-runtime";
       };
     };
   };
