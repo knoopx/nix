@@ -7,6 +7,7 @@
     baobab
     bash-language-server
     bun
+    deno
     cargo
     crystal
     docker-compose

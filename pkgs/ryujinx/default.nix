@@ -16,12 +16,12 @@
   ...
 }: let
   pname = "ryujinx";
-  version = "1.1.1400";
+  version = "1.1";
   src = pkgs.fetchFromGitHub {
-    owner = "Ryujinx";
-    repo = "Ryujinx";
-    rev = version;
-    hash = "sha256-QoA3d7C+b1X5l089TGMrOyxPz8w97dZfJrozBoLJ/T8=";
+    owner = "ryujinx-mirror";
+    repo = "ryujinx";
+    rev = "r.b4cac89";
+    hash = "sha256-THFwrXvsCm1u4/8C66Cs5zEUCHnDJCOVxMFYRof/lwA=";
   };
 in (
   pkgs.buildDotnetModule {
@@ -59,7 +59,7 @@ in (
 
     executables = [
       "Ryujinx"
-      "Ryujinx.Gtk3"
+      # "Ryujinx.Gtk3"
     ];
 
     preFixup = ''

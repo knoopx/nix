@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   fetchurl,
   fetchgit,
   ...
@@ -17,16 +16,12 @@
 
   xbyak = fetchgit {
     url = "https://github.com/herumi/xbyak";
-    sha256 = "sha256-iw5JejqlkERaVhOn8tIWxSbA0+b9D2oeWmb9ytaWxYY=";
+    sha256 = "sha256-xBLY6PgKMpX/ld37TbP8D8wNinGDJtZZzo5fSnYo7yw=";
   };
   libusb = fetchgit {
     url = "https://github.com/libusb/libusb";
     sha256 = "sha256-uR0hoA602HCXW4ky9G3t8jMD2TqWPh+yGfHQTBnoLaI=";
   };
-  # discord-rpc = fetchgit {
-  #   url = "https://github.com/sudachi-emu/discord-rpc";
-  #   sha256 = "sha256-BKRvlCl0QfS1LiI/vB25PTU6+g6gbfDe04fPLzIsUnU=";
-  # };
   sirit = fetchgit {
     url = "https://github.com/sudachi-emu/sirit";
     sha256 = "sha256-eEXOfN5HgMn2YCHkz4qpkH0UBJtnTuyP3Z4Uv9J/6Ro=";
@@ -37,19 +32,19 @@
   };
   opus = fetchgit {
     url = "https://github.com/xiph/opus";
-    sha256 = "sha256-bb+xZoi9910jiTrDygQakY5GrNo4aLYLV0r5k1POSDs=";
+    sha256 = "sha256-8Q7/pi9hp6ZbQYrYfkDk9D8ZFagESygPOOE07g8qBVQ=";
   };
   sdl = fetchgit {
     url = "https://github.com/libsdl-org/SDL";
-    sha256 = "sha256-rJpgURFg7A0yjqEpLAYgt+6iVtc5yfzRbmvfanEhxFE=";
+    sha256 = "sha256-uRx9jU4H1fK9g5eObJY6mKJrAley5N8wKSs7FfenryI=";
   };
   cpp-httplib = fetchgit {
     url = "https://github.com/yhirose/cpp-httplib";
-    sha256 = "sha256-t88/GPaAJHJT6RTsi3LB30yeEliVGNeOig2ySa/qH8g=";
+    sha256 = "sha256-TCnO+rFW6ZTau6egcnsPNW5vweb6H1GABDuOW69GixQ=";
   };
   sffmpeg = fetchgit {
     url = "https://github.com/FFmpeg/FFmpeg";
-    sha256 = "sha256-ITTjVifoDbtVVR384CjKCAS5LIe6zF2d64QcqQRYjhE=";
+    sha256 = "sha256-Pl+Cqc8RTX9Je+31C2kirMC0DWZd/caGAc1RCiQ9eG8=";
   };
   cpp-jwt = fetchgit {
     url = "https://github.com/arun11299/cpp-jwt";
@@ -75,25 +70,14 @@
     url = "https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator";
     sha256 = "sha256-t4ECABpiHL9IbE12JkJ0HmMIIaq6AnntawHMsIBSxno=";
   };
-  # vulkan-headers = fetchgit {
-  #   url = "https://github.com/KhronosGroup/Vulkan-Headers";
-  #   sha256 = "sha256-ny/UVx4r+Fj39ZEepaWqDPplAJcrBQEQlkqsSofwLJ0=";
-  # };
-  # Vulkan-Utility-Libraries = fetchgit {
-  #   url = "https://github.com/KhronosGroup/Vulkan-Utility-Libraries";
-  #   sha256 = "sha256-2abhzNt/rKbAhGQZhUhQ2LoemtU1Yh1fx9rrijOtjy4=";
-  # };
-  # vcpkg = fetchgit {
-  #   url = "https://github.com/microsoft/vcpkg";
-  #   sha256 = "sha256-Aloe7NYQ3GoUCAbQG+K82wSz66fQ/iRUN5NIvr2Af7s=";
-  # };
+
   tzdb_to_nx = fetchgit {
     url = "https://github.com/lat9nq/tzdb_to_nx";
     sha256 = "sha256-5p31PStFM+SpBT3TMNVpVR/XIsEnrP6E0Pxxxolvpek=";
   };
   cubeb = fetchgit {
     url = "https://github.com/mozilla/cubeb";
-    sha256 = "sha256-4BrJ6yJQIsM9+BvwyUimdQVfspDxSKTzk9F13y96p10=";
+    sha256 = "sha256-PiyZrwhtPy4W5pGYCbgLHwMLis/cjlPcoWzxTHJwVro=";
   };
 in
   pkgs.stdenv.mkDerivation {

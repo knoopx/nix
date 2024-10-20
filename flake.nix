@@ -2,15 +2,16 @@
   description = "kOS";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    # nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     # nixpkgs.url = "github:NixOS/nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-    chaotic.inputs.nixpkgs.follows = "nixpkgs";
-    chaotic.inputs.home-manager.follows = "home-manager";
+    # chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    # chaotic.inputs.nixpkgs.follows = "nixpkgs";
+    # chaotic.inputs.home-manager.follows = "home-manager";
 
     nix-colors.url = "github:misterio77/nix-colors";
     nix-colors.inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -23,7 +24,7 @@
   outputs = {
     self,
     stylix,
-    chaotic,
+    # chaotic,
     nixpkgs,
     home-manager,
     nix-colors,
@@ -134,7 +135,7 @@
 
     nixosModules = [
       {home-manager = homeManagerConfig;}
-      chaotic.nixosModules.default
+      # chaotic.nixosModules.default
       inputs.home-manager.nixosModules.home-manager
       inputs.stylix.nixosModules.stylix
     ];

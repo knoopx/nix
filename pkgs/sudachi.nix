@@ -6,8 +6,8 @@
   pname = "sudachi";
   version = "1.0.11";
   src = pkgs.fetchurl {
-    url = "https://github.com/emuplace/sudachi.emuplace.app/releases/download/v1.0.11/sudachi-linux-v1.0.11.7z";
-    sha256 = "sha256-uR0cxnWzE82Z9tXeMcef9QUBEcYRLrbkJuXcSlrLbsI=";
+    url = "https://github.com/emuplace/sudachi.emuplace.app/releases/download/v${version}/sudachi-linux-v${version}.7z";
+    sha256 = "sha256-TCnO+rFW6ZTau6egcnsPNW5vweb6H1GABDuOW69GixQ=";
   };
 
   runtimeDeps = with pkgs; [
@@ -25,6 +25,7 @@ in
     sourceRoot = ".";
 
     nativeBuildInputs = with pkgs; [
+      git
       p7zip
       qt6.wrapQtAppsHook
     ];

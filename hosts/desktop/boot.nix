@@ -12,7 +12,7 @@
       options kvm ignore_msrs=1
     '';
 
-    kernelPackages = pkgs.linuxPackages_cachyos;
+    # kernelPackages = pkgs.linuxPackages_cachyos;
     # .override {
     #   stdenv = pkgs.impureUseNativeOptimizations pkgs.linuxPackages_cachyos.stdenv;
     # };
