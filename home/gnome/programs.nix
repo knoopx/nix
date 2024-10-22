@@ -48,6 +48,10 @@
           key = "ctrl+k u";
           command = "workbench.action.focusActiveEditorGroup";
         }
+        {
+          "key" = "ctrl+l";
+          "command" = "-continue.focusContinueInput";
+        }
       ];
 
       userSettings = {
@@ -104,6 +108,9 @@
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
         "[json]" = {
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        };
+        "[jsonc]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
         "[typescriptreact]" = {

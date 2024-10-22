@@ -1,10 +1,8 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    onlyoffice-bin
     alejandra
     android-tools
     aria2
-    baobab
     bash-language-server
     bun
     deno
@@ -16,7 +14,7 @@
     duperemove
     # virt-manager
     # libvirt
-    libguestfs
+    # libguestfs
     libsecret
     nh
     nil
@@ -39,6 +37,8 @@
     uv
 
     # orca-slicer
+    # onlyoffice-bin
+    # baobab
     # prusa-slicer
   ];
 }

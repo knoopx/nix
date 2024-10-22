@@ -8,6 +8,7 @@ in {
   imports = [
     ../modules/traefik.nix
     ../modules/immich.nix
+    ../modules/open-webui.nix
     ../modules/watchtower.nix
     ../modules/silverbullet.nix
     # ../modules/baserow.nix

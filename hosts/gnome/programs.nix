@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   environment.gnome.excludePackages = [
     pkgs.gnome-tour
+    pkgs.gnome-user-docs
   ];
 
   programs = {

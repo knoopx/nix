@@ -5,9 +5,9 @@
 }: let
   gtk-apps = with pkgs; [
     gnome-control-center
-    gnome-system-monitor
     nautilus
     xdg-desktop-portal-gnome
+    # gnome-system-monitor
     # amberol
     # authenticator
     # commit
@@ -26,7 +26,7 @@
     # seahorse
     # transmission_4-gtk
     # vial
-    # zed-editor
+    zed-editor
     # alpaca
     # blender
     # firefox

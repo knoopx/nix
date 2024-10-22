@@ -4,7 +4,7 @@
 
     libraries = with pkgs; [
       acl
-      alsaLib
+      alsa-lib
       atk
       attr
       bzip2

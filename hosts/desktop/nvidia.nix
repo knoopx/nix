@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   programs.gamemode.enable = true;
 
   environment = {
@@ -86,9 +90,13 @@
 
       open = false;
       nvidiaSettings = false;
+      forceFullCompositionPipeline = false;
 
       # nvidiaPersistenced = true;
-      forceFullCompositionPipeline = false;
+
+      # package = config.boot.kernelPackages.nvidiaPackages.stable.overrideAttrs (origAttrs: {
+      #   postInstall = "rm $out/bin/nvidia-bug-report.sh";
+      # });
 
       # https://http.download.nvidia.com/XFree86/Linux-x86_64/
       # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {

@@ -25,7 +25,7 @@
     libgcc
     libgccjit
     libgcrypt
-    libusb
+    libusb1
     libuv
     libxml2
     logrotate

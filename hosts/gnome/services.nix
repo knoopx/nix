@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   defaults,
   ...
 }: {
@@ -26,8 +27,18 @@
     };
 
     gnome = {
+      at-spi2-core.enable = lib.mkDefault false;
+      core-developer-tools.enable = false;
       core-utilities.enable = false;
+      # evolution-data-server.enable = false;
+      gnome-browser-connector.enable = false;
       gnome-keyring.enable = true;
+      # gnome-online-accounts.enable = false;
+      tracker-miners.enable = false;
+      tracker.enable = false;
+
+      # localsearch.enable = false;
+      # tinysparql.enable = false;
     };
   };
 }
