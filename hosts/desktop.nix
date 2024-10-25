@@ -24,9 +24,11 @@ in {
 
     ./desktop/boot.nix
     ./desktop/filesystems.nix
+    ./desktop/btrfs.nix
     ./desktop/hardware.nix
     ./desktop/nvidia.nix
     ./desktop/packages.nix
+    ./desktop/flatpak.nix
     ./desktop/services.nix
     ./desktop/virtualisation.nix
   ];

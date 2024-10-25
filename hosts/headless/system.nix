@@ -22,6 +22,7 @@
 
   security = {
     rtkit.enable = true;
+    polkit.enable = true;
 
     sudo = {
       wheelNeedsPassword = false;
@@ -71,6 +72,7 @@
 
     packages = with pkgs; [
       corefonts
+      quicksand
     ];
 
     fontconfig = {

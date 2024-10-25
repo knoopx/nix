@@ -102,5 +102,11 @@
     yq
     zip
     git-lfs
+    btop
+    ranger
+    speedtest-cli
+    axel
+    atuin
+    btrfs-snap
   ];
 }

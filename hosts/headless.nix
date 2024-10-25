@@ -12,4 +12,6 @@
     ./headless/theming.nix
     ./headless/users.nix
   ];
+
+  documentation.enable = false;
 }

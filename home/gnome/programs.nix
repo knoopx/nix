@@ -102,8 +102,11 @@
         "console-ninja.featureSet" = "Community";
 
         "commitollama.model" = "custom";
-        "commitollama.custom.model" = "mistral-nemo:12b-instruct-2407-q4_K_M";
+        "commitollama.custom.model" = "deepseek-coder-v2:16b-lite-instruct-q8_0";
 
+        "[html]" = {
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        };
         "[javascript]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
@@ -145,18 +148,24 @@
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
         "nix.serverSettings" = {
-          nixd = {
+          nixd = let
+            flake = "${config.home.homeDirectory}/.dotfiles";
+          in {
             formatting = {
               command = [
                 "nixpkgs-fmt"
               ];
             };
+            "nixpkgs" = {
+              # expr = ''import <nixpkgs> {}''
+              expr = ''import (builtins.getFlake "${flake}").inputs.nixpkgs {}'';
+            };
             options = {
               nixos = {
-                expr = ''(builtins.getFlake "${config.home.homeDirectory}/.dotfiles").nixosConfigurations.desktop.options'';
+                expr = ''(builtins.getFlake "${flake}").nixosConfigurations.desktop.options'';
               };
               home-manager = {
-                expr = ''(builtins.getFlake "${config.home.homeDirectory}/.dotfiles").homeConfigurations.${defaults.username}.options'';
+                expr = ''(builtins.getFlake "${flake}").homeConfigurations.${defaults.username}.options'';
               };
             };
           };
@@ -182,9 +191,8 @@
       # bind \cs fzf-launcher
       # bind \es fzf-silverbullet # alt-s
       # bind \ew yazi # alt-w
-
       shellAliases = {
-        ollamark = "$HOME/ollamark/src/ollamark.tsx";
+        ollamark = "$HOME/Projects/knoopx/ollamark/src/ollamark.tsx";
         codestral = "ollamark -t 0.3 --model codestral";
         nemo = "ollamark -t 0.3 --model mistral-nemo";
         llama3 = "ollamark -t 0.3 --model llama3";

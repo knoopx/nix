@@ -30,9 +30,13 @@
     # alpaca
     # blender
     # firefox
-    # google-chrome
+    google-chrome
     # livecaptions
     # plasticity
+    # wineWow64Packages.waylandFull
+    # gnome-boxes
+    # ghidra-bin
+    # python312Packages.uncompyle6
   ];
 in {
   home = {
