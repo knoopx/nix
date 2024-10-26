@@ -39,7 +39,7 @@
     # orca-slicer
     # onlyoffice-bin
     # baobab
-    # prusa-slicer
+    prusa-slicer
     vscode
     (code-cursor
       .overrideAttrs

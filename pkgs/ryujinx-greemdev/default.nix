@@ -16,12 +16,12 @@
   ...
 }: let
   pname = "ryujinx";
-  version = "1.1-6253fe1";
+  version = "1.2.50";
   src = pkgs.fetchFromGitHub {
-    owner = "ryujinx-mirror";
+    owner = "GreemDev";
     repo = "ryujinx";
-    rev = "r.6253fe1";
-    hash = "sha256-THFwrXvsCm1u4/8C66Cs5zEUCHnDJCOVxMFYRof/lwA=";
+    rev = "1.2.50";
+    hash = "sha256-t0qqshf2x+wogHtoxj9bthU03h29wvhrFCTUw8C2DDo=";
   };
 in (
   pkgs.buildDotnetModule {
@@ -70,15 +70,16 @@ in (
       install -D ./mime/Ryujinx.xml $out/share/mime/packages/Ryujinx.xml
       install -D ../misc/Logo.svg $out/share/icons/hicolor/scalable/apps/Ryujinx.svg
 
-      substituteInPlace $out/share/applications/Ryujinx.desktop  --replace-fail "Ryujinx.sh %f" "$out/bin/Ryujinx %f"
+      substituteInPlace $out/share/applications/Ryujinx.desktop \
+        --replace "Ryujinx.sh %f" "$out/bin/Ryujinx %f"
 
       popd
     '';
 
     patches = [
       (pkgs.fetchurl {
-        url = "https://github.com/knoopx/Ryujinx/commit/2816b4ce34da99050ef7cce5e710b5005b0dffb1.patch";
-        sha256 = "sha256-W/XH1CkYJJXAppVKPdGTx6LbOJut7kbVUfv0RY899gU=";
+        url = "https://github.com/knoopx/Ryujinx/commit/fb68f94e652fa5edf7d12773f4af6550972b4cef.patch";
+        sha256 = "sha256-2hjV+2fAsQXj1EpVB2hrxf+2e7JnOQb2Be0tMubrrVg=";
       })
     ];
   }

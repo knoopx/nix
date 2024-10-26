@@ -48,7 +48,7 @@
       "com.github.tchx84.Flatseal"
       "com.github.wwmm.easyeffects"
       "com.jeffser.Alpaca"
-      "com.prusa3d.PrusaSlicer"
+      # "com.prusa3d.PrusaSlicer"
       "com.transmissionbt.Transmission"
       "io.github.f3d_app.f3d"
       "io.gitlab.adhami3310.Impression"
