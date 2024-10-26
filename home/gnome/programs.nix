@@ -213,13 +213,15 @@
         set -gx OPENAI_API_BASE "http://127.0.0.1:11434/v1"
         set -gx OPENAI_API_KEY ollama
 
-        set -px --path PATH "$HOME/bin/"
-        set -px --path PATH "$HOME/.local/bin/"
-        set -px --path PATH "$HOME/.bun/bin"
-        set -px --path PATH "$HOME/.cargo/bin:$PATH"
-        set -px --path PATH "$HOME/go/bin:$PATH"
-        set -px --path PATH "$HOME/.local/share/gem/ruby/3.1.0/bin/:$PATH"
-        set -px --path PATH "/etc/profiles/per-user/$USER/bin/:$PATH"
+        set -gx OLLAMA_API_BASE "http://127.0.0.1:11434"
+
+        fish_add_path -g "$HOME/.bun/bin"
+        fish_add_path -g "$HOME/.cargo/bin:"
+        fish_add_path -g "$HOME/.local/bin/"
+        fish_add_path -g "$HOME/.local/share/gem/ruby/3.1.0/bin/"
+        fish_add_path -g "$HOME/bin/"
+        fish_add_path -g "$HOME/go/bin"
+
         set -x LD_LIBRARY_PATH "/run/opengl-driver/lib/:$NIX_LD_LIBRARY_PATH"
         set -gx TRITON_LIBCUDA_PATH /run/opengl-driver/lib/
       '';

@@ -2,7 +2,7 @@
   imports = [
     ./headless/hardware.nix
     ./headless/networking.nix
-    ./headless/nix-ld.nix
+    # ./headless/nix-ld.nix
     ./headless/nix.nix
     ./headless/nixpkgs.nix
     ./headless/packages.nix

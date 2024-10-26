@@ -35,10 +35,21 @@
     shfmt
     tokei
     uv
-
+    # aider-chat
     # orca-slicer
     # onlyoffice-bin
     # baobab
     # prusa-slicer
+    vscode
+    (code-cursor
+      .overrideAttrs
+      (oldAttr: {
+        installPhase =
+          oldAttr.installPhase
+          + ''
+            rm $out/bin/cursor
+            mv $out/bin/.cursor-wrapped $out/bin/cursor
+          '';
+      }))
   ];
 }

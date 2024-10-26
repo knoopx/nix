@@ -23,19 +23,19 @@
       glew110
       glib
       glibc
-      gnome2.GConf
-      gnome2.pango
+      # gnome2.GConf
+      # gnome2.pango
       gsettings-desktop-schemas
-      gtk2
+      # gtk2
       gtk3
       gtk4
       icu
       libadwaita
-      libappindicator-gtk2
+      # libappindicator-gtk2
       libcaca
       libcanberra
       libcap
-      libdbusmenu-gtk2
+      # libdbusmenu-gtk2
       libdrm
       libelf
       libgcrypt
