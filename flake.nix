@@ -7,6 +7,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/staging-next";
     # nixpkgs.url = "github:knoopx/nixpkgs";
 
+    lix-module = {
+      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -32,6 +37,7 @@
     nixpkgs,
     nix-flatpak,
     home-manager,
+    lix-module,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -50,6 +56,7 @@
     nixosModules = [
       {home-manager = homeManagerConfig;}
       # chaotic.nixosModules.default
+      lix-module.nixosModules.default
       inputs.home-manager.nixosModules.home-manager
       inputs.stylix.nixosModules.stylix
       nix-flatpak.nixosModules.nix-flatpak
