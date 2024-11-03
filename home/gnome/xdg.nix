@@ -1,5 +1,6 @@
 {pkgs, ...}: let
-  browser = "io.github.zen_browser.zen.desktop";
+  browser = "zen.desktop";
+  # browser = "io.github.zen_browser.zen.desktop";
   file-manager = "org.gnome.Nautilus.desktop";
   image-viewer = "org.gnome.Loupe.desktop";
   video-player = "org.gnome.Showtime";

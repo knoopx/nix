@@ -55,7 +55,7 @@ in (
       SDL2
     ];
 
-    projectFile = "Ryujinx.sln";
+    projectFile = "src/Ryujinx/Ryujinx.csproj";
 
     executables = [
       "Ryujinx"
@@ -79,6 +79,18 @@ in (
       (pkgs.fetchurl {
         url = "https://github.com/knoopx/Ryujinx/commit/2816b4ce34da99050ef7cce5e710b5005b0dffb1.patch";
         sha256 = "sha256-W/XH1CkYJJXAppVKPdGTx6LbOJut7kbVUfv0RY899gU=";
+      })
+      (pkgs.fetchurl {
+        url = "https://github.com/Ryujinx-NX/Ryujinx/commit/6ecfd2fd12f25cd7b9b976484cd030eaad68f28d.patch";
+        sha256 = "sha256-BnIEpzlFd6zuoZ0a7PiCdfJN4PFr6ih8w4you2o6nLg=";
+      })
+      (pkgs.fetchurl {
+        url = "https://github.com/Vudjun/Ryujinx/commit/c4ee9c7555a7b89665a4eb5b938359bd73de5794.patch";
+        sha256 = "sha256-icLuWGSSwodosjRocIdzofwcASxx73oO13Fr1aRTP7U=";
+      })
+      (pkgs.fetchurl {
+        url = "https://github.com/Vudjun/Ryujinx/commit/80fa93faefa6184d3a15bd36407c600a145919a9.patch";
+        sha256 = "sha256-9JHHrxd6oGNq8hNXl7UxP73LJbUVNXCNOiVpvaV2sd8=";
       })
     ];
   }

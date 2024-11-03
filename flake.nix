@@ -3,8 +3,9 @@
 
   inputs = {
     # nixpkgs.url = "nixpkgs/nixos-unstable";
-    # nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/staging-next";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "github:NixOS/nixpkgs";
+    # nixpkgs.url = "github:NixOS/nixpkgs/staging-next";
     # nixpkgs.url = "github:knoopx/nixpkgs";
 
     lix-module = {
@@ -16,6 +17,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+
+    # nixpkgs-update.url = "github:ryantm/nixpkgs-update";
 
     # chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     # chaotic.inputs.nixpkgs.follows = "nixpkgs";

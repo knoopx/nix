@@ -35,11 +35,12 @@ in {
     "org/gnome/shell" = {
       disable-user-extensions = false;
       favorite-apps = [
-        "nautilus.desktop"
-        "io.github.zen_browser.zen.desktop"
+        "org.gnome.Nautilus.desktop"
+        "zen.desktop"
+        # "io.github.zen_browser.zen.desktop"
         # "google-chrome.desktop"
         "gmail.desktop"
-        "gnome-calendar.desktop"
+        "org.gnome.Calendar.desktop"
         "slack.desktop"
         "telegram.desktop"
         "whatsapp.desktop"

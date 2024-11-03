@@ -32,8 +32,7 @@ in {
 
   services = {
     easyeffects = {
-      # enable = true;
-
+      enable = true;
       # package = pkgs.easyeffects.overrideAttrs (prev: {
       #   preFixup = "";
       #   buildInputs = pkgs.lib.filter (item:

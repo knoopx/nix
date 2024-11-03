@@ -41,4 +41,6 @@ in {
       size = 27;
     };
   };
+
+  # https://github.com/catppuccin/zen-browser
 }

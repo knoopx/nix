@@ -73,6 +73,13 @@
         "editor.suggestSelection" = "first";
         "editor.wordWrap" = "off";
 
+        "custom-ui-style.font.monospace" = defaults.fonts.monospace.name;
+        "custom-ui-style.font.sansSerif" = defaults.fonts.sansSerif.name;
+
+        "editor.minimap.enabled" = false;
+        "editor.minimap.maxColumn" = "80";
+        "editor.minimap.scale" = "0.5";
+
         "emmet.triggerExpansionOnTab" = false;
 
         "explorer.confirmDelete" = false;
@@ -93,6 +100,7 @@
 
         "typescript.surveys.enabled" = false;
 
+        "workbench.activityBar.location" = "hidden";
         "workbench.editor.decorations.badges" = true;
         "workbench.editor.decorations.colors" = true;
         "workbench.editor.revealIfOpen" = false;

@@ -3,8 +3,8 @@
 {fetchNuGet}: [
   (fetchNuGet {
     pname = "Avalonia";
-    version = "11.1.3";
-    hash = "sha256-kz+k/vkuWoL0XBvRT8SadMOmmRCFk9W/J4k/IM6oYX0=";
+    version = "11.1.4";
+    hash = "sha256-Gf9u4vQZXRku8syk7rRyl5wA9pBtjMB5/6ihkplqgiE=";
   })
   (fetchNuGet {
     pname = "Avalonia.Angle.Windows.Natives";
@@ -18,18 +18,13 @@
   })
   (fetchNuGet {
     pname = "Avalonia.Controls.ColorPicker";
-    version = "11.1.3";
-    hash = "sha256-W17Wvmi8/47cf5gCF3QRcaKLz0ZpXtZYCCkaERkbyXU=";
-  })
-  (fetchNuGet {
-    pname = "Avalonia.Controls.ColorPicker";
-    version = "11.1.0";
-    hash = "sha256-xawQhivop0f7n98Xqj5fScDdF0RPPpVIoTpVs+p6T3Q=";
+    version = "11.1.4";
+    hash = "sha256-7PTiLe1GsS4km/C7/aooH2CrRuR++y0eTV20J2+BcSM=";
   })
   (fetchNuGet {
     pname = "Avalonia.Controls.DataGrid";
-    version = "11.1.3";
-    hash = "sha256-OOKTovi5kckn0x/8dMcq56cvq57UVMLzA9LRXDxm2Vc=";
+    version = "11.1.4";
+    hash = "sha256-EuCMo2FGx6OEOBP7+ElwWqfcoh0tELltoqEM/Qig278=";
   })
   (fetchNuGet {
     pname = "Avalonia.Controls.ItemsRepeater";
@@ -38,43 +33,38 @@
   })
   (fetchNuGet {
     pname = "Avalonia.Desktop";
-    version = "11.1.3";
-    hash = "sha256-mNFscbtyqLlodzGa3SJ3oVY467JjWwY45LxZiKDAn/w=";
+    version = "11.1.4";
+    hash = "sha256-Rqt7mKZy1e7IMNWjdFRS2KBsHlw38/3lHQUgkZYZNJU=";
   })
   (fetchNuGet {
     pname = "Avalonia.Diagnostics";
-    version = "11.1.3";
-    hash = "sha256-PD9ZIeBZJrLaVDjmWBz4GocrdUSNUou11gAERU+xWDo=";
+    version = "11.1.4";
+    hash = "sha256-YlUNX0AIgyw74fsnfdmv7J/ox1T4rnSCTuiYl1OQrqM=";
   })
   (fetchNuGet {
     pname = "Avalonia.FreeDesktop";
-    version = "11.1.3";
-    hash = "sha256-nUBhSRE0Bly3dVC14wXwU19vP3g0VbE4bCUohx7DCVI=";
+    version = "11.1.4";
+    hash = "sha256-8vW9F08OBruC862nZnypc8sLxOZXe7NGOYJ/x6m9eRk=";
   })
   (fetchNuGet {
     pname = "Avalonia.Markup.Xaml.Loader";
-    version = "11.1.3";
-    hash = "sha256-4ZzcK4XRyKokwd4IfxicQ7GNfJT8ztwYnAFFEhKOIzg=";
+    version = "11.1.4";
+    hash = "sha256-PnWcTjFUbbb5CnEu09K5se3Nyf9GGkwzUXS/YNmknXc=";
   })
   (fetchNuGet {
     pname = "Avalonia.Native";
-    version = "11.1.3";
-    hash = "sha256-byAVGW7XgkyzDj1TnqaCeDU/xTD9z8ACGrSJgwJ+XXs=";
+    version = "11.1.4";
+    hash = "sha256-FyB+1QdvNtsU1iCXF/FxI3j2UDd8/c9Qa6jUEa0iiH0=";
   })
   (fetchNuGet {
     pname = "Avalonia.Remote.Protocol";
-    version = "11.1.3";
-    hash = "sha256-CKF+62zCbK1Rd/HiC6MGrags3ylXrVQ1lni3Um0Muqk=";
+    version = "11.1.4";
+    hash = "sha256-P8+yP2oPwO9eY6MYHQyikB8JOQhIZfY+UQ27Rz0SHts=";
   })
   (fetchNuGet {
     pname = "Avalonia.Skia";
-    version = "11.1.3";
-    hash = "sha256-EtB86g+nz6i8wL6xytMkYl2Ehgt3GFMMNPzQfhbfopM=";
-  })
-  (fetchNuGet {
-    pname = "Avalonia.Skia";
-    version = "11.1.0";
-    hash = "sha256-w4ozV8lIs5vxoYP5D5Lut2iTMiJKVPbjdtqDB1sb0MI=";
+    version = "11.1.4";
+    hash = "sha256-i0HQokpcQ3+sGB111p6iuV1F89Xef6u8pZVyPiTNnCc=";
   })
   (fetchNuGet {
     pname = "Avalonia.Svg";
@@ -88,18 +78,18 @@
   })
   (fetchNuGet {
     pname = "Avalonia.Themes.Simple";
-    version = "11.1.3";
-    hash = "sha256-Q6jL5J/6aBtOY85I641RVp8RpuqJbPy6C6LxnRkFtMM=";
+    version = "11.1.4";
+    hash = "sha256-CVKoptReOkphMoUro82JjXjBfeREXUnBS4r2vUtX8pU=";
   })
   (fetchNuGet {
     pname = "Avalonia.Win32";
-    version = "11.1.3";
-    hash = "sha256-zcxTpEnpLf50p8Yaiylk5/CS9MNDe7lK1uX1CPaJBUc=";
+    version = "11.1.4";
+    hash = "sha256-bFKOAoF3NU8bqsH5Td5uHwso5n4Ftgml34GInnwU9f8=";
   })
   (fetchNuGet {
     pname = "Avalonia.X11";
-    version = "11.1.3";
-    hash = "sha256-M2+y661/znDxZRdwNRIQi4mS2m6T4kQkBbYeE7KyQAw=";
+    version = "11.1.4";
+    hash = "sha256-pmNTcg3LgDu4gaprE/glGjv11CDb/2RygkAZ+AWV0qQ=";
   })
   (fetchNuGet {
     pname = "CommandLineParser";
@@ -249,23 +239,23 @@
   })
   (fetchNuGet {
     pname = "Microsoft.IdentityModel.Abstractions";
-    version = "8.1.1";
-    hash = "sha256-g2Z9YAH+4KLGP14IueGEZI4yPaSv+MRfXtD1YY9JJTo=";
+    version = "8.1.2";
+    hash = "sha256-uS0TjGTpt6q38Xheiu93yK3u47qK/dveidZabyKu7m0=";
   })
   (fetchNuGet {
     pname = "Microsoft.IdentityModel.JsonWebTokens";
-    version = "8.1.1";
-    hash = "sha256-2RA6W1X80tLQ3YDVowH3R/y8DFtxeJFp5zKY46W75c8=";
+    version = "8.1.2";
+    hash = "sha256-ASv9e7Q2Z5bfWfzCpQe5nQh782WISceFlxGwgJ51RHI=";
   })
   (fetchNuGet {
     pname = "Microsoft.IdentityModel.Logging";
-    version = "8.1.1";
-    hash = "sha256-8yRQ8GD59PhbCeKraPbwfSHZtqxaelG29VyCtycoaY8=";
+    version = "8.1.2";
+    hash = "sha256-Yv1B2ETQTPm95LoNg2op4V5arrb0udDq/ZdfiZl/Sc0=";
   })
   (fetchNuGet {
     pname = "Microsoft.IdentityModel.Tokens";
-    version = "8.1.1";
-    hash = "sha256-AUHyKeEb6CXjRO0kvDiFzHgaiJRqmAzy41ihKzZUwwc=";
+    version = "8.1.2";
+    hash = "sha256-8fmgNOX1nyiNKrszZl3fvkxzCPuaeUbQJV45by8qRZs=";
   })
   (fetchNuGet {
     pname = "Microsoft.IO.RecyclableMemoryStream";

@@ -41,7 +41,8 @@
       libgcrypt
       libGL
       libidn
-      libindicator-gtk2
+      # libindicator-gtk2
+      libpulseaudio
       libjpeg
       libmikmod
       libnotify
