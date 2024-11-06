@@ -34,8 +34,8 @@
       gnome-keyring.enable = true;
       # gnome-online-accounts.enable = false;
 
-      localsearch.enable = false;
-      tinysparql.enable = false;
+      # localsearch.enable = false;
+      # tinysparql.enable = false;
     };
   };
 }

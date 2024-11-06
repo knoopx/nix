@@ -9,6 +9,9 @@
         postInstall =
           origAttrs.postInstall + "rm $out/share/applications/micro.desktop";
       });
+
+      # TODO: remove me once fixed
+      _7zz = prev._7zz.override {useUasm = true;};
     })
 
     # (final: prev: {
