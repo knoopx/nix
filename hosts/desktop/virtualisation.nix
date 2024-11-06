@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+_: {
   virtualisation = {
     # lxd.enable = true;
     # virtualbox.host.enable = true;

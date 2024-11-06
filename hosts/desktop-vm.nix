@@ -1,6 +1,6 @@
-{...}: {
+_: {
   imports = [
-    ../modules/desktops/gnome.nix
+    ../modules/desktop/gnome.nix
     ./defaults.nix
     ./desktop/services.nix
   ];

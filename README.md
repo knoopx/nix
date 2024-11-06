@@ -31,3 +31,5 @@ sudo nixos-rebuild switch --flake path:.
 # repl (:q to quit)
 nix repl --expr "builtins.getFlake ''$PWD''"
 ```
+
+https://noogle.dev/

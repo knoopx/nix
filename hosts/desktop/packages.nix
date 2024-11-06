@@ -18,8 +18,10 @@
 in {
   environment.systemPackages = with pkgs; [
     # inputs.nixpkgs-update.packages.${pkgs.system}.nixpkgs-update
-    # (callPackage ../../pkgs/nfoview.nix {})
-    (callPackage ../../pkgs/zen-browser.nix {})
+
+    nfoview
+    zen-browser
+
     # aider-chat
     # amberol
     # blender
@@ -27,7 +29,7 @@ in {
     drawing
     # fclones-gui
     # firefox
-    # ghidra-bin
+    ghidra-bin
     # gnome-boxes
     # gnome-system-monitor
     # libguestfs

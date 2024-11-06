@@ -8,11 +8,6 @@
     # nixpkgs.url = "github:NixOS/nixpkgs/staging-next";
     # nixpkgs.url = "github:knoopx/nixpkgs";
 
-    lix-module = {
-      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=stable";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -30,23 +25,33 @@
     stylix.url = "github:danth/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.home-manager.follows = "home-manager";
+
+    nix-gaming.url = "github:fufexan/nix-gaming";
+
+    lix-module = {
+      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
     stylix,
-    # chaotic,
     nix-colors,
     nixpkgs,
     nix-flatpak,
     home-manager,
     lix-module,
+    nix-gaming,
     ...
   } @ inputs: let
     inherit (self) outputs;
     pkgs = nixpkgs.legacyPackages.x86_64-linux;
     defaults = import ./defaults.nix {inherit pkgs nix-colors;};
-    specialArgs = {inherit inputs outputs defaults stylix;};
+
+    mylib = pkgs.callPackage ./lib {};
+
+    specialArgs = {inherit inputs outputs defaults stylix;} // mylib;
 
     homeManagerConfig = {
       useGlobalPkgs = true;
@@ -57,6 +62,16 @@
     };
 
     nixosModules = [
+      {
+        nixpkgs.overlays = [
+          (self: super: nix-gaming.packages.x86_64-linux)
+          (
+            self: super: (pkgs.callPackage ./pkgs/default.nix {
+              pkgs = super;
+            })
+          )
+        ];
+      }
       {home-manager = homeManagerConfig;}
       # chaotic.nixosModules.default
       lix-module.nixosModules.default
@@ -71,7 +86,7 @@
         modules =
           nixosModules
           ++ [
-            ./hosts/desktop.nix
+            ./hosts/desktop
           ];
       };
 
@@ -80,7 +95,7 @@
         modules =
           nixosModules
           ++ [
-            ./hosts/desktop-vm.nix
+            ./hosts/desktop-vm
           ];
       };
 
@@ -91,7 +106,7 @@
         modules = [
           inputs.stylix.nixosModules.stylix
           (nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-gnome.nix")
-          ./hosts/live.nix
+          ./hosts/live
         ];
       };
     };
@@ -101,7 +116,7 @@
         inherit pkgs;
         extraSpecialArgs = specialArgs;
         modules = [
-          ./home/knoopx.nix
+          ./home/knoopx
         ];
       };
     };

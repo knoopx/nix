@@ -1,14 +1,13 @@
 _: {
   imports = [
-    # ../hosts/headless/nixpkgs.nix
-    ./gnome/dconf.nix
-    ./gnome/packages.nix
-    ./gnome/programs.nix
-    ./gnome/easy-effects.nix
-    ./gnome/emulation.nix
-    ./gnome/xdg.nix
-    ./gnome/gtk.nix
-    ./headless/programs.nix
+    ../modules/home-manager/gnome/dconf.nix
+    ../modules/home-manager/gnome/packages.nix
+    ../modules/home-manager/gnome/programs.nix
+    ../modules/home-manager/gnome/easy-effects.nix
+    ../modules/home-manager/gnome/gaming.nix
+    ../modules/home-manager/gnome/xdg.nix
+    ../modules/home-manager/gnome/gtk.nix
+    ../modules/home-manager/headless/programs.nix
   ];
 
   home = {
