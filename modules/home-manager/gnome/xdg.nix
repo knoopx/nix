@@ -2,12 +2,12 @@
   browser = "zen.desktop";
   # browser = "io.github.zen_browser.zen.desktop";
   file-manager = "org.gnome.Nautilus.desktop";
-  image-viewer = "org.gnome.Loupe.desktop";
-  video-player = "org.gnome.Showtime";
+  image-viewer = "org.gnome.eog.desktop";
+  # image-viewer = "org.gnome.Loupe.desktop";
+  video-player = "mpv.desktop";
+  # video-player = "org.gnome.Showtime";
   music-player = "org.gnome.Decibels";
   text-editor = "code.desktop";
-  # image-viewer = "org.gnome.eog.desktop";
-  # video-player = "mpv.desktop";
   # music-player = "io.bassi.Amberol.desktop";
 in {
   xdg = {

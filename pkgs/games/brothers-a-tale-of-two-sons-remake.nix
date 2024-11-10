@@ -6,14 +6,14 @@
 }: let
   steam = pkgs.callPackage ../../lib/steam.nix {};
 
-  name = "Driver: San Francisco";
-  pname = "driver-san-francisco";
-  gameId = 33440;
+  name = "Brothers: A Tale of Two Sons Remake";
+  pname = "brothers-a-tale-of-two-sons-remake";
+  gameId = 2153350;
 
   wrapper = steam.umuDwarfWrapper {
     inherit pname gameId;
-    entrypoint = "Driver.exe";
-    dwarf = "/mnt/storage/Games/driver-san-francisco_win32.dwarf";
+    entrypoint = "Brothers/Binaries/Win64/Brothers-Win64-Shipping.exe";
+    dwarf = "/mnt/storage/Games/brothers-a-tale-of-two-sons-remake.dwarf";
   };
 
   desktopItem = [
@@ -27,7 +27,7 @@
   ];
 in
   symlinkJoin {
-    inherit name pname;
+    inherit pname;
     version = toString gameId;
 
     paths = [

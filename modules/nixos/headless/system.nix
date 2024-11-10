@@ -45,6 +45,12 @@
 
   time.timeZone = defaults.timeZone;
   i18n.defaultLocale = defaults.defaultLocale;
+
+  i18n.supportedLocales = [
+    "en_US.UTF-8/UTF-8"
+    "es_ES.UTF-8/UTF-8"
+  ];
+
   i18n.extraLocaleSettings = {
     LANGUAGE = defaults.defaultLocale;
     LC_ALL = defaults.defaultLocale;

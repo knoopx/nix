@@ -4,8 +4,8 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     # nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "nixpkgs/staging-next";
     # nixpkgs.url = "github:NixOS/nixpkgs";
-    # nixpkgs.url = "github:NixOS/nixpkgs/staging-next";
     # nixpkgs.url = "github:knoopx/nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -27,6 +27,7 @@
     stylix.inputs.home-manager.follows = "home-manager";
 
     nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
 
     lix-module = {
       url = "git+https://git.lix.systems/lix-project/nixos-module?ref=stable";
@@ -50,7 +51,6 @@
     defaults = import ./defaults.nix {inherit pkgs nix-colors;};
 
     mylib = pkgs.callPackage ./lib {};
-
     specialArgs = {inherit inputs outputs defaults stylix;} // mylib;
 
     homeManagerConfig = {

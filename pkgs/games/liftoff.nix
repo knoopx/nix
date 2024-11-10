@@ -28,7 +28,7 @@ in
 
     src = fetchTarball {
       url = "file:///mnt/storage/Games/liftoff-linux.tar.lrz";
-      sha256 = "";
+      sha256 = "sha256:1p19spld762j67y2h00iig3p52q3n8030zrr56k4yhs9s1ak7bc1";
     };
 
     sourceRoot = ".";
@@ -41,8 +41,8 @@ in
     ];
 
     buildInputs = [
-      # gcc-unwrapped.lib
-      # zlib
+      gcc-unwrapped.lib
+      zlib
     ];
 
     libPath = "$out/share/${pname}/lib64";
@@ -57,6 +57,7 @@ in
       mkdir -p $out/share/${pname} $out/bin $out/share
       mv * $out/share/${pname}
       cp -r ${desktopItem}/share/* $out/share/
-      makeWrapper $out/share/${pname}/Liftoff.x86_64 $out/bin/${pname} --prefix LD_LIBRARY_PATH : "${libPath}:${libPathExtra}"
+      ln -s $out/share/${pname}/source/Liftoff.x86_64 $out/bin/${pname}
+      # makeWrapper $out/share/${pname}/source/Liftoff.x86_64 $out/bin/${pname} --prefix LD_LIBRARY_PATH : "${libPath}:${libPathExtra}"
     '';
   }

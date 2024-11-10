@@ -17,8 +17,9 @@
     });
 in {
   environment.systemPackages = with pkgs; [
+    aide
+    dwarfs
     # inputs.nixpkgs-update.packages.${pkgs.system}.nixpkgs-update
-
     nfoview
     zen-browser
 
@@ -70,8 +71,9 @@ in {
     decibels
     file-roller
     evince
-    loupe
-    showtime
+    # loupe
+    # showtime
+    eog
     snapshot
     google-chrome
     libsecret
@@ -80,12 +82,14 @@ in {
     nh
     nicotine-plus
     nil
-    nim
-    nimble
+    # nim
+    # nimble
     nixd
-    nodejs
+    # nodejs
     pipx
-    prusa-slicer
+    # prusa-slicer
+    # orca-slicer
+    # bambu-studio
     python3
     python311
     ruby
@@ -101,6 +105,6 @@ in {
     vscode
     xdg-desktop-portal-gnome
     zed-editor
-    cursor
+    # cursor
   ];
 }

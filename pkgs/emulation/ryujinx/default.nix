@@ -26,9 +26,8 @@
   };
 in (
   pkgs.buildDotnetModule {
-    inherit pname version src;
-
-    enableParallelBuilding = false;
+    inherit pname src;
+    version = "0-" + version;
 
     dotnet-sdk = pkgs.dotnetCorePackages.sdk_8_0;
     dotnet-runtime = pkgs.dotnetCorePackages.runtime_8_0;
@@ -47,11 +46,7 @@ in (
       vulkan-loader
       ffmpeg
       udev
-
-      # Avalonia UI
       glew
-
-      # Headless executable
       libGL
       SDL2
     ];
@@ -60,7 +55,6 @@ in (
 
     executables = [
       "Ryujinx"
-      # "Ryujinx.Gtk3"
     ];
 
     preFixup = ''
@@ -84,14 +78,6 @@ in (
       (pkgs.fetchurl {
         url = "https://github.com/Ryujinx-NX/Ryujinx/commit/6ecfd2fd12f25cd7b9b976484cd030eaad68f28d.patch";
         sha256 = "sha256-BnIEpzlFd6zuoZ0a7PiCdfJN4PFr6ih8w4you2o6nLg=";
-      })
-      (pkgs.fetchurl {
-        url = "https://github.com/Vudjun/Ryujinx/commit/c4ee9c7555a7b89665a4eb5b938359bd73de5794.patch";
-        sha256 = "sha256-icLuWGSSwodosjRocIdzofwcASxx73oO13Fr1aRTP7U=";
-      })
-      (pkgs.fetchurl {
-        url = "https://github.com/Vudjun/Ryujinx/commit/80fa93faefa6184d3a15bd36407c600a145919a9.patch";
-        sha256 = "sha256-9JHHrxd6oGNq8hNXl7UxP73LJbUVNXCNOiVpvaV2sd8=";
       })
     ];
 

@@ -9,9 +9,12 @@
   openalSoft,
   symlinkJoin,
 }: let
+  name = "Super Meat Boy";
+  pname = "supermeatboy";
+  version = "06072012";
+
   drv = stdenv.mkDerivation rec {
-    pname = "supermeatboy";
-    version = "06072012";
+    inherit name pname version;
 
     src = fetchTree {
       type = "file";
@@ -23,7 +26,6 @@
     nativeBuildInputs = [
       unzip
       autoPatchelfHook
-      copyDesktopItems
     ];
 
     buildInputs = [
@@ -38,32 +40,20 @@
       rm -rf data/SuperMeatBoy data/x86
       rm -f data/amd64/{libopenal.so.1,libSDL2-2.0.so.0}
       mkdir -p $out/{bin,share/{supermeatboy,pixmaps}}
-      mv data/* $out/share/supermeatboy
-      ln -s $out/share/supermeatboy/supermeatboy.png $out/share/pixmaps/${pname}.png
+      mv data/* $out/share/${pname}
+      install -m 444 -D $out/share/${pname}/supermeatboy.png $out/share/pixmaps/${pname}.png
     '';
   };
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = drv.pname;
-      exec = drv.pname;
-      icon = drv.pname;
-      comment = "Super Meat Boy";
-      desktopName = "Super Meat Boy";
-      categories = ["Game"];
-    })
-  ];
+  wrapper = pkgs.writeShellScriptBin pname ''
+    pushd ${drv}/share/supermeatboy/
+    amd64/SuperMeatBoy-amd64 "$@"
+  '';
 in
-  symlinkJoin {
-    inherit (drv) pname version;
-
-    paths = [
-      (
-        pkgs.writeShellScriptBin drv.pname ''
-          pushd ${drv}/share/supermeatboy/
-          amd64/SuperMeatBoy-amd64 "$@"
-        ''
-      )
-      desktopItems
-    ];
+  makeDesktopItem {
+    name = pname;
+    exec = "${wrapper}/bin/${pname}";
+    icon = "${drv}/share/pixmaps/${pname}.png";
+    desktopName = name;
+    categories = ["Game"];
   }
