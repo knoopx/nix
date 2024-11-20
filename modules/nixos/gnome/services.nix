@@ -25,9 +25,8 @@
       sessionPackages = [pkgs.gnome-session.sessions];
     };
 
-    # gvfs.enable = true;
     # geoclue2.enable = false;
-    # gvfs.enable = false;
+    gvfs.enable = true;
     colord.enable = false;
     hardware.bolt.enable = false;
     # udisks2.enable = false;

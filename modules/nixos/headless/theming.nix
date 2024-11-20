@@ -38,7 +38,7 @@ in {
       # package = pkgs.simp1e-cursors;
       # name = "Simp1e-Adw";
       # name = "Simp1e-Catppuccin-Mocha";
-      size = 27;
+      size = 24;
     };
   };
 

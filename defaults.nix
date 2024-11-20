@@ -84,6 +84,7 @@ in {
       caffeine
       panel-corners
       astra-monitor
+      steal-my-focus-window
       # tailscale-qs
     ];
   };

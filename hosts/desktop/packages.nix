@@ -104,7 +104,7 @@ in {
     uv
     vscode
     xdg-desktop-portal-gnome
-    zed-editor
+    # zed-editor
     # cursor
   ];
 }

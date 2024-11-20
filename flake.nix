@@ -2,8 +2,8 @@
   description = "kOS";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
-    # nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     # nixpkgs.url = "nixpkgs/staging-next";
     # nixpkgs.url = "github:NixOS/nixpkgs";
     # nixpkgs.url = "github:knoopx/nixpkgs";
@@ -29,10 +29,10 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
     nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
 
-    lix-module = {
-      url = "git+https://git.lix.systems/lix-project/nixos-module?ref=stable";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # lix-module = {
+    #   url = "git+https://git.lix.systems/lix-project/nixos-module?ref=stable";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs = {
@@ -42,7 +42,7 @@
     nixpkgs,
     nix-flatpak,
     home-manager,
-    lix-module,
+    # lix-module,
     nix-gaming,
     ...
   } @ inputs: let
@@ -74,7 +74,7 @@
       }
       {home-manager = homeManagerConfig;}
       # chaotic.nixosModules.default
-      lix-module.nixosModules.default
+      # lix-module.nixosModules.default
       inputs.home-manager.nixosModules.home-manager
       inputs.stylix.nixosModules.stylix
       nix-flatpak.nixosModules.nix-flatpak
