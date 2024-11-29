@@ -81,6 +81,7 @@
     openssl
     p7zip
     lrzip
+    patchelf
     pciutils
     pkg-config
     psmisc

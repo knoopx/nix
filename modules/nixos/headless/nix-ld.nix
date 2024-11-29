@@ -3,6 +3,12 @@
     enable = true;
 
     libraries = with pkgs; [
+      # gnome2.GConf
+      # gnome2.pango
+      # gtk2
+      # libappindicator-gtk2
+      # libdbusmenu-gtk2
+      # libindicator-gtk2
       acl
       alsa-lib
       atk
@@ -23,32 +29,26 @@
       glew110
       glib
       glibc
-      # gnome2.GConf
-      # gnome2.pango
       gsettings-desktop-schemas
-      # gtk2
       gtk3
       gtk4
       icu
       libadwaita
-      # libappindicator-gtk2
       libcaca
       libcanberra
       libcap
-      # libdbusmenu-gtk2
       libdrm
       libelf
       libgcrypt
       libGL
       libidn
-      # libindicator-gtk2
-      libpulseaudio
       libjpeg
       libmikmod
       libnotify
       libogg
       libpng
       libpng12
+      libpulseaudio
       librsvg
       libsamplerate
       libsodium

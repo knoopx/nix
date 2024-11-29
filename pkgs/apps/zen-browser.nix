@@ -87,6 +87,39 @@
       Exec=zen --ProfileManager %u
     '';
   };
+
+  # https://mozilla.github.io/policy-templates/
+  policies = writeTextFile {
+    name = "zen-policies";
+    text = builtins.toJSON {
+      policies = {
+        CaptivePortal = false;
+        DisableFirefoxStudies = true;
+        DisablePocket = true;
+        DisableTelemetry = true;
+        DisableFirefoxAccounts = true;
+        FirefoxHome = {
+          Pocket = false;
+          Snippets = false;
+        };
+        UserMessaging = {
+          ExtensionRecommendations = false;
+          SkipOnboarding = true;
+        };
+        DisableAppUpdate = true;
+        OverrideFirstRunPage = "";
+        PictureInPicture.Enabled = false;
+        PromptForDownloadLocation = false;
+        Preferences = {
+          "widget.use-xdg-desktop-portal.file-picker" = 1;
+          "browser.tabs.loadInBackground" = true;
+          "media.ffmpeg.vaapi.enabled" = true;
+          "browser.aboutConfig.showWarning" = false;
+          "browser.warnOnQuitShortcut" = false;
+        };
+      };
+    };
+  };
 in
   pkgs.stdenv.mkDerivation rec {
     inherit pname version;
@@ -111,6 +144,8 @@ in
       rm $out/bin/{zen-bin,updater,updater.ini,glxtest,vaapitest}
       install -D ${desktopFile} $out/share/applications/${pname}.desktop
       install -D $src/browser/chrome/icons/default/default128.png $out/share/pixmaps/${pname}.png
+      mkdir -p "$out/bin/distribution";
+      ln -s ${policies} "$out/bin/distribution/policies.json";
     '';
 
     fixupPhase = ''

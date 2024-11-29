@@ -35,6 +35,7 @@ _: {
 
       # "re.sonny.Commit"
       "org.jdownloader.JDownloader"
+      "io.github.glaumar.QRookie"
       # "org.nicotine_plus.Nicotine"
       # "org.onlyoffice.desktopeditors"
       # "com.belmoussaoui.Authenticator"
