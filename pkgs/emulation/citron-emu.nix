@@ -1,20 +1,20 @@
 {pkgs, ...}: let
-  tzdb_to_nx = pkgs.stdenv.mkDerivation rec {
-    pname = "tzdb_to_nx";
-    version = "221202";
-    src = pkgs.fetchurl {
-      url = "https://github.com/lat9nq/tzdb_to_nx/releases/download/${version}/${version}.zip";
-      hash = "sha256-mRzW+iIwrU1zsxHmf+0RArU8BShAoEMvCz+McXFFK3c=";
-    };
-    nativeBuildInputs = [
-      pkgs.unzip
-    ];
-    buildCommand = "unzip $src -d $out";
-  };
+  # tzdb_to_nx = pkgs.stdenv.mkDerivation rec {
+  #   pname = "tzdb_to_nx";
+  #   version = "221202";
+  #   src = pkgs.fetchurl {
+  #     url = "https://github.com/lat9nq/tzdb_to_nx/releases/download/${version}/${version}.zip";
+  #     hash = "sha256-mRzW+iIwrU1zsxHmf+0RArU8BShAoEMvCz+McXFFK3c=";
+  #   };
+  #   nativeBuildInputs = [
+  #     pkgs.unzip
+  #   ];
+  #   buildCommand = "unzip $src -d $out";
+  # };
 in
   pkgs.stdenv.mkDerivation rec {
     pname = "citron-emu";
-    version = "d055c642bf3b4d069c32a5b93cbcd223ba155dad";
+    version = "b0fd87f7be7e29b53bb75dc8a7a7539c007c8ec3";
 
     src =
       fetchGit
@@ -31,8 +31,9 @@ in
       pkg-config
       kdePackages.wrapQtAppsHook
       libtool
+      git
       # unzip
-      # glslang
+      glslang
       # kdePackages.qttools
       # vulkan-headers
       # vulkan-utility-libraries
@@ -58,12 +59,12 @@ in
       udev
     ];
 
-    dontFixCmake = true;
-    env.NIX_CFLAGS_COMPILE = "-march=native";
+    # dontFixCmake = true;
+    # env.NIX_CFLAGS_COMPILE = "-march=native";
 
     cmakeFlags = [
       "-DCITRON_CHECK_SUBMODULES=OFF"
-      "-DCITRON_DOWNLOAD_TIME_ZONE_DATA=OFF"
+      # "-DCITRON_DOWNLOAD_TIME_ZONE_DATA=OFF"
       "-DENABLE_QT6=ON"
       "-DENABLE_SDL2=OFF"
       # "-DENABLE_LIBUSB=OFF"
@@ -81,8 +82,10 @@ in
       # "-DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF" # We provide this deterministically
     ];
 
+    # nix bundle --bundler github:ralismark/nix-appimage nixpkgs#hello
+    # substituteInPlace externals/nx_tzdb/CMakeLists.txt  --replace-fail "set(NX_TZDB_ROMFS_DIR \"\''${CMAKE_CURRENT_BINARY_DIR}/nx_tzdb\")" "set(NX_TZDB_ROMFS_DIR \"${tzdb_to_nx}\")"
+    # rm -rf externals/nx_tzdb/tzdb_to_nx/externals/tz
     preConfigure = ''
       substituteInPlace CMakeLists.txt --replace-fail "VulkanHeaders 1.3.301" "VulkanHeaders 1.3"
-      substituteInPlace externals/nx_tzdb/CMakeLists.txt  --replace-fail "set(NX_TZDB_ROMFS_DIR \"\''${CMAKE_CURRENT_BINARY_DIR}/nx_tzdb\")" "set(NX_TZDB_ROMFS_DIR \"${tzdb_to_nx}\")"
     '';
   }

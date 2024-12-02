@@ -307,6 +307,9 @@
       };
 
       extraConfig = with defaults.colorScheme.palette; ''
+        map ctrl+shift+enter new_window_with_cwd
+        map ctrl+shift+t new_tab_with_cwd
+
         tab_separator " "
         tab_title_template " {fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title} "
         active_tab_foreground #${base00}
