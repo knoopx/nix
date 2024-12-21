@@ -2,6 +2,7 @@
   defaults,
   config,
   pkgs,
+  lib,
   ...
 }: {
   programs = {
@@ -64,7 +65,7 @@
 
         "diffEditor.ignoreTrimWhitespace" = true;
         "editor.fontLigatures" = true;
-        "editor.fontSize" = 12;
+        "editor.fontSize" = lib.mkForce 12;
         "editor.formatOnSaveMode" = "file";
         "editor.inlineSuggest.enabled" = true;
         "editor.multiCursorModifier" = "ctrlCmd";
@@ -95,7 +96,7 @@
         "git.ignoreMissingGitWarning" = true;
         "git.mergeEditor" = true;
 
-        "terminal.integrated.fontSize" = 11;
+        "terminal.integrated.fontSize" = lib.mkForce 11;
         "terminal.integrated.shellIntegration.decorationsEnabled" = "never";
 
         "typescript.surveys.enabled" = false;
@@ -185,6 +186,7 @@
         };
 
         "qalc.output.notation" = "auto";
+        "qalc.output.precision" = 0;
         "qalc.output.lowerExponentBound" = -4;
       };
     };

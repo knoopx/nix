@@ -1,57 +1,20 @@
-{
-  pkgs,
-  stdenv,
-  cmake,
-  fetchzip,
-  pkg-config,
-  alsa-lib,
-  curl,
-  ffmpeg,
-  freeimage,
-  freetype,
-  libgit2,
-  poppler,
-  pugixml,
-  SDL2,
-  nix-update-script,
-  fetchFromGitLab,
-  ...
-}: let
+{pkgs, ...}: let
+  # https://gitlab.com/es-de/emulationstation-de/-/releases
   pname = "es-de";
-  version = "3.1.0";
+  version = "3.1.1";
+  src = pkgs.fetchurl {
+    url = "https://gitlab.com/es-de/emulationstation-de/-/package_files/164503027/download";
+    sha256 = "sha256-TvGABOpO/PWtcK+MogyMCS39T47Hz1+bv3Dz2yM284Q=";
+  };
+  appimage = pkgs.appimageTools.extractType2 {inherit pname version src;};
 in
-  stdenv.mkDerivation {
-    inherit pname version;
+  pkgs.appimageTools.wrapType2
+  {
+    inherit pname version src;
 
-    src = fetchFromGitLab {
-      owner = "es-de";
-      repo = "emulationstation-de";
-      rev = version;
-    };
-
-    nativeBuildInputs = [
-      cmake
-      pkg-config
-    ];
-
-    buildInputs = [
-      alsa-lib
-      curl
-      ffmpeg
-      freeimage
-      freetype
-      libgit2
-      poppler
-      pugixml
-      SDL2
-    ];
-
-    installPhase = ''
-      install -D ../${pname} $out/bin/${pname}
-      install -Dm755 ../es-app/assets/org.es_de.frontend.desktop $out/share/applications/org.es_de.frontend.desktop
-      install -Dm644 ../es-app/assets/org.es_de.frontend.svg $out/share/icons/hicolor/scalable/apps/org.es_de.frontend.svg
-      cp -r ../resources/ $out/bin/resources/
+    extraInstallCommands = ''
+      install -m 755 -D ${appimage}/org.es_de.frontend.desktop -t $out/share/applications
+      install -m 644 -D ${appimage}/org.es_de.frontend.svg $out/share/icons/hicolor/scalable/apps/org.es_de.frontend.svg
+      cp -r ${appimage}/usr/bin/resources/ $out/bin/resources/
     '';
-
-    passthru.updateScript = nix-update-script {};
   }

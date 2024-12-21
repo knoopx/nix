@@ -41,7 +41,7 @@ in {
     # brothers-a-tale-of-two-sons-remake
     # celeste
     # cemu
-    # citron-emu
+    citron-emu
     # dosbox
     # driver-san-francisco
     # liftoff
@@ -60,14 +60,34 @@ in {
     # worldofgoo
     # xemu
     cemu
-    es-de-bin
+    es-de
     factorio-space-age
-    hydra-launcher
     mame-tools
-    retool
+    nstool
+    nsz
+    hydra-launcher
+    # (retool.overrideAttrs (origAttrs: {
+    #   preConfigure = ''
+    #     substituteInPlace modules/constants.py --replace-fail "'config/" "'~/.config/retool/"
+    #     substituteInPlace modules/update_clone_list_metadata.py --replace-fail "config.retool_location" "'~/.config/retool/'"
+    #   '';
+    # }))
     retroarchFull
     ryujinx
     umu
-    wiiudownloader
+    # wiiudownloader
+    # hydra-launcher
+    (dolphin-emu
+      .overrideAttrs
+      {
+        version = "2412";
+        # src = fetchFromGitHub {
+        #   owner = "dolphin-emu";
+        #   repo = "dolphin";
+        #   rev = "refs/tags/${version}";
+        #   hash = "sha256-x4ZtV/5bwUjcmdYneG7n7uFVyPmYj0sD8TXEqsqbUFU=";
+        #   fetchSubmodules = true;
+        # };
+      })
   ];
 }

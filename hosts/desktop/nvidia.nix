@@ -57,7 +57,6 @@
 
     blacklistedKernelModules = ["nouveau"];
   };
-
   nixpkgs.config.nvidia.acceptLicense = true;
 
   virtualisation.docker = {
@@ -100,6 +99,8 @@
       # });
 
       # https://http.download.nvidia.com/XFree86/Linux-x86_64/
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
+
       # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       #   version = "535.183.01";
       #   sha256_64bit = "sha256-9nB6+92pQH48vC5RKOYLy82/AvrimVjHL6+11AXouIM=";

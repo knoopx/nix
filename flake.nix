@@ -80,6 +80,10 @@
       nix-flatpak.nixosModules.nix-flatpak
     ];
   in {
+    packages.x86_64-linux = pkgs.callPackage ./pkgs/default.nix {
+      inherit pkgs;
+    };
+
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         inherit specialArgs;

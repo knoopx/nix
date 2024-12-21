@@ -5,7 +5,7 @@
   ...
 }: let
   pname = "zen";
-  version = "1.0.1-a.19";
+  version = "1.0.2-b.3";
 
   runtimeLibs = with pkgs;
     [
@@ -66,7 +66,7 @@
       Icon=${pname}
       Type=Application
       MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
-      StartupWMClass=zen-alpha
+      StartupWMClass=zen-beta
       Categories=Network;WebBrowser;
       StartupNotify=true
       Terminal=false
@@ -126,7 +126,7 @@ in
 
     src = pkgs.fetchzip {
       url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-specific.tar.bz2";
-      sha256 = "sha256-WGaRfsiewSEKK0RC5OMGp7zUbJBy2j1IPUl55XzA9rw=";
+      sha256 = "sha256-zAo93sHeB8cTW2JBAqxx0wo3CANcxCgjEcTQgbDeWT4=";
     };
 
     nativeBuildInputs = with pkgs;

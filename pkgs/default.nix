@@ -4,7 +4,6 @@
   datutil = pkgs.callPackage ./emulation/datutil.nix {};
   driver-san-francisco = pkgs.callPackage ./games/driver-san-francisco.nix {};
   es-de = pkgs.callPackage ./emulation/es-de.nix {};
-  es-de-bin = pkgs.callPackage ./emulation/es-de-bin.nix {};
   liftoff = pkgs.callPackage ./games/liftoff.nix {};
   nfoview = pkgs.callPackage ./apps/nfoview.nix {};
   ryujinx = pkgs.callPackage ./emulation/ryujinx {};

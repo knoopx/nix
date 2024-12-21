@@ -25,6 +25,7 @@
       fontconfig
       freeglut
       freetype
+      fuse
       gdk-pixbuf
       glew110
       glib

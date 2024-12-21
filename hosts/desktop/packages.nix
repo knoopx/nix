@@ -67,7 +67,6 @@
     nfoview
     nh
     nicotine-plus
-    nil
     nixd
     nodejs_latest
     onlyoffice-bin
