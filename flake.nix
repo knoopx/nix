@@ -2,11 +2,9 @@
   description = "kOS";
 
   inputs = {
-    # nixpkgs.url = "nixpkgs/nixos-unstable";
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    # nixpkgs.url = "nixpkgs/staging-next";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+    # nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     # nixpkgs.url = "github:NixOS/nixpkgs";
-    # nixpkgs.url = "github:knoopx/nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -100,6 +98,21 @@
           nixosModules
           ++ [
             ./hosts/desktop-vm
+          ];
+      };
+
+      gaming-vm = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+        modules =
+          # nixosModules
+          [
+            {
+              nixpkgs.overlays = [
+                (self: super: nix-gaming.packages.x86_64-linux)
+              ];
+            }
+            ./hosts/gaming-vm.nix
+            inputs.home-manager.nixosModules.home-manager
           ];
       };
 

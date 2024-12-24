@@ -72,7 +72,6 @@
     onlyoffice-bin
     pipx
     python3
-    python311
     ruby
     ruby-lsp
     rufo

@@ -1,93 +1,122 @@
-{pkgs, ...}: let
-  cores = with pkgs.libretro; [
-    mesen
-    genesis-plus-gx
-    mgba
-    gambatte
-    puae
-    stella
-    prosystem
-    handy
-    hatari
-    bluemsx
-    dosbox-pure
-    flycast
-    fbneo
-    freeintv
-    mame
-    citra
-    mupen64plus
-    melonds
-    beetle-ngp
-    beetle-pce
-    pcsx2
-    ppsspp
-    beetle-psx
-    snes9x
-    beetle-saturn
-    picodrive
-    beetle-supergrafx
-    beetle-vb
-    dolphin
-    beetle-wswan
-    fuse
-    bsnes
-    bsnes-hd
-  ];
-in {
-  home.packages = with pkgs; [
-    # alvr
-    # bottles
-    # brothers-a-tale-of-two-sons-remake
-    # celeste
-    # cemu
-    citron-emu
-    # dosbox
-    # driver-san-francisco
-    # liftoff
-    # lime3ds
-    # lutris
-    # melonDS
-    # mindustry-wayland
-    # pcsx2
-    # protonup
-    # rpcs3
-    # skyscraper
-    # steam
-    # supermeatboy
-    # uncrashed
-    # wineWowPackages.waylandFull
-    # worldofgoo
-    # xemu
-    cemu
-    es-de
-    factorio-space-age
-    mame-tools
-    nstool
-    nsz
-    hydra-launcher
-    # (retool.overrideAttrs (origAttrs: {
-    #   preConfigure = ''
-    #     substituteInPlace modules/constants.py --replace-fail "'config/" "'~/.config/retool/"
-    #     substituteInPlace modules/update_clone_list_metadata.py --replace-fail "config.retool_location" "'~/.config/retool/'"
-    #   '';
-    # }))
-    retroarchFull
-    ryujinx
-    umu
-    # wiiudownloader
-    # hydra-launcher
-    (dolphin-emu
+{
+  pkgs,
+  config,
+  ...
+}: let
+  custom = {
+    retroarch = pkgs.retroarch.withCores (
+      cores:
+        with cores; [
+          # beetle-ngp
+          # beetle-pce
+          # beetle-psx
+          # beetle-saturn
+          # beetle-supergrafx
+          # beetle-vb
+          # beetle-wswan
+          # bluemsx
+          # bsnes
+          # bsnes-hd
+          # dosbox-pure
+          # freeintv
+          # fuse
+          # handy
+          # hatari
+          # mame
+          # picodrive
+          # prosystem
+          # stella
+          citra
+          dolphin
+          fbneo
+          flycast
+          gambatte
+          genesis-plus-gx
+          melonds
+          mesen
+          mgba
+          mupen64plus
+          pcsx2
+          ppsspp
+          puae
+          snes9x
+        ]
+    );
+    dolphin-emu =
+      pkgs
+      .dolphin-emu
       .overrideAttrs
       {
         version = "2412";
-        # src = fetchFromGitHub {
-        #   owner = "dolphin-emu";
-        #   repo = "dolphin";
-        #   rev = "refs/tags/${version}";
-        #   hash = "sha256-x4ZtV/5bwUjcmdYneG7n7uFVyPmYj0sD8TXEqsqbUFU=";
-        #   fetchSubmodules = true;
-        # };
-      })
+      };
+
+    retool = pkgs.retool.overrideAttrs (origAttrs: {
+      postFixup =
+        origAttrs.postFixup
+        + ''
+          ln -s ${config.home.homeDirectory}/.config/retool $out/bin/config
+          ln -s ${config.home.homeDirectory}/.local/retool/datafile.dtd $out/bin/datafile.dtd
+          ln -s ${config.home.homeDirectory}/.local/retool/clonelists $out/bin/clonelists
+          ln -s ${config.home.homeDirectory}/.local/retool/metadata $out/bin/metadata
+        '';
+    });
+  };
+
+  launchers = with pkgs; [
+    es-de
+    pegasus-frontend
+    # lutris
+    # steam
+    # bottles
   ];
+
+  games = with pkgs; [
+    # liftoff
+    # supermeatboy
+    # uncrashed
+    # brothers-a-tale-of-two-sons-remake
+    # celeste
+    # driver-san-francisco
+    # mindustry-wayland
+    # worldofgoo
+    factorio-space-age
+  ];
+
+  emulators = with pkgs; [
+    # xemu
+    # dosbox
+    # melonDS
+    # rpcs3
+    # pcsx2
+    # lime3ds
+    ryujinx
+    citron-emu
+    cemu
+    custom.dolphin-emu
+    custom.retroarch
+  ];
+
+  tools = with pkgs; [
+    # wiiudownloader
+    # hydra-launcher
+    # skyscraper
+    # alvr
+    # protonup
+    # wineWowPackages.waylandFull
+    mame-tools
+    nsz
+    nstool
+    umu
+    custom.retool
+  ];
+in {
+  home.packages = launchers ++ emulators ++ games ++ tools;
+
+  xdg.configFile."pegasus-frontend/themes/gameOS" = {
+    source = fetchTarball {
+      url = "https://github.com/PlayingKarrde/gameOS/releases/download/1.10/gameOS.zip";
+      sha256 = "sha256:1ph487fnl7ayn5fgzb381fnzw2daj09r7q6hy0papaq579i1knsf";
+    };
+    recursive = true;
+  };
 }

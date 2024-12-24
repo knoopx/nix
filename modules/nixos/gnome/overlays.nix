@@ -1,18 +1,18 @@
 _: {
   nixpkgs.overlays = [
-    # mypkgs
     (final: prev: {
       htop = prev.htop.overrideAttrs (origAttrs: {
         postInstall = "rm $out/share/applications/htop.desktop";
+      });
+
+      btop = prev.btop.overrideAttrs (origAttrs: {
+        postInstall = "rm $out/share/applications/btop.desktop";
       });
 
       micro = prev.micro.overrideAttrs (origAttrs: {
         postInstall =
           origAttrs.postInstall + "rm $out/share/applications/micro.desktop";
       });
-
-      # TODO: remove me once fixed
-      _7zz = prev._7zz.override {useUasm = true;};
     })
 
     # (final: prev: {
