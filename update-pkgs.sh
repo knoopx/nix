@@ -10,9 +10,13 @@ cat >"$root/default.nix" <<NIX
 NIX
 
 nixpkgs="$(nix-instantiate --eval --expr '<nixpkgs>')"
+# nix-shell "$nixpkgs/maintainers/scripts/update.nix" --arg include-overlays "(import $root { }).overlays" --arg predicate "(
+#     let prefix = \"$root/pkgs/\"; prefixLen = builtins.stringLength prefix;
+#     in (_: p: (builtins.substring 0 prefixLen p.meta.position) == prefix)
+#   )" --arg keep-going 'true'
 nix-shell "$nixpkgs/maintainers/scripts/update.nix" --arg include-overlays "(import $root { }).overlays" --arg predicate "(
     let prefix = \"$root/pkgs/\"; prefixLen = builtins.stringLength prefix;
-    in (_: p: (builtins.substring 0 prefixLen p.meta.position) == prefix)
+    in (path: pkg: (builtins.hasAttr \"position\" pkg.meta) && ((builtins.substring 0 prefixLen pkg.meta.position) == prefix))
   )" --arg keep-going 'true'
 
 # Clean up

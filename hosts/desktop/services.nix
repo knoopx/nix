@@ -1,4 +1,10 @@
-_: {
+{
+  defaults,
+  lib,
+  ...
+}: {
+  systemd.services.plex.serviceConfig.ProtectHome = lib.mkForce false;
+
   services = {
     fstrim.enable = true;
     btrfs.autoScrub.enable = true;
@@ -50,12 +56,10 @@ _: {
       network.listenAddress = "any";
     };
 
-    # plex = {
-    #   enable = true;
-    #   dataDir = "/var/lib/plex";
-    #   # openFirewall = true;
-    #   user = "plex";
-    #   group = "plex";
-    # };
+    plex = {
+      enable = true;
+      group = "wheel";
+      user = defaults.username;
+    };
   };
 }

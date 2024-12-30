@@ -3,7 +3,26 @@
   config,
   ...
 }: let
+  # panda3ds = pkgs.libretro.mkLibretroCore {
+  #   core = "panda3ds";
+  #   version = "3787358bdae41d5532ccd00c8998a527ae949949";
+  #   src = pkgs.fetchFromGitHub {
+  #     owner = "jonian";
+  #     repo = "libretro-panda3ds";
+  #     rev = "3787358bdae41d5532ccd00c8998a527ae949949";
+  #     sha256 = "sha256-iQVzfQcYUjrWXVOzsMrFgDqH4wnQSvHeMBk33QzT//0=";
+  #   };
+  # };
   custom = {
+    # pegasus-frontend = pkgs.pegasus-frontend.overrideAttrs (origAttrs: {
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "pixl-os";
+    #     repo = "pegasus-frontend";
+    #     rev = "f140fa7a067a03860d863da0baa6e1e1f51ae9e0";
+    #     fetchSubmodules = true;
+    #     hash = "sha256-HYGsZU6zHG2N5KV73T09Lh04OOziWuZS4uadMzBpgXs=";
+    #   };
+    # });
     retroarch = pkgs.retroarch.withCores (
       cores:
         with cores; [
@@ -17,7 +36,6 @@
           # bluemsx
           # bsnes
           # bsnes-hd
-          # dosbox-pure
           # freeintv
           # fuse
           # handy
@@ -26,6 +44,7 @@
           # picodrive
           # prosystem
           # stella
+          dosbox-pure
           citra
           dolphin
           fbneo
@@ -35,29 +54,23 @@
           melonds
           mesen
           mgba
-          mupen64plus
+          # mupen64plus
           pcsx2
           ppsspp
           puae
           snes9x
+          # panda3ds
         ]
     );
-    dolphin-emu =
-      pkgs
-      .dolphin-emu
-      .overrideAttrs
-      {
-        version = "2412";
-      };
 
     retool = pkgs.retool.overrideAttrs (origAttrs: {
       postFixup =
         origAttrs.postFixup
         + ''
           ln -s ${config.home.homeDirectory}/.config/retool $out/bin/config
-          ln -s ${config.home.homeDirectory}/.local/retool/datafile.dtd $out/bin/datafile.dtd
-          ln -s ${config.home.homeDirectory}/.local/retool/clonelists $out/bin/clonelists
-          ln -s ${config.home.homeDirectory}/.local/retool/metadata $out/bin/metadata
+          ln -s ${config.home.homeDirectory}/.local/share/retool/datafile.dtd $out/bin/datafile.dtd
+          ln -s ${config.home.homeDirectory}/.local/share/retool/clonelists $out/bin/clonelists
+          ln -s ${config.home.homeDirectory}/.local/share/retool/metadata $out/bin/metadata
         '';
     });
   };
@@ -90,24 +103,30 @@
     # pcsx2
     # lime3ds
     ryujinx
-    citron-emu
+    # citron-emu
     cemu
-    custom.dolphin-emu
     custom.retroarch
   ];
 
   tools = with pkgs; [
     # wiiudownloader
-    # hydra-launcher
+    hydra-launcher
     # skyscraper
     # alvr
     # protonup
     # wineWowPackages.waylandFull
+    # nsz
+    # umu
+    # gamescope
+    # gamescope-session
+    # opengamepadui
     mame-tools
-    nsz
     nstool
-    umu
     custom.retool
+    launchbox-metadata
+    libretro-db_tool
+    libretro-metadata
+    libretro-core-info
   ];
 in {
   home.packages = launchers ++ emulators ++ games ++ tools;
@@ -119,4 +138,27 @@ in {
     };
     recursive = true;
   };
+
+  xdg.configFile."pegasus-frontend/settings.txt".text = ''
+    general.theme: themes/gameOS/
+    general.verify-files: false
+    general.input-mouse-support: true
+    general.fullscreen: true
+    providers.pegasus_media.enabled: true
+    providers.steam.enabled: false
+    providers.gog.enabled: false
+    providers.es2.enabled: false
+    providers.logiqx.enabled: false
+    providers.lutris.enabled: false
+    providers.skraper.enabled: true
+    keys.page-up: PgUp,GamepadL2
+    keys.page-down: PgDown,GamepadR2
+    keys.prev-page: Q,A,GamepadL1
+    keys.next-page: E,D,GamepadR1
+    keys.menu: F1,GamepadStart
+    keys.filters: F,GamepadY
+    keys.details: I,GamepadX
+    keys.cancel: Esc,Backspace,GamepadA
+    keys.accept: Return,Enter,GamepadB
+  '';
 }

@@ -1,4 +1,5 @@
 {pkgs, ...}: {
+  lora-inspector = pkgs.callPackage ./cli/lora-inspector.nix {};
   aide = pkgs.callPackage ./apps/aide.nix {};
   celeste = pkgs.callPackage ./games/celeste.nix {};
   datutil = pkgs.callPackage ./emulation/datutil.nix {};
@@ -18,6 +19,57 @@
   skyscraper = pkgs.callPackage ./emulation/skyscraper.nix {};
   wiiudownloader = pkgs.callPackage ./emulation/wiiudownloader.nix {};
   hydra-launcher = pkgs.callPackage ./emulation/hydra-launcher.nix {};
+
+  launchbox-metadata = pkgs.stdenv.mkDerivation {
+    name = "launchbox-metadata";
+
+    installPhase = ''
+      mkdir -p $out/share/launchbox-metadata
+      cp $src/* $out/share/launchbox-metadata
+    '';
+
+    src = fetchTarball {
+      url = "http://gamesdb.launchbox-app.com/Metadata.zip";
+      sha256 = "sha256:1m6xy2kyala5c586f2sksn2ng9gs9mad0njqgd0ssmasnrabpdzr";
+    };
+  };
+
+  libretro-metadata = pkgs.stdenv.mkDerivation {
+    name = "libretro-metadata";
+
+    installPhase = ''
+      mkdir -p $out/share/libretro-metadata
+      cp -r $src/{cht,dat,metadat,rdb} $out/share/libretro-metadata
+    '';
+
+    src = pkgs.fetchFromGitHub {
+      owner = "libretro";
+      repo = "libretro-database";
+      rev = "49acc074cc09d1b9a1bfb67e5c490b10c443ff89";
+      hash = "sha256-oZFuwBTOffmBTYKn9LSfIulR5gjOZ1gJIkJcgRH2ezg=";
+    };
+  };
+
+  libretro-db_tool = pkgs.stdenv.mkDerivation rec {
+    name = "libretro-db_tool";
+    version = "1.19.1";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "libretro";
+      repo = "RetroArch";
+      rev = "v${version}";
+      hash = "sha256-NVe5dhH3w7RL1C7Z736L5fdi/+aO+Ah9Dpa4u4kn0JY=";
+    };
+
+    # sourceRoot = "${src.name}/libretro-db";
+    preConfigure = ''
+      cd libretro-db
+    '';
+
+    installPhase = ''
+      install -D libretrodb_tool $out/bin/libretrodb_tool
+    '';
+  };
 
   factorio =
     pkgs.factorio.overrideAttrs

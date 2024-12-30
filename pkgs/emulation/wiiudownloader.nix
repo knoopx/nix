@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  nix-update-script,
+  ...
+}: let
   name = "wiiudownloader";
   version = "2.60";
 
@@ -13,6 +17,7 @@
 in
   pkgs.appimageTools.wrapType1 {
     inherit name src;
+    pname = name;
 
     extraInstallCommands = ''
       install -m 444 -D ${appimageContents}/${desktop} -t $out/share/applications
@@ -22,4 +27,6 @@ in
 
       cp -r ${appimageContents}/usr/share/icons $out/share
     '';
+
+    passthru.updateScript = nix-update-script {extraArgs = ["--version=skip"];};
   }

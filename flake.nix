@@ -2,9 +2,9 @@
   description = "kOS";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    # nixpkgs.url = "nixpkgs/nixos-unstable";
     # nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    # nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -27,6 +27,10 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
     nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
 
+    ghostty.url = "github:ghostty-org/ghostty";
+
+    jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
+    jovian.inputs.nixpkgs.follows = "nixpkgs";
     # lix-module = {
     #   url = "git+https://git.lix.systems/lix-project/nixos-module?ref=stable";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -42,6 +46,8 @@
     home-manager,
     # lix-module,
     nix-gaming,
+    ghostty,
+    jovian,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -62,6 +68,7 @@
     nixosModules = [
       {
         nixpkgs.overlays = [
+          (self: super: ghostty.packages.x86_64-linux)
           (self: super: nix-gaming.packages.x86_64-linux)
           (
             self: super: (pkgs.callPackage ./pkgs/default.nix {
@@ -76,6 +83,7 @@
       inputs.home-manager.nixosModules.home-manager
       inputs.stylix.nixosModules.stylix
       nix-flatpak.nixosModules.nix-flatpak
+      jovian.nixosModules.jovian
     ];
   in {
     packages.x86_64-linux = pkgs.callPackage ./pkgs/default.nix {
@@ -101,17 +109,27 @@
           ];
       };
 
-      gaming-vm = nixpkgs.lib.nixosSystem {
+      jegos-vm = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
         modules =
           # nixosModules
           [
             {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = specialArgs;
+                backupFileExtension = "bak";
+                users.jegos = import ./home/jegos.nix;
+              };
+            }
+            {
               nixpkgs.overlays = [
                 (self: super: nix-gaming.packages.x86_64-linux)
               ];
             }
-            ./hosts/gaming-vm.nix
+            ./hosts/jegos-vm.nix
+            inputs.stylix.nixosModules.stylix
             inputs.home-manager.nixosModules.home-manager
           ];
       };

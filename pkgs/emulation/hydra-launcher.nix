@@ -1,10 +1,14 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  nix-update-script,
+  ...
+}: let
   pname = "hydra-launcher";
-  version = "3.0.8";
+  version = "3.1.2";
 
   src = pkgs.fetchurl {
     url = "https://github.com/hydralauncher/hydra/releases/download/v${version}/hydralauncher-${version}.AppImage";
-    hash = "sha256-zU3SYfZ9wzVHQ9SZ8l1cV4g6vhSzqzPHOyNlx/T6DP0=";
+    hash = "sha256-Di5m2GhRxItlBOxfNH5Xyf1Tnj/fTQeILd2F5zZ7XNU=";
   };
 
   desktop = "hydralauncher.desktop";
@@ -19,4 +23,6 @@ in
       substituteInPlace $out/share/applications/${desktop} --replace-fail 'Exec=AppRun' 'Exec=${pname}'
       cp -r ${appimageContents}/usr/share/icons $out/share
     '';
+
+    passthru.updateScript = nix-update-script {};
   }

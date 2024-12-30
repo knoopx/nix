@@ -1,5 +1,7 @@
 _: {
   imports = [
+    ../modules/home-manager/theming/kitty.nix
+    ../modules/home-manager/theming/firefox.nix
     ../modules/home-manager/gnome/dconf.nix
     ../modules/home-manager/gnome/packages.nix
     ../modules/home-manager/gnome/programs.nix

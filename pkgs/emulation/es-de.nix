@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  nix-update-script,
+  ...
+}: let
   # https://gitlab.com/es-de/emulationstation-de/-/releases
   pname = "es-de";
   version = "3.1.1";
@@ -17,4 +21,6 @@ in
       install -m 644 -D ${appimage}/org.es_de.frontend.svg $out/share/icons/hicolor/scalable/apps/org.es_de.frontend.svg
       cp -r ${appimage}/usr/bin/resources/ $out/bin/resources/
     '';
+
+    passthru.updateScript = nix-update-script {extraArgs = ["--version=skip"];};
   }

@@ -37,7 +37,7 @@ in
       git
       vulkan-headers
       vulkan-utility-libraries
-      boost185
+      boost186
       autoconf
       automake
       fmt

@@ -5,7 +5,7 @@
   ...
 }: let
   pname = "zen";
-  version = "1.0.2-b.3";
+  version = "1.0.2-b.5";
 
   runtimeLibs = with pkgs;
     [
@@ -112,7 +112,7 @@
         PromptForDownloadLocation = false;
         Preferences = {
           "widget.use-xdg-desktop-portal.file-picker" = 1;
-          "browser.tabs.loadInBackground" = true;
+          # "browser.tabs.loadInBackground" = true;
           "media.ffmpeg.vaapi.enabled" = true;
           "browser.aboutConfig.showWarning" = false;
           "browser.warnOnQuitShortcut" = false;
@@ -125,8 +125,8 @@ in
     inherit pname version;
 
     src = pkgs.fetchzip {
-      url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-specific.tar.bz2";
-      sha256 = "sha256-zAo93sHeB8cTW2JBAqxx0wo3CANcxCgjEcTQgbDeWT4=";
+      url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-x86_64.tar.bz2";
+      sha256 = "sha256-sS9phyr97WawxB2AZAwcXkvO3xAmv8k4C8b8Qw364PY=";
     };
 
     nativeBuildInputs = with pkgs;
@@ -141,7 +141,7 @@ in
     installPhase = ''
       mkdir -p $out/bin
       cp -r $src/* $out/bin
-      rm $out/bin/{zen-bin,updater,updater.ini,glxtest,vaapitest}
+      rm $out/bin/{zen-bin,updater,updater.ini}
       install -D ${desktopFile} $out/share/applications/${pname}.desktop
       install -D $src/browser/chrome/icons/default/default128.png $out/share/pixmaps/${pname}.png
       mkdir -p "$out/bin/distribution";

@@ -4,66 +4,32 @@
   nix-update-script,
   ...
 }: let
+  pname = "nfoview";
   version = "2.0.1";
-
-  pythonDeps = with pkgs.python3Packages; [
-    pygobject3
-    pygobject-stubs
-  ];
 in
-  # pkgs.python3Packages.buildPythonApplication {
-  #   inherit version;
-  #   pname = "nfoview";
-  #   propagatedBuildInputs = pythonDeps;
-  #   build-system = [];
-  #   src = fetchgit {
-  #     url = "https://github.com/otsaloma/nfoview";
-  #     rev = version;
-  #     sha256 = "sha256-l7Aq/i5OS11wbuSDbRgpRyxPl5H+7v0Phn4utlF9BN4=";
-  #   };
-  # }
   pkgs.stdenv.mkDerivation {
-    inherit version;
-    pname = "nfoview";
+    inherit pname version;
+
     src = fetchgit {
       url = "https://github.com/otsaloma/nfoview";
       rev = version;
       sha256 = "sha256-l7Aq/i5OS11wbuSDbRgpRyxPl5H+7v0Phn4utlF9BN4=";
     };
-    makeFlags = ["PREFIX=${placeholder "out"}"];
 
-    # fonts-cascadia-code
-    # gettext
-    # gir1.2-gtk-4.0
-    # python3
-    # python3-dev
-    # python3-gi
+    makeFlags = ["PREFIX=${placeholder "out"}"];
 
     nativeBuildInputs = with pkgs; [
       gettext
-      # makeWrapper
-      # copyDesktopItems
-      # gobject-introspection
-      # wrapGAppsHook
-      #
-      # (pkgs.python3.withPackages (pp:
-      #   with pp; [
-      #     pygobject3
-      #   ]))
+      wrapGAppsHook4
     ];
-    # buildInputs = pythonDeps;
-    # propagatedBuildInputs = pythonDeps;
-    # pythonPath = with pkgs.python3Packages; [
-    #   pygobject3
-    # ];
-    #     python3Packages.pygobject3
-    # python3Packages.pygobject-stubs
-    # python3Packages.wrapPython
-    # propagatedBuildInputs = with pkgs.python3Packages; [pygobject3];
-    # buildInputs = with pkgs; [
-    #   cascadia-code
-    #   gobject-introspection
-    # ];
+
+    buildInputs = with pkgs; [
+      cascadia-code
+    ];
+
+    preFixup = ''
+      gappsWrapperArgs+=(--prefix PYTHONPATH : "${pkgs.python3.withPackages (pp: [pp.pygobject3])}/${pkgs.python3.sitePackages}")
+    '';
 
     passthru.updateScript = nix-update-script {};
   }

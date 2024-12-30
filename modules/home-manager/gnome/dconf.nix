@@ -36,6 +36,7 @@ in {
       disable-user-extensions = false;
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
+        "firefox.desktop"
         "zen.desktop"
         # "io.github.zen_browser.zen.desktop"
         # "google-chrome.desktop"

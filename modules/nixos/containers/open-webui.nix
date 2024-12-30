@@ -1,5 +1,5 @@
 _: let
-  name = "open-webui";
+  name = "chat";
 in {
   virtualisation.oci-containers.containers = {
     "${name}" = {
