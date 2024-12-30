@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  browser = "zen.desktop";
+  browser = "firefox.desktop";
   file-manager = "org.gnome.Nautilus.desktop";
   image-viewer = "org.gnome.eog.desktop";
   # image-viewer = "org.gnome.Loupe.desktop";

@@ -68,17 +68,21 @@
     transmission_4-gtk
     uv
     vscode
-    zen-browser
     krita
     # gimp
     ghostty
     ffmpeg
-    (plexamp.overrideAttrs
-      (prev: {
-        installPhase = ''
-          rm $out/bin/plexamp
-          mv $out/bin/.plexamp-wrapped $out/bin/plexamp
-        '';
-      }))
+    (pkgs.stdenv.mkDerivation {
+      name = "plexamp-unwrapped";
+      version = pkgs.plexamp.version;
+      src = pkgs.plexamp.out;
+
+      installPhase = ''
+        mkdir -p $out
+        cp -r * $out
+        rm $out/bin/plexamp
+        mv $out/bin/.plexamp-wrapped $out/bin/plexamp
+      '';
+    })
   ];
 }

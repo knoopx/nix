@@ -37,9 +37,6 @@ in {
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
         "firefox.desktop"
-        "zen.desktop"
-        # "io.github.zen_browser.zen.desktop"
-        # "google-chrome.desktop"
         "gmail.desktop"
         "org.gnome.Calendar.desktop"
         "slack.desktop"

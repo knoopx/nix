@@ -13,12 +13,14 @@
   citron-emu = pkgs.callPackage ./emulation/citron-emu.nix {};
   supermeatboy = pkgs.callPackage ./games/supermeatboy.nix {};
   uncrashed = pkgs.callPackage ./games/uncrashed.nix {};
-  zen-browser = pkgs.callPackage ./apps/zen-browser.nix {};
   worldofgoo = pkgs.callPackage ./games/worldofgoo.nix {};
   brothers-a-tale-of-two-sons-remake = pkgs.callPackage ./games/brothers-a-tale-of-two-sons-remake.nix {};
   skyscraper = pkgs.callPackage ./emulation/skyscraper.nix {};
   wiiudownloader = pkgs.callPackage ./emulation/wiiudownloader.nix {};
   hydra-launcher = pkgs.callPackage ./emulation/hydra-launcher.nix {};
+  catppuccin-userstyles = pkgs.callPackage ./theming/catppuccin-userstyles.nix {};
+
+  mkStylixFirefoxGnomeTheme = pkgs.callPackage ./theming/mkStylixFirefoxGnomeTheme.nix {};
 
   launchbox-metadata = pkgs.stdenv.mkDerivation {
     name = "launchbox-metadata";
