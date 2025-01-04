@@ -1,6 +1,8 @@
 {
   pkgs,
   config,
+  colors,
+  templates,
   ...
 }: {
   gtk = {

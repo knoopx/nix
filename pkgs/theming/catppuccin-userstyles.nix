@@ -38,6 +38,21 @@
     logo = 1;
     oled = 0;
   };
+
+  userStyles = lib.strings.concatStringsSep "," [
+    "chatgpt"
+    "duckduckgo"
+    "github"
+    "google"
+    "nixos-*"
+    "npm"
+    "ollama"
+    "whatsapp-web"
+    "reddit"
+    "spotify-web"
+    "wikipedia"
+    "youtube"
+  ];
 in
   pkgs.stdenvNoCC.mkDerivation {
     name = "catppuccin-userstyles";
@@ -53,7 +68,7 @@ in
       less
     ];
     buildPhase = ''
-      for file in styles/{google,github,youtube,wikipedia,duckduckgo,nixos-*,chatgpt,npm,ollama,spotify-web}/catppuccin.user.less; do
+      for file in styles/{${userStyles}}/catppuccin.user.less; do
         (echo "${lib.strings.concatMapStrings (x: ";" + x) (lib.attrsets.mapAttrsToList (k: v: "@${k}: ${toString v};") vars)}" && cat $file) | ${pkgs.nodePackages_latest.less}/lib/node_modules/.bin/lessc - >> userstyles.css
       done
 

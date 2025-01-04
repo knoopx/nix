@@ -3,9 +3,16 @@
     stateVersion = "25.05";
   };
 
+  home.file."run.sh" = {
+    executable = true;
+    text = ''
+      echo $0
+    '';
+  };
+
   home.file."roms/test/metadata.txt".text = ''
     collection: Test
-    launch: /etc/profiles/per-user/${config.home.username}/bin/retroarch -L /etc/profiles/per-user/${config.home.username}/lib/retroarch/cores/flycast_libretro.so {file.path}
+    launch: ${config.home.homeDirectory}/run.sh {file.path}
 
     game: Test
     file: test.txt

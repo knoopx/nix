@@ -8,7 +8,7 @@
     gameId,
     sha256,
   }:
-    pkgs.stdenv.mkDerivation {
+    pkgs.stdenvNoCC.mkDerivation {
       name = "${pname}.desktop";
 
       nativeBuildInputs = with pkgs; [

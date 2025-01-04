@@ -62,17 +62,6 @@
           # panda3ds
         ]
     );
-
-    retool = pkgs.retool.overrideAttrs (origAttrs: {
-      postFixup =
-        origAttrs.postFixup
-        + ''
-          ln -s ${config.home.homeDirectory}/.config/retool $out/bin/config
-          ln -s ${config.home.homeDirectory}/.local/share/retool/datafile.dtd $out/bin/datafile.dtd
-          ln -s ${config.home.homeDirectory}/.local/share/retool/clonelists $out/bin/clonelists
-          ln -s ${config.home.homeDirectory}/.local/share/retool/metadata $out/bin/metadata
-        '';
-    });
   };
 
   launchers = with pkgs; [
@@ -115,20 +104,21 @@
     # alvr
     # protonup
     # wineWowPackages.waylandFull
-    # nsz
+    nsz
     # umu
+    wine
+    citron-emu
     # gamescope
     # gamescope-session
     # opengamepadui
     mame-tools
     nstool
-    custom.retool
-    launchbox-metadata
-    libretro-db_tool
-    libretro-metadata
-    libretro-core-info
   ];
 in {
+  imports = [
+    ./emulation
+  ];
+
   home.packages = launchers ++ emulators ++ games ++ tools;
 
   xdg.configFile."pegasus-frontend/themes/gameOS" = {

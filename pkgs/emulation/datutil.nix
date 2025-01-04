@@ -1,13 +1,13 @@
 {
   pkgs,
-  stdenv,
+  stdenvNoCC,
   ...
 }: let
   pname = "datutil";
   version = "2.46";
   name = "${pname}-${version}";
 in
-  stdenv.mkDerivation
+  stdenvNoCC.mkDerivation
   {
     inherit name;
     dontUnpack = true;

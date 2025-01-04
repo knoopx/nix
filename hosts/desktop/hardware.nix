@@ -2,7 +2,6 @@ _: {
   hardware = {
     ksm.enable = true;
     cpu.intel.updateMicrocode = true;
-    pulseaudio.enable = false;
 
     bluetooth = {
       enable = false;

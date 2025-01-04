@@ -3,9 +3,8 @@
   lib,
   ...
 }: {
-  systemd.services.plex.serviceConfig.ProtectHome = lib.mkForce false;
-
   services = {
+    pulseaudio.enable = false;
     fstrim.enable = true;
     btrfs.autoScrub.enable = true;
 
@@ -61,5 +60,11 @@
       group = "wheel";
       user = defaults.username;
     };
+  };
+
+  systemd.services.plex.serviceConfig = {
+    KillSignal = lib.mkForce "SIGKILL";
+    TimeoutStopSec = 10;
+    ProtectHome = lib.mkForce false;
   };
 }

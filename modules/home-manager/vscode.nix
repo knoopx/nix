@@ -181,7 +181,29 @@
         };
 
         "workbench.colorCustomizations" = {
-          "[Stylix]" = {
+          # https://code.visualstudio.com/api/references/theme-color
+          "[Stylix]" = with defaults.colorScheme.palette; {
+            "activityBar.border" = "#${base02}";
+            "checkbox.border" = "#${base02}";
+            "commandCenter.border" = "#${base02}";
+            "commandCenter.inactiveBorder" = "#${base02}";
+            "editorWidget.border" = "#${base02}";
+            "panel.border" = "#${base02}";
+            "panelSection.border" = "#${base02}";
+            "panelSectionHeader.border" = "#${base02}";
+            "panelStickyScroll.border" = "#${base02}";
+            "panelTitle.border" = "#${base02}";
+            "sideBar.border" = "#${base02}";
+            "statusBar.border" = "#${base02}";
+            # "statusBar.background" = "#${base0E}";
+            # "statusBar.foreground" = "#${base02}";
+            # "statusBar.debuggingBorder" = "#${base02}";
+            # "statusBar.noFolderBorder" = "#${base02}";
+            "tab.border" = "#${base02}";
+            "titleBar.border" = "#${base02}";
+            "editorGroup.border" = "#${base02}";
+            "editorGroupHeader.tabsBorder" = "#${base02}";
+            "editorGroupHeader.border" = "#${base02}";
           };
         };
 
@@ -189,112 +211,6 @@
         "qalc.output.precision" = 0;
         "qalc.output.lowerExponentBound" = -4;
       };
-    };
-
-    fish = {
-      enable = true;
-
-      # bind \cf __fzf_find_file
-      # bind \co __fzf_open
-      # bind \cr __fzf_reverse_isearch
-
-      # bind \cs fzf-launcher
-      # bind \es fzf-silverbullet # alt-s
-      # bind \ew yazi # alt-w
-      shellAliases = {
-        ollamark = "$HOME/Projects/knoopx/ollamark/src/ollamark.tsx";
-        codestral = "ollamark -t 0.3 --model codestral";
-        nemo = "ollamark -t 0.3 --model mistral-nemo";
-        llama3 = "ollamark -t 0.3 --model llama3";
-      };
-
-      shellAbbrs = {
-        ns = "nix-shell --command fish";
-        nu = "nh os switch -u ~/.dotfiles/";
-        dc = "docker-compose";
-        ls = "eza -lah";
-        pbpaste = "fish_clipboard_paste";
-        pbcopy = "fish_clipboard_copy";
-      };
-
-      interactiveShellInit = ''
-        set fish_greeting
-
-        set -gx OPENAI_API_BASE "http://127.0.0.1:11434/v1"
-        set -gx OPENAI_API_KEY ollama
-
-        set -gx OLLAMA_API_BASE "http://127.0.0.1:11434"
-
-        fish_add_path -g "$HOME/.bun/bin"
-        fish_add_path -g "$HOME/.cargo/bin:"
-        fish_add_path -g "$HOME/.local/bin/"
-        fish_add_path -g "$HOME/.local/share/gem/ruby/3.1.0/bin/"
-        fish_add_path -g "$HOME/bin/"
-        fish_add_path -g "$HOME/go/bin"
-
-        set -x LD_LIBRARY_PATH "/run/opengl-driver/lib/:$NIX_LD_LIBRARY_PATH"
-        set -gx TRITON_LIBCUDA_PATH /run/opengl-driver/lib/
-      '';
-    };
-
-    chromium = {
-      enable = false;
-      package = pkgs.chromium.override {
-        commandLineArgs = [
-          # "--disable-features=WaylandFractionalScaleV1"
-          "--hide-crashed-bubble"
-          "--hide-fullscreen-exit-ui"
-          "--hide-sidepanel-button"
-          "--remove-tabsearch-button"
-          "--show-avatar-button=never"
-          "--force-dark-mode"
-          "--no-default-browser-check"
-          "--gtk-version=4"
-          "--enable-gpu-rasterization"
-          "--enable-oop-rasterization"
-          "--enable-zero-copy"
-          "--ignore-gpu-blocklist"
-          "--enable-features=VaapiVideoDecoder"
-          "--password-store=gnome"
-          "--enable-hardware-overlays"
-          "--hide-tab-close-buttons"
-          "--remove-grab-handle"
-          "--remove-tabsearch-button"
-        ];
-      };
-
-      extensions = [
-        "chklaanhfefbnpoihckbnefhakgolnmc" # JSONView
-        "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
-        "fihnjjcciajhdojfnbdddfaoknhalnja" # I don't care about cookies
-        "opokoaglpekkimldnlggpoagmjegichg" # ViolentMonkey
-        # {
-        #   id = "dcpihecpambacapedldabdbpakmachpb";
-        #   # updateUrl = "https://raw.githubusercontent.com/iamadamdev/bypass-paywalls-chrome/master/src/updates/updates.xml";
-        # }
-      ];
-
-      dictionaries = [
-        pkgs.hunspellDictsChromium.en_US
-      ];
-
-      # homepageLocation = "about:blank";
-      # browserConfig = {
-      #   CloudPrintSubmitEnabled = false;
-      #   EnableMediaRouter = false;
-      #   HideWebStoreIcon = true;
-      #   MetricsReportingEnabled = false;
-      #   NewTabPageLocation = "about:blank";
-      #   PasswordManagerEnabled = true;
-      #   RestoreOnStartup = 1; # 5 = Open New Tab Page 1 = Restore the last session 4 = Open a list of URLs
-      #   SpellcheckEnabled = true;
-      #   SpellcheckLanguage = ["lt" "en-US"];
-      #   WelcomePageOnOSUpgradeEnabled = false;
-      # };
-    };
-
-    kitty = {
-      enable = true;
     };
   };
 }

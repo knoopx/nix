@@ -1,19 +1,18 @@
 {
   stdenv,
+  stdenvNoCC,
   pkgs,
   unzip,
   autoPatchelfHook,
   makeDesktopItem,
-  copyDesktopItems,
   SDL2,
   openalSoft,
-  symlinkJoin,
 }: let
   name = "Super Meat Boy";
   pname = "supermeatboy";
   version = "06072012";
 
-  drv = stdenv.mkDerivation rec {
+  drv = stdenvNoCC.mkDerivation rec {
     inherit name pname version;
 
     src = fetchTree {

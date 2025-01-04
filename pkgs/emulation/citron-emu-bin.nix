@@ -1,5 +1,5 @@
 {pkgs, ...}:
-pkgs.stdenv.mkDerivation
+pkgs.stdenvNoCC.mkDerivation
 rec {
   pname = "citron-emu";
   version = "nightly-20241208_091045";

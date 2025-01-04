@@ -1,6 +1,6 @@
 {
   lib,
-  stdenv,
+  stdenvNoCC,
   autoPatchelfHook,
   copyDesktopItems,
   lrzip,
@@ -23,7 +23,7 @@
     icon = pname;
   };
 in
-  stdenv.mkDerivation rec {
+  stdenvNoCC.mkDerivation rec {
     inherit pname version;
 
     src = fetchTarball {

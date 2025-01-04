@@ -24,13 +24,20 @@
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.home-manager.follows = "home-manager";
 
-    nix-gaming.url = "github:fufexan/nix-gaming";
-    nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
+    # nix-gaming.url = "github:fufexan/nix-gaming";
+    # nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
 
     ghostty.url = "github:ghostty-org/ghostty";
 
     jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
     jovian.inputs.nixpkgs.follows = "nixpkgs";
+
+    umu-launcher.url = "github:Open-Wine-Components/umu-launcher?dir=packaging/nix";
+    umu-launcher.inputs.nixpkgs.follows = "nixpkgs";
+
+    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
+    # firefox-addons.inputs.flake-utils.follows = "flake-utils";
     # lix-module = {
     #   url = "git+https://git.lix.systems/lix-project/nixos-module?ref=stable";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -45,9 +52,11 @@
     nix-flatpak,
     home-manager,
     # lix-module,
-    nix-gaming,
+    # nix-gaming,
+    umu-launcher,
     ghostty,
     jovian,
+    firefox-addons,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -69,7 +78,11 @@
       {
         nixpkgs.overlays = [
           (self: super: ghostty.packages.x86_64-linux)
-          (self: super: nix-gaming.packages.x86_64-linux)
+          (self: super: umu-launcher.packages.x86_64-linux)
+          # (self: super: nix-gaming.packages.x86_64-linux)
+          (
+            self: super: {firefox-addons = firefox-addons.packages.x86_64-linux;}
+          )
           (
             self: super: (pkgs.callPackage ./pkgs/default.nix {
               pkgs = super;
@@ -123,11 +136,11 @@
                 users.jegos = import ./home/jegos.nix;
               };
             }
-            {
-              nixpkgs.overlays = [
-                (self: super: nix-gaming.packages.x86_64-linux)
-              ];
-            }
+            # {
+            #   nixpkgs.overlays = [
+            #     (self: super: nix-gaming.packages.x86_64-linux)
+            #   ];
+            # }
             ./hosts/jegos-vm.nix
             inputs.stylix.nixosModules.stylix
             inputs.home-manager.nixosModules.home-manager

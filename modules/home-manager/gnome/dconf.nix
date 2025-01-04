@@ -15,7 +15,7 @@
       "header-icon"
     ];
     colors = {
-      color1 = "rgb(${inputs.nix-colors.lib-core.conversions.hexToRGBString "," defaults.colorScheme.palette.base0D})";
+      color1 = "rgb(${inputs.nix-colors.lib-core.conversions.hexToRGBString "," defaults.colorScheme.palette.base07})";
       color2 = "rgb(${inputs.nix-colors.lib-core.conversions.hexToRGBString "," defaults.colorScheme.palette.base02})";
       alert = "rgb(${inputs.nix-colors.lib-core.conversions.hexToRGBString "," defaults.colorScheme.palette.base08})";
     };
@@ -44,7 +44,6 @@ in {
         "whatsapp.desktop"
         "spotify.desktop"
         "home-assistant.desktop"
-        "kitty.desktop"
       ];
       enabled-extensions = map (extension: extension.extensionUuid) defaults.gnome.extensions;
     };

@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  tzdb_to_nx = pkgs.stdenv.mkDerivation rec {
+  tzdb_to_nx = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "tzdb_to_nx";
     version = "221202";
     src = pkgs.fetchurl {
@@ -14,7 +14,7 @@
 in
   pkgs.stdenv.mkDerivation rec {
     pname = "citron-emu";
-    version = "8868068eb26f25c727bf9c5354477ad2a8514701";
+    version = "e11c6c03ec71d9ee0194c3da370aeba98a59c1f9";
 
     src =
       fetchGit
@@ -37,7 +37,7 @@ in
       git
       vulkan-headers
       vulkan-utility-libraries
-      boost186
+      boost183
       autoconf
       automake
       fmt
@@ -69,10 +69,9 @@ in
       "-DCITRON_TESTS=OFF"
     ];
 
+    #substituteInPlace CMakeLists.txt --replace-fail "VulkanHeaders 1.3.301" "VulkanHeaders 1.3"
     preConfigure = ''
-      substituteInPlace CMakeLists.txt --replace-fail "VulkanHeaders 1.3.301" "VulkanHeaders 1.3"
       substituteInPlace externals/nx_tzdb/CMakeLists.txt --replace-fail "set(CAN_BUILD_NX_TZDB true)" "set(CAN_BUILD_NX_TZDB false)"
-
       mkdir -p build/externals/nx_tzdb
       ln -s ${tzdb_to_nx} build/externals/nx_tzdb/nx_tzdb
     '';

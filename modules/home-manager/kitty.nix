@@ -1,5 +1,7 @@
 {defaults, ...}: {
   programs.kitty = {
+    enable = true;
+
     settings = {
       active_tab_font_style = "bold";
       confirm_os_window_close = 0;

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              {{#colors}}
+                {{key}}: "{{value}}",
+              {{/colors}}
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="min-h-screen p-6 bg-base01 text-base05 flex items-center">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="flex flex-col space-y-4">
+          <div class="bg-base00 rounded">
+            <div class="space-y-2 d ivide-y divide-base02">
+              <div class="flex flex-col bg-base00 rounded py-2 px-4">
+                <div class="text-lg">
+                  {{#weather.current.weather}}
+                  <span class="font-medium">{{main}}</span>
+                  &nbsp;
+                  <span class="text-sm opacity-80">{{description}}</span>
+                  {{/weather.current.weather}}
+                </div>
+                <div class="opacity-60">
+                  <span class="text-sm font-medium">{{weather.current.temp}}°C</span>
+                  &nbsp;
+                  <span class="text-xs opacity-80">
+                    feels like {{weather.current.feels_like}}°C
+                  </span>
+                </div>
+                <!-- <span
+                  >{{weather.current.sunrise}}&nbsp;-&nbsp;{{weather.current.sunset}}
+                </span> -->
+                <!-- <span>{{weather.current.pressure}}</span>
+                <span>{{weather.current.humidity}}</span> -->
+              </div>
+            </div>
+          </div>
+          <div class="bg-base00 rounded">
+            <div class="space-y-2 divide-y divide-base02">
+              {{#events}}
+              <div class="event-item px-4 py-2">
+                <h3 class="font-medium flex items-center">
+                  <span class="text-sm opacity-80">{{start_date}}</span>
+                  &nbsp;
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M5 8h14V6H5zm0 0V6zm0 14q-.825 0-1.412-.587T3 20V6q0-.825.588-1.412T5 4h1V2h2v2h8V2h2v2h1q.825 0 1.413.588T21 6v5.675q-.475-.225-.975-.375T19 11.075V10H5v10h6.3q.175.55.413 1.05t.562.95zm13 1q-2.075 0-3.537-1.463T13 18t1.463-3.537T18 13t3.538 1.463T23 18t-1.463 3.538T18 23m1.675-2.625l.7-.7L18.5 17.8V15h-1v3.2z"
+                    />
+                  </svg>
+                  &nbsp; {{{title}}}
+                </h3>
+              </div>
+              {{/events}}
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="bg-base00 rounded py-2 px-1">
+          <div class="space-y-2 divide-y divide-base02">
+            {{#inbox}}
+            <div class="inbox-item pl-4 py-2">
+              <h3 class="font-medium">{{{subject}}}</h3>
+              <p class="text-sm opacity-80">{{ sender }}</p>
+              <p class="text-xs opacity-60">{{ time }}</p>
+            </div>
+            {{/inbox}}
+          </div>
+        </div> -->
+
+        <!-- <img
+          class="rounded-xl"
+          src="https://imgs.xkcd.com/comics/skew_t_log_p.png"
+        /> -->
+
+        {{#feeds}}
+        <div class="bg-base00 rounded overflow-hidden">
+          <div class="font-medium bg-base02 px-4 py-2">{{title}}</div>
+          <div class="divide-y divide-base02 max-h-96 overflow-y-auto">
+            {{#items}}
+            <div class="text-sm px-4 py-2">
+              <a href="{{link}}" class="font-medium hover:text-base07">
+                {{{title}}}
+              </a>
+              <p class="text-xs opacity-60">{{author}}</p>
+            </div>
+            {{/items}}
+          </div>
+        </div>
+        {{/feeds}}
+      </div>
+    </div>
+  </body>
+</html>

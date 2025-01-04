@@ -10,8 +10,8 @@ pkgs.stdenvNoCC.mkDerivation {
 
   buildPhase = with colorScheme; ''
     replacements=(
-        "s/--gnome-accent:.*\$/--gnome-accent: #${base0D};/"
-        "s/--gnome-accent-bg:.*\$/--gnome-accent-bg: #${base0D};/"
+        "s/--gnome-accent:.*\$/--gnome-accent: #${base07};/"
+        "s/--gnome-accent-bg:.*\$/--gnome-accent-bg: #${base07};/"
         "s/--gnome-window-background:.*\$/--gnome-window-background: #${base00};/"
         "s/--gnome-window-color:.*\$/--gnome-window-color: #${base05};/"
         "s/--gnome-view-background:.*\$/--gnome-view-background: #${base00};/"

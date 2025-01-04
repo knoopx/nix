@@ -2,6 +2,7 @@
   pkgs,
   nix-colors,
 }: let
+  # open file:///etc/stylix/palette.html
   colorScheme =
     pkgs.lib.attrsets.recursiveUpdate
     nix-colors.colorSchemes.catppuccin-mocha
@@ -16,6 +17,11 @@ in {
   timeZone = "Europe/Madrid";
   defaultLocale = "en_US.UTF-8";
   region = "es_ES.UTF-8";
+
+  location = [
+    41.5094475
+    2.3846503
+  ];
 
   full-name = "Victor Martinez";
 
@@ -86,8 +92,32 @@ in {
       astra-monitor
       steal-my-focus-window
       # tailscale-qs
+      # blur-my-shell
+      #just-perfection
+      #undecorate
     ];
   };
 
   inherit colorScheme;
+
+  feeds = {
+    "Hacker News" = [
+      "https://hnrss.org/frontpage"
+      "https://hnrss.org/show"
+    ];
+
+    "Reddit" = [
+      "https://www.reddit.com/r/gnome/.rss"
+      "https://www.reddit.com/r/ElectricSkateboarding/.rss"
+      "https://www.reddit.com/r/NixOS/.rss"
+    ];
+
+    "GitHub Trending" = [
+      "https://mshibanami.github.io/GitHubTrendingRSS/daily/all.xml"
+      "https://mshibanami.github.io/GitHubTrendingRSS/daily/python.xml"
+      "https://mshibanami.github.io/GitHubTrendingRSS/daily/javascript.xml"
+      "https://mshibanami.github.io/GitHubTrendingRSS/daily/typescript.xml"
+      "https://mshibanami.github.io/GitHubTrendingRSS/daily/shell.xml"
+    ];
+  };
 }

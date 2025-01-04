@@ -18,7 +18,7 @@
     brotli
   ];
 in
-  pkgs.stdenv.mkDerivation
+  pkgs.stdenvNoCC.mkDerivation
   {
     inherit pname version src;
 

@@ -1,5 +1,5 @@
 {pkgs, ...}:
-pkgs.stdenv.mkDerivation rec {
+pkgs.stdenvNoCC.mkDerivation rec {
   pname = "nx_tzdb";
   version = "221202";
   src = pkgs.fetchurl {
