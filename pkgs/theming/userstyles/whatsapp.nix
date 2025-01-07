@@ -10,6 +10,6 @@ pkgs.writeTextFile {
         margin: 0;
         width: auto;
       }
-    };
+    }
   '';
 }

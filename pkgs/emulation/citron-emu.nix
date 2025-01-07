@@ -14,7 +14,7 @@
 in
   pkgs.stdenv.mkDerivation rec {
     pname = "citron-emu";
-    version = "e11c6c03ec71d9ee0194c3da370aeba98a59c1f9";
+    version = "dae1524eb59fac4b4ca0889d220d25e55eccfc84";
 
     src =
       fetchGit

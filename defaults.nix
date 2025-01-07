@@ -61,8 +61,6 @@ in {
     };
 
     emoji = {
-      # name = "Noto Color Emoji";
-      # package = pkgs.noto-fonts-color-emoji;
       name = "Twitter Color Emoji";
       package = pkgs.twitter-color-emoji;
     };
@@ -90,9 +88,6 @@ in {
       steal-my-focus-window
       useless-gaps
       # tailscale-qs
-      # blur-my-shell
-      #just-perfection
-      #undecorate
     ];
   };
 

@@ -37,26 +37,25 @@
     "whatsapp-web"
     "reddit"
     "spotify-web"
-    "wikipedia"
     "youtube"
+    "bsky"
+    # "wikipedia"
   ];
 in
   pkgs.stdenvNoCC.mkDerivation {
-    name = "catppuccin-userstyles";
+    name = "catppuccin.userstyle.css";
     src = pkgs.fetchFromGitHub {
       owner = "catppuccin";
       repo = "userstyles";
       rev = "958476784e42e7562d6ed527b6a48cf8620752ce";
       sha256 = "sha256-1HkIURfa+dkrKb8jF9U6fM+EsjuyulAAN0/Gxhumito=";
     };
-    buildInputs = with pkgs.nodePackages_latest; [
-      postcss
-      postcss-cli
-      less
-    ];
+    buildInputs = with pkgs; [lessc];
     buildPhase = ''
+      export NODE_PATH=${pkgs.nodePackages.less-plugin-clean-css}/lib/node_modules
+
       for file in styles/{${userStyles}}/catppuccin.user.less; do
-        (echo "${lib.strings.concatMapStrings (x: ";" + x) (lib.attrsets.mapAttrsToList (k: v: "@${k}: ${toString v};") vars)}" && cat $file) | ${pkgs.nodePackages_latest.less}/lib/node_modules/.bin/lessc - >> $out
+        (echo "${lib.strings.concatMapStrings (x: ";" + x) (lib.attrsets.mapAttrsToList (k: v: "@${k}: ${toString v};") vars)}" && cat $file) | lessc  --source-map-no-annotation --clean-css="-b --s0 --skip-rebase --skip-advanced --skip-aggressive-merging --skip-shorthand-compacting" - >> $out
       done
       substituteInPlace $out --replace-fail "Unsupported GitHub theme detected! Please switch to the default light/dark theme via the GitHub Appearance settings to get the best experience for the Catppuccin GitHub userstyle." ""
     '';

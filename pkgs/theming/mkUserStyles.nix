@@ -1,4 +1,8 @@
-{pkgs, ...}: colorScheme: let
+{
+  pkgs,
+  lib,
+  ...
+}: colorScheme: let
   telegram = pkgs.callPackage ./userstyles/telegram.nix {inherit colorScheme;};
   whatsapp = pkgs.callPackage ./userstyles/whatsapp.nix {};
   catppuccin = pkgs.callPackage ./userstyles/catppuccin.nix {};
@@ -15,18 +19,27 @@
       };
     '';
   };
+
+  userStyles = [
+    telegram
+    whatsapp
+  ];
 in
   pkgs.stdenvNoCC.mkDerivation {
-    name = "userstyles";
+    name = "userstyles.css";
     phases = ["buildPhase"];
     buildInputs = with pkgs.nodePackages_latest; [
       postcss
       postcss-cli
+      less
     ];
+
     buildPhase = ''
+      userStyles=(${lib.strings.escapeShellArgs userStyles})
+      userStyles=''${userStyles[@]}
+      # TODO: find some css checker
+      cat $userStyles | lessc - >> userstyles.css
       cat ${catppuccin} >> userstyles.css
-      cat ${telegram} >> userstyles.css
-      cat ${whatsapp} >> userstyles.css
-      postcss userstyles.css -u ${transform} -o $out
+      postcss --no-map userstyles.css -u ${transform} -o $out
     '';
   }
