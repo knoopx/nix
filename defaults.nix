@@ -88,6 +88,7 @@ in {
       panel-corners
       astra-monitor
       steal-my-focus-window
+      useless-gaps
       # tailscale-qs
       # blur-my-shell
       #just-perfection

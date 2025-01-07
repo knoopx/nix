@@ -1,12 +1,4 @@
 {pkgs, ...}: {
-  # brothers-a-tale-of-two-sons-remake = pkgs.callPackage ./games/brothers-a-tale-of-two-sons-remake.nix {};
-  # celeste = pkgs.callPackage ./games/celeste.nix {};
-  # driver-san-francisco = pkgs.callPackage ./games/driver-san-francisco.nix {};
-  # liftoff = pkgs.callPackage ./games/liftoff.nix {};
-  # supermeatboy = pkgs.callPackage ./games/supermeatboy.nix {};
-  # uncrashed = pkgs.callPackage ./games/uncrashed.nix {};
-  # worldofgoo = pkgs.callPackage ./games/worldofgoo.nix {};
-
   citron-emu = pkgs.callPackage ./emulation/citron-emu.nix {};
   datutil = pkgs.callPackage ./emulation/datutil.nix {};
   es-de = pkgs.callPackage ./emulation/es-de.nix {};
@@ -17,14 +9,19 @@
   sudachi = pkgs.callPackage ./emulation/sudachi {};
   wiiudownloader = pkgs.callPackage ./emulation/wiiudownloader.nix {};
 
-  lora-inspector = pkgs.callPackage ./cli/lora-inspector.nix {};
-
-  aide = pkgs.callPackage ./apps/aide.nix {};
   nfoview = pkgs.callPackage ./apps/nfoview.nix {};
 
   mkUserStyles = pkgs.callPackage ./theming/mkUserStyles.nix {};
   mkStylixFirefoxGnomeTheme = pkgs.callPackage ./theming/mkStylixFirefoxGnomeTheme.nix {};
   mkStylixMemosPkg = pkgs.callPackage ./theming/mkStylixMemosPkg.nix {};
+
+  # brothers-a-tale-of-two-sons-remake = pkgs.callPackage ./games/brothers-a-tale-of-two-sons-remake.nix {};
+  # celeste = pkgs.callPackage ./games/celeste.nix {};
+  # driver-san-francisco = pkgs.callPackage ./games/driver-san-francisco.nix {};
+  # liftoff = pkgs.callPackage ./games/liftoff.nix {};
+  # supermeatboy = pkgs.callPackage ./games/supermeatboy.nix {};
+  # uncrashed = pkgs.callPackage ./games/uncrashed.nix {};
+  # worldofgoo = pkgs.callPackage ./games/worldofgoo.nix {};
 
   factorio =
     pkgs.factorio.overrideAttrs
@@ -46,17 +43,4 @@
         sha256 = "sha256:047h66lp6bg92njsss0l5a9pipd9v578cxqrdf6aql54z2wsp9hq";
       };
     };
-
-  code-cursor =
-    pkgs
-    .code-cursor
-    .overrideAttrs
-    (oldAttr: {
-      installPhase =
-        oldAttr.installPhase
-        + ''
-          rm $out/bin/cursor
-          mv $out/bin/.cursor-wrapped $out/bin/cursor
-        '';
-    });
 }

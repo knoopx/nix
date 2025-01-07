@@ -5,6 +5,8 @@
 (_)\_,_/  \___/\__/ /_/   /_/  /_/  \__/ /___/
 ```
 
+![Screenshot](screenshot.png)
+
 ## Usage
 
 #### install os
@@ -76,6 +78,6 @@ curl -sL "https://monitoring.nixos.org/prometheus/api/v1/query?query=channel_rev
 
 ## reference
 
-https://search.nixos.org/options
-https://home-manager-options.extranix.com/
-https://noogle.dev/
+* https://search.nixos.org/options
+* https://home-manager-options.extranix.com/
+* https://noogle.dev/

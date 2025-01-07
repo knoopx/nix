@@ -105,7 +105,7 @@
     # protonup
     # wineWowPackages.waylandFull
     nsz
-    # umu
+    umu
     wine
     citron-emu
     # gamescope

@@ -9,7 +9,6 @@
   theme = pkgs.mkStylixFirefoxGnomeTheme defaults.colorScheme.palette;
 in {
   imports = [
-    # ./firefox-homepage
     ./glance
   ];
 
@@ -142,51 +141,40 @@ in {
         clearurls
       ];
 
+      extraConfig = builtins.readFile "${theme}/configuration/user.js";
+
+      userChrome = ''
+        @import "${theme}/userChrome.css";
+      '';
+
+      userContent = ''
+        @import "${theme}/userContent.css";
+        ${builtins.readFile "${pkgs.mkUserStyles defaults.colorScheme.palette}"}
+      '';
+
       settings = {
-        "browser.startup.homepage" = "http://${config.services.glance.settings.server.host}:${builtins.toString config.services.glance.settings.server.port}";
-        # "browser.startup.homepage" = "file://${config.firefox-homepage.path}";
-
-        "browser.newtabpage.pinned" = [
-          {
-            title = "NixOS";
-            url = "https://nixos.org";
-          }
-        ];
-
-        # "sidebar.verticalTabs" = false;
-        # "sidebar.main.tools" = "";
-        # "sidebar.visibility" = "hidden";
-
-        # "browser.startup.blankWindow" = false;
-        # "layout.css.has-selector.enabled" = true;
-        # "browser.toolbars.bookmarks.visibility" = "never";
-        "widget.gtk.rounded-bottom-corners.enabled" = true;
-
-        # "browser.tabs.drawInTitlebar" = true;
-        "browser.newtabpage.enhanced" = true;
-        # "ui.systemUsesDarkTheme" = 2;
-
-        "browser.newtab.privateAllowed" = true;
-        "extensions.htmlaboutaddons.recommendations.enabled" = false;
-        "devtools.chrome.enabled" = true;
-        "browser.urlbar.suggest.calculator" = true;
-        "browser.urlbar.unitConversion.enabled" = true;
-        "dom.security.https_first" = true;
-        "layers.acceleration.force-enabled" = true;
-        "gfx.webrender.all" = true;
         "browser.newtab.preload" = true;
-
-        "browser.newtabpage.enabled" = false;
+        "browser.newtab.privateAllowed" = true;
         "browser.newtabpage.activity-stream.feeds.telemetry" = false;
         "browser.newtabpage.activity-stream.telemetry" = false;
+        "browser.newtabpage.enabled" = false;
+        "browser.newtabpage.enhanced" = true;
         "browser.ping-centre.telemetry" = false;
+        "browser.startup.homepage" = "http://${config.services.glance.settings.server.host}:${builtins.toString config.services.glance.settings.server.port}";
         "browser.tabs.closeWindowWithLastTab" = true;
+        "browser.urlbar.suggest.calculator" = true;
+        "browser.urlbar.unitConversion.enabled" = true;
         "datareporting.healthreport.service.enabled" = false;
         "datareporting.healthreport.uploadEnabled" = false;
         "datareporting.policy.dataSubmissionEnabled" = false;
         "datareporting.sessions.current.clean" = true;
+        "devtools.chrome.enabled" = true;
         "devtools.onboarding.telemetry.logged" = false;
+        "dom.security.https_first" = true;
         "extensions.autoDisableScopes" = 0;
+        "extensions.htmlaboutaddons.recommendations.enabled" = false;
+        "gfx.webrender.all" = true;
+        "layers.acceleration.force-enabled" = true;
         "svg.context-properties.content.enabled" = true;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         "toolkit.telemetry.archive.enabled" = false;
@@ -203,17 +191,8 @@ in {
         "toolkit.telemetry.unified" = false;
         "toolkit.telemetry.unifiedIsOptIn" = false;
         "toolkit.telemetry.updatePing.enabled" = false;
+        "widget.gtk.rounded-bottom-corners.enabled" = true;
       };
-      extraConfig = builtins.readFile "${theme}/configuration/user.js";
-
-      userChrome = ''
-        @import "${theme}/userChrome.css";
-      '';
-
-      userContent = ''
-        @import "${theme}/userContent.css";
-        ${builtins.readFile "${pkgs.mkUserStyles defaults.colorScheme.palette}"}
-      '';
     };
   };
 }
