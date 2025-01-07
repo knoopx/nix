@@ -92,6 +92,24 @@
         hash = "sha256-oZFuwBTOffmBTYKn9LSfIulR5gjOZ1gJIkJcgRH2ezg=";
       };
     };
+
+    fbneo = pkgs.stdenvNoCC.mkDerivation {
+      name = "emulation-metadata-fbneo";
+
+      phases = ["installPhase"];
+
+      installPhase = ''
+        mkdir -p $out/share/emulation-metadata/fbneo
+        cp -r $src/dats/* $out/share/emulation-metadata/fbneo
+      '';
+
+      src = pkgs.fetchFromGitHub {
+        owner = "libretro";
+        repo = "FBNeo";
+        rev = "27f594be691e7a7fbb9db9d4a5d0dc12219e4fa4";
+        hash = "sha256-BjsEghQvaGyA+zjt7mWv8L6UBvIlW1GDgApEwdKiD2o=";
+      };
+    };
   };
 
   systems = pkgs.stdenvNoCC.mkDerivation {
@@ -156,6 +174,8 @@ in {
           # pegasus-metadata
           metadata.es-de
           metadata.launchbox
+          metadata.libretro
+          metadata.fbneo
           systems
           # retool
           # launchbox-metadata

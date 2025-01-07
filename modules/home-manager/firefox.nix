@@ -9,7 +9,8 @@
   theme = pkgs.mkStylixFirefoxGnomeTheme defaults.colorScheme.palette;
 in {
   imports = [
-    ./firefox-homepage
+    # ./firefox-homepage
+    ./glance
   ];
 
   programs.firefox = {
@@ -138,12 +139,12 @@ in {
         hover-zoom-plus
         sponsorblock
         web-archives
-        tree-style-tab
         clearurls
       ];
 
       settings = {
-        "browser.startup.homepage" = "file://${config.firefox-homepage.path}";
+        "browser.startup.homepage" = "http://${config.services.glance.settings.server.host}:${builtins.toString config.services.glance.settings.server.port}";
+        # "browser.startup.homepage" = "file://${config.firefox-homepage.path}";
 
         "browser.newtabpage.pinned" = [
           {
@@ -211,7 +212,7 @@ in {
 
       userContent = ''
         @import "${theme}/userContent.css";
-        ${builtins.readFile "${pkgs.catppuccin-userstyles}/userstyles.css"}
+        ${builtins.readFile "${pkgs.mkUserStyles defaults.colorScheme.palette}"}
       '';
     };
   };

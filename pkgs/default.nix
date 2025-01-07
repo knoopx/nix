@@ -1,26 +1,30 @@
 {pkgs, ...}: {
-  lora-inspector = pkgs.callPackage ./cli/lora-inspector.nix {};
-  aide = pkgs.callPackage ./apps/aide.nix {};
-  celeste = pkgs.callPackage ./games/celeste.nix {};
+  # brothers-a-tale-of-two-sons-remake = pkgs.callPackage ./games/brothers-a-tale-of-two-sons-remake.nix {};
+  # celeste = pkgs.callPackage ./games/celeste.nix {};
+  # driver-san-francisco = pkgs.callPackage ./games/driver-san-francisco.nix {};
+  # liftoff = pkgs.callPackage ./games/liftoff.nix {};
+  # supermeatboy = pkgs.callPackage ./games/supermeatboy.nix {};
+  # uncrashed = pkgs.callPackage ./games/uncrashed.nix {};
+  # worldofgoo = pkgs.callPackage ./games/worldofgoo.nix {};
+
+  citron-emu = pkgs.callPackage ./emulation/citron-emu.nix {};
   datutil = pkgs.callPackage ./emulation/datutil.nix {};
-  driver-san-francisco = pkgs.callPackage ./games/driver-san-francisco.nix {};
   es-de = pkgs.callPackage ./emulation/es-de.nix {};
-  liftoff = pkgs.callPackage ./games/liftoff.nix {};
-  nfoview = pkgs.callPackage ./apps/nfoview.nix {};
+  hydra-launcher = pkgs.callPackage ./emulation/hydra-launcher.nix {};
   ryujinx = pkgs.callPackage ./emulation/ryujinx {};
   shadps4 = pkgs.callPackage ./emulation/shadps4.nix {};
-  sudachi = pkgs.callPackage ./emulation/sudachi {};
-  citron-emu = pkgs.callPackage ./emulation/citron-emu.nix {};
-  supermeatboy = pkgs.callPackage ./games/supermeatboy.nix {};
-  uncrashed = pkgs.callPackage ./games/uncrashed.nix {};
-  worldofgoo = pkgs.callPackage ./games/worldofgoo.nix {};
-  brothers-a-tale-of-two-sons-remake = pkgs.callPackage ./games/brothers-a-tale-of-two-sons-remake.nix {};
   skyscraper = pkgs.callPackage ./emulation/skyscraper.nix {};
+  sudachi = pkgs.callPackage ./emulation/sudachi {};
   wiiudownloader = pkgs.callPackage ./emulation/wiiudownloader.nix {};
-  hydra-launcher = pkgs.callPackage ./emulation/hydra-launcher.nix {};
-  catppuccin-userstyles = pkgs.callPackage ./theming/catppuccin-userstyles.nix {};
 
+  lora-inspector = pkgs.callPackage ./cli/lora-inspector.nix {};
+
+  aide = pkgs.callPackage ./apps/aide.nix {};
+  nfoview = pkgs.callPackage ./apps/nfoview.nix {};
+
+  mkUserStyles = pkgs.callPackage ./theming/mkUserStyles.nix {};
   mkStylixFirefoxGnomeTheme = pkgs.callPackage ./theming/mkStylixFirefoxGnomeTheme.nix {};
+  mkStylixMemosPkg = pkgs.callPackage ./theming/mkStylixMemosPkg.nix {};
 
   factorio =
     pkgs.factorio.overrideAttrs

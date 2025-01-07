@@ -3,23 +3,10 @@
   lib,
   ...
 }: let
-  transform = pkgs.writeTextFile {
-    name = "catppuccin-userstyles-postcss-transform.js";
-    text = ''
-      module.exports = (options = {}) => {
-        return (css) => {
-          css.walkDecls((decl) => {
-            decl.important = true;
-          });
-        };
-      };
-    '';
-  };
-
   vars = {
     lightFlavor = "mocha";
     darkFlavor = "mocha";
-    accentColor = "rosewater";
+    accentColor = "lavender";
     contrastColor = "@accentColor";
     highlightColor = "@accentColor";
     graphUseAccentColor = 1;
@@ -69,11 +56,8 @@ in
     ];
     buildPhase = ''
       for file in styles/{${userStyles}}/catppuccin.user.less; do
-        (echo "${lib.strings.concatMapStrings (x: ";" + x) (lib.attrsets.mapAttrsToList (k: v: "@${k}: ${toString v};") vars)}" && cat $file) | ${pkgs.nodePackages_latest.less}/lib/node_modules/.bin/lessc - >> userstyles.css
+        (echo "${lib.strings.concatMapStrings (x: ";" + x) (lib.attrsets.mapAttrsToList (k: v: "@${k}: ${toString v};") vars)}" && cat $file) | ${pkgs.nodePackages_latest.less}/lib/node_modules/.bin/lessc - >> $out
       done
-
-      mkdir -p $out
-      substituteInPlace userstyles.css --replace-fail "Unsupported GitHub theme detected! Please switch to the default light/dark theme via the GitHub Appearance settings to get the best experience for the Catppuccin GitHub userstyle." ""
-      postcss userstyles.css -u ${transform} -o $out/userstyles.css
+      substituteInPlace $out --replace-fail "Unsupported GitHub theme detected! Please switch to the default light/dark theme via the GitHub Appearance settings to get the best experience for the Catppuccin GitHub userstyle." ""
     '';
   }

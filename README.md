@@ -74,6 +74,8 @@ nix flake lock --override-input nixpkgs github:NixOS/nixpkgs/revision
 curl -sL "https://monitoring.nixos.org/prometheus/api/v1/query?query=channel_revision" | jq -r ".data.result[] | select(.metric.channel==\"nixos-unstable\") | .metric.revision"
 ```
 
-## helpful resources
+## reference
 
+https://search.nixos.org/options
+https://home-manager-options.extranix.com/
 https://noogle.dev/

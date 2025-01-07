@@ -9,7 +9,7 @@ _: {
     ./programs.nix
     ./services.nix
     ./system.nix
-    ./theming.nix
+    ./theming
     ./users.nix
   ];
 

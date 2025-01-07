@@ -5,7 +5,7 @@
 }: let
 in {
   imports = [
-    ../modules/nixos/headless/theming.nix
+    ../modules/nixos/headless/theming
   ];
 
   environment.defaultPackages = [];

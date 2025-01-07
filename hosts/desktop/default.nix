@@ -11,6 +11,8 @@ in {
     ../../modules/nixos/containers/open-webui.nix
     ../../modules/nixos/containers/watchtower.nix
     ../../modules/nixos/containers/silverbullet.nix
+    ../../modules/nixos/containers/memos.nix
+    # ../../modules/nixos/containers/nextcloud.nix
     # ../../modules/nixos/containers/baserow.nix
     # ../../modules/nixos/containers/eidos.nix
 

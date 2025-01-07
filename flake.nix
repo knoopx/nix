@@ -27,10 +27,10 @@
     # nix-gaming.url = "github:fufexan/nix-gaming";
     # nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
 
-    ghostty.url = "github:ghostty-org/ghostty";
+    # ghostty.url = "github:ghostty-org/ghostty";
 
-    jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
-    jovian.inputs.nixpkgs.follows = "nixpkgs";
+    # jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
+    # jovian.inputs.nixpkgs.follows = "nixpkgs";
 
     umu-launcher.url = "github:Open-Wine-Components/umu-launcher?dir=packaging/nix";
     umu-launcher.inputs.nixpkgs.follows = "nixpkgs";
@@ -54,8 +54,8 @@
     # lix-module,
     # nix-gaming,
     umu-launcher,
-    ghostty,
-    jovian,
+    # ghostty,
+    # jovian,
     firefox-addons,
     ...
   } @ inputs: let
@@ -77,7 +77,7 @@
     nixosModules = [
       {
         nixpkgs.overlays = [
-          (self: super: ghostty.packages.x86_64-linux)
+          # (self: super: ghostty.packages.x86_64-linux)
           (self: super: umu-launcher.packages.x86_64-linux)
           # (self: super: nix-gaming.packages.x86_64-linux)
           (
@@ -96,7 +96,7 @@
       inputs.home-manager.nixosModules.home-manager
       inputs.stylix.nixosModules.stylix
       nix-flatpak.nixosModules.nix-flatpak
-      jovian.nixosModules.jovian
+      # jovian.nixosModules.jovian
     ];
   in {
     packages.x86_64-linux = pkgs.callPackage ./pkgs/default.nix {

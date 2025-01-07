@@ -49,7 +49,7 @@
     fclones-gui
     file-roller
     ghidra-bin
-    ghostty
+    # ghostty
     gitg
     krita
     livecaptions
@@ -118,6 +118,7 @@
     xsv
     visidata
     innoextract
+    ast-grep
   ];
 in {
   home = {
