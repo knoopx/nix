@@ -8,6 +8,8 @@
   root = "/mnt/storage/memos";
   pkg = pkgs.mkStylixMemosPkg defaults.colorScheme.palette;
 in {
+  # TODO: https://github.com/usememos/telegram-integration
+
   virtualisation.oci-containers.containers = {
     "${name}" = {
       autoStart = true;

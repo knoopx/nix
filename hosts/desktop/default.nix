@@ -30,7 +30,7 @@ in {
     ./hardware.nix
     ./nvidia.nix
     ./packages.nix
-    ./flatpak.nix
+    # ./flatpak.nix
     ./services.nix
     ./virtualisation.nix
   ];

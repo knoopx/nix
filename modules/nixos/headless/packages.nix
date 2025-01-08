@@ -48,6 +48,7 @@
     zstd
 
     # neomutt
+    ffmpeg
     asciinema
     bat
     ccache

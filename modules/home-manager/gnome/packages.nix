@@ -83,7 +83,6 @@
     dwarfs
     fclones
     fdupes
-    ffmpeg
     fq
     htmlq
     jq

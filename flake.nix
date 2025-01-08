@@ -9,7 +9,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
+    # nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     # nixpkgs-update.url = "github:ryantm/nixpkgs-update";
 
@@ -49,7 +49,7 @@
     stylix,
     nix-colors,
     nixpkgs,
-    nix-flatpak,
+    # nix-flatpak,
     home-manager,
     # lix-module,
     # nix-gaming,
@@ -63,7 +63,7 @@
     pkgs = nixpkgs.legacyPackages.x86_64-linux;
     defaults = import ./defaults.nix {inherit pkgs nix-colors;};
 
-    mylib = pkgs.callPackage ./lib {};
+    mylib = pkgs.callPackage ./lib {inherit inputs;};
     specialArgs = {inherit inputs outputs defaults stylix;} // mylib;
 
     homeManagerConfig = {
@@ -95,7 +95,7 @@
       # lix-module.nixosModules.default
       inputs.home-manager.nixosModules.home-manager
       inputs.stylix.nixosModules.stylix
-      nix-flatpak.nixosModules.nix-flatpak
+      # nix-flatpak.nixosModules.nix-flatpak
       # jovian.nixosModules.jovian
     ];
   in {

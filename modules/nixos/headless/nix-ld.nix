@@ -21,6 +21,7 @@
       dbus-glib
       expat
       ffmpeg
+      ffmpeg_6 # torchvision
       flac
       fontconfig
       freeglut
