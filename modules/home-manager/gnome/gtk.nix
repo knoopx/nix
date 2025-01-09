@@ -1,34 +1,15 @@
 {
   pkgs,
   config,
+  defaults,
   ...
-}: let
-  adwaita-colors = pkgs.fetchFromGitHub {
-    owner = "dpejoh";
-    repo = "Adwaita-colors";
-    rev = "v2.4.1";
-    sha256 = "sha256-M5dFb759sXfpD9/gQVF3sngyW4WdSgy4usInds9VIWk=";
-  };
-in {
+}: {
+  # stylix.targets.gnome.enable = false;
+
   gtk = {
     iconTheme = {
-      package = pkgs.morewaita-icon-theme.overrideAttrs (prev: {
-        postInstall = ''
-          cp -r ${adwaita-colors}/Adwaita-blue/* $out/share/icons/MoreWaita
-
-          substituteInPlace $out/share/icons/MoreWaita/scalable/**/{folder*,user-*,inode-directory}.svg \
-            --replace-warn '#438de6' '#181825' \
-            --replace-warn '#62a0ea' '#1e1e2e' \
-            --replace-warn '#a4caee' '#313244' \
-            --replace-warn '#afd4ff' '#45475a' \
-            --replace-warn '#c0d5ea' '#585b70' \
-            --replace-warn '#1a5fb4' '#181825' \
-            --replace-warn '#3584e4' '#1e1e2e' \
-            --replace-warn '#99c1f1' '#313244' \
-            --replace-warn '#c3e5e7' '#585b70'
-        '';
-      });
       name = "MoreWaita";
+      package = pkgs.theming.mkMoreWaitaTheme defaults.colorScheme.palette;
     };
   };
 

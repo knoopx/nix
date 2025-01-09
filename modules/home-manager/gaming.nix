@@ -81,7 +81,7 @@
     # driver-san-francisco
     # mindustry-wayland
     # worldofgoo
-    factorio-space-age
+    # factorio-space-age
   ];
 
   emulators = with pkgs; [

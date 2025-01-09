@@ -2,7 +2,7 @@
   lib,
   hexToDec,
 }: let
-  hexToHSL = hex: let
+  hexToHSL = hex: unit: let
     rgb = {
       r = (hexToDec (builtins.substring 0 2 hex)) / 255.0;
       g = (hexToDec (builtins.substring 2 2 hex)) / 255.0;
@@ -30,6 +30,6 @@
       if h_raw < 0
       then h_raw + 360
       else h_raw;
-  in "${toString (builtins.floor h)} ${toString (builtins.floor (s * 100))} ${toString (builtins.floor (l * 100))}";
+  in "${toString (builtins.floor h)} ${toString (builtins.floor (s * 100))}${unit} ${toString (builtins.floor (l * 100))}${unit}";
 in
   hexToHSL

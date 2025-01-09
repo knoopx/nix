@@ -6,7 +6,7 @@
 }: let
   name = "memos";
   root = "/mnt/storage/memos";
-  pkg = pkgs.mkStylixMemosPkg defaults.colorScheme.palette;
+  pkg = pkgs.theming.mkStylixMemosPkg defaults.colorScheme.palette;
 in {
   # TODO: https://github.com/usememos/telegram-integration
 

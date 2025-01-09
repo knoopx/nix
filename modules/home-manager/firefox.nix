@@ -6,7 +6,7 @@
   ...
 }: let
   profile = defaults.username;
-  theme = pkgs.mkStylixFirefoxGnomeTheme defaults.colorScheme.palette;
+  theme = pkgs.theming.mkStylixFirefoxGnomeTheme defaults.colorScheme.palette;
 in {
   imports = [
     ./glance
@@ -149,7 +149,7 @@ in {
 
       userContent = ''
         @import "${theme}/userContent.css";
-        ${builtins.readFile "${pkgs.mkUserStyles defaults.colorScheme.palette}"}
+        ${builtins.readFile "${pkgs.theming.mkUserStyles defaults.colorScheme.palette}"}
       '';
 
       settings = {

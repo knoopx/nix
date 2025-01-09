@@ -2,7 +2,6 @@
   pkgs,
   defaults,
   lib,
-  hexToHSL,
   ...
 }: let
   customCSS = with defaults.colorScheme.palette;
@@ -23,6 +22,8 @@
       cp ${customCSS} $out/${customCSS.name}
     '';
   };
+
+  hexToHSL = x: pkgs.theming.hexToHSL x "";
 in {
   imports = [
     ./pages.nix

@@ -18,16 +18,16 @@
     installPhase = "install -D libretrodb_tool $out/bin/libretrodb_tool";
   };
 
-  # retool = pkgs.retool.overrideAttrs (origAttrs: {
-  #   postFixup =
-  #     origAttrs.postFixup
-  #     + ''
-  #       ln -s ${config.home.homeDirectory}/.config/retool $out/bin/config
-  #       ln -s ${config.home.homeDirectory}/.local/share/retool/datafile.dtd $out/bin/datafile.dtd
-  #       ln -s ${config.home.homeDirectory}/.local/share/retool/clonelists $out/bin/clonelists
-  #       ln -s ${config.home.homeDirectory}/.local/share/retool/metadata $out/bin/metadata
-  #     '';
-  # });
+  retool = pkgs.retool.overrideAttrs (origAttrs: {
+    postFixup =
+      origAttrs.postFixup
+      + ''
+        ln -s ${config.home.homeDirectory}/.config/retool $out/bin/config
+        ln -s ${config.home.homeDirectory}/.local/share/retool/datafile.dtd $out/bin/datafile.dtd
+        ln -s ${config.home.homeDirectory}/.local/share/retool/clonelists $out/bin/clonelists
+        ln -s ${config.home.homeDirectory}/.local/share/retool/metadata $out/bin/metadata
+      '';
+  });
 
   metadata = {
     retool = pkgs.stdenvNoCC.mkDerivation {
@@ -185,7 +185,7 @@ in {
           # meta-es-de-systems
         ];
       })
+    retool
+    # launchbox
   ];
-
-  # launchbox
 }

@@ -3,6 +3,8 @@
   nix-colors,
 }: let
   # open file:///etc/stylix/palette.html
+  # https://github.com/tinted-theming/base16-schemes/
+  # https://catppuccin.com/palette
   colorScheme =
     pkgs.lib.attrsets.recursiveUpdate
     nix-colors.colorSchemes.catppuccin-mocha

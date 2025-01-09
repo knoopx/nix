@@ -21,6 +21,7 @@ pkgs.writeTextFile {
         --primary-text-color: #${base05};
         --badge-text-color: #${base00};
         --secondary-text-color: #${base04};
+        --link-color: #${base07};
       }
 
       .row:hover {
@@ -52,6 +53,8 @@ pkgs.writeTextFile {
       .topbar {
         background-color: #${base00};
       }
+
+
     }
   '';
 }
