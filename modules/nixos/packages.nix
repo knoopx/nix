@@ -1,23 +1,50 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
+    asciinema
+    atuin
+    axel
     bash
+    bat
     binutils
     bison
+    btop
+    btrfs-snap
+    ccache
+    clang-tools
+    cmake
     curl
+    dasel
     debugedit
     diffutils
+    dmidecode
+    dnsutils
+    efibootmgr
     elfutils
+    eza
+    fastfetch
+    fd
+    ffmpeg
+    figurine
     file
+    fzf
     gcc
     gettext
+    git
+    git-lfs
     glib
     glibc
+    glow
     gnugrep
     gnumake
     gnused
     gnutar
     gnutls
+    gum
     gzip
+    hdparm
+    htop
+    iperf
+    jq
     less
     libarchive
     libelf
@@ -28,88 +55,55 @@
     libusb1
     libuv
     libxml2
+    lm_sensors
     logrotate
+    lrzip
+    lshw
+    lsof
     lz4
     lzo
     m4
-    openssl
-    patch
-    pcre
-    pcre2
-    perl
-    # python3
-    readline
-    sqlite
-    tzdata
-    util-linux
-    which
-    xz
-    zlib
-    zstd
-
-    # neomutt
-    ffmpeg
-    asciinema
-    bat
-    ccache
-    clang-tools
-    cmake
-    dasel
-    dmidecode
-    dnsutils
-    efibootmgr
-    eza
-    fastfetch
-    fd
-    figurine
-    file
-    fzf
-    git
-    glow
-    gnumake
-    gum
-    hdparm
-    htop
-    iperf
-    jq
-    libxml2
-    lm_sensors
-    lshw
-    lsof
     micro
     miller
     ntfs3g
     openssl
     p7zip
-    lrzip
+    patch
     patchelf
     pciutils
+    pcre
+    pcre2
+    perl
     pkg-config
     psmisc
+    ranger
+    readline
     ripgrep
     rsync
     sd
     skate
+    skim
     smartmontools
+    speedtest-cli
+    sqlite
     sysz
     tab
     trash-cli
     tree
+    tzdata
     unrar
     unzip
     usbutils
+    util-linux
     w3m
     wget
+    which
     whois
+    xz
     yazi
     yq
     zip
-    git-lfs
-    btop
-    ranger
-    speedtest-cli
-    axel
-    atuin
-    btrfs-snap
+    zlib
+    zstd
   ];
 }

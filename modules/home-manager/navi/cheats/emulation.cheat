@@ -1,0 +1,16 @@
+% emulation
+
+# decompress all nsz back to nsp
+for f in ~/Downloads/**/*.nsz; nsz -D $f && trash $f; end;
+
+# igir zip move
+npx -y igir zip move --dir-dat-name --dat <dat> --input <input> --output <output>
+$ dat: find -L ~/.local/share/dats
+$ input: echo "~/Downloads;/mnt/junk/Roms;" | tr ';' '\n'
+$ output: echo "~/Downloads;" | tr ';' '\n'
+
+# igir move
+npx -y igir move --dir-dat-name --dat <dat> --input <input>/**/*.nsp --output <output>
+$ dat: find -L ~/.local/share/dats
+$ input: echo "~/Downloads;/mnt/junk/Roms;" | tr ';' '\n'
+$ output: echo "$input;" | tr ';' '\n'

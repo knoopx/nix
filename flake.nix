@@ -60,11 +60,16 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
-    pkgs = nixpkgs.legacyPackages.x86_64-linux;
     defaults = import ./defaults.nix {inherit pkgs nix-colors;};
+    pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
-    mylib = pkgs.callPackage ./lib {inherit inputs;};
-    specialArgs = {inherit inputs outputs defaults stylix;} // mylib;
+    specialArgs = {inherit inputs outputs defaults stylix;};
+
+    myPkgsFrom = p:
+      pkgs.callPackage ./pkgs/default.nix (specialArgs
+        // {
+          pkgs = p;
+        });
 
     homeManagerConfig = {
       useGlobalPkgs = true;
@@ -84,24 +89,21 @@
             self: super: {firefox-addons = firefox-addons.packages.x86_64-linux;}
           )
           (
-            self: super: (pkgs.callPackage ./pkgs/default.nix {
-              pkgs = super;
-            })
+            self: super: (myPkgsFrom super)
           )
         ];
       }
-      {home-manager = homeManagerConfig;}
       # chaotic.nixosModules.default
       # lix-module.nixosModules.default
-      inputs.home-manager.nixosModules.home-manager
       inputs.stylix.nixosModules.stylix
       # nix-flatpak.nixosModules.nix-flatpak
       # jovian.nixosModules.jovian
+
+      inputs.home-manager.nixosModules.home-manager
+      {home-manager = homeManagerConfig;}
     ];
   in {
-    packages.x86_64-linux = pkgs.callPackage ./pkgs/default.nix {
-      inherit pkgs;
-    };
+    packages.x86_64-linux = myPkgsFrom pkgs;
 
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {

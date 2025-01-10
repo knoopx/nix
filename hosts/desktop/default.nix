@@ -6,33 +6,15 @@
   system = "x86_64-linux";
 in {
   imports = [
-    ../../modules/nixos/containers/traefik.nix
-    ../../modules/nixos/containers/immich.nix
-    ../../modules/nixos/containers/open-webui.nix
-    ../../modules/nixos/containers/watchtower.nix
-    ../../modules/nixos/containers/silverbullet.nix
-    ../../modules/nixos/containers/memos.nix
-    # ../../modules/nixos/containers/nextcloud.nix
-    # ../../modules/nixos/containers/baserow.nix
-    # ../../modules/nixos/containers/eidos.nix
-
-    ../../modules/nixos/headless
-
-    ../../modules/nixos/gnome/overlays.nix
-    ../../modules/nixos/gnome/packages.nix
-    ../../modules/nixos/gnome/programs.nix
-    ../../modules/nixos/gnome/services.nix
-    ../../modules/nixos/gnome/xdg.nix
+    ../../modules/containers
+    ../../modules/nixos
+    ../../modules/nixos/gnome
 
     ./boot.nix
     ./filesystems.nix
-    ./btrfs.nix
     ./hardware.nix
     ./nvidia.nix
-    ./packages.nix
-    # ./flatpak.nix
     ./services.nix
-    ./virtualisation.nix
   ];
 
   networking.hostName = "desktop";

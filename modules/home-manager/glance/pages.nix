@@ -135,27 +135,6 @@
           }
 
           {
-            type = "extension";
-            allow-potentially-dangerous-html = true;
-            url = "http://localhost:${toString config.glance-extensions.port}/xkcd";
-          }
-        ];
-      }
-    ];
-  };
-
-  other = {
-    name = "Other";
-    columns = [
-      {
-        size = "small";
-        widgets = [
-          {
-            type = "repository";
-            repository = "NixOS/nixpkgs";
-          }
-
-          {
             title = "Releases";
             type = "rss";
             cache = "1h";
@@ -163,6 +142,14 @@
               {
                 title = "Ollama";
                 url = "https://github.com/ollama/ollama/releases.atom";
+              }
+              {
+                title = "Home Assistant";
+                url = "https://github.com/home-assistant/core/releases.atom";
+              }
+              {
+                title = "Zigbee2MQTT";
+                url = "https://github.com/Koenkk/zigbee2mqtt/releases.atom";
               }
               {
                 title = "Immich";
@@ -186,6 +173,27 @@
                 url = "https://github.com/glanceapp/glance/releases.atom";
               }
             ];
+          }
+
+          {
+            type = "extension";
+            allow-potentially-dangerous-html = true;
+            url = "http://localhost:${toString config.glance-extensions.port}/xkcd";
+          }
+        ];
+      }
+    ];
+  };
+
+  other = {
+    name = "Other";
+    columns = [
+      {
+        size = "small";
+        widgets = [
+          {
+            type = "repository";
+            repository = "NixOS/nixpkgs";
           }
         ];
       }

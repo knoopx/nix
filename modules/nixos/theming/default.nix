@@ -13,6 +13,7 @@
     autoEnable = true;
     polarity = "dark";
 
+    # https://github.com/dharmx/walls
     image = config.wallpaper.pkg.outPath;
 
     base16Scheme = defaults.colorScheme;
@@ -29,5 +30,7 @@
       # name = "Simp1e-Catppuccin-Mocha";
       size = 24;
     };
+
+    # targets.gnome.enable = false;
   };
 }

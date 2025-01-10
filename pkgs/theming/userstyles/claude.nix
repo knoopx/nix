@@ -3,7 +3,7 @@
   colorScheme,
   ...
 }: let
-  hexToHSL = x: pkgs.theming.hexToHSL x "%";
+  hexToHSL = x: pkgs.theming.lib.hexToHSL x "%";
 in
   pkgs.writeTextFile {
     name = "immich.userstyle.css";
@@ -43,8 +43,8 @@ in
 
           --accent-brand: ${hexToHSL base07};
           --accent-secondary-000: ${hexToHSL base06};
-          --bg-000: ${hexToHSL base00};
-          --bg-100: ${hexToHSL base01};
+          --bg-000: ${hexToHSL base01};
+          --bg-100: ${hexToHSL base00};
           --bg-200: ${hexToHSL base02};
           --bg-300: ${hexToHSL base03};
           --bg-400: ${hexToHSL base04};

@@ -23,7 +23,7 @@
     '';
   };
 
-  hexToHSL = x: pkgs.theming.hexToHSL x "";
+  hexToHSL = x: pkgs.theming.lib.hexToHSL x "";
 in {
   imports = [
     ./pages.nix

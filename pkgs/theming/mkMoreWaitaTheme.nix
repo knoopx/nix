@@ -6,7 +6,7 @@
     sha256 = "sha256-M5dFb759sXfpD9/gQVF3sngyW4WdSgy4usInds9VIWk=";
   };
 
-  folderColors = pkgs.theming.colorVariations colorScheme.base05;
+  folderColors = pkgs.theming.lib.colorVariations colorScheme.base05;
 in
   pkgs.morewaita-icon-theme.overrideAttrs (prev: {
     postInstall = with folderColors; ''

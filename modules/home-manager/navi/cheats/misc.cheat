@@ -1,0 +1,14 @@
+% misc
+
+# random token
+tr -dc A-Za-z0-9_ < /dev/urandom | head -c 32 | xargs
+
+# caffeine on
+gsettings --schemadir /etc/profiles/per-user/$USER/share/gnome-shell/extensions/caffeine@patapon.info/schemas/ set org.gnome.shell.extensions.caffeine toggle-state true
+
+# caffeine off
+gsettings --schemadir /etc/profiles/per-user/$USER/share/gnome-shell/extensions/caffeine@patapon.info/schemas/ set org.gnome.shell.extensions.caffeine toggle-state false
+
+# downloads file list with aria2c
+cat <list> | aria2c --continue=true --auto-file-renaming=false -i -c
+$ list: find .
