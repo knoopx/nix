@@ -128,14 +128,6 @@ in {
       toolkit-accessibility = false;
     };
 
-    "org/gnome/desktop/background" = {
-      picture-options = "zoom";
-      color-shading-type = "solid";
-      # TODO
-      # primary-color = "#000000000000";
-      # secondary-color = "#000000000000";
-    };
-
     "org/gnome/desktop/calendar" = {
       show-weekdate = true;
     };

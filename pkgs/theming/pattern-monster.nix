@@ -19,7 +19,7 @@
         > $out
     '';
 
-    meta.homepage = "https://pattern.monster/";
+    meta.homepage = "https://github.com/catchspider2002/svelte-svg-patterns/";
   };
 in
   builtins.fromJSON (builtins.readFile json)

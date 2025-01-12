@@ -8,6 +8,7 @@
     ./wallpaper.nix
     ./gnome-shell.nix
   ];
+
   stylix = {
     enable = true;
     autoEnable = true;

@@ -1,0 +1,7 @@
+reddit.com###right-rail-experience-root > faceplate-tracker
+chatgpt.com##.absolute:has-text("Thanks for trying")
+chatgpt.com##body:style(pointer-events: auto !important)
+youtube.com##div[class^='YtInlinePlayerControlsTopLeftControls']
+youtube.com##div[class^='ytp-paid-content-overlay']
+youtube.com##ytd-rich-section-renderer:has(#dismissible)
+youtube.com##a[href="https://support.google.com/youtube?p=ppp&nohelpkit=1"]

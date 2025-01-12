@@ -1,0 +1,10 @@
+<button onclick="testShell()">Test Shell Command</button>
+<pre id="output"></pre>
+<script>
+  async function testShell() {
+    const result = await window.shellExec("ls -l");
+    document.getElementById("output").textContent = result.success
+      ? result.stdout
+      : "Error: " + result.stderr;
+  }
+</script>

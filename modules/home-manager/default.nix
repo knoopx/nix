@@ -5,7 +5,7 @@
 }: {
   imports = [
     ./easy-effects.nix
-    ./firefox.nix
+    ./firefox
     ./fish.nix
     ./gaming.nix
     ./git.nix

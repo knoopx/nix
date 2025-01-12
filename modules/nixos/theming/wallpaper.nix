@@ -4,11 +4,29 @@
   defaults,
   ...
 }: let
-  wallpaper = pkgs.theming.mkSvgPatternWallpaper pkgs.theming.pattern-monster.waves-11 (with defaults.colorScheme.palette; [
-    base03
-    base04
-    base05
-  ]);
+  wallpaper = pkgs.theming.mkSvgPatternWallpaper {
+    # style = pkgs.theming.pattern-monster.japanese-pattern-3;
+    # style = pkgs.theming.pattern-monster.scales-6;
+    # style = pkgs.theming.pattern-monster.cubes-5;
+    # style = pkgs.theming.pattern-monster.terrazzo-1;
+    # style = pkgs.theming.pattern-monster.sprinkles-1;
+    # style = pkgs.theming.pattern-monster.triangles-18;
+    style = pkgs.theming.pattern-monster.doodle-1;
+
+    scale = 4;
+    colors = with defaults.colorScheme.palette; [
+      base01
+      base00
+      base02
+      base03
+      base04
+
+      # base0A
+      # base08
+      # base0C
+      # base07
+    ];
+  };
 in {
   options.wallpaper.pkg = lib.mkOption {
     default = pkgs.stdenvNoCC.mkDerivation {

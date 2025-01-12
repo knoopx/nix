@@ -76,6 +76,7 @@
     q-text-as-data
     ruby
     ruby-lsp
+    ultralytics
     rufo
     rust-analyzer
     rustc

@@ -5,7 +5,7 @@
   scripts = pkgs.callPackage ./scripts args;
 in {
   inherit theming;
-  inherit (apps) nfoview;
+  inherit (apps) nfoview ultralytics semantic-grep;
   inherit (emulation) es-de hydra-launcher citron-emu ryujinx;
   inherit (scripts) fuzzy webkit-shell shttp;
 }
