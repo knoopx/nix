@@ -31,7 +31,5 @@
       # name = "Simp1e-Catppuccin-Mocha";
       size = 24;
     };
-
-    # targets.gnome.enable = false;
   };
 }

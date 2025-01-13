@@ -9,6 +9,7 @@
   folderColors = pkgs.theming.lib.colorVariations colorScheme.base05;
 in
   pkgs.morewaita-icon-theme.overrideAttrs (prev: {
+    # ${lib.getExe pkgs.theming.matchThemeColors} "$file" > "$file"
     postInstall = with folderColors; ''
       cp -r ${adwaita-colors}/Adwaita-blue/* $out/share/icons/MoreWaita
 

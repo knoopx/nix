@@ -13,10 +13,7 @@
     ./vscode.nix
     ./navi
     ./yazi.nix
-    ./gnome/dconf.nix
-    ./gnome/gtk.nix
-    ./gnome/packages.nix
-    ./gnome/xdg.nix
+    ./gnome
   ];
 
   home.packages = with pkgs; [

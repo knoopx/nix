@@ -99,19 +99,18 @@
 
   tools = with pkgs; [
     # wiiudownloader
-    hydra-launcher
+    # hydra-launcher
     # skyscraper
     # alvr
     # protonup
     # wineWowPackages.waylandFull
     nsz
     umu
-    wine
     citron-emu
     # gamescope
     # gamescope-session
     # opengamepadui
-    mame-tools
+    # mame-tools
     nstool
   ];
 in {

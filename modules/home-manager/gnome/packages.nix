@@ -4,7 +4,7 @@
   ...
 }: let
   gtk-apps = with pkgs; [
-    # aider-chat
+    aider-chat
     # libguestfs
     # orca-slicer
     # vial

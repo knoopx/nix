@@ -2,9 +2,10 @@
   pkgs,
   nix-colors,
 }: let
+  # https://catppuccin.com/palette
+  # https://nico-i.github.io/scheme-viewer/base16/
   # open file:///etc/stylix/palette.html
   # https://github.com/tinted-theming/base16-schemes/
-  # https://catppuccin.com/palette
   colorScheme =
     pkgs.lib.attrsets.recursiveUpdate
     nix-colors.colorSchemes.catppuccin-mocha

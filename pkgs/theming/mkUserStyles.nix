@@ -21,10 +21,13 @@
     ./userstyles/whatsapp.nix
     ./userstyles/immich.nix
     ./userstyles/claude.nix
-    ./userstyles/catppuccin.nix
   ];
 
-  userStylePkgs = lib.map (x: pkgs.callPackage x {inherit colorScheme;}) userStyles;
+  userStylePkgs =
+    (lib.map (x: pkgs.callPackage x {inherit colorScheme;}) userStyles)
+    ++ [
+      (pkgs.theming.mkCatppuccinUserStyleTheme colorScheme)
+    ];
 in
   pkgs.stdenvNoCC.mkDerivation {
     name = "userstyles.css";

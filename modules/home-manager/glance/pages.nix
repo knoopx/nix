@@ -20,14 +20,20 @@
             cache = "1h";
             markets = [
               {
-                symbol = "AAPL";
-                name = "Apple";
-                symbol-link = "https://www.google.com/search?tbm=nws&q=apple";
-              }
-              {
                 symbol = "NVDA";
-                name = "NVDA";
+                name = "Nvidia";
               }
+
+              {
+                symbol = "MSFT";
+                name = "Microsoft Corp";
+              }
+
+              {
+                symbol = "GME";
+                name = "GameStop Corp";
+              }
+
               {
                 symbol = "BTC-USD";
                 name = "Bitcoin";
@@ -76,6 +82,8 @@
             type = "rss";
             cache = "5m";
             feeds = [
+              {url = "https://community.silverbullet.md/latest.rss";}
+              {url = "https://discourse.nixos.org/latest.rss";}
               {url = "https://towardsdatascience.com/feed";}
               {url = "https://hnrss.org/frontpage";}
               {url = "https://hnrss.org/show";}

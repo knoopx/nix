@@ -61,7 +61,6 @@ in {
   };
 
   config = {
-    home.packages = [github-trending];
     systemd.user.services."glance-extensions" = {
       Service = {
         Restart = "on-failure";

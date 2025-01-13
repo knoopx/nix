@@ -4,7 +4,7 @@ _: {
     # gc.dates = "5:00";
 
     optimise.automatic = true;
-    optimise.dates = ["5:15"];
+    optimise.dates = ["4:00"];
 
     settings = {
       sandbox = true;
@@ -32,9 +32,9 @@ _: {
       ];
     };
 
-    extraOptions = ''
-      keep-outputs = true
-      keep-derivations = true
-    '';
+    # extraOptions = ''
+    #   keep-outputs = true
+    #   keep-derivations = true
+    # '';
   };
 }

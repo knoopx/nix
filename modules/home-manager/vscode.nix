@@ -113,41 +113,20 @@
         "commitollama.model" = "custom";
         "commitollama.custom.model" = "deepseek-coder-v2:16b-lite-instruct-q8_0";
 
-        "[html]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[javascript]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[json]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[jsonc]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[typescriptreact]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[typescript]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[css]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[yaml]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[scss]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-        "[python]" = {
-          "editor.defaultFormatter" = "ms-python.black-formatter";
-        };
-        "[ruby]" = {
-          "editor.defaultFormatter" = "jnbt.vscode-rufo";
-        };
-        "redhat.telemetry.enabled" = false;
+        "[css]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
+        "[html]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
+        "[javascript]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
+        "[json]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
+        "[jsonc]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
+        "[less]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
+        "[python]" = {"editor.defaultFormatter" = "ms-python.black-formatter";};
+        "[ruby]" = {"editor.defaultFormatter" = "jnbt.vscode-rufo";};
+        "[scss]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
+        "[typescript]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
+        "[typescriptreact]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
+        "[yaml]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
 
+        "redhat.telemetry.enabled" = false;
         "solargraph.commandPath" = "${pkgs.solargraph}/bin/solargraph";
 
         "python.analysis.typeCheckingMode" = "basic";
