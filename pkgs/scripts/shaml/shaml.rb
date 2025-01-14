@@ -15,7 +15,7 @@ class Hash
 end
 
 class TaskRunner
-  def initialize(yaml_file, target_path, params = {})
+  def initialize(yaml_file, target_path = nil, params = {})
     @yaml_file = yaml_file
     @target_path = target_path
     @params = params
@@ -24,23 +24,33 @@ class TaskRunner
   end
 
   def run
-    command = resolve_target
-    abort "Error: Target '#{@target_path}' not found" unless command
-
-    if command.is_a?(Hash)
-      list_tasks(command)
+    if @target_path.nil?
+      # list_all_tasks(@config)
+      list_tasks(@config)
     else
-      resolved_command = resolve_command(command)
-      # puts "> #{resolved_command}"
-      system(resolved_command)
+      command = resolve_target
+      abort "Error: Target '#{@target_path}' not found" unless command
+
+      if command.is_a?(Hash)
+        list_tasks(command)
+      else
+        resolved_command = resolve_command(command)
+        # puts "> #{resolved_command}"
+        system(resolved_command)
+      end
     end
   end
 
   private
 
-  def list_tasks(group)
-    group.each do |task_name, task_command|
-      puts "#{task_name}: #{task_command}"
+  def list_tasks(hash, parent_key = "")
+    hash.each do |key, value|
+      new_key = parent_key.empty? ? key.to_s : "#{parent_key}.#{key}"
+      if value.is_a?(Hash)
+        list_tasks(value, new_key)
+      else
+        puts "#{new_key}: #{value}"
+      end
     end
   end
 
@@ -124,7 +134,7 @@ end
 
 options = {}
 parser = OptionParser.new do |opts|
-  opts.banner = "Usage: #{$0} [options] yaml_file target_path"
+  opts.banner = "Usage: #{$0} [options] yaml_file [target_path]"
 
   opts.on("-h", "--help", "Display this help") do
     puts opts
@@ -143,12 +153,12 @@ end
 
 ARGV.reject! { |arg| arg.start_with?("--") || options.values.include?(arg) }
 
-if ARGV.length != 2
+if ARGV.length < 1
   puts parser
   exit 1
 end
 
-yaml_file, target_path = ARGV
+yaml_file, target_path = *ARGV
 
 runner = TaskRunner.new(yaml_file, target_path, options)
 runner.run
