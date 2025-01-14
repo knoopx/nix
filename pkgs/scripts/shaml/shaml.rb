@@ -47,7 +47,7 @@ class TaskRunner
       if value.is_a?(Hash)
         list_tasks(value, new_key)
       else
-        puts "#{new_key}: #{value}"
+        puts "#{new_key}: #{value.split("\n").join("; ")}"
       end
     end
   end
