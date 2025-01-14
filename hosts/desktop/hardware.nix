@@ -9,6 +9,7 @@ _: {
     };
 
     graphics = {
+      enable = true;
       enable32Bit = true; # for 32-bit wine games
     };
   };

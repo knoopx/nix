@@ -1,6 +1,6 @@
 {
   defaults,
-  inputs,
+  pkgs,
   lib,
   ...
 }: let
@@ -84,7 +84,7 @@ in {
       close = ["<Super>q"];
       minimize = ["<Super>w"];
       cycle-group = ["<Super>Escape" "<Alt>Escape"];
-      cycle-group-backward = ["<Shift><Super>escape"];
+      cycle-group-backward = ["<Shift><Super>Escape"];
       toggle-fullscreen = ["<Super>f"];
     };
 
@@ -94,9 +94,18 @@ in {
       name = "System Monitor";
     };
 
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/navi" = {
+      binding = "<Super>r";
+      command = lib.getExe pkgs.launcher;
+      name = "Launcher";
+    };
+
     "org/gnome/settings-daemon/plugins/media-keys" = {
       logout = [];
-      custom-keybindings = ["/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system-monitor/"];
+      custom-keybindings = [
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system-monitor/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/navi/"
+      ];
     };
 
     "org/gnome/desktop/peripherals/mouse" = {

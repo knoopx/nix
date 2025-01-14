@@ -1,0 +1,8 @@
+% clipboard
+
+# clipboards actions
+
+
+# get clipboard contents
+cat $content |
+$ content: fish_clipboard_paste

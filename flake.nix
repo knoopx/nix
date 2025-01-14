@@ -42,6 +42,8 @@
     #   url = "git+https://git.lix.systems/lix-project/nixos-module?ref=stable";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
+    # mdfried.url = "github:benjajaja/mdfried";
+    # mdfried.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -57,6 +59,7 @@
     # ghostty,
     # jovian,
     firefox-addons,
+    # mdfried,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -83,6 +86,7 @@
       {
         nixpkgs.overlays = [
           # (self: super: ghostty.packages.x86_64-linux)
+          # (self: super: {mdfried = mdfried.packages.x86_64-linux.default;})
           (self: super: umu-launcher.packages.x86_64-linux)
           # (self: super: nix-gaming.packages.x86_64-linux)
           (

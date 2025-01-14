@@ -1,46 +1,43 @@
 % nix
 
-# install nixos config
-sudo nixos-rebuild switch --flake https://github.com/knoopx/nix/archive/refs/heads/master.zip#<host>
+$ flake_path: echo "$HOME/.dotfiles"
 
-# install home-manager config
-home-manager switch --flake https://github.com/knoopx/nix/archive/refs/heads/master.zip#<user>
-
-# update flake
-nix flake update
-
-# nixos build
-sudo nixos-rebuild build --flake path:.
+# nixos update flakes
+cd "<flake_path>" && nix flake update
 
 # nixos switch
-sudo nixos-rebuild switch --flake path:.
-
-# nixos switch
-nh os switch path:~/.dotfiles/
-
-# nixos build vm
-nixos-rebuild build-vm --flake path:.
-
-# nixos build live usb image
-nix build path:.#nixosConfigurations.live.config.system.build.isoImage
+nh os switch path:"<flake_path>"
 
 # nixos repl (:q to quit)
-nix repl --expr "builtins.getFlake ''$PWD''"
-
-# nixos pin to specific rev until next update
-nix flake lock --override-input nixpkgs github:NixOS/nixpkgs/revision
-
-# nixos get last cached rev
-curl -sL "https://monitoring.nixos.org/prometheus/api/v1/query?query=channel_revision" | jq -r ".data.result[] | select(.metric.channel==\"nixos-unstable\") | .metric.revision"
-
-# nixos packages, nixpkgs
-xdg-open https://search.nixos.org/options
-
-# home-manager options
-xdg-open https://home-manager-options.extranix.com/
-
-# nixos options
-xdg-open https://noogle.dev/
+nix repl --expr "builtins.getFlake ''<flake_path>''"
 
 # nix garbage collect
 sudo nix-collect-garbage -d; nix-collect-garbage -d;
+
+# nix edit file
+code "<file>"
+$ file: find <flake_path> -iname "*.nix"
+
+# nixos get last cached rev
+gum spin --spinner dot --title "Fetching..." -- curl -sL "https://monitoring.nixos.org/prometheus/api/v1/query?query=channel_revision" | jq -r ".data.result[] | select(.metric.channel==\"nixos-unstable\") | .metric.revision" | gum pager
+
+; # nixos pin to specific rev until next update
+; nix flake lock --override-input nixpkgs github:NixOS/nixpkgs/revision
+
+; # nixos build
+; sudo nixos-rebuild build --flake path:.
+
+; # nixos switch
+; sudo nixos-rebuild switch --flake path:.
+
+; # install nixos config
+; sudo nixos-rebuild switch --flake https://github.com/knoopx/nix/archive/refs/heads/master.zip#<host>
+
+; # install home-manager config
+; home-manager switch --flake https://github.com/knoopx/nix/archive/refs/heads/master.zip#<user>
+
+; # nixos build vm
+; nixos-rebuild build-vm --flake path:.
+
+; # nixos build live usb image
+; nix build path:.#nixosConfigurations.live.config.system.build.isoImage

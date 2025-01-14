@@ -1,5 +1,12 @@
 % docker
 
-# docker shell container
-sudo docker exec -ti <container> "/bin/sh"
-$ container: sudo docker ps
+$ container: sudo docker ps | fzf | awk '{print $1}'
+
+# enter docker container
+sudo docker exec -ti "<container>" "/bin/sh"
+
+# docker container logs
+sudo docker logs -f "<container>"
+
+# docker prune
+sudo docker system prune -a

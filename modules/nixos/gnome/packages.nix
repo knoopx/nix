@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    # amberol
+    amberol
     # gnome-boxes
     # gnome-system-monitor
     authenticator

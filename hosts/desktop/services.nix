@@ -32,15 +32,6 @@
       capSysAdmin = true;
     };
 
-    ollama = {
-      enable = true;
-      acceleration = "cuda";
-      host = "[::]";
-      environmentVariables = {
-        OLLAMA_FLASH_ATTENTION = "1";
-      };
-    };
-
     mpd = {
       enable = false;
       user = "pipewire";

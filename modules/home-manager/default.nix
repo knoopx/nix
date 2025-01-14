@@ -8,12 +8,13 @@
     ./firefox
     ./fish.nix
     ./gaming.nix
+    ./ghostty.nix
     ./git.nix
-    ./kitty.nix
-    ./vscode.nix
-    ./navi
-    ./yazi.nix
     ./gnome
+    ./kitty.nix
+    ./navi
+    ./vscode.nix
+    ./yazi.nix
   ];
 
   home.packages = with pkgs; [

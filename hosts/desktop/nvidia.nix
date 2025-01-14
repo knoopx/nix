@@ -59,15 +59,6 @@
   };
   nixpkgs.config.nvidia.acceptLicense = true;
 
-  virtualisation.docker = {
-    rootless = {
-      daemon.settings = {
-        default-runtime = "nvidia";
-        runtimes.nvidia.path = "${pkgs.nvidia-docker}/bin/nvidia-container-runtime";
-      };
-    };
-  };
-
   hardware = {
     nvidia-container-toolkit.enable = true;
 

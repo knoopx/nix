@@ -1,22 +1,28 @@
 {
   pkgs,
   defaults,
+  lib,
   ...
-}: {
+}: let
+  msg = pkgs.stdenvNoCC.mkDerivation {
+    name = "message.txt";
+    phases = ["buildPhase"];
+    buildPhase = with defaults; ''
+      ${lib.getExe pkgs.gum} style \
+        --border-foreground '#${colorScheme.palette.base08}' --border double \
+        --align center --width 50 --margin "1 2" --padding "2 4" \
+        'This device is property of ${full-name}' \
+        'If found please contact ${primary-email}' > $out
+    '';
+  };
+in {
   # users.mutableUsers = false;
 
   users.defaultUserShell = pkgs.fish;
   users.users.root.initialPassword = defaults.password;
 
   boot.initrd.preLVMCommands = ''
-    echo
-    echo '################################### NOTICE ###################################'
-    echo
-    echo 'This device is property of ${defaults.full-name}'
-    echo 'If found please contact ${defaults.primary-email}'
-    echo
-    echo '################################### NOTICE ###################################'
-    echo
+    cat "${msg}"
   '';
 
   users.users.${defaults.username} = {

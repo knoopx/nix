@@ -1,0 +1,15 @@
+% repl
+
+# ruby repl
+: | fzf --multi --preview 'ruby -e {q}' --preview-window=up:70
+
+# python repl
+: | fzf --multi --preview 'python -c {q}' --preview-window=up:70
+
+# bash repl
+: | fzf --multi --preview='bash -c {q}' --preview-window=up:70
+
+# jq repl
+; fzf -p '80%' --print-query --preview "echo \"<json>\" | jq {q}"
+: | fzf --preview 'echo "<json>" | jq {q}'
+$ json: gum write --placeholder json...

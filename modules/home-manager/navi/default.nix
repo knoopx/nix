@@ -11,6 +11,7 @@
     enableFishIntegration = true;
 
     settings = {
+      # finder = {command = "skim";};
       shell = {
         command = "fish";
         finder_command = "fish";
@@ -28,6 +29,7 @@
         };
         snippet = {
           color = "dark_grey";
+          min_width = 45;
         };
       };
     };

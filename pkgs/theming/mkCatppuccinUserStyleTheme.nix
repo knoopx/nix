@@ -26,6 +26,7 @@
     "spotify-web"
     "youtube"
     "bsky"
+    "hacker-news"
     # "wikipedia"
   ];
 

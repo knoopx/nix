@@ -18,7 +18,6 @@
     fclones-gui
     file-roller
     ghidra-bin
-    ghostty
     # gimp
     gitg
     krita
@@ -50,6 +49,7 @@
     csvkit
     csvlens
     dasel
+    ddgr
     deno
     docker-compose
     dotnet-sdk_8
@@ -60,23 +60,27 @@
     fdupes
     fq
     gcalcli
+    gojq
     gron
     htmlq
     innoextract
     internetarchive
     jq
     libsecret
+    # mdfried
     mpv
     nh
     nixd
     nodejs_latest
     nushell
+    ollamark
     python3
     python3Packages.duckdb
     q-text-as-data
+    repl-jq
     ruby
     ruby-lsp
-    ultralytics
+    ydotool
     rufo
     rust-analyzer
     rustc
@@ -84,6 +88,7 @@
     sqlpage
     tokei
     tv
+    ultralytics
     uv
     visidata
     xidel

@@ -7,6 +7,12 @@ imports.gi.versions.Gdk = "4.0";
 
 const { GObject, Gtk, GLib, Gio, Gdk } = imports.gi;
 
+const css = `
+* {
+    font-family: monospace;
+}
+`;
+
 class FuzzyFinder {
   constructor() {
     this.items = [];
@@ -59,6 +65,8 @@ const FuzzyFinderWindow = GObject.registerClass(
     }
 
     setupUI() {
+      this.set_default_size(1240, 900);
+
       const vbox = new Gtk.Box({
         orientation: Gtk.Orientation.VERTICAL,
       });
@@ -91,7 +99,6 @@ const FuzzyFinderWindow = GObject.registerClass(
       );
       this.listBox.connect("row-activated", this._onRowActivated.bind(this));
 
-      this.set_default_size(1240, 900);
 
       this._currentSelection = 0;
 
@@ -212,7 +219,6 @@ const FuzzyFinderWindow = GObject.registerClass(
         if (row) {
           this.listBox.select_row(row);
           row.grab_focus();
-          this.listBox.scroll_to_row(row);
         }
       }
     }
@@ -227,7 +233,6 @@ const FuzzyFinderWindow = GObject.registerClass(
       if (row) {
         this.listBox.select_row(row);
         row.grab_focus();
-        this.listBox.scroll_to_row(row);
       }
     }
 
@@ -306,6 +311,17 @@ const FuzzyFinderApp = GObject.registerClass(
       window.searchEntry.grab_focus();
     }
   }
+);
+
+Gtk.init();
+
+const cssProvider = new Gtk.CssProvider();
+cssProvider.load_from_data(css, css.length);
+
+Gtk.StyleContext.add_provider_for_display(
+  Gdk.Display.get_default(),
+  cssProvider,
+  Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
 );
 
 const app = new FuzzyFinderApp();

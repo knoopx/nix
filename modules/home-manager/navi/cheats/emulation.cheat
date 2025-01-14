@@ -1,16 +1,16 @@
 % emulation
 
+$ dat: gum file ~/.local/share/dats --height 20 --file --directory
+$ input: gum file ~/Downloads --height 20 --directory
+$ output: gum file ~/mnt/junk/Roms --height 20 --directory
+
 # decompress all nsz back to nsp
-for f in ~/Downloads/**/*.nsz; nsz -D $f && trash $f; end;
+$ files : find ~/Downloads -iname "*.nsz"
+gum confirm "<files>"
+;for f in "<files>"; nsz -D $f && trash $f; end;
 
 # igir zip move
-npx -y igir zip move --dir-dat-name --dat "<dat>" --input <input> --output <output>
-$ dat: find -L ~/.local/share/dats
-$ input: echo "~/Downloads;/mnt/junk/Roms;" | tr ';' '\n'
-$ output: echo "~/Downloads;" | tr ';' '\n'
+npx -y igir zip move --dir-dat-name --dat "<dat>" --input "<input>" --output "<output>"
 
 # igir move
-npx -y igir move --dir-dat-name --dat "<dat>" --input <input> --output <output>
-$ dat: find -L ~/.local/share/dats
-$ input: echo "~/Downloads;/mnt/junk/Roms;" | tr ';' '\n'
-$ output: echo "$input;" | tr ';' '\n'
+npx -y igir move --dir-dat-name --dat "<dat>" --input "<input>" --output "<output>"
