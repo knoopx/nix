@@ -25,17 +25,15 @@ class TaskRunner
 
   def run
     if @target_path.nil?
-      # list_all_tasks(@config)
       list_tasks(@config)
     else
       command = resolve_target
       abort "Error: Target '#{@target_path}' not found" unless command
 
       if command.is_a?(Hash)
-        list_tasks(command)
+        list_tasks(command, @target_path)
       else
         resolved_command = resolve_command(command)
-        # puts "> #{resolved_command}"
         system(resolved_command)
       end
     end
