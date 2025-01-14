@@ -27,9 +27,13 @@ class TaskRunner
     command = resolve_target
     abort "Error: Target '#{@target_path}' not found" unless command
 
-    resolved_command = resolve_command(command)
-    # puts "> #{resolved_command}"
-    system(resolved_command)
+    if group?(command)
+      list_tasks(command)
+    else
+      resolved_command = resolve_command(command)
+      # puts "> #{resolved_command}"
+      system(resolved_command)
+    end
   end
 
   private
@@ -58,49 +62,23 @@ class TaskRunner
     get_node_at_path(path_components)
   end
 
+  def group?(node)
+    node.is_a?(Hash) && node.keys.all? { |key| key.start_with?("task_") }
+  end
+
+  def list_tasks(group)
+    puts "Tasks in group '#{@target_path}':"
+    group.each do |task_name, task_command|
+      puts "- #{task_name}: #{task_command}"
+    end
+  end
+
   def find_param_value(param_name, visited = Set.new)
-    return @resolved_params[param_name] if @resolved_params.key?(param_name)
-    return nil if visited.include?(param_name)
-
-    visited.add(param_name)
-
-    if @params.key?(param_name)
-      @resolved_params[param_name] = @params[param_name]
-      return @params[param_name]
+    command.to_s.gsub(/<(\w+)>/) do |match|
+      param_name = $1
+      value = find_param_value(param_name, visited)
+      value || match
     end
-
-    path_components = @target_path.split(".")
-    while !path_components.empty?
-      node = get_node_at_path(path_components)
-      if node.is_a?(Hash) && node.key?(param_name)
-        command = node[param_name]
-        if command.is_a?(String)
-          resolved_command = resolve_command(command, visited)
-          value = `#{resolved_command}`.strip
-          @resolved_params[param_name] = value
-          return value
-        else
-          @resolved_params[param_name] = command
-          return command
-        end
-      end
-      path_components.pop
-    end
-
-    if @config.key?(param_name)
-      command = @config[param_name]
-      if command.is_a?(String)
-        resolved_command = resolve_command(command, visited)
-        value = `#{resolved_command}`.strip
-        @resolved_params[param_name] = value
-        return value
-      else
-        @resolved_params[param_name] = command
-        return command
-      end
-    end
-
-    nil
   end
 
   def resolve_command(command, visited = Set.new)
