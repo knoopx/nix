@@ -6,8 +6,8 @@
   system = "x86_64-linux";
 in {
   imports = [
-    ../../modules/containers
     ../../modules/nixos
+    ../../modules/nixos/containers
     ../../modules/nixos/gnome
 
     ./boot.nix

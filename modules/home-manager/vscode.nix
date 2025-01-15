@@ -49,9 +49,13 @@
           key = "ctrl+k u";
           command = "workbench.action.focusActiveEditorGroup";
         }
+        # {
+        #   "key" = "ctrl+l";
+        #   "command" = "-continue.focusContinueInput";
+        # }
         {
-          "key" = "ctrl+l";
-          "command" = "-continue.focusContinueInput";
+          "key" = "ctrl+shift+a";
+          "command" = "claude-dev.SidebarProvider.focus";
         }
       ];
 

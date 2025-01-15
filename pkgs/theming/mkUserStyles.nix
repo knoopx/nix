@@ -21,6 +21,7 @@
     ./userstyles/whatsapp.nix
     ./userstyles/immich.nix
     ./userstyles/claude.nix
+    ./userstyles/devdocs.nix
   ];
 
   userStylePkgs =
@@ -28,6 +29,17 @@
     ++ [
       (pkgs.theming.mkCatppuccinUserStyleTheme colorScheme)
     ];
+
+  cssVars = ''
+    :root {
+    ${
+      builtins.concatStringsSep "\n" (lib.attrsets.mapAttrsToList (
+          name: value: "--${name}: #${toString value};"
+        )
+        colorScheme)
+    }
+    }
+  '';
 in
   pkgs.stdenvNoCC.mkDerivation {
     name = "userstyles.css";
@@ -41,7 +53,7 @@ in
     buildPhase = ''
       userStyles=(${lib.strings.escapeShellArgs userStylePkgs})
       userStyles=''${userStyles[@]}
-      cat $userStyles | sass --quiet - >> userstyles.css
+      (echo "${cssVars}" && cat $userStyles) | sass --quiet - >> userstyles.css
       postcss --no-map userstyles.css -u ${transform} -o $out
     '';
   }

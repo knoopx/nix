@@ -1,0 +1,1 @@
+webfuzzy --name 'find .' --preview 'cat "$selected"'

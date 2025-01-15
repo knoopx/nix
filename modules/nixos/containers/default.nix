@@ -7,7 +7,8 @@ _: {
     ./silverbullet.nix
     ./memos.nix
     ./ollama.nix
-    ./vllm-openai.nix
+    # ./paperless-ngx.nix
+    # ./vllm-openai.nix
     # ./nextcloud.nix
     # ./baserow.nix
     # ./eidos.nix

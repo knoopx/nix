@@ -15,10 +15,12 @@
     ./navi
     ./vscode.nix
     ./yazi.nix
+    ./shamls
   ];
 
   home.packages = with pkgs; [
     fuzzy
+    fuzzel
     webkit-shell
     shttp
   ];

@@ -4,7 +4,7 @@
   shttp = pkgs.callPackage ./shttp args;
   launcher = pkgs.callPackage ./launcher args;
   ollamark = pkgs.callPackage ./ollamark args;
-  shaml = pkgs.callPackage ./shaml args;
+  shamls = pkgs.callPackage ./shamls args;
 
   repl-jq = pkgs.writeShellApplication {
     name = "repl-jq";

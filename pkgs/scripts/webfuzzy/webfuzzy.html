@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: monospace;
+        margin: 0;
+        background-color: var(--gnome-window-background);
+        color: var(--gnome-window-color);
+      }
+
+      #container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      #search-input {
+        font-family: monospace;
+        border: none;
+        width: 100%;
+        background: inherit;
+        color: inherit;
+        outline: none;
+        padding: 4px 8px;
+      }
+
+      #search-input::placeholder {
+        color: var(--gnome-tabbar-tab-hover-background);
+      }
+
+      #results {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        overflow-y: auto;
+      }
+
+      .result-item {
+        padding: 4px 8px;
+        cursor: pointer;
+      }
+
+      .result-item.selected {
+        font-weight: bold;
+        color: var(--gnome-window-background);
+        background: var(--gnome-accent-bg);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <input type="text" id="search-input" placeholder="Search..." autofocus />
+      <ul id="results"></ul>
+    </div>
+
+    <script>
+      const items = [
+        "app/controllers/users_controller.rb",
+        "app/models/user.rb",
+        "app/views/users/index.html.erb",
+        "app/views/users/show.html.erb",
+        "config/routes.rb",
+        "db/migrate/create_users.rb",
+        "lib/user_helper.rb",
+        "spec/models/user_spec.rb",
+        "test/controllers/users_controller_test.rb",
+        "README.md",
+      ];
+
+      class FuzzyFinder {
+        constructor(items) {
+          this.items = items;
+          this.selectedIndex = 0;
+          this.searchInput = document.getElementById("search-input");
+          this.resultsList = document.getElementById("results");
+
+          this.setupEventListeners();
+          this.renderResults(items);
+        }
+
+        setupEventListeners() {
+          this.searchInput.addEventListener("input", () => {
+            this.selectedIndex = 0;
+            this.search();
+          });
+
+          document.addEventListener("keydown", (e) => {
+            switch (e.key) {
+              case "ArrowDown":
+                e.preventDefault();
+                this.moveSelection(1);
+                break;
+              case "ArrowUp":
+                e.preventDefault();
+                this.moveSelection(-1);
+                break;
+              case "Enter":
+                this.selectCurrent();
+                break;
+            }
+          });
+        }
+
+        search() {
+          const query = this.searchInput.value.toLowerCase();
+          if (!query) {
+            this.renderResults(this.items);
+            return;
+          }
+
+          const results = this.items
+            .map((item) => {
+              const score = this.fuzzyMatch(query, item.toLowerCase());
+              return { item, score };
+            })
+            .filter((result) => result.score > 0)
+            .sort((a, b) => b.score - a.score);
+
+          this.renderResults(results.map((r) => r.item));
+        }
+
+        fuzzyMatch(query, str) {
+          let score = 0;
+          let queryIndex = 0;
+          let lastMatchIndex = -1;
+
+          for (let i = 0; i < str.length && queryIndex < query.length; i++) {
+            if (str[i] === query[queryIndex]) {
+              score += 1;
+              // Bonus for consecutive matches
+              if (lastMatchIndex === i - 1) {
+                score += 2;
+              }
+              // Bonus for matches after separators
+              if (i === 0 || str[i - 1] === "/" || str[i - 1] === "_") {
+                score += 3;
+              }
+              lastMatchIndex = i;
+              queryIndex++;
+            }
+          }
+
+          return queryIndex === query.length ? score : 0;
+        }
+
+        renderResults(results) {
+          this.resultsList.innerHTML = results
+            .map((item, index) => {
+              const highlighted = this.highlightMatches(
+                item,
+                this.searchInput.value
+              );
+              const selectedClass =
+                index === this.selectedIndex ? "selected" : "";
+              return `
+              <li class="result-item ${selectedClass}" data-index="${index}">
+                ${highlighted}
+              </li>
+            `;
+            })
+            .join("");
+        }
+
+        highlightMatches(str, query) {
+          if (!query) return str;
+
+          const lowerStr = str.toLowerCase();
+          const lowerQuery = query.toLowerCase();
+          let result = "";
+          let queryIndex = 0;
+
+          for (let i = 0; i < str.length; i++) {
+            if (
+              queryIndex < query.length &&
+              lowerStr[i] === lowerQuery[queryIndex]
+            ) {
+              result += `<span class="highlight">${str[i]}</span>`;
+              queryIndex++;
+            } else {
+              result += str[i];
+            }
+          }
+
+          return result;
+        }
+
+        moveSelection(delta) {
+          const items = this.resultsList.children;
+          const newIndex = this.selectedIndex + delta;
+
+          if (newIndex >= 0 && newIndex < items.length) {
+            items[this.selectedIndex].classList.remove("selected");
+            this.selectedIndex = newIndex;
+            items[this.selectedIndex].classList.add("selected");
+
+            // Ensure selected item is visible
+            items[this.selectedIndex].scrollIntoView({
+              block: "nearest",
+            });
+          }
+        }
+
+        selectCurrent() {
+          const items = this.resultsList.children;
+          if (items.length > 0) {
+            const selectedItem = items[this.selectedIndex].textContent.trim();
+            console.log("Selected:", selectedItem);
+            // Handle selection - you can modify this to do whatever you want
+            alert(`Selected: ${selectedItem}`);
+          }
+        }
+      }
+
+      // Initialize the fuzzy finder
+      const fuzzyFinder = new FuzzyFinder(items);
+    </script>
+  </body>
+</html>

@@ -33,6 +33,7 @@
   cli-apps = with pkgs; [
     # dotnet-netcore
     # libvirt
+    # mdfried
     # nim
     # nimble
     # rclone
@@ -67,7 +68,6 @@
     internetarchive
     jq
     libsecret
-    # mdfried
     mpv
     nh
     nixd
@@ -80,7 +80,6 @@
     repl-jq
     ruby
     ruby-lsp
-    ydotool
     rufo
     rust-analyzer
     rustc
@@ -93,6 +92,7 @@
     visidata
     xidel
     xsv
+    ydotool
     yq
     zq
   ];

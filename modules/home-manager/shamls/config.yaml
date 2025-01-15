@@ -1,0 +1,173 @@
+# email: echo "knoopx@gmail.com"
+# downloads_dir: echo "~/Downloads"
+
+_config: echo "$HOME/.config/shamls/config.yaml"
+
+hackernews:
+  default: xdg-open "<pick-frontpage-url>"
+  _list-frontpage-items: curl --silent "https://hnrss.org/frontpage" | dasel -r xml -w json "rss.channel.item" | jq -r 'map(.title + "\n" + .link + "\u0000") | .[]'
+  _pick-frontpage-url: echo "<list-frontpage-items>" | fzf --ansi --multi --highlight-line --layout reverse | tail -n 1
+
+search:
+  text: gum input --placeholder "search..."
+
+  nixpkgs: xdg-open "https://search.nixos.org/packages?channel=unstable&type=packages&query=<text>"
+  github: xdg-open "https://github.com/search?type=repositories&q=<text>"
+
+  duck-duck-go:
+    default: xdg-open "<_pick>"
+    _pick: |
+      ddgr --json --noprompt --expand "<text>" \
+        | jq -rc '. | map("{{ Color \"99\" \"\(.title)\" }}\n\(.abstract)\n\(.url)\n") | .[]' \
+        | gum format -t template \
+        | perl -0 -pe 's/\n\n/\0/gm' \
+        | fzf --read0 --ansi --multi --highlight-line --layout reverse \
+        | tail -n 1
+
+ollama:
+  _api: echo "http://localhost:11434/api"
+  text: gum write --placeholder "prompt..."
+  list-models: gum spin --spinner dot --title "Loading model list..." -- curl --silent "<_api>/tags" | jq -r '.models[].name' | sort
+  pick-model: echo "<list-models>" | gum choose --selected "$(skate get ollama-model)"
+  default: |
+    ollamark -m "<pick-model>" "<text>"
+    skate set ollama-last "<text>"
+    skate set ollama-model "<pick-model>"
+
+  _last-prompt: skate get ollama-last
+  re-ask: |
+    prompt=$(gum write --placeholder "prompt..." --prompt "<_last-prompt>")
+    skate set ollama-last "$prompt"
+    skate set ollama-model "<model>"
+    ollamark -m "<model>" "$prompt"
+
+# ask ollama
+
+applications:
+  name:
+  default: find /etc/profiles/per-user/knoopx/share/applications -iname "*.desktop" | xargs -L 1 basename
+
+clipboard:
+  default: shamls "<_config>" <_action>
+  _action: echo "<_input>" | fzf --ansi --multi --highlight-line --layout reverse | head -n 1
+  _input: shamls "<_config>" --text "$(wl-paste)"
+
+text:
+  default: shamls "<_config>" <_pick-action>
+  ask-ollama: shmls "<_config>" ollama.run --text "<text>"
+  text-to-speech: tts "<text>"
+  _pick-action: echo "<_input>" | fzf --ansi --multi --highlight-line --layout reverse | head -n 1
+  _input: shamls "<_config>" --text "$(gum write --placeholder "text")"
+
+caffeine:
+  turn-on: gsettings --schemadir /etc/profiles/per-user/$USER/share/gnome-shell/extensions/caffeine@patapon.info/schemas/ set org.gnome.shell.extensions.caffeine toggle-state true
+  turn-off: gsettings --schemadir /etc/profiles/per-user/$USER/share/gnome-shell/extensions/caffeine@patapon.info/schemas/ set org.gnome.shell.extensions.caffeine toggle-state false
+
+utility:
+  generate-randon-token: tr -dc A-Za-z0-9_ < /dev/urandom | head -c 32 | xargs  | gum pager
+  ansi-colors: |
+    for fgbg in 38 48 ; do
+        for color in {0..256} ; do
+            echo -en "\e[${fgbg};5;${color}m ${color}\t\e[0m"
+            if (( $((($color + 1) % 6)) == 0 )) ; then
+                echo ""
+            fi
+        done
+    done
+
+download:
+  pick-file: gum file
+  from-list: cat "<pick-file>" | aria2c --continue=true --auto-file-renaming=false -i -c
+
+# global:
+#   clipboard: list-actions --text "{pbpaste}" | fuzzy
+#   hacker-news: run-action hacker-news | fuzzy
+#   downloads: find <downloads_dir>
+
+music:
+  _path: echo "/mnt/junk/Music"
+  default: amberol "$(find "<pick-album>" -iname "*.mp3")"
+  _list-albums: find "<_path>" -iname "*.mp3" -print0 | xargs -0 dirname | uniq
+  _pick-album: echo "<list-albums>" | gum filter
+
+igir:
+  default: npx -y igir move --dir-dat-name --dat "<dat>" --input <input> --output <output>
+
+  _roms_dir: echo "/mnt/junk/Roms"
+  _dats_dir: echo "~/.local/share/dats"
+
+  _input_dirs: |
+    echo "<downloads_dir>"
+    echo "<roms_dir>"
+    echo $PWD
+
+  _output_dirs: |
+    echo "<input>"
+    echo "<roms_dir>"
+    echo $PWD
+
+  _pick-dat: find -L <dats_dir> | gum filter
+  _input: echo "<input_dirs>" | sort -u | gum filter
+  _output: echo "<output_dirs>" | sort -u | gum filter
+
+firefox:
+  _db: echo "$HOME/.mozilla/firefox/knoopx/places.sqlite"
+  _list-bookmarks: |
+    tmp=$(mktemp)
+    cp "<db>" "$tmp"
+    sqlite3 "$tmp" "SELECT DISTINCT mb.title || CHAR(10) || mp.url FROM moz_bookmarks mb INNER JOIN moz_places mp ON mp.id = mb.fk WHERE mb.type = 1 AND mb.title IS NOT NULL ORDER BY mp.frecency DESC"
+    rm "$tmp"
+  open-bookmark: |
+    xdg-open "$(echo "$(echo "<_list-bookmarks>" \
+      | awk -F'\t' 'NR % 2 == 0 { printf "\033[30m%s\033[0m\0", $1; } NR % 2 != 0 { printf "\033[1;37m%s\033[0m\n", $1;}' \
+      | fzf --read0 --ansi --multi --highlight-line --layout reverse)" | tail -n1)"
+
+  # history: |
+  #   tmp=$(mktemp)
+  #   cp "<db>" "$tmp"
+  #   sqlite3 "$tmp" "SELECT DISTINCT title || CHAR(10) || url FROM moz_places WHERE title IS NOT NULL ORDER BY last_visit_date DESC"
+  #   rm "$tmp"
+  # asd: |
+  #   echo "<history>"
+  # \
+  #   | awk -F'\t' 'NR % 2 == 0 { printf "\033[30m%s\033[0m\0", $1; } NR % 2 != 0 { printf "\033[1;37m%s\033[0m\n", $1;}'
+  # | fzf --read0 --ansi --multi --highlight-line --layout reverse)" | tail -n1
+  # xdg-open "$(echo "$()"
+
+docker:
+  _containers: sudo docker ps | sed '1d'
+  _container: echo "<containers>" | gum choose | awk '{print $1}'
+  sh: sudo docker exec -ti "<container>" "/bin/sh"
+  logs: sudo docker logs -f "<container>"
+  prune: sudo docker system prune -a
+
+google-calendar:
+  month: gum spin --spinner dot --title "Fetching..." -- reset; gcalcli calm --monday --military --width 15 | less -r
+  week: gum spin --spinner dot --title "Fetching..." -- reset; gcalcli calw --monday --military | less -r
+  agenda: gum spin --spinner dot --title "Fetching..." -- reset; gcalcli agenda | less -r
+
+systemd:
+  list-units: systemctl --user --full --no-legend --no-pager list-unit-files
+  pick-unit: echo "<list-units>" | gum filter | awk '{print $1}'
+  stop-unit: systemctrl stop "<pick-unit>"
+  restart-unit: systemctrl restart "<pick-unit>"
+  view-unit-logs: journalctl --user -u "<pick-unit>"
+
+_launcher:
+  list-actions: shamls "<_config>"
+  # actions: shamls "<_config>" | perl -0 -pe 's/\n\n/\0/gm' | fzf --read0 --ansi --multi --highlight-line --layout reverse --with-nth 1
+  pick-action: echo "<list-actions>" | sort | fzf --ansi --multi --highlight-line --layout reverse --with-nth 1 --delimiter "\t" | cut -f2
+  # pick-action: echo "<list-actions>" | sort | fzf --ansi --multi --highlight-line --layout reverse | head -n 1
+  run-action: shamls "<_config>" "$(shamls "<_config>" _launcher.pick-action)"
+
+
+# GoogleCalendar:
+#   MonthCalendar: gum spin --spinner dot --title "Fetching..." -- reset; gcalcli calm --monday --military --width 15 | less -r
+#   WeekCalendar: gum spin --spinner dot --title "Fetching..." -- reset; gcalcli calw --monday --military | less -r
+#   Agenda: gum spin --spinner dot --title "Fetching..." -- reset; gcalcli agenda | less -r
+
+# _Launcher:
+#   ListActions: shamls "<_config>"
+#   # | grep -v -r "^_"
+#   PickAction: echo "<ListActions>" | fzf --ansi --multi --highlight-line --layout reverse | head -n 1
+#   RunAction: shamls "<_config>" "$(shamls "<_config>" "_Launcher.PickAction")"
