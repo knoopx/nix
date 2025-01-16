@@ -88,11 +88,11 @@
     # xemu
     # dosbox
     # melonDS
-    # rpcs3
+    rpcs3
     # pcsx2
     # lime3ds
     ryujinx
-    # citron-emu
+    citron-emu
     cemu
     custom.retroarch
   ];

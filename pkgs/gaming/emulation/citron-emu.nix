@@ -14,7 +14,7 @@
 in
   pkgs.stdenv.mkDerivation rec {
     pname = "citron-emu";
-    version = "dae1524eb59fac4b4ca0889d220d25e55eccfc84";
+    version = "3635b6e6026623134242bb58d4f60240960756db";
 
     src =
       fetchGit
@@ -35,8 +35,8 @@ in
 
     buildInputs = with pkgs; [
       git
-      vulkan-headers
-      vulkan-utility-libraries
+      # vulkan-headers
+      # vulkan-utility-libraries
       boost183
       autoconf
       automake
@@ -47,6 +47,8 @@ in
       nlohmann_json
       ffmpeg
       qt6.qtbase
+      qt6.qtmultimedia
+      qt6.qtwebengine
       enet
       libva
       vcpkg
@@ -63,8 +65,8 @@ in
       "-DENABLE_QT6=ON"
       "-DCITRON_USE_BUNDLED_FFMPEG=OFF"
       "-DCITRON_USE_BUNDLED_VCPKG=OFF"
-      "-DCITRON_USE_EXTERNAL_VULKAN_HEADERS=OFF"
-      "-DCITRON_USE_EXTERNAL_VULKAN_UTILITY_LIBRARIES=OFF"
+      # "-DCITRON_USE_EXTERNAL_VULKAN_HEADERS=OFF"
+      # "-DCITRON_USE_EXTERNAL_VULKAN_UTILITY_LIBRARIES=OFF"
       "-DCITRON_USE_EXTERNAL_SDL2=OFF"
       "-DCITRON_TESTS=OFF"
     ];
