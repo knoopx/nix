@@ -21,8 +21,11 @@ docker.logs: sudo docker logs -f "<container>"
 docker.prune: sudo docker system prune -a
 ```
 
-## related projects
+## similar projects
 
-quicksilver
-navi
+albert
+alfred
 cmdkit
+navi
+quicksilver
+raycast

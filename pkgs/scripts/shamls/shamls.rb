@@ -12,7 +12,7 @@ class Hash
   alias tsort_each_node each_key
 
   def tsort_each_child(node, &block)
-    fetch(node).to_s.scan(/<([\w\-\+]+)>/).flatten.each(&block)
+    fetch(node).to_s.scan(/<([\w\-]+)>/).flatten.each(&block)
   end
 end
 
@@ -45,7 +45,7 @@ class TaskRunner
   private
 
   def highlight(str)
-    str.gsub(/<([\w\-\+]+)>/) { |s| s.yellow }
+    str.gsub(/<([\w\-]+)>/) { |s| s.yellow }
   end
 
   def namespace(str)
@@ -68,7 +68,7 @@ class TaskRunner
           resolved_value = resolve_command(highlight(value))
           next unless new_key.split(".").any? { |k| k.start_with?("+") }
           puts [
-                 namespace(new_key) + " #{value.scan(/<([\w\-\+]+)>/)
+                 namespace(new_key) + " #{value.scan(/<([\w\-]+)>/)
                    .map(&:first)
                    .uniq
                    .reject { |v| v.start_with?("_") }
@@ -76,7 +76,7 @@ class TaskRunner
 
                  [new_key.strip, *@params.map { |k, v| "--#{k} \"#{v}\"" }].join(" "),
                ].join("\t")
-          # puts [new_key.strip.blue, *value.scan(/<([\w\-\+]+)>/).map { |v| "<#{v.first}>" }].join(" ")
+          # puts [new_key.strip.blue, *value.scan(/<([\w\-]+)>/).map { |v| "<#{v.first}>" }].join(" ")
           # puts [
           #        new_key.strip.blue,
           #        *resolved_value.lines.map { |line| "  #{line.strip}" },
@@ -166,7 +166,7 @@ class TaskRunner
   end
 
   def resolve_command(command, visited = Set.new)
-    command.to_s.gsub(/<([\w\-\+]+)>/) do |match|
+    command.to_s.gsub(/<([\w\-]+)>/) do |match|
       param_name = $1
       value = find_param_value(param_name, visited)
       if value.is_a?(Hash) and value["default"]

@@ -30,13 +30,13 @@ ollama:
   pick-model: echo "<list-models>" | gum choose --selected "$(skate get ollama-model)"
   text: gum write --placeholder "prompt..."
 
-  default: |
+  +ask-ollama: |
     ollamark -m "<pick-model>" "<text>"
     skate set ollama-last "<text>"
     skate set ollama-model "<pick-model>"
 
   last-prompt: skate get ollama-last
-  re-ask: |
+  +re-ask-ollama: |
     prompt=$(gum write --placeholder "prompt..." --prompt "<last-prompt>")
     skate set ollama-last "$prompt"
     skate set ollama-model "<model>"
@@ -50,13 +50,13 @@ clipboard:
   action: echo "<input>" | fzf --ansi --multi --highlight-line --layout reverse | head -n 1
   input: shamls "<config>" --text "$(wl-paste)"
 
-text:
-  +text-actions: shamls "<config>" <pick-action>
-  +ask-ollama: shmls "<config>" $ollama.run --text "<text>"
-  +text-to-speech: tts "<text>"
+# text:
+#   +text-actions: shamls "<config>" <pick-action>
+#   +ask-ollama: shmls "<config>" $ollama.run --text "<text>"
+#   +text-to-speech: tts "<text>"
 
-  pick-action: echo "<input>" | fzf --ansi --multi --highlight-line --layout reverse | head -n 1
-  input: shamls "<config>" --text "$(gum write --placeholder "text")"
+#   pick-action: echo "<input>" | fzf --ansi --multi --highlight-line --layout reverse | head -n 1
+#   input: shamls "<config>" --text "$(gum write --placeholder "text")"
 
 caffeine:
   +caffeinate: gsettings --schemadir /etc/profiles/per-user/$USER/share/gnome-shell/extensions/caffeine@patapon.info/schemas/ set org.gnome.shell.extensions.caffeine toggle-state true
@@ -148,6 +148,10 @@ google-calendar:
   +week: gum spin --spinner dot --title "Fetching..." -- reset; gcalcli calw --monday --military | less -r
   +agenda: gum spin --spinner dot --title "Fetching..." -- reset; gcalcli agenda | less -r
 
+gmail:
+  to: gum write --placeholder "email"
+  compose: xdg-open "https://mail.google.com/mail/?view=cm&fs=1&to=<to>"
+
 systemd:
   list-units: systemctl --user --full --no-legend --no-pager list-unit-files
   unit: echo "<list-units>" | gum filter | awk '{print $1}'
@@ -160,7 +164,7 @@ systemd:
 launcher:
   list-actions: shamls "<config>"
   # actions: shamls "<config>" | perl -0 -pe 's/\n\n/\0/gm' | fzf --read0 --ansi --multi --highlight-line --layout reverse --with-nth 1
-  pick-action: echo "<list-actions>" | fzf --columns --ansi --multi --highlight-line --layout reverse --with-nth 1 --delimiter "\t"
+  pick-action: echo "<list-actions>" | fzf --ansi --highlight-line --layout reverse | cut -f1
   # pick-action: echo "<list-actions>" | sort | fzf --ansi --multi --highlight-line --layout reverse | head -n 1
   run-action: shamls "<config>" "$(shamls "<config>" launcher.pick-action)"
 # GoogleCalendar:

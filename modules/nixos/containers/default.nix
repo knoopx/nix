@@ -2,11 +2,11 @@ _: {
   imports = [
     ./traefik.nix
     ./immich.nix
-    ./open-webui.nix
     ./watchtower.nix
     ./silverbullet.nix
     ./memos.nix
     ./ollama.nix
+    ./open-webui.nix
     # ./paperless-ngx.nix
     # ./vllm-openai.nix
     # ./nextcloud.nix

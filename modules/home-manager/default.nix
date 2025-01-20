@@ -1,6 +1,8 @@
 {
   pkgs,
   config,
+  defaults,
+  lib,
   ...
 }: {
   imports = [
@@ -13,7 +15,7 @@
     ./gnome
     ./kitty.nix
     ./navi
-    ./vscode.nix
+    ./cursor.nix
     ./yazi.nix
     ./shamls
   ];
@@ -31,6 +33,40 @@
       clean.enable = true;
       clean.extraArgs = "--keep-since 5d --keep 3";
       flake = "${config.home.homeDirectory}/.dotfiles";
+    };
+
+    vscode = {
+      enable = true;
+      package =
+        pkgs.vscode.override
+        {
+          commandLineArgs = [
+            "--disable-features=WaylandFractionalScaleV1"
+          ];
+        };
+
+      keybindings = import ./vscode/keybindings.nix {};
+      userSettings = import ./vscode/user-settings.nix {inherit pkgs defaults lib config;};
+    };
+
+    code-cursor = {
+      enable = true;
+      package = (
+        pkgs.code-cursor.overrideAttrs
+        (prev: {
+          # --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}
+          installPhase =
+            prev.installPhase
+            + ''
+              rm $out/bin/cursor
+              mv $out/bin/.cursor-wrapped $out/bin/cursor
+              wrapProgram $out/bin/cursor --add-flags "--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --disable-features=WaylandFractionalScaleV1 --no-update"
+            '';
+        })
+      );
+      extensions = config.programs.vscode.extensions;
+      keybindings = config.programs.vscode.keybindings;
+      userSettings = config.programs.vscode.userSettings;
     };
   };
 }
