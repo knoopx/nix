@@ -95,6 +95,14 @@ in
       glib.dev
     ];
     src = pkgs.gnome-shell.src;
+
+    # patches = [
+    #   (pkgs.fetchurl {
+    #     url = "https://raw.githubusercontent.com/danth/stylix/refs/heads/master/modules/gnome/shell_colors.patch";
+    #     sha256 = "sha256-NFObGcKk09bhinmW7Z6fDPecuj+nG7cvSB8WMbSPEe4=";
+    #   })
+    # ];
+
     preConfigure = ''
       cp ${colors} data/theme/gnome-shell-sass/_colors.scss
       cp ${colors} data/theme/gnome-shell-sass/_default-colors.scss

@@ -4,7 +4,7 @@
   ...
 }: colorScheme: let
   name = "memos";
-  version = "0.23.0";
+  version = "0.24.0";
 
   # css = with defaults.colorScheme.palette; ''
   #   .dark\:bg-zinc-900 {
@@ -80,7 +80,7 @@
     owner = "usememos";
     repo = "memos";
     rev = "v${version}";
-    hash = "sha256-2uluBnJIcfdezqa5/wSF6Cp7SUUp3YYDqKTOtKlYbCY=";
+    hash = "sha256-pEFdVxKhTNzP8gOlViD2vAmpMgHS0v149tnqlgwSnnc=";
   };
 
   frontend = pkgs.stdenvNoCC.mkDerivation {
@@ -98,13 +98,13 @@
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256-KzCfNgVcAC7a04TrYrRfcJ7cZL4UF6ATp14zGmJEB1A=";
+    outputHash = "sha256-VQ3cgMZS3ttzW1SoYm82Xjo6/d4Jw6+zTQeH4hekcvI=";
   };
 in
   pkgs.buildGoModule {
     inherit name version src;
     doCheck = false;
-    vendorHash = "sha256-YaLhvqcuCJpvkSpd1lh2GXE0+c0Zcw3xQ2v1/zn2AZE=";
+    vendorHash = "sha256-1iGrSWI+dWZ2QR1y/bM8KyF2Zjwkfy/WWz6OA/QuAbs=";
     prePatch = ''
       rm -rf server/router/frontend/dist
       cp -r ${frontend} server/router/frontend/dist

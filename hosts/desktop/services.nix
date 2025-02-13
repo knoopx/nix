@@ -27,13 +27,13 @@
     };
 
     sunshine = {
-      enable = true;
+      # enable = true;
       autoStart = true;
       capSysAdmin = true;
     };
 
     mpd = {
-      enable = false;
+      # enable = true;
       user = "pipewire";
       musicDirectory = "/mnt/mixed/Music";
       extraConfig = ''

@@ -4,12 +4,14 @@
   ...
 }: let
   gtk-apps = with pkgs; [
-    aider-chat
+    # gimp
+    # krita
     # libguestfs
+    # msty
     # orca-slicer
     # vial
     # virt-manager
-    # zed-editor
+    aider-chat.withPlaywright
     alpaca
     commit
     czkawka
@@ -18,16 +20,16 @@
     fclones-gui
     file-roller
     ghidra-bin
-    # gimp
     gitg
-    krita
-    livecaptions
+    # livecaptions
     nfoview
     nicotine-plus
     onlyoffice-bin
+    pinta
     plexamp
     prusa-slicer
     transmission_4-gtk
+    zed-editor
   ];
 
   cli-apps = with pkgs; [
@@ -89,9 +91,9 @@
     tv
     ultralytics
     uv
-    visidata
+    # visidata
     xidel
-    xsv
+    xan
     ydotool
     yq
     zq

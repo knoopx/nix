@@ -3,7 +3,7 @@
     name = "pattern-monster.json";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256-5R2LUZrf0u98+/va9oPGbWOS5XsiSSlu94UA1JZnxzY=";
+    outputHash = "sha256-iPDDZhmi5ZHUMAxNM19CGHf3AgZMH2yJxVfe2TZ6f1Y=";
 
     phases = ["buildPhase"];
     buildInputs = with pkgs; [

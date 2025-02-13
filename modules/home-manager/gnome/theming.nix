@@ -12,6 +12,7 @@
   '';
 in {
   stylix.targets.gnome.enable = false;
+  stylix.targets.glance.enable = false;
 
   gtk = {
     iconTheme = {

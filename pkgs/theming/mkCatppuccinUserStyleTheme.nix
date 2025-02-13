@@ -78,8 +78,8 @@ in
     src = pkgs.fetchFromGitHub {
       owner = "catppuccin";
       repo = "userstyles";
-      rev = "958476784e42e7562d6ed527b6a48cf8620752ce";
-      sha256 = "sha256-1HkIURfa+dkrKb8jF9U6fM+EsjuyulAAN0/Gxhumito=";
+      rev = "f4256b29124df2292e689bcb128420cc962926d6";
+      sha256 = "sha256-q5U/eJ0gmJFNDKf1VZjNIqq3WZ8AOgMIG9x9/O+6vhg=";
     };
     buildInputs = with pkgs; [lessc];
 
@@ -92,6 +92,5 @@ in
         userstyle=$(cat $file && echo ${lib.strings.escapeShellArg (lessVarDecl lessVars "")})
         echo "$userstyle" | lessc  --source-map-no-annotation --clean-css="-b --s0 --skip-rebase --skip-advanced --skip-aggressive-merging --skip-shorthand-compacting" - >> $out
       done
-      substituteInPlace $out --replace-fail "Unsupported GitHub theme detected! Please switch to the default light/dark theme via the GitHub Appearance settings to get the best experience for the Catppuccin GitHub userstyle." ""
     '';
   }

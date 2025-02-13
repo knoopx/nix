@@ -32,4 +32,18 @@ in {
       };
     };
   };
+
+  home.file.".local/share/launchbox" = {
+    source = pkgs.stdenvNoCC.mkDerivation {
+      name = "launchbox-metadata";
+      installPhase = ''
+        mkdir -p $out
+        cp -r *.xml $out
+      '';
+      src = fetchTarball {
+        url = "http://gamesdb.launchbox-app.com/Metadata.zip";
+        sha256 = "sha256:0yms1vl1qvzv7yhws9pvaxlsdgn7psq1fxfyji2p84j9ndln8gjy";
+      };
+    };
+  };
 }

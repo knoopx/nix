@@ -4,8 +4,8 @@ pkgs.stdenvNoCC.mkDerivation {
   src = pkgs.fetchFromGitHub {
     owner = "rafaelmardojai";
     repo = "firefox-gnome-theme";
-    rev = "91ca1f82d717b02ceb03a3f423cbe8082ebbb26d";
-    sha256 = "sha256-S79Hqn2EtSxU4kp99t8tRschSifWD4p/51++0xNWUxw=";
+    rev = "a89108e6272426f4eddd93ba17d0ea101c34fb21";
+    sha256 = "sha256-vAxN2f3rvl5q62gQQjZGVSvF93nAsOxntuFz+e/655w=";
   };
 
   buildPhase = with colorScheme; ''

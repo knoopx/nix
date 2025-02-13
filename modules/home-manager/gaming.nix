@@ -88,12 +88,20 @@
     # xemu
     # dosbox
     # melonDS
-    rpcs3
+    # (rpcs3.overrideAttrs (prev: {
+    #   src = fetchFromGitHub {
+    #     owner = "RPCS3";
+    #     repo = "rpcs3";
+    #     rev = "5c2c4a66490db0bc5a8e282699939fdd823e0dae";
+    #     fetchSubmodules = true;
+    #     hash = "sha256-l/K9pLAmWanZieeV0xIhVB+n6OBlOdmspo9J4ajXhbo=";
+    #   };
+    # }))
     # pcsx2
     # lime3ds
     ryujinx
     citron-emu
-    cemu
+    # cemu
     custom.retroarch
   ];
 
@@ -105,7 +113,7 @@
     # protonup
     # wineWowPackages.waylandFull
     nsz
-    umu
+    umu-launcher
     citron-emu
     # gamescope
     # gamescope-session
@@ -121,11 +129,21 @@ in {
   home.packages = launchers ++ emulators ++ games ++ tools;
 
   xdg.configFile."pegasus-frontend/themes/gameOS" = {
-    source = fetchTarball {
-      url = "https://github.com/PlayingKarrde/gameOS/releases/download/1.10/gameOS.zip";
-      sha256 = "sha256:1ph487fnl7ayn5fgzb381fnzw2daj09r7q6hy0papaq579i1knsf";
-    };
     recursive = true;
+    source = pkgs.stdenvNoCC.mkDerivation {
+      name = "gameOS";
+      src = fetchTarball {
+        url = "https://github.com/PlayingKarrde/gameOS/archive/7a5a5223ff7371d0747a7c5d3a3b8f2f5e36b4f2.zip";
+        sha256 = "sha256:1mwrk8dk6rbr72nr32bnn524agjq01x1fyih1yxm7m5h8rxlh6hh";
+      };
+      installPhase = "cp -R ./ $out";
+      patches = [
+        (pkgs.fetchurl {
+          url = "https://github.com/PlayingKarrde/gameOS/compare/7a5a5223ff7371d0747a7c5d3a3b8f2f5e36b4f2...knoopx:gameOS:master.diff";
+          sha256 = "sha256-uW1zwsTEywt6BawpPcVvlL7Z2GRnEiqnQEc4KqT1HYo=";
+        })
+      ];
+    };
   };
 
   xdg.configFile."pegasus-frontend/settings.txt".text = ''

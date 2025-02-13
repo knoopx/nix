@@ -10,7 +10,7 @@
     ./firefox
     ./fish.nix
     ./gaming.nix
-    ./ghostty.nix
+    ./terminal.nix
     ./git.nix
     ./gnome
     ./kitty.nix
