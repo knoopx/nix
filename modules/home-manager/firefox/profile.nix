@@ -7,7 +7,7 @@
   theme = pkgs.theming.mkStylixFirefoxGnomeTheme defaults.colorScheme.palette;
 in {
   isDefault = true;
-  extensions = with pkgs.firefox-addons; [
+  extensions.packages = with pkgs.firefox-addons; [
     ublock-origin
     copy-selected-links
     hover-zoom-plus

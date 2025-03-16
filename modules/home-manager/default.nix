@@ -27,6 +27,8 @@
     shttp
   ];
 
+  stylix.targets.vscode.profileNames = ["default"];
+
   programs = {
     nh = {
       enable = true;
@@ -45,28 +47,31 @@
           ];
         };
 
-      keybindings = import ./vscode/keybindings.nix {};
-      userSettings = import ./vscode/user-settings.nix {inherit pkgs defaults lib config;};
+      profiles.default = {
+        keybindings = import ./vscode/keybindings.nix {};
+        userSettings = import ./vscode/user-settings.nix {inherit pkgs defaults lib config;};
+      };
     };
 
-    code-cursor = {
-      enable = true;
-      package = (
-        pkgs.code-cursor.overrideAttrs
-        (prev: {
-          # --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}
-          installPhase =
-            prev.installPhase
-            + ''
-              rm $out/bin/cursor
-              mv $out/bin/.cursor-wrapped $out/bin/cursor
-              wrapProgram $out/bin/cursor --add-flags "--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --disable-features=WaylandFractionalScaleV1 --no-update"
-            '';
-        })
-      );
-      extensions = config.programs.vscode.extensions;
-      keybindings = config.programs.vscode.keybindings;
-      userSettings = config.programs.vscode.userSettings;
-    };
+    # stylix.targets.code-cursor.profileNames = ["default"];
+    # code-cursor = {
+    #   enable = true;
+    #   package = (
+    #     pkgs.code-cursor.overrideAttrs
+    #     (prev: {
+    #       # --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}
+    #       installPhase =
+    #         prev.installPhase
+    #         + ''
+    #           rm $out/bin/cursor
+    #           mv $out/bin/.cursor-wrapped $out/bin/cursor
+    #           wrapProgram $out/bin/cursor --add-flags "--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --disable-features=WaylandFractionalScaleV1 --no-update"
+    #         '';
+    #     })
+    #   );
+    #   extensions = config.programs.vscode.profiles.default.extensions;
+    #   keybindings = config.programs.vscode.profiles.default.keybindings;
+    #   userSettings = config.programs.vscode.profiles.default.userSettings;
+    # };
   };
 }

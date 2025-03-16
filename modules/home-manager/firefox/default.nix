@@ -14,4 +14,6 @@ in {
     policies = import ./policies.nix args;
     profiles."${defaults.username}" = import ./profile.nix args;
   };
+
+  stylix.targets.firefox.profileNames = ["${defaults.username}"];
 }

@@ -34,9 +34,9 @@ in {
 
     package = pkgs.glance.overrideAttrs (before: {
       preConfigure = ''
-          ${lib.getExe pkgs.ast-grep} run -U -l js internal/assets/static/js/main.js \
-            -p 'function setupCollapsibleLists() { $$$ }' \
-            --rewrite 'function setupCollapsibleLists() {
+        ${lib.getExe pkgs.ast-grep} run -U -l js internal/glance/static/js/main.js \
+        -p 'function setupCollapsibleLists() { $$$ }' \
+        --rewrite 'function setupCollapsibleLists() {
           const collapsibleLists = document.querySelectorAll(".list.collapsible-container");
           for (let i = 0; i < collapsibleLists.length; i++) {
             const list = collapsibleLists[i];

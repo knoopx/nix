@@ -99,8 +99,7 @@
     # }))
     # pcsx2
     # lime3ds
-    ryujinx
-    citron-emu
+    # ryujinx
     # cemu
     custom.retroarch
   ];
@@ -114,7 +113,6 @@
     # wineWowPackages.waylandFull
     nsz
     umu-launcher
-    citron-emu
     # gamescope
     # gamescope-session
     # opengamepadui
