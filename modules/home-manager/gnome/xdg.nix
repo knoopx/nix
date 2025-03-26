@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   browser = "firefox.desktop";
   file-manager = "org.gnome.Nautilus.desktop";
   image-viewer = "org.gnome.eog.desktop";
@@ -23,55 +27,66 @@ in {
         exec = ''xdg-open "https://home.knoopx.net/lovelace"'';
         icon =
           (pkgs.fetchurl {
-            url = "https://upload.wikimedia.org/wikipedia/en/thumb/4/49/Home_Assistant_logo_%282023%29.svg/1920px-Home_Assistant_logo_%282023%29.svg.png";
-            sha256 = "sha256-AG5JKEjclBkrWs5+Yni3mvO0vJ1S7m+a5rbarCiiO8U=";
+            url = "https://www.svgrepo.com/download/331429/home-assistant.svg";
+            sha256 = "sha256-HhM9DTOBOHDkf1Undzb1d9mVoHpv9VRsmlAtci0cglg=";
           })
           .outPath;
       };
 
-      telegram = {
-        name = "Telegram";
-        exec = ''xdg-open "https://web.telegram.org/k/"'';
+      android-otg = {
+        name = "Android OTG";
+        exec = ''${lib.getExe pkgs.scrcpy} --otg'';
         icon =
           (pkgs.fetchurl {
-            url = "https://web.telegram.org/k/assets/img/logo_filled.svg";
-            sha256 = "sha256-+F8rb2dCYCZW/s8kzH24bGiNgNFWYDgSBD2osdxvmsY=";
+            url = "https://www.svgrepo.com/download/395662/android1.svg";
+            sha256 = "sha256-iU9UisNW6tAa+rckYc+alDJp5lEfOrlJ0cIv5RIbbIs=";
           })
           .outPath;
       };
 
-      whatsapp = {
-        name = "WhatsApp";
-        exec = ''xdg-open "https://web.whatsapp.com/"'';
+      gmail = {
+        name = "Gmail";
+        exec = ''xdg-open "https://mail.google.com/"'';
         icon =
           (pkgs.fetchurl {
-            url = "https://static.whatsapp.net/rsrc.php/yp/r/iBj9rlryvZv.svg";
-            sha256 = "sha256-QmNVdkQ5QwVITocMZ8Hlf26P559OdrCJO6ezPoMKUeI=";
+            url = "https://www.svgrepo.com/download/452213/gmail.svg";
+            sha256 = "sha256-mDJqB47Gw3vWmxxeJCPY84FIpBx4IlbSgYr+B3t7P9U=";
           })
           .outPath;
       };
 
-      spotify = {
-        name = "Spotify";
-        exec = ''xdg-open "https://open.spotify.com/"'';
-        icon =
-          (pkgs.fetchurl {
-            url = "https://open.spotifycdn.com/cdn/images/icons/Spotify_1024.31b25879.png";
-            sha256 = "sha256-MbJYed49mTS56YqTzohLBdnfngOoAASRJ98rZIhvAFU=";
-          })
-          .outPath;
-      };
+      # telegram = {
+      #   name = "Telegram";
+      #   exec = ''xdg-open "https://web.telegram.org/k/"'';
+      #   icon =
+      #     (pkgs.fetchurl {
+      #       url = "https://web.telegram.org/k/assets/img/logo_filled.svg";
+      #       sha256 = "sha256-+F8rb2dCYCZW/s8kzH24bGiNgNFWYDgSBD2osdxvmsY=";
+      #     })
+      #     .outPath;
+      # };
 
-      slack = {
-        name = "Slack";
-        exec = ''xdg-open "https://app.slack.com/client/T08SBQA2Y/"'';
-        icon =
-          (pkgs.fetchurl {
-            url = "https://slack-status.com/img/icons/icon_slack_hash_colored.svg";
-            sha256 = "sha256-unQedNkGItCtknM4vKpgjMkqVYZTTluf4pAT4N+dutA=";
-          })
-          .outPath;
-      };
+      # whatsapp = {
+      #   name = "WhatsApp";
+      #   exec = ''xdg-open "https://web.whatsapp.com/"'';
+      #   icon =
+      #     (pkgs.fetchurl {
+      #       url = "https://static.whatsapp.net/rsrc.php/yp/r/iBj9rlryvZv.svg";
+      #       sha256 = "sha256-QmNVdkQ5QwVITocMZ8Hlf26P559OdrCJO6ezPoMKUeI=";
+      #     })
+      #     .outPath;
+      # };
+
+      # spotify = {
+      #   name = "Spotify";
+      #   exec = ''xdg-open "https://open.spotify.com/"'';
+      #   icon =
+      #     (pkgs.fetchurl {
+      #       url = "https://open.spotifycdn.com/cdn/images/icons/Spotify_1024.31b25879.png";
+      #       sha256 = "sha256-MbJYed49mTS56YqTzohLBdnfngOoAASRJ98rZIhvAFU=";
+      #     })
+      #     .outPath;
+      # };
     };
 
     mimeApps = {

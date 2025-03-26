@@ -8,6 +8,7 @@
     ./nixpkgs.nix
     ./packages.nix
     ./services.nix
+    ./flatpak.nix
     ./system.nix
     ./theming
     ./users.nix

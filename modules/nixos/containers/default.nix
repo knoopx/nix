@@ -6,6 +6,7 @@ _: {
     ./memos.nix
     ./ollama.nix
     ./open-webui.nix
+    ./searxng.nix
     # ./immich.nix
     # ./paperless-ngx.nix
     # ./vllm-openai.nix

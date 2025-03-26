@@ -25,13 +25,18 @@
               }
 
               {
+                symbol = "NET";
+                name = "Cloudflare";
+              }
+
+              {
                 symbol = "MSFT";
                 name = "Microsoft Corp";
               }
 
               {
-                symbol = "GME";
-                name = "GameStop Corp";
+                symbol = "AMZN";
+                name = "Amazon";
               }
 
               {

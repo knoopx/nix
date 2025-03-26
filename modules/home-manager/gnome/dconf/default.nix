@@ -28,10 +28,11 @@ in {
         "firefox.desktop"
         "gmail.desktop"
         "org.gnome.Calendar.desktop"
-        "slack.desktop"
-        "telegram.desktop"
-        "whatsapp.desktop"
-        "spotify.desktop"
+        "android-otg.desktop"
+        # "slack.desktop"
+        # "telegram.desktop"
+        # "whatsapp.desktop"
+        # "spotify.desktop"
         "home-assistant.desktop"
       ];
       enabled-extensions = map (extension: extension.extensionUuid) defaults.gnome.extensions;

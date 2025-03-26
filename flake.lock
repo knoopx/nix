@@ -92,11 +92,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1742097805,
-        "narHash": "sha256-N3/7llBZ93Itf7ndnNtEm7lPoMqSC57B/PNaMB6cL1Q=",
+        "lastModified": 1742449434,
+        "narHash": "sha256-UVz7NhPzbEWey6mMJU3Jwjqfbp0xH0iKZDuoRjhZEN0=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "5a0ac85616aa6b166ea715a41bc1255bb802b189",
+        "rev": "1b0b14b56353040142e0ef5b0ab37743bbbf4ab4",
         "type": "gitlab"
       },
       "original": {
@@ -283,11 +283,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1741955947,
-        "narHash": "sha256-2lbURKclgKqBNm7hVRtWh0A7NrdsibD0EaWhahUVhhY=",
+        "lastModified": 1742447757,
+        "narHash": "sha256-Q0KXcHQmum8L6IzGhhkVhjFMKY6BvYa/rhmLP26Ws8o=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "4e12151c9e014e2449e0beca2c0e9534b96a26b4",
+        "rev": "94605dcadefeaff6b35c8931c9f38e4f4dc7ad0a",
         "type": "github"
       },
       "original": {
@@ -319,17 +319,17 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1742156074,
-        "narHash": "sha256-hqr9cqEJnyWI/0rSAOmb20HKY/wwXrUBJBFG/C6n8kc=",
+        "lastModified": 1742272065,
+        "narHash": "sha256-ud8vcSzJsZ/CK+r8/v0lyf4yUntVmDq6Z0A41ODfWbE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "986433ddca767db36c484883e5c5b35e8971eb64",
+        "rev": "3549532663732bfd89993204d40543e9edaec4f2",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "type": "github"
+        "id": "nixpkgs",
+        "ref": "nixpkgs-unstable",
+        "type": "indirect"
       }
     },
     "nur": {
@@ -391,11 +391,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1742040559,
-        "narHash": "sha256-Hb3aw00C1/5ORiTCASwMd8vcLAl/GNJfyjXZyl/EKpc=",
+        "lastModified": 1742422444,
+        "narHash": "sha256-Djg5uMhIDPdFOZ7kTrqNlHaAqcx/4rp7BofZLsUHkLY=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "bcc674f1994396137438bac9d905971453d33b12",
+        "rev": "f122d70925ca44e5ee4216661769437ab36a6a3f",
         "type": "github"
       },
       "original": {
@@ -531,11 +531,11 @@
       },
       "locked": {
         "dir": "packaging/nix",
-        "lastModified": 1741627943,
-        "narHash": "sha256-gGeuNkJcHgORz7ohcXuvzf+gw8qh8m4z8xWNlWTnIG4=",
+        "lastModified": 1742441912,
+        "narHash": "sha256-8379sxse20nhUT6VcjjpsDmYoT8EJQCy0E8bLZZdos8=",
         "owner": "Open-Wine-Components",
         "repo": "umu-launcher",
-        "rev": "14530e6644868af5dfd9d8921ad73dba625761f5",
+        "rev": "28eef5f5638d5660fb2d7c1811c8f2915a5e8c5b",
         "type": "github"
       },
       "original": {
