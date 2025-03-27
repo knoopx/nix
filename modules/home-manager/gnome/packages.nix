@@ -9,7 +9,7 @@
     # libguestfs
     # msty
     # orca-slicer
-    # vial
+    vial
     # virt-manager
     aider-chat.withPlaywright
     alpaca
@@ -89,7 +89,7 @@
     sqlpage
     tokei
     tv
-    ultralytics
+    # ultralytics
     uv
     # visidata
     xidel

@@ -1,12 +1,12 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    amberol
     # gnome-boxes
-    # gnome-system-monitor
+    amberol
     authenticator
     baobab
     decibels
     drawing
+    drum-machine
     eog
     evince
     gnome-calendar
@@ -21,6 +21,7 @@
     showtime
     snapshot
     xdg-desktop-portal-gnome
+    gnome-text-editor
   ];
 
   environment.gnome.excludePackages = with pkgs; [

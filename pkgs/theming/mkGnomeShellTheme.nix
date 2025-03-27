@@ -44,7 +44,8 @@
       $system_base_color: #${base00};
       $system_fg_color: #${base05};
 
-      $panel_bg_color: #${base01};
+      //$panel_bg_color: #${base01};
+      $panel_bg_color: black;
       $panel_fg_color: #${base05};
 
       $card_bg_color: #${base01};
@@ -83,7 +84,7 @@
       $orange_3: #${base09};
       $orange_4: #${base09};
 
-      $selected_fg_color: #${base07};
+      $selected_fg_color: $light_1;
       $selected_bg_color: #${base07};
     '';
   };
@@ -96,13 +97,6 @@ in
     ];
     src = pkgs.gnome-shell.src;
 
-    # patches = [
-    #   (pkgs.fetchurl {
-    #     url = "https://raw.githubusercontent.com/danth/stylix/refs/heads/master/modules/gnome/shell_colors.patch";
-    #     sha256 = "sha256-NFObGcKk09bhinmW7Z6fDPecuj+nG7cvSB8WMbSPEe4=";
-    #   })
-    # ];
-
     preConfigure = ''
       cp ${colors} data/theme/gnome-shell-sass/_colors.scss
       cp ${colors} data/theme/gnome-shell-sass/_default-colors.scss
@@ -110,8 +104,8 @@ in
       substituteInPlace data/theme/gnome-shell-sass/{*,**/*}.scss \
         --replace-warn '-st-accent-color' '$selected_bg_color' \
         --replace-warn '-st-accent-fg-color' '$selected_fg_color'
-
     '';
+
     buildPhase = ''
       sass data/theme/gnome-shell-dark.scss > data/theme/gnome-shell-dark.css
       sass data/theme/gnome-shell-light.scss > data/theme/gnome-shell-light.css
