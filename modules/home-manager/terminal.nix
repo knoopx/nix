@@ -12,10 +12,6 @@
 
   fromMocha = color: lib.mkForce colorMap."${color}";
 in {
-  programs.ghostty = {
-    enable = true;
-  };
-
   programs.fzf = {
     enable = true;
     colors = {

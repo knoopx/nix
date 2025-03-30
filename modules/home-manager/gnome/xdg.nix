@@ -27,8 +27,8 @@ in {
         exec = ''xdg-open "https://home.knoopx.net/lovelace"'';
         icon =
           (pkgs.fetchurl {
-            url = "https://www.svgrepo.com/download/331429/home-assistant.svg";
-            sha256 = "sha256-HhM9DTOBOHDkf1Undzb1d9mVoHpv9VRsmlAtci0cglg=";
+            url = "https://raw.githubusercontent.com/doppelhelix/dalci-skel/1c24ae65a90dc1e20e2508785e2f32bd1931e334/etc/skel/.local/share/icons/hicolor/scalable/apps/homeassistant.svg";
+            sha256 = "sha256-OogiPi0O4w1kr/LZ0O1Gg9Q9Wn1VD34c42MvBpHf3RU=";
           })
           .outPath;
       };
@@ -38,8 +38,8 @@ in {
         exec = ''${lib.getExe pkgs.scrcpy} --otg'';
         icon =
           (pkgs.fetchurl {
-            url = "https://www.svgrepo.com/download/395662/android1.svg";
-            sha256 = "sha256-iU9UisNW6tAa+rckYc+alDJp5lEfOrlJ0cIv5RIbbIs=";
+            url = "https://raw.githubusercontent.com/LingmoOS/LingmoOS/2f593c74987037c7d98b9c680f43ebb4a1231a20/shell/bc/Icons/Crule/devices/scalable/tablet.svg";
+            sha256 = "sha256-sG2skP8tbH5HjXIPOkrC+5NelUUKKho2Ei+rK+vEC6E=";
           })
           .outPath;
       };
@@ -60,7 +60,7 @@ in {
       #   exec = ''xdg-open "https://web.telegram.org/k/"'';
       #   icon =
       #     (pkgs.fetchurl {
-      #       url = "https://web.telegram.org/k/assets/img/logo_filled.svg";
+      #       url = "https://raw.githubusercontent.com/Ashwatthaamaa/Neuwaita/refs/heads/main/scalable/apps/org.telegram.desktop.svg";
       #       sha256 = "sha256-+F8rb2dCYCZW/s8kzH24bGiNgNFWYDgSBD2osdxvmsY=";
       #     })
       #     .outPath;

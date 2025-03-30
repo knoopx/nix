@@ -3,8 +3,8 @@
 
   inputs = {
     # nixpkgs.url = "nixpkgs/nixos-unstable";
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    # nixpkgs.url = "github:NixOS/nixpkgs";
+    # nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -26,8 +26,6 @@
 
     # nix-gaming.url = "github:fufexan/nix-gaming";
     # nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
-
-    # ghostty.url = "github:ghostty-org/ghostty";
 
     # jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
     # jovian.inputs.nixpkgs.follows = "nixpkgs";
@@ -56,7 +54,6 @@
     # lix-module,
     # nix-gaming,
     umu-launcher,
-    # ghostty,
     # jovian,
     firefox-addons,
     # mdfried,
@@ -85,7 +82,6 @@
     nixosModules = [
       {
         nixpkgs.overlays = [
-          # (self: super: ghostty.packages.x86_64-linux)
           # (self: super: {mdfried = mdfried.packages.x86_64-linux.default;})
           (self: super: umu-launcher.packages.x86_64-linux)
           # (self: super: nix-gaming.packages.x86_64-linux)

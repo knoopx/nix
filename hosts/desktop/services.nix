@@ -1,9 +1,13 @@
 {
+  pkgs,
   defaults,
   lib,
   ...
 }: {
   services = {
+    udev.packages = with pkgs; [
+      via
+    ];
     pulseaudio.enable = false;
     fstrim.enable = true;
     btrfs.autoScrub.enable = true;

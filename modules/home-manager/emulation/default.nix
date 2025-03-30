@@ -19,6 +19,6 @@ in {
   ];
 
   home.packages = [
-    retool
+    # retool
   ];
 }

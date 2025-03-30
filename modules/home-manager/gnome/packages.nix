@@ -7,9 +7,9 @@
     # gimp
     # krita
     # libguestfs
+    # livecaptions
     # msty
     # orca-slicer
-    vial
     # virt-manager
     aider-chat.withPlaywright
     alpaca
@@ -21,7 +21,6 @@
     file-roller
     ghidra-bin
     gitg
-    # livecaptions
     nfoview
     nicotine-plus
     onlyoffice-bin
@@ -30,15 +29,23 @@
     prusa-slicer
     transmission_4-gtk
     zed-editor
+
+    vial
+    qmk
+    pkgsCross.avr.buildPackages.gcc
   ];
 
   cli-apps = with pkgs; [
+    # chickenPackages.chickenEggs.xj
     # dotnet-netcore
     # libvirt
     # mdfried
     # nim
     # nimble
     # rclone
+    # ultralytics
+    # universal-android-debloater
+    # visidata
     alejandra
     android-tools
     aria2
@@ -46,7 +53,6 @@
     bash-language-server
     bun
     cargo
-    chickenPackages.chickenEggs.xj
     clickhouse-cli
     crystal
     csvkit
@@ -89,11 +95,9 @@
     sqlpage
     tokei
     tv
-    # ultralytics
     uv
-    # visidata
-    xidel
     xan
+    xidel
     ydotool
     yq
     zq

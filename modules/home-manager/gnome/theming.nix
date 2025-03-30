@@ -14,10 +14,37 @@ in {
   stylix.targets.gnome.enable = false;
   stylix.targets.glance.enable = false;
 
+  home.packages = [
+    pkgs.adwaita-icon-theme
+    (pkgs.theming.mkMoreWaitaTheme defaults.colorScheme.palette)
+  ];
+
   gtk = {
+    # iconTheme = {
+    #   name = "MoreWaita";
+    #   package = pkgs.theming.mkMoreWaitaTheme defaults.colorScheme.palette;
+    # };
     iconTheme = {
-      name = "MoreWaita";
-      package = pkgs.theming.mkMoreWaitaTheme defaults.colorScheme.palette;
+      name = "Neuwaita";
+      package = pkgs.stdenvNoCC.mkDerivation {
+        name = "Neuwaita";
+        src = pkgs.fetchFromGitHub {
+          owner = "RusticBard";
+          repo = "Neuwaita";
+          rev = "c0ec2b829b355bb717c5d2cb823beb40856c1dcb";
+          sha256 = "sha256-pIxTVOa6sDILKf1C3AXNTkNULOAa5WcTF7JVQENYD38=";
+        };
+
+        installPhase = ''
+          mkdir -p $out/share/icons/Neuwaita/{scalable,symbolic}/{apps,devices,legacy,mimetypes,places,status}
+
+          cp -r scalable/* $out/share/icons/Neuwaita/scalable/
+          rm "$out/share/icons/Neuwaita/scalable/mimetypes/application-x-iso9600-appimage (Copy).svg"
+
+          cp -r index.theme $out/share/icons/Neuwaita/index.theme
+          substituteInPlace $out/share/icons/Neuwaita/index.theme --replace-fail "Inherits=Adwaita, hicolor, breeze" "Inherits=MoreWaita,Adwaita,hicolor,breeze"
+        '';
+      };
     };
   };
 

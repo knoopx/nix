@@ -72,6 +72,8 @@ in {
           ]
           ++ (lib.lists.flatten (mapAttrsToList (k: v: [k v]) cfg.api)));
       };
+      Unit.After = ["multi-user.target"];
+      Unit.Before = ["glance.service"];
       Install.WantedBy = ["default.target"];
     };
   };

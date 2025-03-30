@@ -22,6 +22,7 @@
     snapshot
     xdg-desktop-portal-gnome
     gnome-text-editor
+    # gnome-network-displays
   ];
 
   environment.gnome.excludePackages = with pkgs; [

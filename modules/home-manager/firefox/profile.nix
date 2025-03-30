@@ -10,10 +10,10 @@ in {
   extensions.packages = with pkgs.firefox-addons; [
     ublock-origin
     copy-selected-links
-    hover-zoom-plus
     sponsorblock
-    web-archives
-    clearurls
+    # hover-zoom-plus
+    # web-archives
+    # clearurls
   ];
 
   extraConfig = builtins.readFile "${theme}/configuration/user.js";
