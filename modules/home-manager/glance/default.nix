@@ -51,13 +51,14 @@ in {
             list.style.position = "relative";
           }
         }'
+
+        echo 'document.addEventListener("visibilitychange", () => { clearTimeout(t); if (document.visibilityState === "hidden") t = setTimeout(() => location.reload(), 300000); });' >> internal/glance/static/js/main.js
       '';
     });
 
     settings = {
       server = {
         port = 9000;
-        host = "localhost";
         assets-path = assets;
       };
       branding = {

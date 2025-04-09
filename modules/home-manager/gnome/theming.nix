@@ -31,16 +31,13 @@ in {
         src = pkgs.fetchFromGitHub {
           owner = "RusticBard";
           repo = "Neuwaita";
-          rev = "c0ec2b829b355bb717c5d2cb823beb40856c1dcb";
-          sha256 = "sha256-pIxTVOa6sDILKf1C3AXNTkNULOAa5WcTF7JVQENYD38=";
+          rev = "7f520c37c62bf3e9cc557e6c5291ebf468f71dd0";
+          sha256 = "sha256-dl5FEnnQ+MZ0PsMWmmcK5GICWQahx5k14j1UPvxko4k=";
         };
 
         installPhase = ''
           mkdir -p $out/share/icons/Neuwaita/{scalable,symbolic}/{apps,devices,legacy,mimetypes,places,status}
-
           cp -r scalable/* $out/share/icons/Neuwaita/scalable/
-          rm "$out/share/icons/Neuwaita/scalable/mimetypes/application-x-iso9600-appimage (Copy).svg"
-
           cp -r index.theme $out/share/icons/Neuwaita/index.theme
           substituteInPlace $out/share/icons/Neuwaita/index.theme --replace-fail "Inherits=Adwaita, hicolor, breeze" "Inherits=MoreWaita,Adwaita,hicolor,breeze"
         '';

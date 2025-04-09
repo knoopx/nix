@@ -35,7 +35,7 @@ in {
     "browser.newtabpage.enabled" = false;
     "browser.newtabpage.enhanced" = true;
     "browser.ping-centre.telemetry" = false;
-    "browser.startup.homepage" = "http://${config.services.glance.settings.server.host}:${builtins.toString config.services.glance.settings.server.port}";
+    "browser.startup.homepage" = "https://glance.knoopx.net";
     "browser.tabs.closeWindowWithLastTab" = true;
     "browser.urlbar.suggest.calculator" = true;
     "browser.urlbar.unitConversion.enabled" = true;

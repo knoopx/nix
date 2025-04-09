@@ -35,6 +35,9 @@ in {
 
       android-otg = {
         name = "Android OTG";
+        settings = {
+          StartupWMClass = ".scrcpy-wrapped";
+        };
         exec = ''${lib.getExe pkgs.scrcpy} --otg'';
         icon =
           (pkgs.fetchurl {

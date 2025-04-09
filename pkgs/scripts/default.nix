@@ -5,6 +5,7 @@
   launcher = pkgs.callPackage ./launcher args;
   ollamark = pkgs.callPackage ./ollamark args;
   shamls = pkgs.callPackage ./shamls args;
+  importantize = pkgs.callPackage ./importantize.nix args;
 
   repl-jq = pkgs.writeShellApplication {
     name = "repl-jq";

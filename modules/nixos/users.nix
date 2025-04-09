@@ -32,7 +32,7 @@ in {
     initialPassword = defaults.password;
 
     shell = pkgs.fish;
-    extraGroups = ["wheel" "networkmanager" "audio" "video" "docker" "lxd" "kvm" "libvirtd" "qemu-libvirtd"];
+    extraGroups = ["wheel" "networkmanager" "audio" "video" "docker" "lxd" "kvm" "libvirtd" "qemu-libvirtd" "adbusers"];
 
     openssh.authorizedKeys.keys = let
       authorizedKeys = pkgs.fetchurl defaults.pubKeys;
