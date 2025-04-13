@@ -4,28 +4,28 @@
   rgbToHex,
 }:
 with lib; let
-  darker = {
+  darkest = {
     r = 42;
     g = 40;
     b = 0;
   };
-  slightDark = {
+  darker = {
     r = 19;
     g = 20;
     b = 0;
   };
-  slightLight = {
+  lighter = {
     r = 17;
     g = 13;
     b = 0;
   };
-  lighter = {
+  lightest = {
     r = 30;
     g = 24;
     b = 0;
   };
 
-  applyOffset = rgb: offset: {
+  offset = rgb: offset: {
     r = rgb.r + offset.r;
     g = rgb.g + offset.g;
     b = rgb.b + offset.b;
@@ -40,12 +40,12 @@ with lib; let
       b = elemAt baseRgbA 2;
     };
   in
-    assert assertMsg isValidHex "Invalid hex color format. Please use format 'RRGGBB'"; {
-      base4 = rgbToHex (applyOffset baseRgb lighter);
-      base3 = rgbToHex (applyOffset baseRgb slightLight);
-      base2 = baseColor;
-      base1 = rgbToHex (applyOffset baseRgb (mapAttrs (_: v: -v) slightDark));
-      base0 = rgbToHex (applyOffset baseRgb (mapAttrs (_: v: -v) darker));
-    };
+    assert assertMsg isValidHex "Invalid hex color format. Please use format 'RRGGBB'"; [
+      (rgbToHex (offset baseRgb lightest))
+      (rgbToHex (offset baseRgb lighter))
+      baseColor
+      (rgbToHex (offset baseRgb (mapAttrs (_: v: -v) darker)))
+      (rgbToHex (offset baseRgb (mapAttrs (_: v: -v) darkest)))
+    ];
 in
   colorVariations

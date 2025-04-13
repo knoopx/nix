@@ -57,16 +57,16 @@
 
   i18n.extraLocaleSettings = {
     LANGUAGE = defaults.defaultLocale;
-    LC_ALL = defaults.defaultLocale;
-    LC_ADDRESS = defaults.defaultLocale;
-    LC_IDENTIFICATION = defaults.defaultLocale;
-    LC_MEASUREMENT = defaults.defaultLocale;
-    LC_MONETARY = defaults.defaultLocale;
-    LC_NAME = defaults.defaultLocale;
-    LC_NUMERIC = defaults.defaultLocale;
-    LC_PAPER = defaults.defaultLocale;
-    LC_TELEPHONE = defaults.defaultLocale;
-    LC_TIME = defaults.defaultLocale;
+    LC_ALL = defaults.region;
+    LC_ADDRESS = defaults.region;
+    LC_IDENTIFICATION = defaults.region;
+    LC_MEASUREMENT = defaults.region;
+    LC_MONETARY = defaults.region;
+    LC_NAME = defaults.region;
+    LC_NUMERIC = defaults.region;
+    LC_PAPER = defaults.region;
+    LC_TELEPHONE = defaults.region;
+    LC_TIME = defaults.region;
   };
 
   console = {

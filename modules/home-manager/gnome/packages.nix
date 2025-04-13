@@ -1,7 +1,6 @@
 {
   pkgs,
   defaults,
-  lib,
   ...
 }: let
   gtk-apps = with pkgs; [
@@ -12,7 +11,10 @@
     # msty
     # orca-slicer
     # virt-manager
-    # aider-chat.withPlaywright
+    # (aider-chat.withOptional
+    #   {
+    #     withAll = true;
+    #   })
     alpaca
     commit
     czkawka
@@ -43,7 +45,7 @@
     # mdfried
     # nim
     # nimble
-    # rclone
+    rclone
     # ultralytics
     # universal-android-debloater
     # visidata
@@ -95,7 +97,8 @@
     ddgr
     deno
     docker-compose
-    dotnet-sdk_8
+    dotnet-sdk_9
+    pocketbase
     duckdb
     duperemove
     dwarfs
@@ -116,6 +119,8 @@
     nodejs_latest
     nushell
     ollamark
+    notify
+    ntfy
     python3
     python3Packages.duckdb
     q-text-as-data

@@ -40,6 +40,16 @@
               }
 
               {
+                symbol = "XPEV";
+                name = "Xpeng";
+              }
+
+              {
+                symbol = "BABA";
+                name = "Alibaba";
+              }
+
+              {
                 symbol = "BTC-USD";
                 name = "Bitcoin";
                 chart-link = "https://www.tradingview.com/chart/?symbol=INDEX:BTCUSD";
@@ -100,6 +110,33 @@
             type = "group";
             widgets = [
               {
+                type = "rss";
+                title = "Stonks";
+                feeds = [
+                  {
+                    title = "unusual_whales";
+                    url = "https://nitter.privacydev.net/unusual_whales/rss";
+                  }
+                  {
+                    title = "NVDA";
+                    url = "https://news.google.com/rss/search?q=nvda+when:1d&hl=en-US&gl=US&ceid=US:en";
+                  }
+                  {
+                    title = "NET";
+                    url = "https://news.google.com/rss/search?q=cloudflare+when:1d&hl=en-US&gl=US&ceid=US:en";
+                  }
+                  {
+                    title = "MSFT";
+                    url = "https://news.google.com/rss/search?q=msft+when:1d&hl=en-US&gl=US&ceid=US:en";
+                  }
+                  {
+                    title = "AMZN";
+                    url = "https://news.google.com/rss/search?q=amzn+when:1d&hl=en-US&gl=US&ceid=US:en";
+                  }
+                ];
+              }
+
+              {
                 type = "reddit";
                 show-thumbnails = true;
                 subreddit = "NixOS";
@@ -155,6 +192,11 @@
               {
                 title = "Ollama";
                 url = "https://github.com/ollama/ollama/releases.atom";
+              }
+
+              {
+                title = "Open WebUI";
+                url = "https://github.com/open-webui/open-webui/releases.atom";
               }
               {
                 title = "Home Assistant";

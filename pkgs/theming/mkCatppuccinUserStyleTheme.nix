@@ -27,6 +27,7 @@
     "youtube"
     "bsky"
     "hacker-news"
+    "searxng"
     # "wikipedia"
   ];
 
@@ -92,5 +93,7 @@ in
         userstyle=$(cat $file && echo ${lib.strings.escapeShellArg (lessVarDecl lessVars "")})
         echo "$userstyle" | lessc  --source-map-no-annotation --clean-css="-b --s0 --skip-rebase --skip-advanced --skip-aggressive-merging --skip-shorthand-compacting" - >> $out
       done
+
+      substituteInPlace $out --replace-fail "search.bus-hit.me" "search.knoopx.net"
     '';
   }

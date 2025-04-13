@@ -61,6 +61,9 @@ in {
   };
 
   config = {
+    systemd.user.services."glance" = {
+      Unit.Requires = ["glance-extensions.service"];
+    };
     systemd.user.services."glance-extensions" = {
       Service = {
         Restart = "on-failure";
@@ -72,9 +75,8 @@ in {
           ]
           ++ (lib.lists.flatten (mapAttrsToList (k: v: [k v]) cfg.api)));
       };
-      Unit.After = ["multi-user.target"];
-      Unit.Before = ["glance.service"];
-      Install.WantedBy = ["default.target"];
+      Unit.PartOf = ["graphical-session.target"];
+      Install.WantedBy = ["graphical-session.target"];
     };
   };
 }

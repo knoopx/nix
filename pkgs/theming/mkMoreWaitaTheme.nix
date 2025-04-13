@@ -1,30 +1,39 @@
-{pkgs, ...}: colorScheme: let
+{
+  pkgs,
+  lib,
+  ...
+}: colorScheme: let
   adwaita-colors = pkgs.fetchFromGitHub {
     owner = "dpejoh";
     repo = "Adwaita-colors";
     rev = "v2.4.1";
     sha256 = "sha256-M5dFb759sXfpD9/gQVF3sngyW4WdSgy4usInds9VIWk=";
   };
-
-  folderColors = pkgs.theming.lib.colorVariations colorScheme.base05;
+  # mkColorVariations = base:
+  #   lib.attrsets.foldlAttrs lib.lists.imap0 (pkgs.theming.lib.colorVariations base) (i: c: {
+  #     "base${i}" = c;
+  #   });
+  # folderColors = mkColorVariations colorScheme.base05;
 in
   pkgs.morewaita-icon-theme.overrideAttrs (prev: {
     # ${lib.getExe pkgs.theming.matchThemeColors} "$file" > "$file"
-    postInstall = with folderColors; ''
+
+    # substituteInPlace $out/share/icons/MoreWaita/scalable/**/{folder*,user-*,inode-directory}.svg \
+    #   --replace-warn '#3f8ae5' '#${base0}' \
+    #   --replace-warn '#438de6' '#${base0}' \
+    #   --replace-warn '#62a0ea' '#${base1}' \
+    #   --replace-warn '#a4caee' '#${base2}' \
+    #   --replace-warn '#afd4ff' '#${base3}' \
+    #   --replace-warn '#c0d5ea' '#${base4}' \
+    #   --replace-warn '#1a5fb4' '#${base0}' \
+    #   --replace-warn '#3584e4' '#${base1}' \
+    #   --replace-warn '#3a87e5' '#${base1}' \
+    #   --replace-warn '#99c1f1' '#${base2}' \
+    #   --replace-warn '#c3e5e7' '#${base3}' \
+
+    postInstall = ''
       cp -r ${adwaita-colors}/Adwaita-blue/* $out/share/icons/MoreWaita
 
-      substituteInPlace $out/share/icons/MoreWaita/scalable/**/{folder*,user-*,inode-directory}.svg \
-        --replace-warn '#3f8ae5' '#${base0}' \
-        --replace-warn '#438de6' '#${base0}' \
-        --replace-warn '#62a0ea' '#${base1}' \
-        --replace-warn '#a4caee' '#${base2}' \
-        --replace-warn '#afd4ff' '#${base3}' \
-        --replace-warn '#c0d5ea' '#${base4}' \
-        --replace-warn '#1a5fb4' '#${base0}' \
-        --replace-warn '#3584e4' '#${base1}' \
-        --replace-warn '#3a87e5' '#${base1}' \
-        --replace-warn '#99c1f1' '#${base2}' \
-        --replace-warn '#c3e5e7' '#${base3}' \
 
       substituteInPlace $out/share/icons/MoreWaita/scalable/mimetypes/*.svg \
         --replace-warn '#50db81' '#${colorScheme.base0B}' \

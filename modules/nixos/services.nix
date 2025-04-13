@@ -58,5 +58,32 @@
         workstation = true;
       };
     };
+
+    searx = {
+      enable = true;
+      package = pkgs.searxng;
+      runInUwsgi = false;
+      settings = {
+        general.enable_metrics = false;
+        search = {
+          safe_search = 0;
+          formats = ["html" "json"];
+        };
+        server = {
+          port = 8081;
+          bind_address = "0.0.0.0";
+          # bind_address = "127.0.0.1";
+          # public_instance = true;
+          # limiter = false;
+          # http_protocol_version = "1.1";
+          secret_key = "helloworld";
+        };
+        # ui = {
+        # default_locale = "en";
+        # theme_args.simple_style = "dark";
+        # };
+      };
+      # environmentFile = config.sops.secrets.searx-env.path;
+    };
   };
 }

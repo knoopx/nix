@@ -11,6 +11,7 @@ in {
     ];
     environment = {
       OLLAMA_FLASH_ATTENTION = "1";
+      OLLAMA_CONTEXT_LENGTH = "131072";
     };
     labels = {
       "traefik.enable" = "false";

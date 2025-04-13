@@ -1,6 +1,7 @@
 {
   pkgs,
   nix-colors,
+  ...
 }: let
   # https://catppuccin.com/palette
   # https://nico-i.github.io/scheme-viewer/base16/
@@ -10,7 +11,9 @@
     pkgs.lib.attrsets.recursiveUpdate
     nix-colors.colorSchemes.catppuccin-mocha
     {
-      palette.base0E = "fad000";
+      palette.base0F = "fad000";
+      # palette.base0D = "fad000";
+      # palette.base0E = "fad000";
     };
 
   username = "knoopx";
@@ -90,7 +93,7 @@ in {
       astra-monitor
       steal-my-focus-window
       # useless-gaps
-      # tailscale-qs
+      # ++ (pkgs.lib.mkIf config.services.tailscale.enable [tailscale-qs]);
     ];
   };
 

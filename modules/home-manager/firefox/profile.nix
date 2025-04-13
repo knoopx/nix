@@ -27,6 +27,52 @@ in {
     ${builtins.readFile "${pkgs.theming.mkUserStyles defaults.colorScheme.palette}"}
   '';
 
+  search = {
+    default = "searxng";
+    force = true;
+    engines = {
+      "searxng" = {
+        # definedAliases = ["@sx"];
+        urls = [
+          {
+            template = "http://search.knoopx.net";
+            params = [
+              {
+                name = "q";
+                value = "{searchTerms}";
+              }
+            ];
+          }
+        ];
+      };
+      "nixpkgs" = {
+        # definedAliases = ["@nx"];
+        urls = [
+          {
+            template = "https://search.nixos.org/packages";
+            params = [
+              {
+                name = "type";
+                value = "packages";
+              }
+              {
+                name = "query";
+                value = "{searchTerms}";
+              }
+            ];
+          }
+        ];
+      };
+      "google".metaData.hidden = true;
+      "ecosia".metaData.hidden = true;
+      "ddg".metaData.hidden = true;
+      "bing".metaData.hidden = true;
+      "amazondotcom-us".metaData.hidden = true;
+      "ebay".metaData.hidden = true;
+      "qwant".metaData.hidden = true;
+    };
+  };
+
   settings = {
     "browser.newtab.preload" = true;
     "browser.newtab.privateAllowed" = true;

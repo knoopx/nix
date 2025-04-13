@@ -55,6 +55,17 @@
       group = "wheel";
       user = defaults.username;
     };
+
+    ollama = {
+      enable = true;
+      acceleration = "cuda";
+      host = "[::]";
+      environmentVariables = {
+        OLLAMA_FLASH_ATTENTION = "1";
+        OLLAMA_CONTEXT_LENGTH = "32768";
+        # OLLAMA_CONTEXT_LENGTH = "131072";
+      };
+    };
   };
 
   systemd.services.plex.serviceConfig = {

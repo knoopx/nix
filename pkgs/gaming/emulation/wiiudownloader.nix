@@ -3,7 +3,7 @@
   nix-update-script,
   ...
 }: let
-  name = "wiiudownloader";
+  pname = "wiiudownloader";
   version = "2.60";
 
   src = pkgs.fetchurl {
@@ -13,17 +13,16 @@
 
   desktop = "WiiUDownloader.desktop";
 
-  appimageContents = pkgs.appimageTools.extractType1 {inherit name src;};
+  appimageContents = pkgs.appimageTools.extractType1 {inherit pname version src;};
 in
-  pkgs.appimageTools.wrapType1 {
-    inherit name src;
-    pname = name;
+  pkgs.appimageTools.wrapType2 {
+    inherit pname version src;
 
     extraInstallCommands = ''
       install -m 444 -D ${appimageContents}/${desktop} -t $out/share/applications
 
       substituteInPlace $out/share/applications/${desktop} \
-        --replace-fail 'Exec=WiiUDownloader' 'Exec=${name}'
+        --replace-fail 'Exec=WiiUDownloader' 'Exec=${pname}'
 
       cp -r ${appimageContents}/usr/share/icons $out/share
     '';

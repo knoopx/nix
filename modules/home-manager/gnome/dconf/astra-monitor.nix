@@ -12,7 +12,7 @@
       "header-icon"
     ];
     colors = {
-      color1 = "rgb(${inputs.nix-colors.lib-core.conversions.hexToRGBString "," defaults.colorScheme.palette.base07})";
+      color1 = "rgb(${inputs.nix-colors.lib-core.conversions.hexToRGBString "," defaults.colorScheme.palette.base0D})";
       color2 = "rgb(${inputs.nix-colors.lib-core.conversions.hexToRGBString "," defaults.colorScheme.palette.base02})";
       positive = "rgb(${inputs.nix-colors.lib-core.conversions.hexToRGBString "," defaults.colorScheme.palette.base0B})";
       negative = "rgb(${inputs.nix-colors.lib-core.conversions.hexToRGBString "," defaults.colorScheme.palette.base08})";
@@ -29,7 +29,6 @@ in {
       memory-header-bars = true;
       memory-header-graph = false;
       memory-header-icon = false;
-      memory-header-show = true;
       memory-header-value = false;
       network-header-bars = false;
       network-header-graph = true;

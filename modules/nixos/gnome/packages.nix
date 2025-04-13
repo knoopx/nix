@@ -22,6 +22,7 @@
     snapshot
     xdg-desktop-portal-gnome
     gnome-text-editor
+    popsicle
     # gnome-network-displays
   ];
 

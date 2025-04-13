@@ -52,7 +52,7 @@ in {
           }
         }'
 
-        echo 'document.addEventListener("visibilitychange", () => { clearTimeout(t); if (document.visibilityState === "hidden") t = setTimeout(() => location.reload(), 300000); });' >> internal/glance/static/js/main.js
+        echo 'let t; document.addEventListener("visibilitychange", () => { clearTimeout(t); if (document.visibilityState === "hidden") t = setTimeout(() => location.reload(), 300000); });' >> internal/glance/static/js/main.js
       '';
     });
 

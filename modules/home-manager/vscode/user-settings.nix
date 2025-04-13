@@ -1,5 +1,6 @@
 {
   pkgs,
+  home,
   defaults,
   config,
   lib,
@@ -59,8 +60,8 @@
 
   "console-ninja.featureSet" = "Community";
 
-  "commitollama.model" = "custom";
   "commitollama.custom.model" = "deepseek-coder-v2:16b-lite-instruct-q8_0";
+  "commitollama.model" = "Custom";
 
   "[css]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
   "[html]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
@@ -74,6 +75,7 @@
   "[typescript]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
   "[typescriptreact]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
   "[yaml]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
+  "[markdown]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
 
   "redhat.telemetry.enabled" = false;
   "solargraph.commandPath" = "${pkgs.solargraph}/bin/solargraph";
@@ -140,4 +142,8 @@
   "qalc.output.notation" = "auto";
   "qalc.output.precision" = 0;
   "qalc.output.lowerExponentBound" = -4;
+
+  mcp = {
+    servers = import ./mcp-servers.nix {inherit pkgs config home;};
+  };
 }

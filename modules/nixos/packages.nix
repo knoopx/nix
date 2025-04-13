@@ -1,9 +1,13 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     asciinema
+    nethogs
+    iftop
+    bandwhich
     atuin
     axel
     bash
+    rage
     bat
     binutils
     bison
