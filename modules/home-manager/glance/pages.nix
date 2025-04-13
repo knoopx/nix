@@ -285,7 +285,6 @@
   };
 in {
   # https://github.com/glanceapp/glance/blob/main/docs/extensions.md
-  imports = [./extensions.nix];
   config = {
     services.glance.settings.pages = [
       homePage

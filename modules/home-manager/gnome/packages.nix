@@ -11,15 +11,10 @@
     # msty
     # orca-slicer
     # virt-manager
-    # (aider-chat.withOptional
-    #   {
-    #     withAll = true;
-    #   })
     alpaca
     commit
     czkawka
     f3d
-    fclones-gui
     fclones-gui
     file-roller
     ghidra-bin
@@ -28,14 +23,13 @@
     nicotine-plus
     onlyoffice-bin
     pinta
+    pkgsCross.avr.buildPackages.gcc
     plexamp
     prusa-slicer
-    transmission_4-gtk
-    zed-editor
-
-    vial
     qmk
-    pkgsCross.avr.buildPackages.gcc
+    transmission_4-gtk
+    vial
+    zed-editor
   ];
 
   cli-apps = with pkgs; [
@@ -45,45 +39,11 @@
     # mdfried
     # nim
     # nimble
-    rclone
     # ultralytics
     # universal-android-debloater
     # visidata
     alejandra
     android-tools
-    (cromite.overrideAttrs
-      {
-        desktopItems = [
-          (makeDesktopItem {
-            name = "cromite";
-            exec = "cromite %U";
-            icon = "google-chrome";
-            startupWMClass = "chromium-browser";
-            genericName = "Cromite";
-            desktopName = "Cromite";
-            categories = [
-              "Application"
-              "Network"
-              "WebBrowser"
-            ];
-          })
-        ];
-
-        postFixup = ''
-          rm $out/bin/cromite
-          makeWrapper $out/share/cromite/chrome $out/bin/cromite \
-            --prefix QT_PLUGIN_PATH  : "${qt6.qtbase}/lib/qt-6/plugins" \
-            --prefix QT_PLUGIN_PATH  : "${qt6.qtwayland}/lib/qt-6/plugins" \
-            --prefix NIXPKGS_QT6_QML_IMPORT_PATH : "${qt6.qtwayland}/lib/qt-6/qml" \
-            --prefix LD_LIBRARY_PATH : "$rpath" \
-            --prefix PATH            : "$binpath" \
-            --suffix PATH            : "${lib.makeBinPath [xdg-utils]}" \
-            --prefix XDG_DATA_DIRS   : "$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH:${addDriverRunpath.driverLink}/share" \
-            --set CHROME_WRAPPER  "cromite" \
-            --add-flags "--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --disable-features=WaylandFractionalScaleV1"
-        '';
-      })
-
     aria2
     ast-grep
     bash-language-server
@@ -98,7 +58,6 @@
     deno
     docker-compose
     dotnet-sdk_9
-    pocketbase
     duckdb
     duperemove
     dwarfs
@@ -117,13 +76,15 @@
     nh
     nixd
     nodejs_latest
-    nushell
-    ollamark
     notify
     ntfy
+    nushell
+    ollamark
+    pocketbase
     python3
     python3Packages.duckdb
     q-text-as-data
+    rclone
     ruby
     ruby-lsp
     rufo

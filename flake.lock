@@ -91,11 +91,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1744400795,
-        "narHash": "sha256-6kU2f0lPMJd9+yTwGMryM/Aa6CMPJYAOMY1xO5E6gaM=",
+        "lastModified": 1744500178,
+        "narHash": "sha256-hHXOb7UW0JyNb96ZEuNj75f4hd4T+6ZZ76ir4Yc2okw=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "12dc8c22e3b0ac99cefb274b825f85b003417ae7",
+        "rev": "42722da72350b489b83940fcfb45769a66fdc50b",
         "type": "gitlab"
       },
       "original": {
@@ -243,6 +243,26 @@
         "type": "github"
       }
     },
+    "globset": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1744379919,
+        "narHash": "sha256-ieaQegt7LdMDFweeHhRaUQFYyF0U3pWD/XiCvq5L5U8=",
+        "owner": "pdtpartners",
+        "repo": "globset",
+        "rev": "4e21c96ab1259b8cd864272f96a8891b589c8eda",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pdtpartners",
+        "repo": "globset",
+        "type": "github"
+      }
+    },
     "gnome-shell": {
       "flake": false,
       "locked": {
@@ -260,6 +280,26 @@
         "type": "github"
       }
     },
+    "haumea": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1708375098,
+        "narHash": "sha256-DaFJp3wDHgOqx98U0SF57bXaH2Orp106c+jSdPCVu1E=",
+        "owner": "nix-community",
+        "repo": "haumea",
+        "rev": "ec6350fd9353e7f27ce0e85d31f82e3ed73e4d70",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "haumea",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -267,11 +307,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744400600,
-        "narHash": "sha256-qYhUgA98mhq1QK13r9qVY+sG1ri6FBgyp+GApX6wS20=",
+        "lastModified": 1744498625,
+        "narHash": "sha256-pL52uCt9CUoTTmysGG91c2FeU7XUvpB7Cep6yon2vDk=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "b74b22bb6167e8dff083ec6988c98798bf8954d3",
+        "rev": "db56335ca8942d86f2200664acdbd5b9212b26ad",
         "type": "github"
       },
       "original": {
@@ -303,17 +343,17 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1744477101,
-        "narHash": "sha256-UDmiKcXmdy4M0FOUO0tGPhlNGL3obFPsTnuwPLci1Pw=",
-        "owner": "nixos",
+        "lastModified": 1744536153,
+        "narHash": "sha256-awS2zRgF4uTwrOKwwiJcByDzDOdo3Q1rPZbiHQg/N38=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "98e45db76da9492efa4c66d24ec43894085789bb",
+        "rev": "18dd725c29603f582cf1900e0d25f9f1063dbf11",
         "type": "github"
       },
       "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "type": "github"
+        "id": "nixpkgs",
+        "ref": "nixpkgs-unstable",
+        "type": "indirect"
       }
     },
     "nur": {
@@ -342,6 +382,8 @@
     "root": {
       "inputs": {
         "firefox-addons": "firefox-addons",
+        "globset": "globset",
+        "haumea": "haumea",
         "home-manager": "home-manager",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs",
@@ -375,11 +417,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1744270948,
-        "narHash": "sha256-+1psY8uBaDdkqV/P3G40SzulPvUcb9VHisqQnDozC0U=",
+        "lastModified": 1744540857,
+        "narHash": "sha256-cDC9TBD++zBsUx9X2VhJOjxXclmY8YpSqpKHaVLEXVA=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "ce45f19e8acb43e5f02888d873d451e2f994546b",
+        "rev": "379ba613a68fafdd756db370f0ef878a0d3a7308",
         "type": "github"
       },
       "original": {

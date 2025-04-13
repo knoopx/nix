@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     # gnome-boxes
+    # gnome-network-displays
     amberol
     authenticator
     baobab
@@ -14,25 +15,24 @@
     gnome-monitor-config
     gnome-secrets
     gnome-system-monitor
+    gnome-text-editor
     libnotify
     loupe
     nautilus
+    popsicle
     seahorse
     showtime
     snapshot
     xdg-desktop-portal-gnome
-    gnome-text-editor
-    popsicle
-    # gnome-network-displays
   ];
 
   environment.gnome.excludePackages = with pkgs; [
-    gnome-tour
-    gnome-initial-setup
-    gnome-user-docs
-    openconnect
-    networkmanager-openconnect
     evolution
     evolution-data-server
+    gnome-initial-setup
+    gnome-tour
+    gnome-user-docs
+    networkmanager-openconnect
+    openconnect
   ];
 }

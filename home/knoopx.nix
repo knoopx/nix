@@ -1,11 +1,10 @@
-_: {
-  imports = [
-    ../modules/home-manager
-  ];
+{...} @ inputs: let
+  recusiveFilterNixModules = import ../lib/recusiveFilterNixModules.nix inputs;
+in {
+  imports = recusiveFilterNixModules ../modules/home-manager;
 
   home = {
     stateVersion = "24.05";
     username = "knoopx";
-    homeDirectory = "/home/knoopx";
   };
 }

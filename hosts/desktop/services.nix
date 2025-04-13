@@ -1,7 +1,6 @@
 {
   pkgs,
   defaults,
-  lib,
   ...
 }: {
   services = {
@@ -66,11 +65,5 @@
         # OLLAMA_CONTEXT_LENGTH = "131072";
       };
     };
-  };
-
-  systemd.services.plex.serviceConfig = {
-    KillSignal = lib.mkForce "SIGKILL";
-    TimeoutStopSec = 10;
-    ProtectHome = lib.mkForce false;
   };
 }

@@ -85,10 +85,6 @@
 
       # nvidiaPersistenced = true;
 
-      # package = config.boot.kernelPackages.nvidiaPackages.stable.overrideAttrs (origAttrs: {
-      #   postInstall = "rm $out/bin/nvidia-bug-report.sh";
-      # });
-
       # https://http.download.nvidia.com/XFree86/Linux-x86_64/
       package = config.boot.kernelPackages.nvidiaPackages.beta;
 

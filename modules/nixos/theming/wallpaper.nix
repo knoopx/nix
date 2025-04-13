@@ -4,14 +4,14 @@
   defaults,
   ...
 }: let
-  wallpaper = pkgs.theming.mkSvgPatternWallpaper {
+  wallpaper = pkgs.theming.mkSVGPatternWallpaper {
     # style = pkgs.theming.pattern-monster.japanese-pattern-3;
     # style = pkgs.theming.pattern-monster.scales-6;
     # style = pkgs.theming.pattern-monster.cubes-5;
     # style = pkgs.theming.pattern-monster.terrazzo-1;
     # style = pkgs.theming.pattern-monster.sprinkles-1;
     # style = pkgs.theming.pattern-monster.triangles-18;
-    style = pkgs.theming.pattern-monster.doodle-1;
+    style = pkgs.pattern-monster.doodle-1;
 
     scale = 4;
     colors = with defaults.colorScheme.palette; [

@@ -1,15 +1,10 @@
 {
   defaults,
-  pkgs,
   lib,
   ...
 }: let
   mkTuple = lib.hm.gvariant.mkTuple;
 in {
-  imports = [
-    ./astra-monitor.nix
-  ];
-
   # TODO:
   # system.activationScripts.script.text = ''
   #   cp /home/knoopx/.dotfiles/profile-pic.png /var/lib/AccountsService/icons/knoopx
