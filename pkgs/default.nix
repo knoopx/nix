@@ -7,5 +7,5 @@ in {
   inherit theming;
   inherit (apps) nfoview ultralytics semantic-grep;
   inherit (emulation) es-de hydra-launcher ryujinx wiiudownloader;
-  inherit (scripts) fuzzy webkit-shell shttp launcher ollamark repl-jq shamls importantize;
+  inherit (scripts) ollamark importantize;
 }

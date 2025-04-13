@@ -78,44 +78,6 @@
             ./hosts/desktop
           ];
       };
-
-      desktop-vm = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-        modules =
-          nixosModules
-          ++ [
-            ./hosts/desktop-vm
-          ];
-      };
-
-      jegos-vm = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-        modules = [
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = specialArgs;
-              backupFileExtension = "bak";
-              users.jegos = import ./home/jegos.nix;
-            };
-          }
-          ./hosts/jegos-vm.nix
-          inputs.stylix.nixosModules.stylix
-          inputs.home-manager.nixosModules.home-manager
-        ];
-      };
-
-      # https://www.reddit.com/r/NixOS/comments/y1xo2u/how_to_create_an_iso_with_my_config_files/
-      live = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-        system = "x86_64-linux";
-        modules = [
-          inputs.stylix.nixosModules.stylix
-          (nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-gnome.nix")
-          ./hosts/live
-        ];
-      };
     };
 
     homeConfigurations = {

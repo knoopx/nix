@@ -1,9 +1,0 @@
-% ollama
-
-$ api: echo "http://localhost:11434/api"
-
-# ask ollama
-skate set ollama-model "<model>"
-ghostty --window-decoration=false --wait-after-command -e 'ollamark -m "<model>" "<text>"'
-$ text: gum write --placeholder "prompt..."
-$ model: gum spin --spinner dot --title "Loading model list..." -- curl --silent "<api>/tags" | jq -r '.models[].name' | sort | gum filter --value "$(skate get ollama-model)"

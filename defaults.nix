@@ -92,8 +92,6 @@ in {
       panel-corners
       astra-monitor
       steal-my-focus-window
-      # useless-gaps
-      # ++ (pkgs.lib.mkIf config.services.tailscale.enable [tailscale-qs]);
     ];
   };
 

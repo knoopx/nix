@@ -1,11 +1,10 @@
 {
   pkgs,
-  lib,
   config,
   ...
 }: {
   imports = [
-    ./easy-effects.nix
+    ./easy-effects
     ./firefox
     ./fish.nix
     ./gaming.nix
@@ -13,19 +12,9 @@
     ./git.nix
     ./gnome
     ./kitty.nix
-    ./navi
     ./yazi.nix
-    ./shamls
     ./vscode
     ./services.nix
-    # ./cursor
-  ];
-
-  home.packages = with pkgs; [
-    fuzzy
-    fuzzel
-    webkit-shell
-    shttp
   ];
 
   programs = {

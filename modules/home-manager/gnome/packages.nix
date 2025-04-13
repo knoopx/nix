@@ -124,7 +124,6 @@
     python3
     python3Packages.duckdb
     q-text-as-data
-    repl-jq
     ruby
     ruby-lsp
     rufo

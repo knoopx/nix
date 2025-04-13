@@ -95,17 +95,10 @@ in {
       name = "System Monitor";
     };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/navi" = {
-      binding = "<Super>r";
-      command = lib.getExe pkgs.launcher;
-      name = "Launcher";
-    };
-
     "org/gnome/settings-daemon/plugins/media-keys" = {
       logout = [];
       custom-keybindings = [
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/system-monitor/"
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/navi/"
       ];
     };
 

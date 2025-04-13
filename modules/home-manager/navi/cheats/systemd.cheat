@@ -1,9 +1,0 @@
-% systemd
-
-; # systemctl command
-; systemctl <command> --user <service>
-; $ command: echo "status;restart;start;stop;" | tr ';' '\n'
-; $ service: systemctl list-units --user
-
-# systemctl
-systemctl list-units --user | fzf

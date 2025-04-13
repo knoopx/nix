@@ -7,10 +7,6 @@
   ...
 }: {
   home.packages = with pkgs; [
-    fuzzy
-    fuzzel
-    webkit-shell
-    shttp
     # mcp-server-filesystem
     # mcp-server-fetch
     # mcp-server-playwright
