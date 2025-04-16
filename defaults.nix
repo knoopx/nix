@@ -92,6 +92,7 @@ in {
       panel-corners
       astra-monitor
       steal-my-focus-window
+      quick-settings-tweaker
     ];
   };
 

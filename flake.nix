@@ -28,6 +28,30 @@
 
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
+
+    catppuccin-userstyles.url = "github:catppuccin/userstyles";
+    catppuccin-userstyles.flake = false;
+
+    firefox-gnome-theme.url = "github:rafaelmardojai/firefox-gnome-theme";
+    firefox-gnome-theme.flake = false;
+
+    betterfox.url = "github:yokoffing/BetterFox";
+    betterfox.flake = false;
+
+    adwaita-colors.url = "github:dpejoh/Adwaita-colors";
+    adwaita-colors.flake = false;
+
+    neuwaita.url = "github:RusticBard/Neuwaita";
+    neuwaita.flake = false;
+
+    launchbox-metadata.url = "http://gamesdb.launchbox-app.com/Metadata.zip";
+    launchbox-metadata.flake = false;
+
+    libretro-database.url = "github:libretro/libretro-database";
+    libretro-database.flake = false;
+
+    libretro-fbneo.url = "github:libretro/FBNeo";
+    libretro-fbneo.flake = false;
   };
 
   outputs = {

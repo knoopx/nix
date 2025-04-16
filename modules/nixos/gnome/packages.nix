@@ -13,7 +13,6 @@
     gnome-calendar
     gnome-control-center
     gnome-monitor-config
-    gnome-secrets
     gnome-system-monitor
     gnome-text-editor
     libnotify

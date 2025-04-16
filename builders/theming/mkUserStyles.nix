@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  catppuccin-userstyles,
   ...
 } @ inputs: colorScheme: let
   userStyles = [

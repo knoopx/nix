@@ -1,14 +1,8 @@
 {
   pkgs,
-  lib,
+  adwaita-colors,
   ...
 }: colorScheme: let
-  adwaita-colors = pkgs.fetchFromGitHub {
-    owner = "dpejoh";
-    repo = "Adwaita-colors";
-    rev = "v2.4.1";
-    sha256 = "sha256-M5dFb759sXfpD9/gQVF3sngyW4WdSgy4usInds9VIWk=";
-  };
   # mkColorVariations = base:
   #   lib.attrsets.foldlAttrs lib.lists.imap0 (pkgs.theming.lib.colorVariations base) (i: c: {
   #     "base${i}" = c;

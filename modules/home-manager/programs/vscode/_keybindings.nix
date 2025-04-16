@@ -1,4 +1,4 @@
-{...}: [
+[
   {
     key = "shift+delete";
     command = "editor.action.deleteLines";

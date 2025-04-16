@@ -111,7 +111,7 @@
       $panel_bg_color: if($variant == 'light', $_base_color_light, $dark_5);
       $panel_fg_color: if($variant == 'light', $_base_color_dark, $light_1);
 
-      $card_bg_color: if($variant == 'light', $light_1, lighten($bg_color, 7%));
+      $card_bg_color: if($variant == 'light', $light_1, $bg_color);
       $card_shadow_color: if($variant == 'light', transparentize($dark_5, .97), transparent);
       $card_shadow_border_color: if($variant == 'light', transparentize($dark_5, .91), transparent);
 

@@ -51,7 +51,7 @@
       "--host"
       "memos.knoopx.net"
       "--token"
-      "eyJhbGciOiJIUzI1NiIsImtpZCI6InYxIiwidHlwIjoiSldUIn0.eyJuYW1lIjoiIiwiaXNzIjoibWVtb3MiLCJzdWIiOiIxIiwiYXVkIjpbInVzZXIuYWNjZXNzLXRva2VuIl0sImV4cCI6NDg5Nzg0MTM3NywiaWF0IjoxNzQ0MjQxMzc3fQ.VeQEwxrBQSywINXA7ChpOr4PuzU2fyiH5Msi7qOrLEk"
+      ''$(secret-tool lookup memos token | head | tr -d "\n")''
     ];
   };
   # "github": {

@@ -64,6 +64,7 @@
     fclones
     fdupes
     fq
+    cromite
     gcalcli
     gojq
     gron

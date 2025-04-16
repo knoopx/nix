@@ -34,7 +34,7 @@
   ];
 
   emulators = with pkgs; [
-    # cemu
+    cemu
     # dosbox
     # lime3ds
     # melonDS

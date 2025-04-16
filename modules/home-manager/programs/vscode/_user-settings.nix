@@ -142,7 +142,7 @@
   "qalc.output.precision" = 0;
   "qalc.output.lowerExponentBound" = -4;
 
-  mcp = {
-    servers = import ./_mcp-servers.nix inputs;
-  };
+  # mcp = {
+  #   servers = import ./_mcp-servers.nix inputs;
+  # };
 }

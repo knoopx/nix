@@ -2,6 +2,7 @@
   pkgs,
   config,
   defaults,
+  neuwaita,
   ...
 }: let
   reloadScript = ''
@@ -28,12 +29,7 @@ in {
       name = "Neuwaita";
       package = pkgs.stdenvNoCC.mkDerivation {
         name = "Neuwaita";
-        src = pkgs.fetchFromGitHub {
-          owner = "RusticBard";
-          repo = "Neuwaita";
-          rev = "7f520c37c62bf3e9cc557e6c5291ebf468f71dd0";
-          sha256 = "sha256-dl5FEnnQ+MZ0PsMWmmcK5GICWQahx5k14j1UPvxko4k=";
-        };
+        src = neuwaita;
 
         installPhase = ''
           mkdir -p $out/share/icons/Neuwaita/{scalable,symbolic}/{apps,devices,legacy,mimetypes,places,status}

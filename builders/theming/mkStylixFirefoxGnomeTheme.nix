@@ -1,12 +1,11 @@
-{pkgs}: colorScheme:
+{
+  pkgs,
+  firefox-gnome-theme,
+  ...
+}: colorScheme:
 pkgs.stdenvNoCC.mkDerivation {
-  name = "firefox-theme-gnome-stylix";
-  src = pkgs.fetchFromGitHub {
-    owner = "rafaelmardojai";
-    repo = "firefox-gnome-theme";
-    rev = "a89108e6272426f4eddd93ba17d0ea101c34fb21";
-    sha256 = "sha256-vAxN2f3rvl5q62gQQjZGVSvF93nAsOxntuFz+e/655w=";
-  };
+  name = "stylix-firefox-theme-gnome";
+  src = firefox-gnome-theme;
 
   buildPhase = with colorScheme; ''
     replacements=(

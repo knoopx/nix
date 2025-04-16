@@ -1,7 +1,7 @@
 {
   pkgs,
-  config,
   defaults,
+  betterfox,
   ...
 }: let
   theme = pkgs.theming.mkStylixFirefoxGnomeTheme defaults.colorScheme.palette;
@@ -16,11 +16,17 @@ in {
     # clearurls
   ];
 
-  extraConfig = builtins.readFile "${theme}/configuration/user.js";
-
-  userChrome = ''
-    @import "${theme}/userChrome.css";
+  extraConfig = ''
+    ${builtins.readFile "${betterfox}/user.js"}
+    ${builtins.readFile "${theme}/configuration/user.js"}
   '';
+
+  userChrome = pkgs.writeTextFile {
+    name = "firefox-user-chrome.css";
+    text = ''
+      @import "${theme}/theme/gnome-theme.css"
+    '';
+  };
 
   userContent = ''
     @import "${theme}/userContent.css";

@@ -1,5 +1,6 @@
 {
   pkgs,
+  catppuccin-userstyles,
   lib,
   ...
 }: colorScheme: let
@@ -55,12 +56,7 @@
 in
   pkgs.stdenvNoCC.mkDerivation {
     name = "catppuccin.userstyles.css";
-    src = pkgs.fetchFromGitHub {
-      owner = "catppuccin";
-      repo = "userstyles";
-      rev = "f4256b29124df2292e689bcb128420cc962926d6";
-      sha256 = "sha256-q5U/eJ0gmJFNDKf1VZjNIqq3WZ8AOgMIG9x9/O+6vhg=";
-    };
+    src = catppuccin-userstyles;
     buildInputs = with pkgs; [lessc];
 
     # ${lib.getExe pkgs.theming.matchThemeColors} "$file" > "$file"

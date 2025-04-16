@@ -1,4 +1,10 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  launchbox-metadata,
+  libretro-database,
+  libretro-fbneo,
+  ...
+}: let
 in {
   home.file.".local/share/dats/fbneo" = {
     source = pkgs.stdenvNoCC.mkDerivation {
@@ -7,12 +13,7 @@ in {
       installPhase = ''
         ln -s $src/dats $out
       '';
-      src = pkgs.fetchFromGitHub {
-        owner = "libretro";
-        repo = "FBNeo";
-        rev = "27f594be691e7a7fbb9db9d4a5d0dc12219e4fa4";
-        hash = "sha256-BjsEghQvaGyA+zjt7mWv8L6UBvIlW1GDgApEwdKiD2o=";
-      };
+      src = libretro-fbneo;
     };
   };
 
@@ -24,12 +25,7 @@ in {
         mkdir -p $out
         cp -r $src/{dat,metadat}/ $out
       '';
-      src = pkgs.fetchFromGitHub {
-        owner = "libretro";
-        repo = "libretro-database";
-        rev = "49acc074cc09d1b9a1bfb67e5c490b10c443ff89";
-        hash = "sha256-oZFuwBTOffmBTYKn9LSfIulR5gjOZ1gJIkJcgRH2ezg=";
-      };
+      src = libretro-database;
     };
   };
 
@@ -40,10 +36,7 @@ in {
         mkdir -p $out
         cp -r *.xml $out
       '';
-      src = fetchTarball {
-        url = "http://gamesdb.launchbox-app.com/Metadata.zip";
-        sha256 = "sha256:0yms1vl1qvzv7yhws9pvaxlsdgn7psq1fxfyji2p84j9ndln8gjy";
-      };
+      src = launchbox-metadata;
     };
   };
 }

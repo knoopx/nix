@@ -1,7 +1,6 @@
 final: prev: let
   inherit
     (prev)
-    pkgs
     makeDesktopItem
     qt6
     lib
@@ -9,7 +8,7 @@ final: prev: let
     ;
 in {
   cromite =
-    pkgs.cromite.overrideAttrs
+    prev.cromite.overrideAttrs
     {
       desktopItems = [
         (makeDesktopItem {
