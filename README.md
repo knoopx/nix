@@ -41,8 +41,10 @@ nh os switch ~/.dotfiles/
 
 #### set secrets
 
+```
 secret-tool store --label="DeepSeek API Key" deepseek-api key
 secret-tool store --label=WebDAV webdav password
+```
 
 #### run in vm
 

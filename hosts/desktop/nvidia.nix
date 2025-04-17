@@ -26,6 +26,7 @@
       libva-utils
       glxinfo
       egl-wayland
+      # libnvidia-egl-wayland1
     ];
   };
 

@@ -139,11 +139,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1744813899,
-        "narHash": "sha256-5J6kSkPbtuyX0tRggqadwulpqdgWHyQEDwhqVnY0T+g=",
+        "lastModified": 1744914542,
+        "narHash": "sha256-Q6EKVSHbtWqndGWHw5E+dAN4ds5p+SD5Gyiy3KGN8DM=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "f6dff741f9f485b3596a368704ec171d9eb8c7cd",
+        "rev": "30303c2b08c30085a784abf5c1823bd62dd8d9d7",
         "type": "gitlab"
       },
       "original": {
@@ -371,11 +371,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744820898,
-        "narHash": "sha256-gUldr3LtCm/OfEnbH6sFFlyyxqPMCsfMs2Ha+0fdPDs=",
+        "lastModified": 1744919155,
+        "narHash": "sha256-IJksPW32V9gid9vDxoloJMRk+YGjxq5drFHBFeBkKU8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7ede02c32a729db0d6340bdb41d10e73ec511ca0",
+        "rev": "72526a5f7cde2ef9075637802a1e2a8d2d658f70",
         "type": "github"
       },
       "original": {
@@ -387,8 +387,8 @@
     "launchbox-metadata": {
       "flake": false,
       "locked": {
-        "lastModified": 1744758054,
-        "narHash": "sha256-pSxpyJ1EH4sB8grpAQMGoQ3LqGe/WO9rFa+yCQv4UJM=",
+        "lastModified": 1744844590,
+        "narHash": "sha256-uOdDlUP1aSaHyTmYvbqkvB6gP0luIdxF0yM1gTEXkT8=",
         "type": "tarball",
         "url": "http://gamesdb.launchbox-app.com/Metadata.zip"
       },
@@ -550,11 +550,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1744668092,
-        "narHash": "sha256-XDmpI3ywMkypsHKRF2am6BzZ5OjwpQMulAe8L87Ek8U=",
+        "lastModified": 1744910471,
+        "narHash": "sha256-HItOUMA2whFnPMJuyN2XHq9TZttgrgOAZcoUXsaD4Js=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "38aff11a7097f4da6b95d4c4d2c0438f25a08d52",
+        "rev": "8d5cd725ad591890c0cd804bf68cc842b8afca51",
         "type": "github"
       },
       "original": {

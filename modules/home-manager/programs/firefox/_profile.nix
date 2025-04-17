@@ -17,16 +17,13 @@ in {
   ];
 
   extraConfig = ''
-    ${builtins.readFile "${betterfox}/user.js"}
     ${builtins.readFile "${theme}/configuration/user.js"}
+    ${builtins.readFile "${betterfox}/user.js"}
   '';
 
-  userChrome = pkgs.writeTextFile {
-    name = "firefox-user-chrome.css";
-    text = ''
-      @import "${theme}/theme/gnome-theme.css"
-    '';
-  };
+  userChrome = ''
+    @import "${theme}/theme/gnome-theme.css"
+  '';
 
   userContent = ''
     @import "${theme}/userContent.css";
