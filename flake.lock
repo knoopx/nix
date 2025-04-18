@@ -468,17 +468,17 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1744536153,
-        "narHash": "sha256-awS2zRgF4uTwrOKwwiJcByDzDOdo3Q1rPZbiHQg/N38=",
-        "owner": "NixOS",
+        "lastModified": 1744920658,
+        "narHash": "sha256-2PBQDVprEfOq+S65wRjiAhreuEvZytet1T1xf8R5xOc=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "18dd725c29603f582cf1900e0d25f9f1063dbf11",
+        "rev": "689e1624caa3929f7cbd9703809d542ed1abff34",
         "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
-        "ref": "nixpkgs-unstable",
-        "type": "indirect"
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nur": {
@@ -504,6 +504,22 @@
         "type": "github"
       }
     },
+    "playingkarrde-gameos": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1735838705,
+        "narHash": "sha256-EBpIe0aw1FO7DzB6F3oAWD5FRLF2iZGtOHllMxuamdc=",
+        "owner": "PlayingKarrde",
+        "repo": "gameOS",
+        "rev": "7a5a5223ff7371d0747a7c5d3a3b8f2f5e36b4f2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "PlayingKarrde",
+        "repo": "gameOS",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "adwaita-colors": "adwaita-colors",
@@ -520,6 +536,7 @@
         "neuwaita": "neuwaita",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs",
+        "playingkarrde-gameos": "playingkarrde-gameos",
         "stylix": "stylix",
         "umu-launcher": "umu-launcher"
       }

@@ -2,10 +2,7 @@ final: prev: {
   retroarch-custom = prev.retroarch.withCores (
     cores:
       with cores; [
-        # beetle-ngp
         # beetle-pce
-        # beetle-psx
-        # beetle-saturn
         # beetle-supergrafx
         # beetle-vb
         # beetle-wswan
@@ -17,11 +14,13 @@ final: prev: {
         # handy
         # hatari
         # mame
-        # mupen64plus
         # panda3ds
         # picodrive
         # prosystem
         # stella
+        beetle-ngp
+        beetle-psx
+        beetle-saturn
         citra
         dolphin
         dosbox-pure
@@ -32,6 +31,7 @@ final: prev: {
         melonds
         mesen
         mgba
+        mupen64plus
         pcsx2
         ppsspp
         puae

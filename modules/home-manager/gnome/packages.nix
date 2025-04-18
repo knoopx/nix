@@ -82,8 +82,7 @@
     nushell
     ollamark
     pocketbase
-    python3
-    python3Packages.duckdb
+    (python3.withPackages (p: with p; [duckdb]))
     q-text-as-data
     rclone
     ruby

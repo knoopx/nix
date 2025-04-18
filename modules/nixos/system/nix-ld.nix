@@ -31,6 +31,7 @@
       glew110
       glib
       glibc
+      glibc_multi
       gsettings-desktop-schemas
       gtk3
       gtk4
@@ -41,6 +42,7 @@
       libcap
       libdrm
       libelf
+      libgcc.lib
       libgcrypt
       libGL
       libidn

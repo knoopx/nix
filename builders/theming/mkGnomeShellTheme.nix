@@ -44,23 +44,22 @@
       $brown_4: darken(#${base0F}, 10%);
       $brown_5: darken(#${base0F}, 20%);
 
-      $light_1: #ffffff;
-      $light_2: #f6f5f4;
-      $light_3: #deddda;
-      $light_4: #c0bfbc;
-      $light_5: #9a9996;
-      $dark_1: #77767b;
-      $dark_2: #5e5c64;
-      $dark_3: #3d3846;
-      $dark_4: #241f31;
-      $dark_5: #000000;
+      $light_1: lighten(#${base05}, 20%);
+      $light_2: lighten(#${base05}, 10%);
+      $light_3: #${base05};
+      $light_4: darken(#${base05}, 10%);
+      $light_5: darken(#${base05}, 20%);
+
+      $dark_1: #${base04};
+      $dark_2: #${base03};
+      $dark_3: #${base02};
+      $dark_4: #${base00};
+      $dark_5: #${base01};
 
       $_base_color_dark: #${base01};
       $_base_color_light: #fafafb;
 
       $accent_color: #${base0D};
-
-      $accent_color: if($variant== 'light', $accent_color, mix($accent_color, $light_1, 60%));
 
       $destructive_bg_color: if($variant == 'light', $red_3, $red_4);
       $destructive_fg_color: $light_1;

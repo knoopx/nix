@@ -2,8 +2,8 @@
   description = "kOS";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    # nixpkgs.url = "github:nixos/nixpkgs";
+    # nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs";
 
     haumea.url = "github:nix-community/haumea";
     haumea.inputs.nixpkgs.follows = "nixpkgs";
@@ -52,6 +52,9 @@
 
     libretro-fbneo.url = "github:libretro/FBNeo";
     libretro-fbneo.flake = false;
+
+    playingkarrde-gameos.url = "github:PlayingKarrde/gameOS";
+    playingkarrde-gameos.flake = false;
   };
 
   outputs = {

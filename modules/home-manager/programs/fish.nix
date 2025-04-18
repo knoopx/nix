@@ -35,6 +35,7 @@ _: {
         fish_add_path -g "$HOME/go/bin"
 
         set -x LD_LIBRARY_PATH "/run/opengl-driver/lib/:$NIX_LD_LIBRARY_PATH"
+        set -x LIBRARY_PATH "$LD_LIBRARY_PATH"
         set -gx TRITON_LIBCUDA_PATH /run/opengl-driver/lib/
       '';
     };
