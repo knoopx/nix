@@ -32,6 +32,8 @@
     file
     fzf
     gcc
+    binutils
+    glibc.dev
     gettext
     git
     git-lfs
