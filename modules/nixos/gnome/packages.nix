@@ -2,6 +2,7 @@
   environment.systemPackages = with pkgs; [
     # gnome-boxes
     # gnome-network-displays
+    sushi
     amberol
     authenticator
     baobab

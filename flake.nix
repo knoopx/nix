@@ -50,7 +50,7 @@
     libretro-database.url = "github:libretro/libretro-database";
     libretro-database.flake = false;
 
-    libretro-fbneo.url = "github:libretro/FBNeo";
+    libretro-fbneo.url = "github:libretro/FBNeo?dir=dats";
     libretro-fbneo.flake = false;
 
     playingkarrde-gameos.url = "github:PlayingKarrde/gameOS";

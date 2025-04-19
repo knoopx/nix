@@ -118,11 +118,11 @@
     "catppuccin-userstyles": {
       "flake": false,
       "locked": {
-        "lastModified": 1744612888,
-        "narHash": "sha256-30QARzoAX5igcPVeIMNFKtDcjdgB7IXCxbVItWoM56Y=",
+        "lastModified": 1745085417,
+        "narHash": "sha256-TDsTpPu2sO2+NU3Ng04wXKxF7g+QVUG7O6xgk0nIPEI=",
         "owner": "catppuccin",
         "repo": "userstyles",
-        "rev": "87f48423182bbbaf4f164b89de4bfdf77229496c",
+        "rev": "ba2a6d20d01f85c2d8104ef339117a340e4d4949",
         "type": "github"
       },
       "original": {
@@ -139,11 +139,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1744914542,
-        "narHash": "sha256-Q6EKVSHbtWqndGWHw5E+dAN4ds5p+SD5Gyiy3KGN8DM=",
+        "lastModified": 1744974023,
+        "narHash": "sha256-7P4gZOxx5hmHNW++vtsWILxuPO1RB+8kyKDDQ7Ij10Q=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "30303c2b08c30085a784abf5c1823bd62dd8d9d7",
+        "rev": "d53de206d64dd4581b5d5bbc7dcb2e8c5a1d836a",
         "type": "gitlab"
       },
       "original": {
@@ -371,11 +371,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744919155,
-        "narHash": "sha256-IJksPW32V9gid9vDxoloJMRk+YGjxq5drFHBFeBkKU8=",
+        "lastModified": 1745071558,
+        "narHash": "sha256-bvcatss0xodcdxXm0LUSLPd2jjrhqO3yFSu3stOfQXg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "72526a5f7cde2ef9075637802a1e2a8d2d658f70",
+        "rev": "9676e8a52a177d80c8a42f66566362a6d74ecf78",
         "type": "github"
       },
       "original": {
@@ -387,8 +387,8 @@
     "launchbox-metadata": {
       "flake": false,
       "locked": {
-        "lastModified": 1744844590,
-        "narHash": "sha256-uOdDlUP1aSaHyTmYvbqkvB6gP0luIdxF0yM1gTEXkT8=",
+        "lastModified": 1745017246,
+        "narHash": "sha256-1XP16Da7mE88Uq3ZxJMqMg0ZlZyOqBO4P+DmAw+EWYU=",
         "type": "tarball",
         "url": "http://gamesdb.launchbox-app.com/Metadata.zip"
       },
@@ -400,11 +400,11 @@
     "libretro-database": {
       "flake": false,
       "locked": {
-        "lastModified": 1743995850,
-        "narHash": "sha256-eW7RiYr2K+3ik5GANQKHIPkSwGwJImgLgOx0f6FmSKY=",
+        "lastModified": 1745009975,
+        "narHash": "sha256-AOOZEZ52WaLMKwcwjaBOT7VLbtHEEJQy+owZ2HE1bHU=",
         "owner": "libretro",
         "repo": "libretro-database",
-        "rev": "631f86ea2e1e08064a4f58dfc4b5ac43d6546766",
+        "rev": "3d88e534ba5953cdbb1b37fff4de2f47ee309924",
         "type": "github"
       },
       "original": {
@@ -416,6 +416,7 @@
     "libretro-fbneo": {
       "flake": false,
       "locked": {
+        "dir": "dats",
         "lastModified": 1744708932,
         "narHash": "sha256-Pdp/pPsZujbAK6pEE5LT6KCdJ/RFW1zR67bWvI/efJI=",
         "owner": "libretro",
@@ -424,6 +425,7 @@
         "type": "github"
       },
       "original": {
+        "dir": "dats",
         "owner": "libretro",
         "repo": "FBNeo",
         "type": "github"
@@ -468,11 +470,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1744920658,
-        "narHash": "sha256-2PBQDVprEfOq+S65wRjiAhreuEvZytet1T1xf8R5xOc=",
+        "lastModified": 1745086060,
+        "narHash": "sha256-IOYE+XeVZLrKR+KqFj1bF8+ABW7aq5RgujfPbFRiRdk=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "689e1624caa3929f7cbd9703809d542ed1abff34",
+        "rev": "ef34634200515c0e19f0e5e488ff52eed7ffeba8",
         "type": "github"
       },
       "original": {

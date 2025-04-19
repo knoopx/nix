@@ -11,7 +11,7 @@ in {
       name = "libretro-fbneo-database";
       phases = ["installPhase"];
       installPhase = ''
-        ln -s $src/dats $out
+        ln -s $src $out
       '';
       src = libretro-fbneo;
     };
