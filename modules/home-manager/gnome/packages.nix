@@ -93,7 +93,6 @@
     shfmt
     sqlpage
     tokei
-    tv
     uv
     xan
     xidel

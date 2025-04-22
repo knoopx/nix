@@ -1,7 +1,18 @@
-_: {
+{pkgs, ...}: {
   programs = {
     fish = {
       enable = true;
+
+      plugins = [
+        {
+          name = "autopair";
+          inherit (pkgs.fishPlugins.autopair) src;
+        }
+        {
+          name = "fzf.fish";
+          inherit (pkgs.fishPlugins.fzf-fish) src;
+        }
+      ];
 
       shellAliases = {
         llama3 = "ollamark -t 0.3 --model llama3";

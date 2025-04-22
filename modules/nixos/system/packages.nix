@@ -111,5 +111,8 @@
     zip
     zlib
     zstd
+    nix-search-tv
+    walk
+    nap
   ];
 }
