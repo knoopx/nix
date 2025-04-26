@@ -3,33 +3,25 @@
   nix-colors,
   ...
 }: let
-  # https://catppuccin.com/palette
-  # https://nico-i.github.io/scheme-viewer/base16/
-  # open file:///etc/stylix/palette.html
-  # https://github.com/tinted-theming/base16-schemes/
-  colorScheme =
-    pkgs.lib.attrsets.recursiveUpdate
-    nix-colors.colorSchemes.catppuccin-mocha
-    {
-      palette.base0D = "fad000";
-    };
-
   username = "knoopx";
 in {
-  # cat $(nix-build --no-out-link '<nixpkgs>' -A xkeyboard_config)/etc/X11/xkb/rules/base.lst
-  keyMap = "eu";
-  timeZone = "Europe/Madrid";
-  defaultLocale = "en_US.UTF-8";
-  region = "es_ES.UTF-8";
-
-  location = "Vilassar de Mar";
-
+  inherit username;
+  password = username;
   full-name = "Victor Martinez";
+  location = "Vilassar de Mar";
+  primary-email = "knoopx@gmail.com";
+  work-email = "victor@jacoti.com";
 
   wm = {
     gnome = false;
     niri = true;
   };
+
+  # cat $(nix-build --no-out-link '<nixpkgs>' -A xkeyboard_config)/etc/X11/xkb/rules/base.lst
+  keyMap = "eu";
+  timeZone = "Europe/Madrid";
+  defaultLocale = "en_US.UTF-8";
+  region = "es_ES.UTF-8";
 
   avatar-image =
     (pkgs.fetchurl {
@@ -38,21 +30,11 @@ in {
     })
     .outPath;
 
-  primary-email = "knoopx@gmail.com";
-  work-email = "victor@jacoti.com";
-
   editor = "re.sonny.Commit";
 
   pubKeys = {
     url = "https://github.com/${username}.keys";
     sha256 = "sha256-385krE9Aoea23aQ3FJo2kpPtRrIOwxxXCCt43gHEo0Q=";
-  };
-
-  inherit username;
-  password = username;
-
-  easyeffects = {
-    irs = "MaxxAudio Pro 128K MP3 4.Music w MaxxSpace";
   };
 
   # fc-list : family
@@ -80,15 +62,21 @@ in {
     };
   };
 
+  # https://catppuccin.com/palette
+  # https://nico-i.github.io/scheme-viewer/base16/
+  # https://github.com/tinted-theming/base16-schemes/
+  # open file:///etc/stylix/palette.html
+  colorScheme =
+    pkgs.lib.attrsets.recursiveUpdate
+    nix-colors.colorSchemes.catppuccin-mocha
+    {
+      palette.base0D = "fad000";
+    };
+
   display = {
     width = 1920 * 2;
     height = 1080 * 2;
-  };
-
-  gnome = {
     windowSize = [1240 900];
     sidebarWidth = 200;
   };
-
-  inherit colorScheme;
 }

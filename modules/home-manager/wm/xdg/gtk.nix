@@ -35,13 +35,13 @@ in {
       show-hidden = false;
       show-size-column = true;
       show-type-column = true;
-      sidebar-width = defaults.gnome.sidebarWidth;
+      sidebar-width = defaults.display.sidebarWidth;
       sort-column = "name";
       sort-directories-first = true;
       sort-order = "ascending";
       type-format = "category";
       view-type = "list";
-      window-size = mkTuple defaults.gnome.windowSize;
+      window-size = mkTuple defaults.display.windowSize;
     };
 
     "org/gtk/settings/file-chooser" = {
@@ -50,13 +50,13 @@ in {
       show-hidden = false;
       show-size-column = true;
       show-type-column = true;
-      sidebar-width = defaults.gnome.sidebarWidth;
+      sidebar-width = defaults.display.sidebarWidth;
       sort-column = "name";
       sort-directories-first = true;
       sort-order = "ascending";
       type-format = "category";
       view-type = "list";
-      window-size = mkTuple defaults.gnome.windowSize;
+      window-size = mkTuple defaults.display.windowSize;
     };
   };
 }

@@ -1,4 +1,4 @@
-{lib, ...} @ inputs: let
+{...} @ inputs: let
   system = "x86_64-linux";
   listNixModulesRecusive = import ../../lib/listNixModulesRecusive.nix inputs;
 in {
@@ -29,6 +29,4 @@ in {
       cudaSupport = true;
     };
   };
-
-  services.xserver.desktopManager.gnome.enable = lib.mkForce false;
 }

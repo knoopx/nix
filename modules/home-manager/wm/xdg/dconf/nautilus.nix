@@ -17,7 +17,7 @@
     };
 
     "org/gnome/nautilus/window-state" = {
-      initial-size = lib.hm.gvariant.mkTuple defaults.gnome.windowSize;
+      initial-size = lib.hm.gvariant.mkTuple defaults.display.windowSize;
       maximized = false;
     };
   };

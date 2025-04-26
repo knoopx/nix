@@ -51,16 +51,16 @@ in {
   programs.niri = {
     package = pkgs.niri-unstable;
     settings = {
-      # environment = {
-      #   CLUTTER_BACKEND = "wayland";
-      #   DISPLAY = null;
-      #   GDK_BACKEND = "wayland,x11";
-      #   MOZ_ENABLE_WAYLAND = "1";
-      #   NIXOS_OZONE_WL = "1";
-      #   QT_QPA_PLATFORM = "wayland;xcb";
-      #   QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-      #   SDL_VIDEODRIVER = "wayland";
-      # };
+      environment = {
+        CLUTTER_BACKEND = "wayland";
+        DISPLAY = null;
+        GDK_BACKEND = "wayland,x11";
+        MOZ_ENABLE_WAYLAND = "1";
+        NIXOS_OZONE_WL = "1";
+        QT_QPA_PLATFORM = "wayland;xcb";
+        QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+        SDL_VIDEODRIVER = "wayland";
+      };
       hotkey-overlay.skip-at-startup = true;
       prefer-no-csd = true;
       spawn-at-startup = [
@@ -149,11 +149,10 @@ in {
         "Mod+Shift+End".action = move-workspace-down;
         "Mod+Tab".action = focus-workspace-previous;
 
-        "Print".action.spawn = [(lib.getExe pkgs.kooha)];
-
-        # Print { screenshot; }
-        # Ctrl+Print { screenshot-screen; }
-        # Alt+Print { screenshot-window; }
+        # "Print".action.spawn = [(lib.getExe pkgs.kooha)];
+        "Print".action = screenshot;
+        # "Ctrl+Print".action = screenshot-screen;
+        "Alt+Print".action = screenshot-window;
 
         "XF86AudioPlay".action = playerctl "play-pause";
         "XF86AudioStop".action = playerctl "pause";
@@ -165,15 +164,10 @@ in {
 
       layer-rules = [
         {
-          matches = [{namespace = "^launcher$";}];
-          shadow.enable = true;
-        }
-        {
           matches = [
             {namespace = "notifications";}
           ];
           block-out-from = "screen-capture";
-          # open-floating = true;
         }
       ];
 
@@ -193,6 +187,13 @@ in {
 
         {
           matches = [
+            {is-active = false;}
+          ];
+          opacity = 0.90;
+        }
+
+        {
+          matches = [
             {app-id = "^org\.gnome\.NautilusPreviewer$";}
           ];
 
@@ -205,13 +206,6 @@ in {
             {app-id = "^org\.gnome\.Nautilus$";}
           ];
           block-out-from = "screen-capture";
-        }
-
-        {
-          matches = [
-            {is-active = false;}
-          ];
-          opacity = 0.90;
         }
 
         {
