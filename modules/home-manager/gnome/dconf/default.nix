@@ -25,9 +25,10 @@ in {
         "org.gnome.Calendar.desktop"
         "android-otg.desktop"
         # "slack.desktop"
-        # "telegram.desktop"
-        # "whatsapp.desktop"
-        # "spotify.desktop"
+        "telegram.desktop"
+        "whatsapp.desktop"
+        "spotify.desktop"
+        "webull.desktop"
         "home-assistant.desktop"
       ];
       enabled-extensions = map (extension: extension.extensionUuid) defaults.gnome.extensions;
@@ -77,9 +78,10 @@ in {
     # https://github.com/GNOME/gsettings-desktop-schemas/blob/master/schemas/org.gnome.desktop.wm.keybindings.gschema.xml.in
     "org/gnome/desktop/wm/keybindings" = {
       activate-window-menu = [];
-      close = ["<Super>q"];
-      minimize = ["<Super>w"];
-      cycle-group = ["<Super>Escape" "<Alt>Escape"];
+      close = ["<Super>q" "<Super>w"];
+      switch-applications = ["<Super>Tab" "<Alt>Tab"];
+      switch-applications-backward = ["<Shift><Super>Tab" "<Shift><Alt>Tab"];
+      cycle-group = ["<Super>Escape"];
       cycle-group-backward = ["<Shift><Super>Escape"];
       toggle-fullscreen = ["<Super>f"];
     };

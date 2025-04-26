@@ -30,12 +30,6 @@
     ];
   };
 
-  environment = {
-    variables = {
-      EDITOR = defaults.editor;
-    };
-  };
-
   time.timeZone = defaults.timeZone;
   i18n.defaultLocale = defaults.defaultLocale;
 

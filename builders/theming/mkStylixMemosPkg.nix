@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   lib,
   ...
 }: colorScheme: let
@@ -58,6 +59,7 @@
       DEFAULT = "#${base05}";
       dark = "#${base05}";
       darker = "#${base05}";
+      lighter = "#${base05}";
     };
     success = {
       DEFAULT = "#${base0B}";
@@ -76,35 +78,29 @@
     };
   };
 
-  src = pkgs.fetchFromGitHub {
-    owner = "usememos";
-    repo = "memos";
-    rev = "v${version}";
-    hash = "sha256-pEFdVxKhTNzP8gOlViD2vAmpMgHS0v149tnqlgwSnnc=";
-  };
-
   frontend = pkgs.stdenvNoCC.mkDerivation {
     name = "${name}-deps";
-    inherit src;
+    src = inputs.usememos;
     nativeBuildInputs = with pkgs; [nodejs pnpm cacert];
     buildPhase = ''
       export HOME=$(pwd)
       cd web
       pnpm i
 
-      ${lib.getExe pkgs.ast-grep} run -U -l js tailwind.config.js -p '{colors: $$$, $$$R}' --rewrite '{colors: ${builtins.toJSON colors}, $$$R}'
+      ${lib.getExe pkgs.ast-grep} run -U -l js tailwind.config.js -p '{colors: $$$, $$$R}' --rewrite '{colors: ${(builtins.toJSON colors)}, $$$R}'
       node_modules/.bin/vite build --mode release --outDir=$out --emptyOutDir
     '';
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256-VQ3cgMZS3ttzW1SoYm82Xjo6/d4Jw6+zTQeH4hekcvI=";
+    outputHash = "sha256-6/dwai+QdasnWh/q33ikXf7dIF6hl92f2zlzpeyPijY=";
   };
 in
   pkgs.buildGoModule {
-    inherit name version src;
+    inherit name version;
+    src = inputs.usememos;
     doCheck = false;
-    vendorHash = "sha256-1iGrSWI+dWZ2QR1y/bM8KyF2Zjwkfy/WWz6OA/QuAbs=";
+    vendorHash = "sha256-b7kTSYH2BIwbvpGdaDLhI7IVZ0aBwUfjWaeiGEakMoA=";
     prePatch = ''
       rm -rf server/router/frontend/dist
       cp -r ${frontend} server/router/frontend/dist

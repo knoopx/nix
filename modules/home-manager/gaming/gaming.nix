@@ -1,62 +1,36 @@
-{
-  pkgs,
-  playingkarrde-gameos,
-  ...
-}: let
-  launchers = with pkgs; [
-    es-de
-    pegasus-frontend
-    # lutris
-    # steam
-    # bottles
-  ];
-
-  emulators = with pkgs; [
-    cemu
-    # dosbox
-    # lime3ds
-    # melonDS
-    # pcsx2
-    # rpcs3
-    ryujinx
-    # xemu
-    retroarch-custom
-  ];
-
-  tools = with pkgs; [
+{pkgs, ...}: {
+  home.packages = with pkgs; [
     # alvr
+    # dosbox
     # gamescope
     # gamescope-session
     # hydra-launcher
+    # lime3ds
     # mame-tools
+    # melonDS
+    # nstool
+    # nsz
     # opengamepadui
+    # pcsx2
     # protonup
+    # rpcs3
     # skyscraper
     # wiiudownloader
     # wineWowPackages.waylandFull
-    nstool
-    nsz
+    # xemu
+    cemu
+    es-de
+    pegasus-frontend
+    retroarch-custom
+    ryujinx
     umu-launcher
   ];
 
-  theme = pkgs.stdenvNoCC.mkDerivation {
-    name = "pegasus-frontend-theme-gameos";
-    src = playingkarrde-gameos;
-    installPhase = "cp -R ./ $out";
-    patches = [
-      (pkgs.fetchurl {
-        url = "https://github.com/PlayingKarrde/gameOS/compare/7a5a5223ff7371d0747a7c5d3a3b8f2f5e36b4f2...knoopx:gameOS:master.diff";
-        sha256 = "sha256-uW1zwsTEywt6BawpPcVvlL7Z2GRnEiqnQEc4KqT1HYo=";
-      })
-    ];
-  };
-in {
-  home.packages = launchers ++ emulators ++ tools;
-
   xdg.configFile."pegasus-frontend/themes/gameOS" = {
     recursive = true;
-    source = theme;
+    source = pkgs.pegasus-theme-gameos;
   };
+
   xdg.configFile."pegasus-frontend/settings.txt".text = ''
     general.theme: themes/gameOS/
     general.verify-files: false

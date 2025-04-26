@@ -193,6 +193,10 @@
                 title = "Ollama";
                 url = "https://github.com/ollama/ollama/releases.atom";
               }
+              {
+                title = "Ollama";
+                url = "https://github.com/YaLTeR/niri/releases.atom";
+              }
 
               {
                 title = "Open WebUI";

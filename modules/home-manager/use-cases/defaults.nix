@@ -1,3 +1,0 @@
-{...}: {
-  home.shell.enableFishIntegration = true;
-}

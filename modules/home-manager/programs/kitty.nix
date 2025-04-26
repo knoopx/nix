@@ -21,7 +21,7 @@
       tab_separator " "
       tab_title_template " {fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title} "
       active_tab_foreground #${base00}
-      active_tab_background #${base0E}
+      active_tab_background #${base0D}
       inactive_tab_background #${base00}
       tab_bar_background #${base00}
     '';

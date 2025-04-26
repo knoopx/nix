@@ -3,6 +3,7 @@
     enable = true;
 
     libraries = with pkgs; [
+      # gdtoolkit_3
       # gnome2.GConf
       # gnome2.pango
       # gtk2
@@ -11,7 +12,10 @@
       # libindicator-gtk2
       acl
       alsa-lib
+      at-spi2-atk
+      at-spi2-core
       atk
+      atkmm
       attr
       bzip2
       cairo
@@ -32,9 +36,11 @@
       glib
       glibc
       glibc_multi
+      gobject-introspection
       gsettings-desktop-schemas
       gtk3
       gtk4
+      harfbuzz
       icu
       libadwaita
       libcaca
@@ -56,6 +62,7 @@
       librsvg
       libsamplerate
       libsodium
+      libsoup_3
       libssh
       libtheora
       libtiff
@@ -73,6 +80,7 @@
       nspr
       nss
       openssl
+      pango
       pixman
       SDL
       SDL_image
@@ -88,6 +96,7 @@
       systemd
       tbb
       util-linux
+      webkitgtk_4_1
       xorg.libICE
       xorg.libSM
       xorg.libX11

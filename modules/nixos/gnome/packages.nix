@@ -1,28 +1,5 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    # gnome-boxes
-    # gnome-network-displays
-    sushi
-    amberol
-    authenticator
-    baobab
-    decibels
-    drawing
-    drum-machine
-    eog
-    evince
-    gnome-calendar
-    gnome-control-center
-    gnome-monitor-config
-    gnome-system-monitor
-    gnome-text-editor
-    libnotify
-    loupe
-    nautilus
-    popsicle
-    seahorse
-    showtime
-    snapshot
     xdg-desktop-portal-gnome
   ];
 

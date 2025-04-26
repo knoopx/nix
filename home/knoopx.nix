@@ -1,7 +1,7 @@
-{...} @ inputs: let
-  recusiveFilterNixModules = import ../lib/recusiveFilterNixModules.nix inputs;
+{niri, ...} @ inputs: let
+  listNixModulesRecusive = import ../lib/listNixModulesRecusive.nix inputs;
 in {
-  imports = recusiveFilterNixModules ../modules/home-manager;
+  imports = [niri.homeModules.niri] ++ (listNixModulesRecusive ../modules/home-manager);
 
   home = {
     stateVersion = "24.05";

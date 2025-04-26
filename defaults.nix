@@ -11,9 +11,7 @@
     pkgs.lib.attrsets.recursiveUpdate
     nix-colors.colorSchemes.catppuccin-mocha
     {
-      palette.base0F = "fad000";
-      # palette.base0D = "fad000";
-      # palette.base0E = "fad000";
+      palette.base0D = "fad000";
     };
 
   username = "knoopx";
@@ -92,6 +90,8 @@ in {
       panel-corners
       astra-monitor
       steal-my-focus-window
+      paperwm
+      smart-auto-move
     ];
   };
 

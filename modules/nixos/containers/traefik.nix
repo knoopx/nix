@@ -7,7 +7,7 @@
   hostname = "knoopx.net";
 
   hostServices = {
-    "search" = config.services.searx.settings.server.port;
+    # "search" = config.services.searx.settings.server.port;
     "glance" = 9000;
   };
 

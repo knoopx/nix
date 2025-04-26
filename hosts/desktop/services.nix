@@ -19,8 +19,7 @@
       enable = true;
       autodetect = true;
       notifications = {
-        x11.enable = true;
-        # wall.enable = true;
+        systembus-notify.enable = true;
       };
     };
 
@@ -30,13 +29,13 @@
     };
 
     sunshine = {
-      # enable = true;
+      enable = false;
       autoStart = true;
       capSysAdmin = true;
     };
 
     mpd = {
-      # enable = true;
+      enable = false;
       user = "pipewire";
       musicDirectory = "/mnt/mixed/Music";
       extraConfig = ''
@@ -61,8 +60,7 @@
       host = "[::]";
       environmentVariables = {
         OLLAMA_FLASH_ATTENTION = "1";
-        OLLAMA_CONTEXT_LENGTH = "32768";
-        # OLLAMA_CONTEXT_LENGTH = "131072";
+        OLLAMA_CONTEXT_LENGTH = "8192";
       };
     };
   };

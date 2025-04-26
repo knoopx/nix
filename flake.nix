@@ -23,6 +23,17 @@
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.home-manager.follows = "home-manager";
 
+    niri.url = "github:sodiboo/niri-flake";
+    niri.inputs.nixpkgs.follows = "nixpkgs";
+
+    ags.url = "github:aylur/ags";
+    ags.inputs.nixpkgs.follows = "nixpkgs";
+
+    anyrun = {
+      url = "github:anyrun-org/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     umu-launcher.url = "github:Open-Wine-Components/umu-launcher?dir=packaging/nix";
     umu-launcher.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -53,8 +64,8 @@
     libretro-fbneo.url = "github:libretro/FBNeo?dir=dats";
     libretro-fbneo.flake = false;
 
-    playingkarrde-gameos.url = "github:PlayingKarrde/gameOS";
-    playingkarrde-gameos.flake = false;
+    usememos.url = "github:usememos/memos";
+    usememos.flake = false;
   };
 
   outputs = {
@@ -64,6 +75,7 @@
     nixpkgs,
     stylix,
     umu-launcher,
+    niri,
     ...
   } @ inputs: let
     pkgs = nixpkgs.legacyPackages.x86_64-linux;
@@ -87,6 +99,7 @@
       {
         nixpkgs.overlays =
           [
+            niri.overlays.niri
             (self: super: umu-launcher.packages.x86_64-linux)
             (
               self: super: {firefox-addons = firefox-addons.packages.x86_64-linux;}

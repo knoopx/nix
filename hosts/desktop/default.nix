@@ -1,6 +1,6 @@
 {...} @ inputs: let
   system = "x86_64-linux";
-  recusiveFilterNixModules = import ../../lib/recusiveFilterNixModules.nix inputs;
+  listNixModulesRecusive = import ../../lib/listNixModulesRecusive.nix inputs;
 in {
   imports =
     [
@@ -10,7 +10,7 @@ in {
       ./nvidia.nix
       ./services.nix
     ]
-    ++ (recusiveFilterNixModules ../../modules/nixos);
+    ++ (listNixModulesRecusive ../../modules/nixos);
 
   networking.hostName = "desktop";
   nix.settings.system-features = [

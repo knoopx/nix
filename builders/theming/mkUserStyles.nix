@@ -4,13 +4,8 @@
   catppuccin-userstyles,
   ...
 } @ inputs: colorScheme: let
-  userStyles = [
-    ./userstyles/telegram.nix
-    ./userstyles/whatsapp.nix
-    ./userstyles/immich.nix
-    ./userstyles/claude.nix
-    ./userstyles/devdocs.nix
-  ];
+  recursiveNixModules = import ../../lib/listNixModulesRecusive.nix inputs;
+  userStyles = recursiveNixModules ./userstyles;
 
   mkCatppuccinUserStyleTheme = pkgs.callPackage ./mkCatppuccinUserStyleTheme.nix inputs;
 

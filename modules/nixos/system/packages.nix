@@ -1,18 +1,16 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     asciinema
-    nethogs
-    iftop
-    bandwhich
     atuin
     axel
+    bandwhich
     bash
-    rage
     bat
     binutils
     bison
     btop
     btrfs-snap
+    cacert
     ccache
     clang-tools
     cmake
@@ -32,13 +30,12 @@
     file
     fzf
     gcc
-    binutils
-    glibc.dev
     gettext
     git
     git-lfs
     glib
     glibc
+    glibc.dev
     glow
     gnugrep
     gnumake
@@ -49,6 +46,7 @@
     gzip
     hdparm
     htop
+    iftop
     iperf
     jq
     less
@@ -71,6 +69,9 @@
     m4
     micro
     miller
+    nap
+    nethogs
+    nix-search-tv
     ntfs3g
     openssl
     p7zip
@@ -82,6 +83,7 @@
     perl
     pkg-config
     psmisc
+    rage
     ranger
     readline
     ripgrep
@@ -102,6 +104,7 @@
     usbutils
     util-linux
     w3m
+    walk
     wget
     which
     whois
@@ -111,8 +114,5 @@
     zip
     zlib
     zstd
-    nix-search-tv
-    walk
-    nap
   ];
 }

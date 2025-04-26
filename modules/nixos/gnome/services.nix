@@ -22,7 +22,10 @@
     };
 
     displayManager = {
-      sessionPackages = [pkgs.gnome-session.sessions];
+      sessionPackages = with pkgs; [
+        gnome-session.sessions
+        # niri
+      ];
     };
 
     # geoclue2.enable = false;
