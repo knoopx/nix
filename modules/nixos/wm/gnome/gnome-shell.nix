@@ -1,15 +1,17 @@
 {
+  lib,
   pkgs,
   config,
   defaults,
   ...
-}: let
-  theme = pkgs.theming.mkGnomeShellTheme defaults.colorScheme.palette;
-in {
+}:
+lib.mkIf config.services.xserver.desktopManager.gnome.enable {
   stylix.targets.gnome.enable = false;
   environment.systemPackages = [config.stylix.cursor.package];
 
-  nixpkgs.overlays = [
+  nixpkgs.overlays = let
+    theme = pkgs.theming.mkGnomeShellTheme defaults.colorScheme.palette;
+  in [
     (self: super: {custom-gnome-shell-theme = theme;})
     (self: super: {
       gnome-shell = super.gnome-shell.overrideAttrs (oldAttrs: {

@@ -24,6 +24,8 @@
 
   hexToHSL = x: pkgs.lib.theming.hexToHSL x "";
 in {
+  stylix.targets.glance.enable = false;
+
   services.glance = {
     enable = true;
 

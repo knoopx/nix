@@ -1,7 +1,15 @@
-{pkgs, ...}: {
-  environment.systemPackages = with pkgs; [
-    xdg-desktop-portal-gnome
-  ];
+{
+  lib,
+  pkgs,
+  defaults,
+  ...
+}:
+lib.mkIf defaults.wm.gnome {
+  environment.systemPackages =
+    lib.mkIf defaults.wm.gnome
+    (with pkgs; [
+      xdg-desktop-portal-gnome
+    ]);
 
   environment.gnome.excludePackages = with pkgs; [
     evolution

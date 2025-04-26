@@ -1,39 +1,20 @@
 {
   pkgs,
-  lib,
   defaults,
+  lib,
   ...
-}: {
+}:
+lib.mkIf defaults.wm.gnome {
   services = {
-    libinput.enable = false;
-
     xserver = {
-      enable = true;
-      xkb.layout = defaults.keyMap;
       desktopManager.gnome.enable = true;
-      excludePackages = [pkgs.xterm];
-      displayManager = {
-        gdm = {
-          enable = true;
-          wayland = true;
-          # autoSuspend = false;
-        };
-      };
     };
 
     displayManager = {
       sessionPackages = with pkgs; [
         gnome-session.sessions
-        # niri
       ];
     };
-
-    # geoclue2.enable = false;
-    gvfs.enable = true;
-    colord.enable = false;
-    hardware.bolt.enable = false;
-    # udisks2.enable = false;
-    # upower.enable = false;
 
     gnome = {
       # gnome-keyring.enable = true;

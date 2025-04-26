@@ -1,18 +1,16 @@
 {
+  defaults,
   pkgs,
   lib,
   ...
-}: let
-  browser = "firefox.desktop";
-  file-manager = "org.gnome.Nautilus.desktop";
-  image-viewer = "org.gnome.eog.desktop";
-  # image-viewer = "org.gnome.Loupe.desktop";
-  video-player = "mpv.desktop";
-  # video-player = "org.gnome.Showtime";
-  music-player = "org.gnome.Decibels";
-  text-editor = "code.desktop";
-  # music-player = "io.bassi.Amberol.desktop";
-in {
+}: {
+  home.file.".face" = {source = defaults.avatar-image;};
+  dconf.settings = {
+    "system/locale" = {
+      region = defaults.region;
+    };
+  };
+
   xdg = {
     desktopEntries = {
       mailto-gmail = {
@@ -98,6 +96,15 @@ in {
 
       defaultApplications = let
         # inherit (flake.lib) mimetypes;
+        browser = "firefox.desktop";
+        file-manager = "org.gnome.Nautilus.desktop";
+        image-viewer = "org.gnome.eog.desktop";
+        # image-viewer = "org.gnome.Loupe.desktop";
+        video-player = "mpv.desktop";
+        # video-player = "org.gnome.Showtime";
+        music-player = "org.gnome.Decibels";
+        text-editor = "code.desktop";
+        # music-player = "io.bassi.Amberol.desktop";
       in
         # (mimetypes.genAssoc mimetypes.archive "org.gnome.FileRoller.desktop")
         # // (mimetypes.genAssoc mimetypes.image "org.gnome.Loupe.desktop")

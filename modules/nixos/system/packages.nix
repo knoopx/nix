@@ -1,118 +1,40 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    asciinema
-    atuin
-    axel
-    bandwhich
-    bash
+    # gnumake
     bat
     binutils
-    bison
     btop
-    btrfs-snap
     cacert
-    ccache
-    clang-tools
-    cmake
     curl
-    dasel
-    debugedit
     diffutils
-    dmidecode
     dnsutils
-    efibootmgr
-    elfutils
     eza
-    fastfetch
     fd
-    ffmpeg
-    figurine
     file
     fzf
-    gcc
-    gettext
     git
     git-lfs
-    glib
-    glibc
-    glibc.dev
-    glow
     gnugrep
-    gnumake
     gnused
     gnutar
     gnutls
-    gum
     gzip
-    hdparm
-    htop
-    iftop
-    iperf
-    jq
-    less
-    libarchive
-    libelf
-    libffi
-    libgcc
-    libgccjit
-    libgcrypt
-    libusb1
-    libuv
-    libxml2
-    lm_sensors
-    logrotate
+    helix
     lrzip
-    lshw
-    lsof
-    lz4
-    lzo
-    m4
     micro
-    miller
-    nap
-    nethogs
-    nix-search-tv
     ntfs3g
     openssl
     p7zip
     patch
-    patchelf
-    pciutils
-    pcre
-    pcre2
-    perl
-    pkg-config
-    psmisc
-    rage
-    ranger
-    readline
     ripgrep
-    rsync
-    sd
-    skate
-    skim
-    smartmontools
-    speedtest-cli
-    sqlite
-    sysz
-    tab
     trash-cli
-    tree
     tzdata
     unrar
     unzip
-    usbutils
-    util-linux
-    w3m
-    walk
     wget
     which
     whois
-    xz
     yazi
-    yq
     zip
-    zlib
-    zstd
   ];
 }

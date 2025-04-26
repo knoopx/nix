@@ -20,6 +20,7 @@
     sudo = {
       wheelNeedsPassword = false;
     };
+
     pam.loginLimits = [
       {
         domain = "*";
@@ -53,7 +54,6 @@
   };
 
   console = {
-    # inherit (defaults) keyMap;
     earlySetup = true;
   };
 

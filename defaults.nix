@@ -26,6 +26,11 @@ in {
 
   full-name = "Victor Martinez";
 
+  wm = {
+    gnome = false;
+    niri = true;
+  };
+
   avatar-image =
     (pkgs.fetchurl {
       url = "https://gravatar.com/userimage/10402619/9d663d9a46ad2c752bf6cfeb93cff4fd.jpeg?size=512";
@@ -83,16 +88,6 @@ in {
   gnome = {
     windowSize = [1240 900];
     sidebarWidth = 200;
-    extensions = with pkgs.gnomeExtensions; [
-      hot-edge
-      user-themes
-      caffeine
-      panel-corners
-      astra-monitor
-      steal-my-focus-window
-      paperwm
-      smart-auto-move
-    ];
   };
 
   inherit colorScheme;

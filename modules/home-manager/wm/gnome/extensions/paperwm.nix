@@ -1,4 +1,9 @@
 {
+  lib,
+  defaults,
+  ...
+}:
+lib.mkIf defaults.wm.gnome {
   dconf.settings = {
     "org/gnome/shell/extensions/paperwm" = {
       animation-time = 0.1;
