@@ -10,7 +10,6 @@ in {
   full-name = "Victor Martinez";
   location = "Vilassar de Mar";
   primary-email = "knoopx@gmail.com";
-  work-email = "victor@jacoti.com";
 
   wm = {
     gnome = false;

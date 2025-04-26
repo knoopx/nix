@@ -65,6 +65,7 @@ in {
       prefer-no-csd = true;
       spawn-at-startup = [
         {command = [(lib.getExe pkgs.swaybg) "--image" wallpaper.outPath];}
+        {command = ["${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"];}
       ];
 
       input = {
@@ -208,15 +209,15 @@ in {
           block-out-from = "screen-capture";
         }
 
-        {
-          matches = [
-            {app-id = "^com\.mitchellh\.ghostty$";}
-            {app-id = "^foot$";}
-            {app-id = "^kitty$";}
-            {app-id = "^org\.wezfurlong\.wezterm$";}
-          ];
-          open-floating = true;
-        }
+        # {
+        #   matches = [
+        #     {app-id = "^com\.mitchellh\.ghostty$";}
+        #     {app-id = "^foot$";}
+        #     {app-id = "^kitty$";}
+        #     {app-id = "^org\.wezfurlong\.wezterm$";}
+        #   ];
+        #   open-floating = true;
+        # }
       ];
     };
   };

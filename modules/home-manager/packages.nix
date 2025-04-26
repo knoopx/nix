@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  gtk-apps = with pkgs; [
+  gtk = with pkgs; [
     amberol
     authenticator
     baobab
@@ -36,11 +36,10 @@
     vial
   ];
 
-  cli-apps = with pkgs; [
+  cli = with pkgs; [
     # android-tools
     # aria2
     # asciinema
-    # ast-grep
     # atuin
     # axel
     # bandwhich
@@ -80,7 +79,6 @@
     # libgccjit
     # libgcrypt
     # libnotify
-    # libsecret
     # libusb1
     # libuv
     # libxml2
@@ -122,26 +120,30 @@
     # yq
     # zlib
     # zstd
-    alejandra
-    bun
     dconf
     fclones
     ffmpeg
     mpv
     nh
-    nix-search-tv
-    nixd
-    nodejs_latest
     ollamark
     rclone
     rsync
-    ruby
+  ];
+
+  dev = with pkgs; [
+    alejandra
+    ast-grep
+    bun
+    nix-search-tv
+    nixd
+    nodejs_latest
     ruby-lsp
-    rufo
+    ruby
     uv
+    rufo
   ];
 in {
   home = {
-    packages = gtk-apps ++ cli-apps;
+    packages = dev ++ gtk ++ cli;
   };
 }

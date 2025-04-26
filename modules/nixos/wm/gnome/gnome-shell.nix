@@ -5,7 +5,7 @@
   defaults,
   ...
 }:
-lib.mkIf config.services.xserver.desktopManager.gnome.enable {
+lib.mkIf defaults.wm.gnome {
   stylix.targets.gnome.enable = false;
   environment.systemPackages = [config.stylix.cursor.package];
 
