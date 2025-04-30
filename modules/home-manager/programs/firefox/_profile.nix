@@ -15,6 +15,7 @@ in {
     dictionary-spanish
     pwas-for-firefox
     catppuccin-web-file-icons
+    brotab
     # hover-zoom-plus
     # web-archives
     # clearurls
