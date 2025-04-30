@@ -1,8 +1,0 @@
-- screen capture
-- split row hotkeys
-- ags
-  - notifications
-  - osd
-  - mpri
-  - bar
-  - launcher (replace anyrun)

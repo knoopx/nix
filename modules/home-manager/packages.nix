@@ -15,9 +15,10 @@
     fclones-gui
     file-roller
     gitg
-    gnome-disk-utility
     gnome-calendar
+    gnome-disk-utility
     gnome-text-editor
+    gnome-weather
     loupe
     nautilus
     nfoview
@@ -34,6 +35,7 @@
     sushi
     transmission_4-gtk
     vial
+    mission-center
   ];
 
   cli = with pkgs; [
@@ -49,7 +51,6 @@
     # btrfs-snap
     # ccache
     # clang-tools
-    # cmake
     # dasel
     # debugedit
     # dmidecode
@@ -60,7 +61,6 @@
     # fastfetch
     # fdupes
     # figurine
-    # gcc
     # gettext
     # glib
     # glibc
@@ -97,15 +97,12 @@
     # pcre
     # pcre2
     # perl
-    # pkg-config
-    # psmisc
     # rage
     # ranger
     # readline
     # sd
     # shfmt
     # skate
-    # skim
     # smartmontools
     # speedtest-cli
     # sqlite
@@ -120,6 +117,7 @@
     # yq
     # zlib
     # zstd
+    inotify-tools
     dconf
     fclones
     ffmpeg
@@ -134,13 +132,17 @@
     alejandra
     ast-grep
     bun
+    cmake
+    gcc
+    gnumake
     nix-search-tv
     nixd
     nodejs_latest
-    ruby-lsp
+    pkg-config
     ruby
-    uv
+    ruby-lsp
     rufo
+    uv
   ];
 in {
   home = {

@@ -1,14 +1,8 @@
-{
-  pkgs,
-  lib,
-  defaults,
-  ...
-}: {
-  # [R-]  #43  xdg-desktop-portal-gtk                                           1.15.3
-  # [R-]  #44  xdg-user-dirs-gtk                                                0.14
-
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     libsecret
+    xdg-desktop-portal
+    xdg-user-dirs-gtk
   ];
 
   services.gnome.gnome-keyring.enable = true;
@@ -19,11 +13,25 @@
     portal = {
       enable = true;
       xdgOpenUsePortal = true;
+      # https://github.com/waycrate/xdg-desktop-portal-luminous
       wlr.enable = true;
-      config.common.default = "*";
-      extraPortals = lib.mkIf defaults.wm.gnome [
-        pkgs.xdg-desktop-portal-gnome
+      config = {
+        common = {
+          default = ["gtk"];
+          "org.freedesktop.impl.portal.Screenshot" = ["wlr"];
+          "org.freedesktop.impl.portal.ScreenCast" = ["wlr"];
+          "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
+          "org.freedesktop.impl.portal.Settings" = ["darkman"];
+        };
+      };
+
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-wlr
       ];
+      # ++ (if defaults.wm.gnome [
+      #     xdg-desktop-portal-gnome)
+      # ] : []);
     };
   };
 }

@@ -15,7 +15,6 @@ _: {
         "https://cache.nixos.org"
         "https://cache.lix.systems"
         "https://nix-community.cachix.org"
-        "https://anyrun.cachix.org"
         "https://niri.cachix.org"
         "https://ags.cachix.org"
         # "https://nyx.chaotic.cx"
@@ -26,7 +25,6 @@ _: {
 
       trusted-public-keys = [
         "ags.cachix.org-1:naAvMrz0CuYqeyGNyLgE010iUiuf/qx6kYrUv3NwAJ8="
-        "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
         "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="

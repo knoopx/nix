@@ -1,0 +1,26 @@
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  niri-cycle-daemon = pkgs.writeShellScriptBin "niri-cycle-daemon" ''
+    exec ${pkgs.python3}/bin/python3 ${./scripts/niri-cycle-daemon.py}
+  '';
+in {
+  systemd.user.services.niri-cycle-daemon = {
+    Unit = {
+      Description = "Track active Niri window for alt-tab replacement";
+      After = ["graphical-session.target"];
+    };
+
+    Service = {
+      ExecStart = "${lib.getExe niri-cycle-daemon}";
+      Restart = "on-failure";
+      RestartSec = 2;
+    };
+
+    Install = {
+      WantedBy = ["default.target"];
+    };
+  };
+}

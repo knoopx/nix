@@ -29,8 +29,8 @@
     ags.url = "github:aylur/ags";
     ags.inputs.nixpkgs.follows = "nixpkgs";
 
-    anyrun = {
-      url = "github:anyrun-org/anyrun";
+    yay-nix = {
+      url = "github:Tophc7/yay.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -76,9 +76,11 @@
     stylix,
     umu-launcher,
     niri,
+    yay-nix,
     ...
   } @ inputs: let
-    pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
     defaults = pkgs.callPackage ./defaults.nix inputs;
 
     specialArgs =
@@ -96,13 +98,14 @@
       };
 
     nixosModules = [
+      yay-nix.nixosModules.default
       {
         nixpkgs.overlays =
           [
             niri.overlays.niri
-            (self: super: umu-launcher.packages.x86_64-linux)
+            (self: super: umu-launcher.packages.${system})
             (
-              self: super: {firefox-addons = firefox-addons.packages.x86_64-linux;}
+              self: super: {firefox-addons = firefox-addons.packages.${system};}
             )
             (
               final: prev:

@@ -35,6 +35,7 @@
     which
     whois
     yazi
+    psmisc
     zip
   ];
 }

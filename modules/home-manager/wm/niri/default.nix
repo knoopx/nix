@@ -1,6 +1,5 @@
 {
   defaults,
-  anyrun,
   pkgs,
   lib,
   config,
@@ -17,34 +16,33 @@
       base04
     ];
   };
+  niri-cycle = pkgs.writeShellScriptBin "niri-cycle" ''
+    exec ${pkgs.python3}/bin/python3 ${./scripts/niri-cycle.py} "$@"
+  '';
 in {
   home.packages = with pkgs; [
     kooha
+    libnotify
+    niri-cycle
   ];
 
-  programs.anyrun = {
+  # https://github.com/emersion/mako/blob/master/doc/mako.5.scd
+  services.mako = {
     enable = true;
-    config = {
-      x = {fraction = 0.5;};
-      y = {fraction = 0.1;};
-      width = {fraction = 0.3;};
-      hideIcons = false;
-      ignoreExclusiveZones = false;
-      layer = "overlay";
-      hidePluginInfo = false;
-      closeOnClick = false;
-      showResultsImmediately = true;
-      maxEntries = null;
-
-      plugins = with anyrun.packages.${pkgs.system}; [
-        applications
-        rink
-        translate
-        dictionary
-        websearch
-      ];
-    };
+    layer = "top";
+    anchor = "top-right";
+    borderSize = 0;
+    borderRadius = 10;
+    padding = "10";
+    width = 330;
+    height = 200;
+    defaultTimeout = 5000;
+    maxIconSize = 32;
+    textColor = lib.mkForce "#${defaults.colorScheme.palette.base00}";
+    backgroundColor = lib.mkForce "#${defaults.colorScheme.palette.base0D}";
   };
+
+  # services.swayosd.enable = true;
 
   # https://github.com/sodiboo/niri-flake/blob/main/docs.md
   # https://github.com/YaLTeR/niri/blob/main/resources/default-config.kdl
@@ -53,7 +51,8 @@ in {
     settings = {
       environment = {
         CLUTTER_BACKEND = "wayland";
-        DISPLAY = null;
+        # DISPLAY = null;
+        DISPLAY = ":0";
         GDK_BACKEND = "wayland,x11";
         MOZ_ENABLE_WAYLAND = "1";
         NIXOS_OZONE_WL = "1";
@@ -64,8 +63,11 @@ in {
       hotkey-overlay.skip-at-startup = true;
       prefer-no-csd = true;
       spawn-at-startup = [
+        {command = [(lib.getExe pkgs.xwayland-satellite)];}
+        {command = [(lib.getExe pkgs.mako)];}
         {command = [(lib.getExe pkgs.swaybg) "--image" wallpaper.outPath];}
         {command = ["${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"];}
+        {command = ["ags" "run"];}
       ];
 
       input = {
@@ -81,18 +83,24 @@ in {
       outputs = {
         "DP-1" = {
           scale = 2.0;
+          background-color = "#003300";
+          # backdrop-color = "#001100";
         };
       };
 
       layout = {
-        focus-ring = {
-          width = 3;
-          active.gradient = {
+        focus-ring = let
+          gradient = {
             from = "#${defaults.colorScheme.palette.base07}";
             to = "#${defaults.colorScheme.palette.base0D}";
             angle = -45;
             in' = "oklch longer hue";
           };
+        in {
+          width = 3;
+          active.color = defaults.colorScheme.palette.base0D;
+          # active.gradient = gradient;
+          inactive.color = defaults.colorScheme.palette.base02;
         };
         shadow = {
           enable = true;
@@ -120,9 +128,9 @@ in {
       in {
         "Mod+T".action.spawn = ["kitty"];
         "Mod+B".action.spawn = ["firefox"];
-        "Mod+Delete".action.spawn = ["kitty" "btop"];
+        "Mod+Delete".action.spawn = ["kitty" "-T" "btop" "btop"];
         "Mod+Shift+Ctrl+L".action = quit;
-        "Mod+D".action = spawn (lib.getExe pkgs.anyrun);
+        "Mod+D".action.spawn = ["ags" "toggle" "launcher"];
         "Mod+Slash".action = show-hotkey-overlay;
 
         "Mod+W".action = close-window;
@@ -134,7 +142,9 @@ in {
         "Mod+Space".action = toggle-window-floating;
         "Mod+C".action = center-window;
 
-        "Mod+O".action = toggle-overview;
+        "Mod+I".action = consume-or-expel-window-left;
+        "Mod+O".action = consume-or-expel-window-right;
+        "Mod+J".action = toggle-overview;
 
         "Mod+Left".action = focus-column-left;
         "Mod+Right".action = focus-column-right;
@@ -148,12 +158,15 @@ in {
 
         "Mod+Shift+Home".action = move-workspace-up;
         "Mod+Shift+End".action = move-workspace-down;
-        "Mod+Tab".action = focus-workspace-previous;
+        "Mod+Tab".action.spawn = [(lib.getExe niri-cycle)];
+        "Mod+Escape".action.spawn = [(lib.getExe niri-cycle) "--app"];
+        "Shift+Mod+Tab".action.spawn = [(lib.getExe niri-cycle) "--reverse"];
+        "Shift+Mod+Escape".action.spawn = [(lib.getExe niri-cycle) "--app" "--reverse"];
 
         # "Print".action.spawn = [(lib.getExe pkgs.kooha)];
         "Print".action = screenshot;
         # "Ctrl+Print".action = screenshot-screen;
-        "Alt+Print".action = screenshot-window;
+        "Shift+Print".action = screenshot-window;
 
         "XF86AudioPlay".action = playerctl "play-pause";
         "XF86AudioStop".action = playerctl "pause";
@@ -206,19 +219,65 @@ in {
           matches = [
             {app-id = "^org\.gnome\.Nautilus$";}
           ];
-          block-out-from = "screen-capture";
+          block-out-from = "screencast";
+          # block-out-from = ["screencast" "screen-capture"];
+        }
+
+        {
+          matches = [
+            {app-id = "^kitty$";}
+          ];
+          default-column-width = {proportion = 0.5;};
         }
 
         # {
         #   matches = [
-        #     {app-id = "^com\.mitchellh\.ghostty$";}
-        #     {app-id = "^foot$";}
-        #     {app-id = "^kitty$";}
-        #     {app-id = "^org\.wezfurlong\.wezterm$";}
+        #     {
+        #       app-id = "firefox";
+        #       title = "spotify|telegram|whatsapp";
+        #     }
         #   ];
-        #   open-floating = true;
+        #   open-on-workspace = "9";
         # }
+        {
+          matches = [
+            {
+              app-id = "Plexamp";
+            }
+          ];
+          default-column-width = {proportion = 0.75;};
+        }
+        {
+          matches = [
+            {
+              app-id = "^kitty$";
+              title = "btop";
+            }
+          ];
+          default-column-width = {proportion = 0.75;};
+          open-floating = true;
+        }
       ];
+      # TODO: not working
+      # ++ (builtins.map (title: {
+      #     matches = [
+      #       {
+      #         inherit title;
+      #         app-id = "firefox";
+      #       }
+      #     ];
+      #     open-floating = true;
+      #   })
+      #   [
+      #     "^(pwvucontrol)"
+      #     "^(Volume Control)"
+      #     "^(dialog)"
+      #     "^(file_progress)"
+      #     "^(confirm)"
+      #     "^(download)"
+      #     "^(error)"
+      #     "^(notification)"
+      #   ]);
     };
   };
 }

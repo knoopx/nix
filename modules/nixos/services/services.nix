@@ -36,7 +36,11 @@
 
     dbus = {
       enable = true;
-      packages = [pkgs.dconf];
+      packages = with pkgs; [
+        dconf
+        darkman
+        nautilus-open-any-terminal
+      ];
     };
 
     avahi = {
