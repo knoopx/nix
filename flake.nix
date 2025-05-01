@@ -23,11 +23,11 @@
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.home-manager.follows = "home-manager";
 
-    niri.url = "github:sodiboo/niri-flake";
-    niri.inputs.nixpkgs.follows = "nixpkgs";
-
     ags.url = "github:aylur/ags";
     ags.inputs.nixpkgs.follows = "nixpkgs";
+
+    niri.url = "github:YaLTeR/niri";
+    niri.inputs.nixpkgs.follows = "nixpkgs";
 
     yay-nix = {
       url = "github:Tophc7/yay.nix";
@@ -75,8 +75,8 @@
     nixpkgs,
     stylix,
     umu-launcher,
-    niri,
     yay-nix,
+    niri,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -102,7 +102,7 @@
       {
         nixpkgs.overlays =
           [
-            niri.overlays.niri
+            (self: super: {niri = niri.packages.${system}.default;})
             (self: super: umu-launcher.packages.${system})
             (
               self: super: {firefox-addons = firefox-addons.packages.${system};}

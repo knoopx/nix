@@ -47,257 +47,208 @@ in {
 
   # https://github.com/sodiboo/niri-flake/blob/main/docs.md
   # https://github.com/YaLTeR/niri/blob/main/resources/default-config.kdl
-  programs.niri = {
-    package = pkgs.niri-unstable;
-    settings = {
-      environment = {
-        _EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/10_nvidia.json";
-        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-        GBM_BACKEND = "nvidia-drm";
-        GDK_BACKEND = "wayland";
-        LIBVA_DRIVER_NAME = "nvidia";
-        MOZ_ENABLE_WAYLAND = "1";
-        NVD_BACKEND = "direct";
-        NVIDIA_DRIVER_CAPABILITIES = "all";
-        NVIDIA_VISIBLE_DEVICES = "all";
-        QT_QPA_PLATFORM = "wayland;xcb";
-        QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-        SDL_VIDEODRIVER = "wayland";
-        WLR_BACKEND = "vulkan";
-        WLR_DRM_NO_ATOMIC = "1";
-        WLR_NO_HARDWARE_CURSORS = "1";
-        WLR_RENDERER = "vulkan";
-        XDG_SESSION_TYPE = "wayland";
-        DISPLAY = ":0";
-      };
 
-      hotkey-overlay.skip-at-startup = true;
-      prefer-no-csd = true;
-
-      spawn-at-startup = [
-        {command = [(lib.getExe pkgs.xwayland-satellite)];}
-        {command = [(lib.getExe pkgs.mako)];}
-        {command = [(lib.getExe pkgs.swaybg) "--image" wallpaper.outPath];}
-        {command = ["${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"];}
-        {command = ["ags" "run"];}
-      ];
-
-      input = {
-        keyboard.xkb.layout = defaults.keyMap;
-        warp-mouse-to-focus = true;
-        workspace-auto-back-and-forth = true;
-      };
-
-      cursor = {
-        hide-when-typing = true;
-      };
-
-      outputs = {
-        "DP-1" = {
-          scale = 2.0;
-          background-color = "#003300";
-          # backdrop-color = "#001100";
-        };
-      };
-
-      # overview = {
-      #   zoom = 0.75;
-      # };
-
-      # workspaces = {
-      #   "surf" = {};
-      #   "dev" = {};
-      #   "chat" = {};
-      #   "org" = {};
-      #   "media" = {};
-      #   "misc" = {};
-      # };
-
-      layout = {
-        always-center-single-column = true;
-        shadow.enable = true;
-        default-column-width = {proportion = 0.75;};
-
-        border = {
-          enable = true;
-          width = 1;
-          active.color = "#${defaults.colorScheme.palette.base02}";
-          inactive.color = "#${defaults.colorScheme.palette.base02}";
-        };
-
-        focus-ring = let
-          gradient = {
-            from = "#${defaults.colorScheme.palette.base07}";
-            to = "#${defaults.colorScheme.palette.base0D}";
-            angle = -45;
-            in' = "oklch longer hue";
-          };
-        in {
-          width = 3;
-          active.color = defaults.colorScheme.palette.base0D;
-          # active.gradient = gradient;
-          inactive.color = defaults.colorScheme.palette.base02;
-        };
-
-        preset-column-widths = [
-          {proportion = 0.25;}
-          {proportion = 0.5;}
-          {proportion = 0.75;}
-        ];
-      };
-
-      binds = with config.lib.niri.actions; let
-        set-volume = spawn "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@";
-        playerctl = spawn "${lib.getExe pkgs.playerctl}";
-      in {
-        "Mod+T".action.spawn = ["kitty"];
-        "Mod+G".action.spawn = ["code"];
-        "Mod+B".action.spawn = ["firefox"];
-        "Mod+Delete".action.spawn = [(lib.getExe pkgs.mission-center)];
-        "Mod+Shift+Ctrl+L".action.spawn = ["niri" "msg" "action" "quit" "-s"];
-        # "Mod+Shift+Ctrl+L".action = quit;
-        "Mod+D".action.spawn = ["ags" "toggle" "launcher"];
-        "Mod+Slash".action = show-hotkey-overlay;
-
-        "Mod+W".action = close-window;
-        "Mod+Q".action = close-window;
-        "Mod+R".action = switch-preset-column-width;
-        "Mod+F".action = maximize-column;
-        # "Mod+Shift+F".action = expand-column-to-available-width;
-        "Mod+Shift+F".action = fullscreen-window;
-        "Mod+Space".action = toggle-window-floating;
-        "Mod+C".action = center-window;
-
-        "Mod+I".action = consume-or-expel-window-left;
-        "Mod+O".action = consume-or-expel-window-right;
-        "Mod+J".action = toggle-overview;
-        # "Super+Super_L".action = toggle-overview;
-
-        "Mod+Left".action = focus-column-left;
-        "Mod+Right".action = focus-column-right;
-        "Mod+Down".action = focus-workspace-down;
-        "Mod+Up".action = focus-workspace-up;
-
-        "Alt+Left".action = focus-column-left;
-        "Alt+Right".action = focus-column-right;
-        "Alt+Down".action = focus-workspace-down;
-        "Alt+Up".action = focus-workspace-up;
-
-        "Mod+Shift+Left".action = move-column-left;
-        "Mod+Shift+Right".action = move-column-right;
-        "Mod+Shift+Up".action = move-column-to-workspace-up;
-        "Mod+Shift+Down".action = move-column-to-workspace-down;
-
-        "Mod+Shift+Home".action = move-workspace-up;
-        "Mod+Shift+End".action = move-workspace-down;
-        "Mod+Tab".action.spawn = [(lib.getExe niri-cycle)];
-        "Mod+Escape".action.spawn = [(lib.getExe niri-cycle) "--app"];
-        "Shift+Mod+Tab".action.spawn = [(lib.getExe niri-cycle) "--reverse"];
-        "Shift+Mod+Escape".action.spawn = [(lib.getExe niri-cycle) "--app" "--reverse"];
-
-        # "Print".action.spawn = [(lib.getExe pkgs.kooha)];
-        "Print".action = screenshot;
-        # "Ctrl+Print".action = screenshot-screen;
-        "Shift+Print".action = screenshot-window;
-
-        "XF86AudioPlay".action = playerctl "play-pause";
-        "XF86AudioStop".action = playerctl "pause";
-        "XF86AudioPrev".action = playerctl "previous";
-        "XF86AudioNext".action = playerctl "next";
-        "XF86AudioRaiseVolume".action = set-volume "5%+";
-        "XF86AudioLowerVolume".action = set-volume "5%-";
-      };
-
-      layer-rules = [
-        {
-          matches = [
-            {namespace = "notifications";}
-          ];
-          block-out-from = "screen-capture";
-        }
-      ];
-
-      # https://github.com/YaLTeR/niri/blob/main/wiki/Configuration:-Window-Rules.md
-      window-rules = [
-        {
-          draw-border-with-background = false;
-          geometry-corner-radius = let
-            r = 8.0;
-          in {
-            top-left = r;
-            top-right = r;
-            bottom-left = r;
-            bottom-right = r;
-          };
-          clip-to-geometry = true;
-        }
-
-        {
-          matches = [
-            {is-active = false;}
-          ];
-          opacity = 0.90;
-        }
-
-        {
-          matches = [
-            {app-id = "^org\.gnome\.NautilusPreviewer$";}
-          ];
-
-          default-column-width = {};
-          open-floating = true;
-        }
-
-        {
-          matches = [
-            {app-id = "io.missioncenter.MissionCenter";}
-          ];
-          default-column-width = {fixed = lib.elemAt defaults.display.windowSize 0;};
-          default-window-height = {fixed = lib.elemAt defaults.display.windowSize 1;};
-          open-floating = true;
-        }
-
-        {
-          matches = [
-            {app-id = "^org\.gnome\.Nautilus$";}
-          ];
-          block-out-from = "screencast";
-          # block-out-from = ["screencast" "screen-capture"];
-        }
-
-        {
-          matches = [
-            {app-id = "^kitty$";}
-          ];
-          default-column-width = {proportion = 0.5;};
-        }
-
-        {
-          matches = [
-            {
-              app-id = "Plexamp";
+  xdg.configFile."niri/config.kdl".text = ''
+      input {
+        keyboard {
+            xkb {
+                layout "eu"
+                model ""
+                rules ""
+                variant ""
             }
-          ];
-          default-column-width = {proportion = 0.25;};
-          # open-floating = true;
+            repeat-delay 600
+            repeat-rate 25
+            track-layout "global"
         }
+        touchpad {
+            tap
+            natural-scroll
+            accel-speed 0.00
+        }
+        mouse { accel-speed 0.0; }
+        trackpoint { accel-speed 0.0; }
+        trackball { accel-speed 0.0; }
+        tablet
+        touch
+        warp-mouse-to-focus
+        workspace-auto-back-and-forth
+    }
+    output "DP-1" {
+        scale 2.00
+        transform "normal"
+    }
+    screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
-        {
-          matches = [
-            {
-              app-id = "org.gnome.Calendar";
-            }
-            {
-              app-id = "org.gnome.Weather";
-            }
-            {
-              app-id = "com.github.qarmin.czkawka";
-            }
-          ];
-          default-column-width = {proportion = 0.75;};
-          open-floating = true;
+    prefer-no-csd
+
+    layout {
+        gaps 16
+        struts {
+            left 0
+            right 0
+            top 0
+            bottom 0
         }
-      ];
-    };
-  };
+        focus-ring {
+            width 3
+            active-color "fad000"
+            inactive-color "313244"
+        }
+        border {
+            width 1
+            active-color "#313244"
+            inactive-color "#313244"
+        }
+        shadow {
+            on
+            offset x=0.00 y=5.00
+            softness 30.00
+            spread 5.00
+            draw-behind-window false
+            color "#0070"
+        }
+        insert-hint { color "rgb(127 200 255 / 50%)"; }
+        default-column-width { proportion 0.75; }
+        preset-column-widths {
+            proportion 0.25
+            proportion 0.50
+            proportion 0.75
+        }
+        center-focused-column "never"
+        always-center-single-column
+    }
+
+    cursor {
+        xcursor-theme "default"
+        xcursor-size 24
+        hide-when-typing
+    }
+
+    hotkey-overlay { skip-at-startup; }
+
+    overview {
+      zoom 0.75
+      backdrop-color "#${defaults.colorScheme.palette.base02}"
+    }
+
+    environment {
+        DISPLAY ":0"
+        "GBM_BACKEND" "nvidia-drm"
+        "GDK_BACKEND" "wayland"
+        "LIBVA_DRIVER_NAME" "nvidia"
+        "MOZ_ENABLE_WAYLAND" "1"
+        "NVD_BACKEND" "direct"
+        "NVIDIA_DRIVER_CAPABILITIES" "all"
+        "NVIDIA_VISIBLE_DEVICES" "all"
+        "QT_QPA_PLATFORM" "wayland;xcb"
+        "QT_WAYLAND_DISABLE_WINDOWDECORATION" "1"
+        "SDL_VIDEODRIVER" "wayland"
+        "WLR_BACKEND" "vulkan"
+        "WLR_DRM_NO_ATOMIC" "1"
+        "WLR_NO_HARDWARE_CURSORS" "1"
+        "WLR_RENDERER" "vulkan"
+        "XDG_SESSION_TYPE" "wayland"
+        "_EGL_VENDOR_LIBRARY_FILENAMES" "/run/opengl-driver/share/glvnd/egl_vendor.d/10_nvidia.json"
+        "__GLX_VENDOR_LIBRARY_NAME" "nvidia"
+    }
+
+    binds {
+        Alt+Down { focus-workspace-down; }
+        Alt+Left { focus-column-left; }
+        Alt+Right { focus-column-right; }
+        Alt+Up { focus-workspace-up; }
+        Mod+B { spawn "firefox"; }
+        Mod+C { center-window; }
+        Mod+D { spawn "ags" "toggle" "launcher"; }
+        Mod+Delete { spawn "${lib.getExe pkgs.mission-center}"; }
+        Mod+Down { focus-workspace-down; }
+        Mod+Escape { spawn "${lib.getExe niri-cycle}" "--app"; }
+        Mod+F { maximize-column; }
+        Mod+G { spawn "code"; }
+        Mod+I { consume-or-expel-window-left; }
+        Mod+Left { focus-column-left; }
+        Mod+O { consume-or-expel-window-right; }
+        Mod+Q { close-window; }
+        Mod+R { switch-preset-column-width; }
+        Mod+Right { focus-column-right; }
+        Mod+Shift+Ctrl+L { spawn "niri" "msg" "action" "quit" "-s"; }
+        Mod+Shift+Down { move-column-to-workspace-down; }
+        Mod+Shift+End { move-workspace-down; }
+        Mod+Shift+F { fullscreen-window; }
+        Mod+Shift+Home { move-workspace-up; }
+        Mod+Shift+Left { move-column-left; }
+        Mod+Shift+Right { move-column-right; }
+        Mod+Shift+Up { move-column-to-workspace-up; }
+        Mod+Slash { show-hotkey-overlay; }
+        Mod+Space { toggle-window-floating; }
+        Mod+T { spawn "kitty"; }
+        Mod+Tab { spawn "${lib.getExe niri-cycle}"; }
+        Mod+Up { focus-workspace-up; }
+        Mod+W { close-window; }
+        Print { screenshot; }
+        Shift+Mod+Escape { spawn "${lib.getExe niri-cycle}" "--app" "--reverse"; }
+        Shift+Mod+Tab { spawn "${lib.getExe niri-cycle}" "--reverse"; }
+        Shift+Print { screenshot-window; }
+        Super+J { toggle-overview; }
+        XF86AudioPlay { spawn "${lib.getExe pkgs.playerctl}" "play-pause"; }
+        XF86AudioStop { spawn "${lib.getExe pkgs.playerctl}" "pause"; }
+        XF86AudioNext { spawn "${lib.getExe pkgs.playerctl}" "next"; }
+        XF86AudioPrev { spawn "${lib.getExe pkgs.playerctl}" "previous"; }
+        XF86AudioRaiseVolume { spawn "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+        XF86AudioLowerVolume { spawn "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+    }
+    spawn-at-startup "${lib.getExe pkgs.xwayland-satellite}"
+    spawn-at-startup "${lib.getExe pkgs.mako}"
+    spawn-at-startup "${lib.getExe pkgs.swaybg}" "--image" "${wallpaper.outPath}"
+    spawn-at-startup "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+    spawn-at-startup "ags" "run"
+
+    // https://github.com/YaLTeR/niri/blob/main/wiki/Configuration:-Window-Rules.md
+
+    window-rule {
+        draw-border-with-background false
+        geometry-corner-radius 8.0 8.0 8.0 8.0
+        clip-to-geometry true
+    }
+    window-rule {
+        match is-active=false
+        opacity 0.90
+    }
+    window-rule {
+        match app-id="^org.gnome.NautilusPreviewer$"
+        default-column-width
+        open-floating true
+    }
+    window-rule {
+        match app-id="io.missioncenter.MissionCenter"
+        default-column-width { fixed 1240; }
+        default-window-height { fixed 900; }
+        open-floating true
+    }
+    window-rule {
+        match app-id="^org.gnome.Nautilus$"
+        block-out-from "screencast"
+    }
+    window-rule {
+        match app-id="^kitty$"
+        default-column-width { proportion 0.5; }
+    }
+    window-rule {
+        match app-id="Plexamp"
+        default-column-width { proportion 0.25; }
+    }
+    window-rule {
+        match app-id="org.gnome.Calendar"
+        match app-id="org.gnome.Weather"
+        match app-id="com.github.qarmin.czkawka"
+        default-column-width { proportion 0.75; }
+        open-floating true
+    }
+    layer-rule {
+        match namespace="notifications"
+        block-out-from "screen-capture"
+    }
+    animations { slowdown 1.0; }
+  '';
 }
