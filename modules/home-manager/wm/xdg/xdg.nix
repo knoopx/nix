@@ -15,18 +15,18 @@
     desktopEntries = {
       mailto-gmail = {
         name = "Send Email";
-        exec = ''xdg-open "https://mail.google.com/mail/?view=cm&fs=1&to=%u"'';
+        exec = ''${lib.getExe pkgs.raise-or-open} "https://mail.google.com/mail/?view=cm&fs=1&to=%u"'';
         mimeType = ["x-scheme-handler/mailto"];
         noDisplay = true;
       };
 
       home-assistant = {
         name = "Home Assistant";
-        exec = ''xdg-open "https://home.knoopx.net/lovelace"'';
+        exec = ''${lib.getExe pkgs.raise-or-open} "https://home.knoopx.net/lovelace"'';
         icon =
           (pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/doppelhelix/dalci-skel/1c24ae65a90dc1e20e2508785e2f32bd1931e334/etc/skel/.local/share/icons/hicolor/scalable/apps/homeassistant.svg";
-            sha256 = "sha256-OogiPi0O4w1kr/LZ0O1Gg9Q9Wn1VD34c42MvBpHf3RU=";
+            url = "https://www.svgrepo.com/show/331429/home-assistant.svg";
+            sha256 = "sha256-HhM9DTOBOHDkf1Undzb1d9mVoHpv9VRsmlAtci0cglg=";
           })
           .outPath;
       };
@@ -47,7 +47,7 @@
 
       gmail = {
         name = "Gmail";
-        exec = ''xdg-open "https://mail.google.com/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open} "https://mail.google.com/"'';
         icon =
           (pkgs.fetchurl {
             url = "https://www.svgrepo.com/download/452213/gmail.svg";
@@ -58,25 +58,53 @@
 
       telegram = {
         name = "Telegram";
-        exec = ''xdg-open "https://web.telegram.org/k/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open} "https://web.telegram.org/k/"'';
         icon = "telegram";
+      };
+
+      youtube = {
+        name = "Youtube";
+        exec = ''${lib.getExe pkgs.raise-or-open} "https://www.youtube.com/"'';
+        icon =
+          (pkgs.fetchurl {
+            url = "https://www.svgrepo.com/show/134513/youtube.svg";
+            sha256 = "sha256-JCxh77q9DO9vnznBWDILyLO7nGRk0UFqcZ+9l4V7Nuw=";
+          })
+          .outPath;
+      };
+
+      reddit = {
+        name = "Reddit";
+        exec = ''${lib.getExe pkgs.raise-or-open} "https://www.reddit.com/"'';
+        icon =
+          (pkgs.fetchurl {
+            url = "https://www.svgrepo.com/show/271111/reddit.svg";
+            sha256 = "sha256-zuA7+/hLSGsDjpgWEsWrBv+ZNOM4sFkE1fwfVNodRbo=";
+          })
+          .outPath;
       };
 
       whatsapp = {
         name = "WhatsApp";
-        exec = ''xdg-open "https://web.whatsapp.com/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open} "https://web.whatsapp.com/"'';
         icon = "whatsapp";
       };
 
       spotify = {
         name = "Spotify";
-        exec = ''xdg-open "https://open.spotify.com/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open} "https://open.spotify.com/"'';
         icon = "spotify";
+      };
+
+      plex = {
+        name = "Plex Web";
+        exec = ''${lib.getExe pkgs.raise-or-open} "https://app.plex.tv/desktop/"'';
+        icon = "plexamp";
       };
 
       webull = {
         name = "Webull";
-        exec = ''xdg-open "https://app.webull.com/stocks"'';
+        exec = ''${lib.getExe pkgs.raise-or-open} "https://app.webull.com/stocks"'';
         icon =
           (pkgs.fetchurl {
             url = "https://app.webull.com/static/logo.png";
@@ -85,6 +113,15 @@
           })
           .outPath;
       };
+
+      # https://chatgpt.com/
+      # https://claudeai.com/
+      # https://hugging.chat/
+      # https://deepseek.chat/
+      # https://gemini.google.com/
+      # https://chat.knoopx.net/
+      # https://wiki.knoopx.net/
+      # https://memos.knoopx.net/
     };
 
     mimeApps = {

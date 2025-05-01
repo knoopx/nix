@@ -24,6 +24,7 @@ in {
     kooha
     libnotify
     niri-cycle
+    raise-or-open
   ];
 
   # https://github.com/emersion/mako/blob/master/doc/mako.5.scd
@@ -50,18 +51,29 @@ in {
     package = pkgs.niri-unstable;
     settings = {
       environment = {
-        CLUTTER_BACKEND = "wayland";
-        # DISPLAY = null;
-        DISPLAY = ":0";
-        GDK_BACKEND = "wayland,x11";
+        _EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/10_nvidia.json";
+        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+        GBM_BACKEND = "nvidia-drm";
+        GDK_BACKEND = "wayland";
+        LIBVA_DRIVER_NAME = "nvidia";
         MOZ_ENABLE_WAYLAND = "1";
-        NIXOS_OZONE_WL = "1";
+        NVD_BACKEND = "direct";
+        NVIDIA_DRIVER_CAPABILITIES = "all";
+        NVIDIA_VISIBLE_DEVICES = "all";
         QT_QPA_PLATFORM = "wayland;xcb";
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
         SDL_VIDEODRIVER = "wayland";
+        WLR_BACKEND = "vulkan";
+        WLR_DRM_NO_ATOMIC = "1";
+        WLR_NO_HARDWARE_CURSORS = "1";
+        WLR_RENDERER = "vulkan";
+        XDG_SESSION_TYPE = "wayland";
+        DISPLAY = ":0";
       };
+
       hotkey-overlay.skip-at-startup = true;
       prefer-no-csd = true;
+
       spawn-at-startup = [
         {command = [(lib.getExe pkgs.xwayland-satellite)];}
         {command = [(lib.getExe pkgs.mako)];}
@@ -88,7 +100,31 @@ in {
         };
       };
 
+      # overview = {
+      #   zoom = 0.75;
+      # };
+
+      # workspaces = {
+      #   "surf" = {};
+      #   "dev" = {};
+      #   "chat" = {};
+      #   "org" = {};
+      #   "media" = {};
+      #   "misc" = {};
+      # };
+
       layout = {
+        always-center-single-column = true;
+        shadow.enable = true;
+        default-column-width = {proportion = 0.75;};
+
+        border = {
+          enable = true;
+          width = 1;
+          active.color = "#${defaults.colorScheme.palette.base02}";
+          inactive.color = "#${defaults.colorScheme.palette.base02}";
+        };
+
         focus-ring = let
           gradient = {
             from = "#${defaults.colorScheme.palette.base07}";
@@ -102,24 +138,12 @@ in {
           # active.gradient = gradient;
           inactive.color = defaults.colorScheme.palette.base02;
         };
-        shadow = {
-          enable = true;
-        };
 
-        border = {
-          enable = true;
-          width = 1;
-          active.color = "#${defaults.colorScheme.palette.base02}";
-          inactive.color = "#${defaults.colorScheme.palette.base02}";
-        };
-
-        always-center-single-column = true;
         preset-column-widths = [
           {proportion = 0.25;}
           {proportion = 0.5;}
           {proportion = 0.75;}
         ];
-        default-column-width = {proportion = 0.75;};
       };
 
       binds = with config.lib.niri.actions; let
@@ -127,9 +151,11 @@ in {
         playerctl = spawn "${lib.getExe pkgs.playerctl}";
       in {
         "Mod+T".action.spawn = ["kitty"];
+        "Mod+G".action.spawn = ["code"];
         "Mod+B".action.spawn = ["firefox"];
-        "Mod+Delete".action.spawn = ["kitty" "-T" "btop" "btop"];
-        "Mod+Shift+Ctrl+L".action = quit;
+        "Mod+Delete".action.spawn = [(lib.getExe pkgs.mission-center)];
+        "Mod+Shift+Ctrl+L".action.spawn = ["niri" "msg" "action" "quit" "-s"];
+        # "Mod+Shift+Ctrl+L".action = quit;
         "Mod+D".action.spawn = ["ags" "toggle" "launcher"];
         "Mod+Slash".action = show-hotkey-overlay;
 
@@ -145,11 +171,17 @@ in {
         "Mod+I".action = consume-or-expel-window-left;
         "Mod+O".action = consume-or-expel-window-right;
         "Mod+J".action = toggle-overview;
+        # "Super+Super_L".action = toggle-overview;
 
         "Mod+Left".action = focus-column-left;
         "Mod+Right".action = focus-column-right;
         "Mod+Down".action = focus-workspace-down;
         "Mod+Up".action = focus-workspace-up;
+
+        "Alt+Left".action = focus-column-left;
+        "Alt+Right".action = focus-column-right;
+        "Alt+Down".action = focus-workspace-down;
+        "Alt+Up".action = focus-workspace-up;
 
         "Mod+Shift+Left".action = move-column-left;
         "Mod+Shift+Right".action = move-column-right;
@@ -185,6 +217,7 @@ in {
         }
       ];
 
+      # https://github.com/YaLTeR/niri/blob/main/wiki/Configuration:-Window-Rules.md
       window-rules = [
         {
           draw-border-with-background = false;
@@ -217,6 +250,15 @@ in {
 
         {
           matches = [
+            {app-id = "io.missioncenter.MissionCenter";}
+          ];
+          default-column-width = {fixed = lib.elemAt defaults.display.windowSize 0;};
+          default-window-height = {fixed = lib.elemAt defaults.display.windowSize 1;};
+          open-floating = true;
+        }
+
+        {
+          matches = [
             {app-id = "^org\.gnome\.Nautilus$";}
           ];
           block-out-from = "screencast";
@@ -230,54 +272,32 @@ in {
           default-column-width = {proportion = 0.5;};
         }
 
-        # {
-        #   matches = [
-        #     {
-        #       app-id = "firefox";
-        #       title = "spotify|telegram|whatsapp";
-        #     }
-        #   ];
-        #   open-on-workspace = "9";
-        # }
         {
           matches = [
             {
               app-id = "Plexamp";
             }
           ];
-          default-column-width = {proportion = 0.75;};
+          default-column-width = {proportion = 0.25;};
+          # open-floating = true;
         }
+
         {
           matches = [
             {
-              app-id = "^kitty$";
-              title = "btop";
+              app-id = "org.gnome.Calendar";
+            }
+            {
+              app-id = "org.gnome.Weather";
+            }
+            {
+              app-id = "com.github.qarmin.czkawka";
             }
           ];
           default-column-width = {proportion = 0.75;};
           open-floating = true;
         }
       ];
-      # TODO: not working
-      # ++ (builtins.map (title: {
-      #     matches = [
-      #       {
-      #         inherit title;
-      #         app-id = "firefox";
-      #       }
-      #     ];
-      #     open-floating = true;
-      #   })
-      #   [
-      #     "^(pwvucontrol)"
-      #     "^(Volume Control)"
-      #     "^(dialog)"
-      #     "^(file_progress)"
-      #     "^(confirm)"
-      #     "^(download)"
-      #     "^(error)"
-      #     "^(notification)"
-      #   ]);
     };
   };
 }

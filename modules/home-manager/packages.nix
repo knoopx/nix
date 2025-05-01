@@ -1,5 +1,6 @@
 {pkgs, ...}: let
   gtk = with pkgs; [
+    alpaca
     amberol
     authenticator
     baobab
@@ -20,6 +21,7 @@
     gnome-text-editor
     gnome-weather
     loupe
+    mission-center
     nautilus
     nfoview
     nicotine-plus
@@ -35,7 +37,6 @@
     sushi
     transmission_4-gtk
     vial
-    mission-center
   ];
 
   cli = with pkgs; [
@@ -126,6 +127,7 @@
     ollamark
     rclone
     rsync
+    brotab
   ];
 
   dev = with pkgs; [

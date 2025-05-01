@@ -6,27 +6,21 @@
   programs.gamemode.enable = true;
 
   environment = {
+    variables = {
+    };
+
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
-      # NVIDIA_VISIBLE_DEVICES = "all";
-      # NVIDIA_DRIVER_CAPABILITIES = "all";
-      # WLR_NO_HARDWARE_CURSORS = "1";
-      # WLR_DRM_NO_ATOMIC = "1";
-      # NVD_BACKEND = "direct";
-      # GBM_BACKEND = "nvidia-drm";
-      # LIBVA_DRIVER_NAME = "nvidia";
-      # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     };
 
     systemPackages = with pkgs; [
-      vulkan-loader
-      vulkan-validation-layers
-      vulkan-tools
+      egl-wayland
+      glxinfo
       libva
       libva-utils
-      glxinfo
-      egl-wayland
-      # libnvidia-egl-wayland1
+      vulkan-loader
+      vulkan-tools
+      vulkan-validation-layers
     ];
   };
 
@@ -66,9 +60,10 @@
     graphics = {
       enable = true;
       extraPackages = with pkgs; [
+        libvdpau-va-gl
+        nvidia-vaapi-driver
         vaapiIntel
         vaapiVdpau
-        libvdpau-va-gl
       ];
     };
 
