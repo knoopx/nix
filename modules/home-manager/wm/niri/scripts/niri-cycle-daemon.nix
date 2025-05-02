@@ -9,7 +9,7 @@
 in {
   systemd.user.services.niri-cycle-daemon = {
     Unit = {
-      Description = "Track active Niri window for alt-tab replacement";
+      Description = "Niri window tracker";
       After = ["graphical-session.target"];
     };
 
