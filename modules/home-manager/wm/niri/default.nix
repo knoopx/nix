@@ -2,7 +2,6 @@
   defaults,
   pkgs,
   lib,
-  config,
   ...
 }: let
   wallpaper = pkgs.theming.mkSVGPatternWallpaper {
@@ -154,18 +153,32 @@ in {
     }
 
     binds {
+        Mod+G { spawn "firefox"; }
+        Mod+B { spawn "code"; }
+        Mod+T { spawn "kitty"; }
+        Mod+Delete { spawn "${lib.getExe pkgs.mission-center}"; }
+        //Mod+D { spawn "ags" "toggle" "launcher"; }
+        Mod+Space { spawn "ags" "toggle" "launcher"; }
+
+        Mod+Tab { spawn "${lib.getExe niri-cycle}"; }
+        Shift+Mod+Tab { spawn "${lib.getExe niri-cycle}" "--reverse"; }
+        Mod+Escape { spawn "${lib.getExe niri-cycle}" "--app"; }
+        Shift+Mod+Escape { spawn "${lib.getExe niri-cycle}" "--app" "--reverse"; }
+
+        XF86AudioPlay { spawn "${lib.getExe pkgs.playerctl}" "play-pause"; }
+        XF86AudioStop { spawn "${lib.getExe pkgs.playerctl}" "pause"; }
+        XF86AudioNext { spawn "${lib.getExe pkgs.playerctl}" "next"; }
+        XF86AudioPrev { spawn "${lib.getExe pkgs.playerctl}" "previous"; }
+        XF86AudioRaiseVolume { spawn "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+        XF86AudioLowerVolume { spawn "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+
         Alt+Down { focus-workspace-down; }
         Alt+Left { focus-column-left; }
         Alt+Right { focus-column-right; }
         Alt+Up { focus-workspace-up; }
-        Mod+B { spawn "firefox"; }
         Mod+C { center-window; }
-        Mod+D { spawn "ags" "toggle" "launcher"; }
-        Mod+Delete { spawn "${lib.getExe pkgs.mission-center}"; }
         Mod+Down { focus-workspace-down; }
-        Mod+Escape { spawn "${lib.getExe niri-cycle}" "--app"; }
         Mod+F { maximize-column; }
-        Mod+G { spawn "code"; }
         Mod+I { consume-or-expel-window-left; }
         Mod+Left { focus-column-left; }
         Mod+O { consume-or-expel-window-right; }
@@ -181,23 +194,15 @@ in {
         Mod+Shift+Right { move-column-right; }
         Mod+Shift+Up { move-column-to-workspace-up; }
         Mod+Slash { show-hotkey-overlay; }
-        Mod+Space { toggle-window-floating; }
-        Mod+T { spawn "kitty"; }
-        Mod+Tab { spawn "${lib.getExe niri-cycle}"; }
+        // Mod+Space { toggle-window-floating; }
+
         Mod+Up { focus-workspace-up; }
         Mod+W { close-window; }
         Print { screenshot; }
-        Shift+Mod+Escape { spawn "${lib.getExe niri-cycle}" "--app" "--reverse"; }
-        Shift+Mod+Tab { spawn "${lib.getExe niri-cycle}" "--reverse"; }
         Shift+Print { screenshot-window; }
         Super+J { toggle-overview; }
-        XF86AudioPlay { spawn "${lib.getExe pkgs.playerctl}" "play-pause"; }
-        XF86AudioStop { spawn "${lib.getExe pkgs.playerctl}" "pause"; }
-        XF86AudioNext { spawn "${lib.getExe pkgs.playerctl}" "next"; }
-        XF86AudioPrev { spawn "${lib.getExe pkgs.playerctl}" "previous"; }
-        XF86AudioRaiseVolume { spawn "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
-        XF86AudioLowerVolume { spawn "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
     }
+
     spawn-at-startup "${lib.getExe pkgs.xwayland-satellite}"
     spawn-at-startup "${lib.getExe pkgs.mako}"
     spawn-at-startup "${lib.getExe pkgs.swaybg}" "--image" "${wallpaper.outPath}"

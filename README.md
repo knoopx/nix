@@ -91,4 +91,5 @@ curl -sL "https://monitoring.nixos.org/prometheus/api/v1/query?query=channel_rev
 
 ## TODO
 
-* fix plexamp
+- fix plexamp
+- allow notifs by default on firefox kiosk prof

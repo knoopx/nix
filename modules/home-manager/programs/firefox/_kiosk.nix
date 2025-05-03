@@ -17,6 +17,16 @@
 
   extraConfig = ''
     ${builtins.readFile "${betterfox}/user.js"}
+    user_pref("urlclassifier.trackingSkipURLs", "embed.reddit.com, *.twitter.com, *.twimg.com");
+    user_pref("urlclassifier.features.socialtracking.skipURLs", "*.twitter.com, *.twimg.com");
+    user_pref("signon.rememberSignons", true);
+    user_pref("extensions.formautofill.addresses.enabled", true);
+    user_pref("extensions.formautofill.creditCards.enabled", true);
+    user_pref("permissions.default.geo", 0);
+    user_pref("permissions.default.desktop-notification", 0);
+    user_pref("browser.search.suggest.enabled", true);
+    user_pref("dom.webnotifications.requireuserinteraction", false);
+    user_pref("permissions.default.desktop-notification", 1);
   '';
 
   userChrome = ''

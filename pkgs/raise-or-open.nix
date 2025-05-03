@@ -24,7 +24,7 @@ pkgs.writeShellApplication {
         niri msg action focus-window --id "$WIN_ID"
       fi
     else
-      firefox --profile ~/.mozilla/firefox/kiosk/ --new-window "$URL" &
+      niri msg action spawn -- firefox --profile ~/.mozilla/firefox/kiosk/ --new-window "$URL"
     fi
   '';
 }

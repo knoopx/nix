@@ -1,6 +1,7 @@
 {pkgs, ...}: let
   gtk = with pkgs; [
-    alpaca
+    apostrophe
+    folio
     amberol
     authenticator
     baobab
@@ -118,6 +119,7 @@
     # yq
     # zlib
     # zstd
+    tgpt
     inotify-tools
     dconf
     fclones
