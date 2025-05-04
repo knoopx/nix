@@ -52,6 +52,7 @@
     highlight-redirect = 0;
     logo = 1;
     oled = 0;
+    sponsorBlock = 1;
   };
 in
   pkgs.stdenvNoCC.mkDerivation {

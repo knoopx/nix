@@ -93,14 +93,14 @@
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256-6/dwai+QdasnWh/q33ikXf7dIF6hl92f2zlzpeyPijY=";
+    outputHash = "sha256-/JEU8ecASagsCnlzsFoLXdsOkdsydV9kXrKdGgYRZLo=";
   };
 in
   pkgs.buildGoModule {
     inherit name version;
     src = inputs.usememos;
     doCheck = false;
-    vendorHash = "sha256-b7kTSYH2BIwbvpGdaDLhI7IVZ0aBwUfjWaeiGEakMoA=";
+    vendorHash = "sha256-SWpnsTdti3hD1alvItpXllTJHGxeKP8q7WD2nBzFG7o=";
     prePatch = ''
       rm -rf server/router/frontend/dist
       cp -r ${frontend} server/router/frontend/dist

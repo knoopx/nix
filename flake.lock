@@ -160,11 +160,11 @@
     "catppuccin-userstyles": {
       "flake": false,
       "locked": {
-        "lastModified": 1746086252,
-        "narHash": "sha256-nT0PpUU9ZEk90wivtzwTMpX1VthKZlYSF7nxYYXYtPk=",
+        "lastModified": 1746219313,
+        "narHash": "sha256-utl04YD257vXFcBb81ZQkF8VMm0LFnZvDYC+n8wKwrk=",
         "owner": "catppuccin",
         "repo": "userstyles",
-        "rev": "9961ffec33eb2a74ca7f43a884076e356794a0e3",
+        "rev": "1155ddd3298c3edab4166edd7d96264accf8b2f7",
         "type": "github"
       },
       "original": {
@@ -181,11 +181,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1746072213,
-        "narHash": "sha256-ucL/XWOitrhH44UymaGhBYtEsr1DTqb1BDZuVOpGAYc=",
+        "lastModified": 1746245018,
+        "narHash": "sha256-TOACPgc9tglXxhGuzufXXYD/LveTLGbIuxXVQMzFbDM=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "debaa11dba5904b70a4e9db1d9c68ae9a6f82ebd",
+        "rev": "d84fe90605d425ccfe40cb465c6192a0402bd537",
         "type": "gitlab"
       },
       "original": {
@@ -431,11 +431,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1746040799,
-        "narHash": "sha256-osgPX/SzIpkR50vev/rqoTEAVkEcOWXoQXmbzsaI4KU=",
+        "lastModified": 1746243165,
+        "narHash": "sha256-DQycVmlyLQNLjLJ/FzpokVmbxGQ8HjQQ4zN4nyq2vII=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "5f217e5a319f6c186283b530f8c975e66c028433",
+        "rev": "c0962eeeabfb8127713f859ec8a5f0e86dead0f2",
         "type": "github"
       },
       "original": {
@@ -447,8 +447,8 @@
     "launchbox-metadata": {
       "flake": false,
       "locked": {
-        "lastModified": 1746054040,
-        "narHash": "sha256-boPN5Hs+W9ZdL+XOKs9MjTfTU3uzyAvZo8WJL6KodkQ=",
+        "lastModified": 1746226842,
+        "narHash": "sha256-zhHsB9ZNYHqM4aM9iOw16H6CpGPNmeiIJTToGXMxDzM=",
         "type": "tarball",
         "url": "http://gamesdb.launchbox-app.com/Metadata.zip"
       },
@@ -460,11 +460,11 @@
     "libretro-database": {
       "flake": false,
       "locked": {
-        "lastModified": 1745899047,
-        "narHash": "sha256-/GXZaEtg0KvVjK3tNRwHt4IyibaxGSRg5pQ1M81rM78=",
+        "lastModified": 1746189940,
+        "narHash": "sha256-mkJrzGnd95x6JySgaPB1E/c71sL2szuOklEvcTbvIME=",
         "owner": "libretro",
         "repo": "libretro-database",
-        "rev": "ccb2dca5d04b0a44aa0a6eb7489a71bfc66419a8",
+        "rev": "c2b26123664ee485d91adf6689c35d8966b6fcf5",
         "type": "github"
       },
       "original": {
@@ -494,11 +494,11 @@
     "neuwaita": {
       "flake": false,
       "locked": {
-        "lastModified": 1746010033,
-        "narHash": "sha256-KnvEhRBebb78w4BkAxrbIXyMJ7tBI7N9jhXezRG8u68=",
+        "lastModified": 1746260038,
+        "narHash": "sha256-Y5qzscosaoCIzbV09PGjXyePfw88T0XN0ee8jdVQfSE=",
         "owner": "RusticBard",
         "repo": "Neuwaita",
-        "rev": "9d313c84e55861c55c80f0ddc6e8bafc4b2e6f50",
+        "rev": "2435af00129f6a14a1698aca4eb84378207607e5",
         "type": "github"
       },
       "original": {
@@ -516,11 +516,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1746087578,
-        "narHash": "sha256-bPmkPoFqt1Fzrjm0YSnA6rYoVTbJvhBv7DRLzyq3Sw0=",
+        "lastModified": 1746124654,
+        "narHash": "sha256-LmhkAt2KLvf8lp+kEUQuTFmmv7iXO8IkwwSaPasfXJw=",
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "68589cd5a1e043e1b49116c2add4a880dce93a3b",
+        "rev": "6c9705dd4b2eaba25f024d1a3efd7943fd393632",
         "type": "github"
       },
       "original": {
@@ -567,11 +567,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1746030020,
-        "narHash": "sha256-PgORciByyl92qjSvpWs4LOMZwPgK3szfY0rCHruItEQ=",
+        "lastModified": 1746260050,
+        "narHash": "sha256-VPP/zgysFKRNQwoy6oqNkZC/48N714l7UlNSKQKMp50=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a8ada7ce4a26f364dfc63a119ad6160f01b86988",
+        "rev": "9a5ae6ec6a877cbf09ce3e47a918c514dc1b28f5",
         "type": "github"
       },
       "original": {
@@ -590,11 +590,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1745459908,
-        "narHash": "sha256-bWqgohVf/py9EW3bLS/dYbenD2p9N2/Qsw1+CJk1S04=",
+        "lastModified": 1746056780,
+        "narHash": "sha256-/emueQGaoT4vu0QjU9LDOG5roxRSfdY0K2KkxuzazcM=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "dbc4ba3233b2bf951521177bf0ee0a7679959035",
+        "rev": "d476cd0972dd6242d76374fcc277e6735715c167",
         "type": "github"
       },
       "original": {
@@ -674,11 +674,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1746065148,
-        "narHash": "sha256-NR8JCOo9BrK0T7iPmNKR+fa/zS+do+GgAMVg4fwMvYM=",
+        "lastModified": 1746223791,
+        "narHash": "sha256-R/DWYbY+Yr/QULujNlozfBUU2s9nZPoRikjIGPTYcR8=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "b4d3137c5ce960073a991bd99a333cad1b233101",
+        "rev": "953e7247ac340e5036f8af47eaccf1a23f1a0257",
         "type": "github"
       },
       "original": {
@@ -829,11 +829,11 @@
       },
       "locked": {
         "dir": "packaging/nix",
-        "lastModified": 1745344353,
-        "narHash": "sha256-T2ugJ5w26zPEpjqmKySZu41Sjngjw250pax/NYSfzg8=",
+        "lastModified": 1746127435,
+        "narHash": "sha256-ufyI5bnA0Ctg7amyirc3dKJGXqiV+1Fu9u0vHa+/tI4=",
         "owner": "Open-Wine-Components",
         "repo": "umu-launcher",
-        "rev": "cbe73a164aa6e08ddf71047eb0e9af71f81c00d2",
+        "rev": "80bf9143f1a73a10bc60fc4ca6558a2f4461a335",
         "type": "github"
       },
       "original": {
@@ -846,11 +846,11 @@
     "usememos": {
       "flake": false,
       "locked": {
-        "lastModified": 1745819501,
-        "narHash": "sha256-aZT53vjk+4lFRMfH/9qObyMj7JtKm6KxbPJVe7zEXGk=",
+        "lastModified": 1746260161,
+        "narHash": "sha256-zFaxZ0TOIBSXawgDmFJ6xrBLCEB1Axsb32DnePMNFHU=",
         "owner": "usememos",
         "repo": "memos",
-        "rev": "75f5c4c0b28d8f84b0cc17f86374aa6198b84d99",
+        "rev": "1328e0b861ea03ce7966621528d2239c63d40478",
         "type": "github"
       },
       "original": {
