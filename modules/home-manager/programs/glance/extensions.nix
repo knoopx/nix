@@ -65,6 +65,8 @@ in {
       Unit.Requires = ["glance-extensions.service"];
     };
     systemd.user.services."glance-extensions" = {
+      Unit.PartOf = ["graphical-session.target"];
+      Unit.BindTo = ["glance.service"];
       Service = {
         Restart = "on-failure";
         ExecStart = lib.strings.escapeShellArgs ([
@@ -75,7 +77,6 @@ in {
           ]
           ++ (lib.lists.flatten (mapAttrsToList (k: v: [k v]) cfg.api)));
       };
-      Unit.PartOf = ["graphical-session.target"];
       Install.WantedBy = ["graphical-session.target"];
     };
   };

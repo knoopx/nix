@@ -11,6 +11,7 @@ in {
     Unit = {
       Description = "Niri window tracker";
       After = ["graphical-session.target"];
+      BindsTo = "niri.service";
     };
 
     Service = {

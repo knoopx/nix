@@ -2,14 +2,15 @@
   defaults,
   pkgs,
   lib,
+  nix-colors,
   ...
 }: let
   wallpaper = pkgs.theming.mkSVGPatternWallpaper {
-    style = pkgs.pattern-monster.doodle-1;
+    style = pkgs.pattern-monster.zebra;
     scale = 4;
     colors = with defaults.colorScheme.palette; [
       #   base01
-      #   base00
+      base00
       base02
       base03
       base04
@@ -29,26 +30,50 @@ in {
   # https://github.com/emersion/mako/blob/master/doc/mako.5.scd
   services.mako = {
     enable = true;
-    layer = "top";
-    anchor = "top-right";
-    borderSize = 0;
-    borderRadius = 10;
-    padding = "10";
-    width = 330;
-    height = 200;
-    defaultTimeout = 5000;
-    maxIconSize = 32;
-    textColor = lib.mkForce "#${defaults.colorScheme.palette.base00}";
-    backgroundColor = lib.mkForce "#${defaults.colorScheme.palette.base0D}";
+    settings = {
+      actions = true;
+      markup = true;
+      icons = true;
+      layer = "top";
+      anchor = "top-right";
+      border-size = 0;
+      border-radius = 10;
+      padding = 10;
+      width = 330;
+      height = 200;
+      default-timeout = 5000;
+      max-icon-size = 32;
+      text-color = lib.mkForce "#${defaults.colorScheme.palette.base00}";
+      background-color = lib.mkForce "#${defaults.colorScheme.palette.base0D}";
+    };
   };
 
-  # services.swayosd.enable = true;
+  systemd.user.services = {
+    swaybg = {
+      Install = {
+        WantedBy = ["graphical-session.target"];
+      };
+      Unit = {
+        BindTo = ["niri.service"];
+        PartOf = ["graphical-session.target"];
+      };
+      Service = {
+        ExecStart = "${lib.getExe pkgs.swaybg} -i ${wallpaper.outPath}";
+        Restart = "on-failure";
+      };
+    };
+  };
 
   # https://github.com/sodiboo/niri-flake/blob/main/docs.md
   # https://github.com/YaLTeR/niri/blob/main/resources/default-config.kdl
 
   xdg.configFile."niri/config.kdl".text = ''
-      input {
+    spawn-at-startup "${lib.getExe pkgs.xwayland-satellite}"
+    // spawn-at-startup "${lib.getExe pkgs.mako}"
+    spawn-at-startup "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+    spawn-at-startup "ags" "run"
+
+    input {
         keyboard {
             xkb {
                 layout "eu"
@@ -91,13 +116,13 @@ in {
         }
         focus-ring {
             width 3
-            active-color "fad000"
-            inactive-color "313244"
+            active-color "#${defaults.colorScheme.palette.base0D}"
+            inactive-color "#${defaults.colorScheme.palette.base02}"
         }
         border {
             width 1
-            active-color "#313244"
-            inactive-color "#313244"
+            active-color "#${defaults.colorScheme.palette.base02}"
+            inactive-color "#${defaults.colorScheme.palette.base02}"
         }
         shadow {
             on
@@ -105,9 +130,9 @@ in {
             softness 30.00
             spread 5.00
             draw-behind-window false
-            color "#0070"
+            color "#000"
         }
-        insert-hint { color "rgb(127 200 255 / 50%)"; }
+        insert-hint { color "rgb(${nix-colors.lib-core.conversions.hexToRGBString " " defaults.colorScheme.palette.base0D} / 50%)"; }
         default-column-width { proportion 0.75; }
         preset-column-widths {
             proportion 0.25
@@ -115,6 +140,7 @@ in {
             proportion 0.75
         }
         center-focused-column "never"
+        //center-focused-column "on-overflow"
         always-center-single-column
     }
 
@@ -122,6 +148,10 @@ in {
         xcursor-theme "default"
         xcursor-size 24
         hide-when-typing
+    }
+
+    gestures {
+        // hot-corners { off }
     }
 
     hotkey-overlay { skip-at-startup; }
@@ -158,7 +188,48 @@ in {
         Mod+T { spawn "kitty"; }
         Mod+Delete { spawn "${lib.getExe pkgs.mission-center}"; }
         //Mod+D { spawn "ags" "toggle" "launcher"; }
+        //Super+Super_L { spawn "ags" "toggle" "launcher"; }
         Mod+Space { spawn "ags" "toggle" "launcher"; }
+
+        Mod+Left { focus-column-left; }
+        Alt+Left { focus-column-left; }
+        Mod+Right { focus-column-right; }
+        Alt+Right { focus-column-right; }
+
+        //Mod+WheelScrollUp   cooldown-ms=150 { focus-column-left; }
+        //Mod+WheelScrollDown cooldown-ms=150 { focus-column-right; }
+        //Mod+MouseMiddle { close-window; }
+        //Mod+MouseRight   { toggle-overview; }
+
+        Mod+W { close-window; }
+        Mod+Q { close-window; }
+        Mod+C { center-window; }
+        Mod+F { maximize-column; }
+        Mod+R { switch-preset-column-width; }
+        // Mod+Space { toggle-window-floating; }
+        Mod+Shift+F { fullscreen-window; }
+        Mod+I { consume-or-expel-window-left; }
+        Mod+O { consume-or-expel-window-right; }
+
+        Mod+Shift+Down { move-column-to-workspace-down; }
+        Mod+Shift+End { move-workspace-down; }
+        Mod+Shift+Home { move-workspace-up; }
+        Mod+Shift+Left { move-column-left; }
+        Mod+Shift+Right { move-column-right; }
+        Mod+Shift+Up { move-column-to-workspace-up; }
+
+        Mod+Up { focus-workspace-up; }
+        Alt+Up { focus-workspace-up; }
+
+        Mod+Down { focus-workspace-down; }
+        Alt+Down { focus-workspace-down; }
+
+        Mod+J { toggle-overview; }
+
+        Mod+Shift+Ctrl+L { spawn "niri" "msg" "action" "quit" "-s"; }
+
+        Print { screenshot; }
+        Shift+Print { screenshot-window; }
 
         Mod+Tab { spawn "${lib.getExe niri-cycle}"; }
         Shift+Mod+Tab { spawn "${lib.getExe niri-cycle}" "--reverse"; }
@@ -171,43 +242,7 @@ in {
         XF86AudioPrev { spawn "${lib.getExe pkgs.playerctl}" "previous"; }
         XF86AudioRaiseVolume { spawn "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
         XF86AudioLowerVolume { spawn "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
-
-        Alt+Down { focus-workspace-down; }
-        Alt+Left { focus-column-left; }
-        Alt+Right { focus-column-right; }
-        Alt+Up { focus-workspace-up; }
-        Mod+C { center-window; }
-        Mod+Down { focus-workspace-down; }
-        Mod+F { maximize-column; }
-        Mod+I { consume-or-expel-window-left; }
-        Mod+Left { focus-column-left; }
-        Mod+O { consume-or-expel-window-right; }
-        Mod+Q { close-window; }
-        Mod+R { switch-preset-column-width; }
-        Mod+Right { focus-column-right; }
-        Mod+Shift+Ctrl+L { spawn "niri" "msg" "action" "quit" "-s"; }
-        Mod+Shift+Down { move-column-to-workspace-down; }
-        Mod+Shift+End { move-workspace-down; }
-        Mod+Shift+F { fullscreen-window; }
-        Mod+Shift+Home { move-workspace-up; }
-        Mod+Shift+Left { move-column-left; }
-        Mod+Shift+Right { move-column-right; }
-        Mod+Shift+Up { move-column-to-workspace-up; }
-        Mod+Slash { show-hotkey-overlay; }
-        // Mod+Space { toggle-window-floating; }
-
-        Mod+Up { focus-workspace-up; }
-        Mod+W { close-window; }
-        Print { screenshot; }
-        Shift+Print { screenshot-window; }
-        Super+J { toggle-overview; }
     }
-
-    spawn-at-startup "${lib.getExe pkgs.xwayland-satellite}"
-    spawn-at-startup "${lib.getExe pkgs.mako}"
-    spawn-at-startup "${lib.getExe pkgs.swaybg}" "--image" "${wallpaper.outPath}"
-    spawn-at-startup "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
-    spawn-at-startup "ags" "run"
 
     // https://github.com/YaLTeR/niri/blob/main/wiki/Configuration:-Window-Rules.md
 
@@ -220,6 +255,7 @@ in {
         match is-active=false
         opacity 0.90
     }
+
     window-rule {
         match app-id="^org.gnome.NautilusPreviewer$"
         default-column-width
@@ -227,8 +263,8 @@ in {
     }
     window-rule {
         match app-id="io.missioncenter.MissionCenter"
-        default-column-width { fixed 1240; }
-        default-window-height { fixed 900; }
+        default-column-width { fixed ${toString (builtins.elemAt defaults.display.windowSize 0)}; }
+        default-window-height { fixed ${toString (builtins.elemAt defaults.display.windowSize 1)}; }
         open-floating true
     }
     window-rule {
@@ -237,6 +273,7 @@ in {
     }
     window-rule {
         match app-id="^kitty$"
+        match app-id="transmission-gtk"
         default-column-width { proportion 0.5; }
     }
     window-rule {
@@ -246,7 +283,7 @@ in {
     window-rule {
         match app-id="org.gnome.Calendar"
         match app-id="org.gnome.Weather"
-        match app-id="com.github.qarmin.czkawka"
+        //match app-id="com.github.qarmin.czkawka"
         default-column-width { proportion 0.75; }
         open-floating true
     }
@@ -254,6 +291,6 @@ in {
         match namespace="notifications"
         block-out-from "screen-capture"
     }
-    animations { slowdown 1.0; }
+    animations { slowdown 0.6; }
   '';
 }

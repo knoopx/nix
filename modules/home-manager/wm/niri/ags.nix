@@ -5,7 +5,9 @@
 }: {
   imports = [ags.homeManagerModules.default];
 
-  home.packages = with pkgs; [ags-restart];
+  home.packages = with pkgs; [
+    ags-restart
+  ];
 
   programs.ags.enable = true;
   programs.ags.package = ags.packages.x86_64-linux.ags;

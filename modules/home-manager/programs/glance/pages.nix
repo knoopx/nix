@@ -194,6 +194,14 @@
                 url = "https://github.com/ollama/ollama/releases.atom";
               }
               {
+                title = "Niri";
+                url = "https://github.com/YaLTeR/niri/releases.atom";
+              }
+              {
+                title = "Yazi";
+                url = "https://github.com/sxyazi/yazi/releases.atom";
+              }
+              {
                 title = "Ollama";
                 url = "https://github.com/YaLTeR/niri/releases.atom";
               }

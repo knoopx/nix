@@ -1,8 +1,7 @@
 {pkgs, ...}: let
   gtk = with pkgs; [
-    apostrophe
-    folio
     amberol
+    apostrophe
     authenticator
     baobab
     commit
@@ -16,6 +15,7 @@
     f3d
     fclones-gui
     file-roller
+    folio
     gitg
     gnome-calendar
     gnome-disk-utility
@@ -27,6 +27,7 @@
     nfoview
     nicotine-plus
     onlyoffice-bin
+    picard
     pinta
     plexamp
     popsicle
@@ -130,6 +131,8 @@
     rclone
     rsync
     brotab
+    lapce
+    zed-editor
   ];
 
   dev = with pkgs; [
