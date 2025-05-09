@@ -5,17 +5,25 @@
   nix-colors,
   ...
 }: let
-  wallpaper = pkgs.theming.mkSVGPatternWallpaper {
-    style = pkgs.pattern-monster.zebra;
-    scale = 4;
-    colors = with defaults.colorScheme.palette; [
-      #   base01
-      base00
-      base02
-      base03
-      base04
-    ];
+  # wallpaper = pkgs.theming.mkSVGPatternWallpaper {
+  #   style = pkgs.pattern-monster.zebra;
+  #   scale = 4;
+  #   colors = with defaults.colorScheme.palette; [
+  #     #   base01
+  #     base00
+  #     base02
+  #     base03
+  #     base04
+  #   ];
+  # };
+  wallpaper-src = fetchTarball {
+    url = "https://github.com/42willow/wallpapers/releases/download/wallpapers/wallpapers-mocha.zip";
+    sha256 = "sha256:10s315bd998r73p6i1bhlihc6hkq81jabkhjf24viz61xbs2898r";
   };
+  wallpaper = "${wallpaper-src}/mocha/images/photography/leaves_with_droplets.jpg";
+  # wallpaper = "${wallpaper-src}/mocha/images/art/kurzgesagt/asteroids.png";
+  # wallpaper = "${wallpaper-src}/mocha/pixel/art/animated_street_night.gif";
+
   niri-cycle = pkgs.writeShellScriptBin "niri-cycle" ''
     exec ${pkgs.python3}/bin/python3 ${./scripts/niri-cycle.py} "$@"
   '';
@@ -58,7 +66,7 @@ in {
         PartOf = ["graphical-session.target"];
       };
       Service = {
-        ExecStart = "${lib.getExe pkgs.swaybg} -i ${wallpaper.outPath}";
+        ExecStart = "${lib.getExe pkgs.swaybg} -i ${wallpaper}";
         Restart = "on-failure";
       };
     };

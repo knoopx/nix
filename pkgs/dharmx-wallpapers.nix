@@ -1,6 +1,4 @@
 {pkgs, ...}:
-# TODO: https://42willow.github.io/wallpapers/
-# https://github.com/42willow/wallpapers
 pkgs.stdenv.mkDerivation {
   name = "dharmx-wallpapers";
   src = pkgs.fetchFromGitHub {

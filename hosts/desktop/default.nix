@@ -10,6 +10,7 @@ in {
       ./nvidia.nix
       ./services.nix
     ]
+    ++ (listNixModulesRecusive ./containers)
     ++ (listNixModulesRecusive ../../modules/nixos);
 
   networking.hostName = "desktop";
