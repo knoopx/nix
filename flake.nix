@@ -26,7 +26,7 @@
     ags.url = "github:aylur/ags";
     ags.inputs.nixpkgs.follows = "nixpkgs";
 
-    niri.url = "github:sodiboo/niri-flake";
+    niri.url = "github:YaLTeR/niri";
     niri.inputs.nixpkgs.follows = "nixpkgs";
 
     yay-nix = {
@@ -93,7 +93,7 @@
       {
         nixpkgs.overlays =
           [
-            (self: super: {niri = niri.packages.${system}.niri-unstable;})
+            (self: super: {niri = niri.packages.${system}.default;})
             (self: super: umu-launcher.packages.${system})
             (
               self: super: {firefox-addons = firefox-addons.packages.${system};}
