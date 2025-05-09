@@ -21,6 +21,10 @@ in {
     "gccarch-x86-64-v4"
   ];
 
+  system = {
+    stateVersion = "24.05";
+  };
+
   nixpkgs = {
     hostPlatform = {
       inherit system;

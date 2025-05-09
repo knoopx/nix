@@ -26,7 +26,7 @@
     ags.url = "github:aylur/ags";
     ags.inputs.nixpkgs.follows = "nixpkgs";
 
-    niri.url = "github:YaLTeR/niri";
+    niri.url = "github:sodiboo/niri-flake";
     niri.inputs.nixpkgs.follows = "nixpkgs";
 
     yay-nix = {
@@ -54,15 +54,6 @@
 
     neuwaita.url = "github:RusticBard/Neuwaita";
     neuwaita.flake = false;
-
-    launchbox-metadata.url = "http://gamesdb.launchbox-app.com/Metadata.zip";
-    launchbox-metadata.flake = false;
-
-    libretro-database.url = "github:libretro/libretro-database";
-    libretro-database.flake = false;
-
-    libretro-fbneo.url = "github:libretro/FBNeo?dir=dats";
-    libretro-fbneo.flake = false;
 
     usememos.url = "github:usememos/memos";
     usememos.flake = false;
@@ -102,7 +93,7 @@
       {
         nixpkgs.overlays =
           [
-            (self: super: {niri = niri.packages.${system}.default;})
+            (self: super: {niri = niri.packages.${system}.niri-unstable;})
             (self: super: umu-launcher.packages.${system})
             (
               self: super: {firefox-addons = firefox-addons.packages.${system};}
@@ -159,6 +150,15 @@
           nixosModules
           ++ [
             ./hosts/desktop
+          ];
+      };
+
+      macbook = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+        modules =
+          nixosModules
+          ++ [
+            ./hosts/macbook
           ];
       };
     };

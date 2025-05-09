@@ -10,7 +10,6 @@
 
   system = {
     autoUpgrade.enable = true;
-    stateVersion = "24.05";
   };
 
   security = {
