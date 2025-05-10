@@ -5,7 +5,7 @@ boardtype=0x073e
 vendid=0x14e4
 devid=0x43ba
 
-macaddr=00:90:4c:0d:f4:3e
+macaddr=0e:69:97:a0:ac:04
 
 ccode=0
 regrev=0

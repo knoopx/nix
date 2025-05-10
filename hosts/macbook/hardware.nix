@@ -13,9 +13,11 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
   boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod"];
-  boot.initrd.kernelModules = [];
+  boot.extraModulePackages = with pkgs; [apple-ib-drv];
+  # apple-bce
+  # boot.initrd.kernelModules = ["apple-ibridge" "apple-ib-tb" "usb_storage"];
+  # "apple_bce"
   boot.kernelModules = ["kvm-intel"];
-  boot.extraModulePackages = [];
 
   # boot.kernelParams = [
   #   "brcmfmac.feature_disable=0x82000"

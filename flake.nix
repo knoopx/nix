@@ -143,6 +143,9 @@
       }
     ];
   in {
+    packages.x86_64-linux = {
+      apple-ib-drv = pkgs.callPackage ./pkgs/apple-ib-drv.nix {};
+    };
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         inherit specialArgs;

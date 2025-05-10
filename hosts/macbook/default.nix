@@ -1,4 +1,8 @@
-{pkgs, ...} @ inputs: let
+{
+  pkgs,
+  defaults,
+  ...
+} @ inputs: let
   system = "x86_64-linux";
   listNixModulesRecusive = import ../../lib/listNixModulesRecusive.nix inputs;
 in {
@@ -43,6 +47,6 @@ in {
         '';
       }
     )
-    # macbook12-spi-driver
+    apple-ib-drv
   ];
 }
