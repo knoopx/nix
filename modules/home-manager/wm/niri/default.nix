@@ -20,9 +20,12 @@
     url = "https://github.com/42willow/wallpapers/releases/download/wallpapers/wallpapers-mocha.zip";
     sha256 = "sha256:10s315bd998r73p6i1bhlihc6hkq81jabkhjf24viz61xbs2898r";
   };
-  wallpaper = "${wallpaper-src}/mocha/images/photography/leaves_with_droplets.jpg";
+  # wallpaper = "${wallpaper-src}/mocha/images/photography/leaves_with_droplets.jpg";
+  # wallpaper = "${wallpaper-src}/mocha/images/photography/trees_mountain_fog_1.jpg";
+  # wallpaper = "${wallpaper-src}/mocha/images/photography/mountains.jpg";
+  # wallpaper = "${wallpaper-src}/mocha/images/art/kurzgesagt/asteroid_miner_2.png";
   # wallpaper = "${wallpaper-src}/mocha/images/art/kurzgesagt/asteroids.png";
-  # wallpaper = "${wallpaper-src}/mocha/pixel/art/animated_street_night.gif";
+  wallpaper = "${wallpaper-src}/mocha/pixel/art/animated_street_night.gif";
 
   niri-cycle = pkgs.writeShellScriptBin "niri-cycle" ''
     exec ${pkgs.python3}/bin/python3 ${./scripts/niri-cycle.py} "$@"
@@ -57,7 +60,7 @@ in {
   };
 
   systemd.user.services = {
-    swaybg = {
+    wallpaper = {
       Install = {
         WantedBy = ["graphical-session.target"];
       };
@@ -66,7 +69,9 @@ in {
         PartOf = ["graphical-session.target"];
       };
       Service = {
-        ExecStart = "${lib.getExe pkgs.swaybg} -i ${wallpaper}";
+        # ExecStart = "${lib.getExe pkgs.swaybg} -i ${wallpaper}";
+        ExecStart = ''${lib.getExe pkgs.mpvpaper} -o "no-audio --loop --video-zoom=0.16" '*' ${wallpaper}'';
+
         Restart = "on-failure";
       };
     };
@@ -194,6 +199,7 @@ in {
         Mod+G { spawn "firefox"; }
         Mod+B { spawn "code"; }
         Mod+T { spawn "kitty"; }
+        Mod+V { spawn "nautilus"; }
         Mod+Delete { spawn "${lib.getExe pkgs.mission-center}"; }
         //Mod+D { spawn "ags" "toggle" "launcher"; }
         //Super+Super_L { spawn "ags" "toggle" "launcher"; }
