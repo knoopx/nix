@@ -15,7 +15,7 @@
   boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod"];
   boot.extraModulePackages = with pkgs; [apple-ib-drv];
   # apple-bce
-  boot.initrd.kernelModules = ["apple-ibridge" "apple-ib-tb" "usb_storage"];
+  # boot.initrd.kernelModules = ["apple-ibridge" "apple-ib-tb" "usb_storage"];
   # "apple_bce"
   boot.kernelModules = ["kvm-intel"];
 
