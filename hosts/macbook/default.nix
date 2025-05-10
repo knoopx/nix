@@ -6,8 +6,8 @@
   listNixModulesRecusive = import ../../lib/listNixModulesRecusive.nix inputs;
 
   system = "x86_64-linux";
-  apple-ib-driver =
-    pkgs.callPackage ./apple-ib-drv.nix
+  apple-ib-drv =
+    pkgs.callPackage ./_apple-ib-drv.nix
     {
       kernel = config.boot.kernelPackages.kernel;
     };
@@ -42,7 +42,7 @@ in {
   # ccode=0,regrev=0
   # brcmfmac43602-pcie.bin
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     (
       pkgs.stdenv.mkDerivation {
         name = "brcmfmac43602-pcie.txt";
@@ -56,5 +56,5 @@ in {
     apple-ib-drv
   ];
 
-  boot.extraModulePackages = with pkgs; [apple-ib-drv];
+  boot.extraModulePackages = [apple-ib-drv];
 }
