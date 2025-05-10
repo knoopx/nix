@@ -127,7 +127,7 @@
     ffmpeg
     mpv
     nh
-    ollamark
+    # ollamark
     rclone
     rsync
     brotab

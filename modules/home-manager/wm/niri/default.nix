@@ -16,6 +16,7 @@
   #     base04
   #   ];
   # };
+  # https://github.com/NotAShelf/wallpkgs
   wallpaper-src = fetchTarball {
     url = "https://github.com/42willow/wallpapers/releases/download/wallpapers/wallpapers-mocha.zip";
     sha256 = "sha256:10s315bd998r73p6i1bhlihc6hkq81jabkhjf24viz61xbs2898r";
