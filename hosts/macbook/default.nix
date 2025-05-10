@@ -61,5 +61,5 @@ in {
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [apple-ib-drv];
-  boot.initrd.kernelModules = ["apple-ibridge" "apple-ib-tb" "usb_storage"];
+  boot.initrd.kernelModules = ["apple-ibridge" "apple-touchbar" "usb_storage"];
 }
