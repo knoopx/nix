@@ -19,8 +19,12 @@ pkgs.stdenv.mkDerivation {
   hardeningDisable = ["pic" "format"];
 
   makeFlags = [
+    "KVER=${kernel.modDirVersion}"
     "KERNELRELEASE=${kernel.modDirVersion}"
     "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    "INSTALL_MOD_PATH=$(out)"
+    # "INSTALL_MOD_PATH=$(out)"
   ];
+  installPhase = ''
+    install -D *.ko -t "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/misc/"
+  '';
 }

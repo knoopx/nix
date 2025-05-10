@@ -43,6 +43,7 @@ in {
   # brcmfmac43602-pcie.bin
 
   environment.systemPackages = [
+    apple-ib-drv
     (
       pkgs.stdenv.mkDerivation {
         name = "brcmfmac43602-pcie.txt";
@@ -53,7 +54,6 @@ in {
         '';
       }
     )
-    apple-ib-drv
   ];
   # apple-bce
   # "apple_bce"
