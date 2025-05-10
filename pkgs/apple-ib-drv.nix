@@ -1,10 +1,10 @@
 {
   pkgs,
-  config,
+  kernel,
   ...
 }: let
   # TODO: kernel = config.boot.kernelPackages.kernel;
-  kernel = pkgs.linuxPackages_zen.kernel;
+  # kernel = pkgs.linuxPackages_zen.kernel;
 in
   pkgs.stdenv.mkDerivation {
     name = "apple-ib-drv";
