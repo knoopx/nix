@@ -1,6 +1,6 @@
 {
   pkgs,
-  defaults,
+  config,
   ...
 } @ inputs: let
   system = "x86_64-linux";
@@ -49,7 +49,7 @@ in {
     )
     (apple-ib-drv.overrideAttrs
       {
-        kernel = boot.kernelPackages.kernel;
+        kernel = config.boot.kernelPackages.kernel;
       })
   ];
 }
