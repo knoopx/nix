@@ -47,6 +47,9 @@ in {
         '';
       }
     )
-    apple-ib-drv
+    (apple-ib-drv.overrideAttrs
+      {
+        kernel = boot.kernelPackages.kernel;
+      })
   ];
 }
