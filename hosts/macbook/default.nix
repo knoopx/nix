@@ -58,8 +58,7 @@ in {
       }
     )
   ];
-  # apple-bce
-  # "apple_bce"
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [apple-ib-drv];
   boot.initrd.kernelModules = ["apple-ibridge" "apple-ib-tb" "usb_storage"];

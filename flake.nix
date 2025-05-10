@@ -144,7 +144,7 @@
     ];
   in {
     packages.x86_64-linux = {
-      apple-ib-drv = pkgs.callPackage ./pkgs/apple-ib-drv.nix {kernel = pkgs.linuxPackages_zen.kernel;};
+      apple-ib-drv = pkgs.callPackage ./hosts/macbook/_apple-ib-drv.nix {kernel = pkgs.linuxPackages_zen.kernel;};
     };
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {

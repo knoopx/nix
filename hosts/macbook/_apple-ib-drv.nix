@@ -8,10 +8,10 @@ pkgs.stdenv.mkDerivation {
   version = "0.0.1";
 
   src = pkgs.fetchFromGitHub {
-    owner = "t2linux";
-    repo = "apple-ib-drv";
-    rev = "d8411ad1d87db8491e53887e36c3d37f445203eb";
-    hash = "0s8bh3hw6kbl0s766pl7bg5ffsxra7iwjqlykhqrgwiwiripvz4q";
+    owner = "AdityaGarg8";
+    repo = "apple-touchbar-drv";
+    rev = "1ba449c88a02098373fe6ba01df8dd7b2658f9c9";
+    hash = "sha256-ZoUfCWf9SuDAXItIywy5nfy8FsxIiCVwNDXQfDztolQ=";
   };
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
@@ -24,6 +24,10 @@ pkgs.stdenv.mkDerivation {
     "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     "INSTALL_MOD_PATH=$(out)"
   ];
+
+  # postPatch = ''
+  #   substituteInPlace apple-ibridge.c --replace-fail '.owner		= THIS_MODULE,' ""
+  # '';
   installPhase = ''
     install -D *.ko -t "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/misc/"
   '';
