@@ -70,7 +70,8 @@ in {
       };
       Service = {
         # ExecStart = "${lib.getExe pkgs.swaybg} -i ${wallpaper}";
-        ExecStart = ''${lib.getExe pkgs.mpvpaper} -o "no-audio --loop --video-zoom=0.16" '*' ${wallpaper}'';
+        # https://github.com/LGFae/swww
+        ExecStart = ''${lib.getExe pkgs.mpvpaper} -o "no-audio --loop --video-zoom=0.17" '*' ${wallpaper}'';
 
         Restart = "on-failure";
       };

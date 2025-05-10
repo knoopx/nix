@@ -7,7 +7,7 @@
     name = "ollamark";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256-Nee6H3y8NyPuCEANh2gouHPd0foTSd7M4prgxlbD8/8=";
+    outputHash = "sha256-1/KqEtqSnt2/jtfsoUyaerftnTX+u0SrfVBcFNeva+0=";
 
     nativeBuildInputs = [pkgs.installShellFiles];
 
