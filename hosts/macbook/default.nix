@@ -55,6 +55,9 @@ in {
     )
     apple-ib-drv
   ];
-
+  # apple-bce
+  # "apple_bce"
+  boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [apple-ib-drv];
+  boot.initrd.kernelModules = ["apple-ibridge" "apple-ib-tb" "usb_storage"];
 }
