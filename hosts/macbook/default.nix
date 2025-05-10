@@ -47,7 +47,7 @@ in {
         '';
       }
     )
-    (apple-ib-drv.overrideAttrs
+    (pkgs.callPackage ./apple-ib-drv.nix
       {
         kernel = config.boot.kernelPackages.kernel;
       })

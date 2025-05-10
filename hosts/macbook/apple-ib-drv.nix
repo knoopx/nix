@@ -1,8 +1,11 @@
-{pkgs, ...}:
-pkgs.stdenv.mkDerivation rec {
+{
+  pkgs,
+  kernel,
+  ...
+}:
+pkgs.stdenv.mkDerivation {
   name = "apple-ib-drv";
   version = "0.0.1";
-  kernel = pkgs.linuxPackages.kernel;
 
   src = pkgs.fetchFromGitHub {
     owner = "t2linux";
