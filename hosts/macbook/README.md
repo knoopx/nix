@@ -4,3 +4,5 @@ https://github.com/Dunedan/mbp-2016-linux
 https://gist.github.com/almas/5f75adb61bccf604b6572f763ce63e3e
 
 https://github.com/t2linux/nixos-overlay/
+
+Macbook14,2

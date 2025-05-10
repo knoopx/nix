@@ -35,6 +35,9 @@ in {
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.extraModprobeConfig = ''
+    options hid-appletb-kbd mode=0
+  '';
 
   system.stateVersion = "24.11";
 
@@ -59,5 +62,5 @@ in {
   # "apple_bce"
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [apple-ib-drv];
-  boot.initrd.kernelModules = ["apple-ibridge" "apple-touchbar" "usb_storage"];
+  boot.initrd.kernelModules = ["apple-ibridge" "apple-ib-tb" "usb_storage"];
 }

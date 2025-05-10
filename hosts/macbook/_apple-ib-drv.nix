@@ -10,8 +10,8 @@ pkgs.stdenv.mkDerivation {
   src = pkgs.fetchFromGitHub {
     owner = "t2linux";
     repo = "apple-ib-drv";
-    rev = "4afd30950a7364b06b8cef8a34d6cc6653ca3120";
-    hash = "sha256-ZoUfCWf9SuDAXItIywy5nfy8FsxIiCVwNDXQfDztolQ=";
+    rev = "d8411ad1d87db8491e53887e36c3d37f445203eb";
+    hash = "0s8bh3hw6kbl0s766pl7bg5ffsxra7iwjqlykhqrgwiwiripvz4q";
   };
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
@@ -22,7 +22,7 @@ pkgs.stdenv.mkDerivation {
     "KVER=${kernel.modDirVersion}"
     "KERNELRELEASE=${kernel.modDirVersion}"
     "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    # "INSTALL_MOD_PATH=$(out)"
+    "INSTALL_MOD_PATH=$(out)"
   ];
   installPhase = ''
     install -D *.ko -t "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/misc/"
