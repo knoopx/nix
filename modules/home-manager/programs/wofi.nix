@@ -1,0 +1,5 @@
+{...}: {
+  programs.wofi = {
+    enable = true;
+  };
+}
