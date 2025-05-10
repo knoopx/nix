@@ -3,8 +3,14 @@
   config,
   ...
 } @ inputs: let
-  system = "x86_64-linux";
   listNixModulesRecusive = import ../../lib/listNixModulesRecusive.nix inputs;
+
+  system = "x86_64-linux";
+  apple-ib-driver =
+    pkgs.callPackage ./apple-ib-drv.nix
+    {
+      kernel = config.boot.kernelPackages.kernel;
+    };
 in {
   imports =
     [
@@ -47,9 +53,8 @@ in {
         '';
       }
     )
-    (pkgs.callPackage ./apple-ib-drv.nix
-      {
-        kernel = config.boot.kernelPackages.kernel;
-      })
+    apple-ib-drv
   ];
+
+  boot.extraModulePackages = with pkgs; [apple-ib-drv];
 }
