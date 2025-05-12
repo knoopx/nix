@@ -87,6 +87,7 @@ in {
     // spawn-at-startup "${lib.getExe pkgs.mako}"
     spawn-at-startup "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
     spawn-at-startup "ags" "run"
+    spawn-at-startup "kitty"
 
     input {
         keyboard {
