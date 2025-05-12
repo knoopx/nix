@@ -154,8 +154,7 @@ in {
             proportion 0.50
             proportion 0.75
         }
-        center-focused-column "never"
-        //center-focused-column "on-overflow"
+        center-focused-column "on-overflow"
         always-center-single-column
     }
 
@@ -172,29 +171,12 @@ in {
     hotkey-overlay { skip-at-startup; }
 
     overview {
-      zoom 0.75
+      zoom 0.7
       backdrop-color "#${defaults.colorScheme.palette.base02}"
     }
 
     environment {
         DISPLAY ":0"
-        "GBM_BACKEND" "nvidia-drm"
-        "GDK_BACKEND" "wayland"
-        "LIBVA_DRIVER_NAME" "nvidia"
-        "MOZ_ENABLE_WAYLAND" "1"
-        "NVD_BACKEND" "direct"
-        "NVIDIA_DRIVER_CAPABILITIES" "all"
-        "NVIDIA_VISIBLE_DEVICES" "all"
-        "QT_QPA_PLATFORM" "wayland;xcb"
-        "QT_WAYLAND_DISABLE_WINDOWDECORATION" "1"
-        "SDL_VIDEODRIVER" "wayland"
-        "WLR_BACKEND" "vulkan"
-        "WLR_DRM_NO_ATOMIC" "1"
-        "WLR_NO_HARDWARE_CURSORS" "1"
-        "WLR_RENDERER" "vulkan"
-        "XDG_SESSION_TYPE" "wayland"
-        "_EGL_VENDOR_LIBRARY_FILENAMES" "/run/opengl-driver/share/glvnd/egl_vendor.d/10_nvidia.json"
-        "__GLX_VENDOR_LIBRARY_NAME" "nvidia"
     }
 
     binds {
@@ -222,7 +204,7 @@ in {
         Mod+C { center-window; }
         Mod+F { maximize-column; }
         Mod+R { switch-preset-column-width; }
-        // Mod+Space { toggle-window-floating; }
+        Mod+Enter { toggle-window-floating; }
         Mod+Shift+F { fullscreen-window; }
         Mod+I { consume-or-expel-window-left; }
         Mod+O { consume-or-expel-window-right; }

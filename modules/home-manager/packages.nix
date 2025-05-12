@@ -1,5 +1,8 @@
 {pkgs, ...}: let
   gtk = with pkgs; [
+    # lapce
+    # qmk
+    # zed-editor
     amberol
     apostrophe
     authenticator
@@ -29,10 +32,9 @@
     onlyoffice-bin
     picard
     pinta
-    plexamp
     popsicle
     prusa-slicer
-    qmk
+    script-kit
     seahorse
     showtime
     snapshot
@@ -127,12 +129,11 @@
     ffmpeg
     mpv
     nh
-    # ollamark
+    ollamark
+    alpaca
     rclone
     rsync
     brotab
-    lapce
-    zed-editor
   ];
 
   dev = with pkgs; [

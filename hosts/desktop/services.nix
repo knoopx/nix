@@ -34,20 +34,6 @@
       capSysAdmin = true;
     };
 
-    mpd = {
-      enable = false;
-      user = "pipewire";
-      musicDirectory = "/mnt/mixed/Music";
-      extraConfig = ''
-        audio_output {
-          type "pipewire"
-          name "PipeWire Output"
-        }
-      '';
-
-      network.listenAddress = "any";
-    };
-
     plex = {
       enable = true;
       group = "wheel";
