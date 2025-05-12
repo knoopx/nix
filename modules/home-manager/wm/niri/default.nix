@@ -204,7 +204,7 @@ in {
         Mod+C { center-window; }
         Mod+F { maximize-column; }
         Mod+R { switch-preset-column-width; }
-        Mod+Enter { toggle-window-floating; }
+        Mod+Return { toggle-window-floating; }
         Mod+Shift+F { fullscreen-window; }
         Mod+I { consume-or-expel-window-left; }
         Mod+O { consume-or-expel-window-right; }
@@ -224,7 +224,7 @@ in {
 
         Mod+J { toggle-overview; }
 
-        Mod+Shift+Ctrl+L { spawn "niri" "msg" "action" "quit" "-s"; }
+        Mod+Shift+Ctrl+L { quit skip-confirmation=true; }
 
         Print { screenshot; }
         Shift+Print { screenshot-window; }
