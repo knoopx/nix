@@ -72,43 +72,41 @@ class NotesApp(Adw.ApplicationWindow):
         key_controller.connect("key-pressed", self.on_window_key_press)
         self.add_controller(key_controller)
 
+        self.entry.grab_focus()
+
     def create_ui(self):
         # Main layout with headerbar
         main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.set_content(main_box)
         main_box.append(self.header)
 
-        self.hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        main_box.append(self.hbox)
-
-        # Sidebar
-        self.vbox_sidebar = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        self.vbox_sidebar.set_size_request(300, -1)
-        self.hbox.append(self.vbox_sidebar)
-
-        # Add sidebar toggle button to the header bar
-        self.sidebar_button = Gtk.Button()
-        self.sidebar_button.set_icon_name("sidebar-show-symbolic")
-        self.sidebar_button.set_tooltip_text("Toggle Sidebar (Ctrl+B)")
-        self.sidebar_button.connect("clicked", self.on_sidebar_button_clicked)
-        self.header.pack_start(self.sidebar_button)
-
+        # Use Adw.OverlaySplitView for sidebar and content
+        self.split_view = Adw.OverlaySplitView()
+        self.split_view.set_vexpand(True)
+        self.split_view.set_hexpand(True)
+        self.vbox_sidebar_content = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL, spacing=10
+        )
+        # self.vbox_sidebar_content.set_hexpand(False)
+        main_box.append(self.split_view)
 
         # Notes List
         scrolled_window = Gtk.ScrolledWindow()
         scrolled_window.set_vexpand(True)
-        self.vbox_sidebar.append(scrolled_window)
+        self.vbox_sidebar_content.append(scrolled_window)
 
         self.note_list = Gtk.ListBox()
         self.note_list.set_selection_mode(Gtk.SelectionMode.SINGLE)
         self.note_list.connect("row-selected", self.on_note_selected)
         scrolled_window.set_child(self.note_list)
 
+        # Set the sidebar child of the SplitView
+        self.split_view.set_sidebar(self.vbox_sidebar_content)
+
         # Content Area - Stack to switch between edit and preview
         self.content_stack = Gtk.Stack()
         self.content_stack.set_hexpand(True)
         self.content_stack.set_vexpand(True)
-        self.hbox.append(self.content_stack)
 
         # Source view with language manager for markdown highlighting
         edit_scroll = Gtk.ScrolledWindow()
@@ -140,6 +138,20 @@ class NotesApp(Adw.ApplicationWindow):
         # Default to preview mode
         self.content_stack.set_visible_child_name("preview")
 
+        # Set the content child of the SplitView
+        self.split_view.set_content(self.content_stack)
+
+        # Add sidebar toggle button to the header bar
+        self.sidebar_button = Gtk.Button()
+        # self.sidebar_button.set_icon_name("sidebar-show-symbolic")
+        self.sidebar_button.set_child(Gtk.Image.new_from_icon_name("sidebar-show-symbolic"))
+        self.sidebar_button.set_tooltip_text("Toggle Sidebar (Ctrl+B)")
+        self.sidebar_button.connect("clicked", self.on_sidebar_button_clicked)
+        self.header.pack_start(self.sidebar_button)
+
+        # Connect to the 'show-sidebar' property to update the button icon
+        # self.split_view.connect("notify::show-sidebar", self.update_sidebar_button_icon)
+
         # Add click and key controllers
         click_gesture = Gtk.GestureClick()
         click_gesture.set_button(1)  # Left mouse button
@@ -159,13 +171,13 @@ class NotesApp(Adw.ApplicationWindow):
 
     def setup_shortcuts(self):
         # Shortcut for toggling sidebar (Ctrl+B)
-        shortcut_controller = Gtk.ShortcutController.new() # Corrected: Use Gtk.ShortcutController.new()
+        shortcut_controller = Gtk.ShortcutController.new()
         toggle_sidebar_shortcut = Gtk.Shortcut.new(
             Gtk.ShortcutTrigger.parse_string("<control>b"),
-            Gtk.CallbackAction.new(self.toggle_sidebar, None)
+            Gtk.CallbackAction.new(self.toggle_sidebar, None),
         )
         shortcut_controller.add_shortcut(toggle_sidebar_shortcut)
-        self.add_controller(shortcut_controller) # Add the controller to the window
+        self.add_controller(shortcut_controller)
 
     def find_notes_recursively(self, directory):
         """Find all markdown files recursively starting from directory"""
@@ -203,6 +215,8 @@ class NotesApp(Adw.ApplicationWindow):
             display_name = os.path.splitext(note)[0]
 
             label = Gtk.Label(label=display_name)
+            label.set_ellipsize(Pango.EllipsizeMode.END)
+            label.set_max_width_chars(80)
             label.set_xalign(0)
             label.set_margin_start(5)
             label.set_margin_end(5)
@@ -228,8 +242,9 @@ class NotesApp(Adw.ApplicationWindow):
             query = os.path.splitext(query)[0]
 
         # Normalize filename to be relative path from NOTES_DIR
-        filename_relative = os.path.relpath(os.path.join(NOTES_DIR, filename), NOTES_DIR)
-
+        filename_relative = os.path.relpath(
+            os.path.join(NOTES_DIR, filename), NOTES_DIR
+        )
 
         matching_notes = [
             note for note in self.notes if filename_relative.lower() == note.lower()
@@ -252,14 +267,13 @@ class NotesApp(Adw.ApplicationWindow):
                         self.note_list.select_row(row)
                     break
         else:
-             # If a matching note exists, select it
-             for i, note in enumerate(self.filtered_notes):
+            # If a matching note exists, select it
+            for i, note in enumerate(self.filtered_notes):
                 if note == matching_notes[0]:
                     row = self.note_list.get_row_at_index(i)
                     if row:
                         self.note_list.select_row(row)
                     break
-
 
         entry.set_text("")
 
@@ -271,6 +285,12 @@ class NotesApp(Adw.ApplicationWindow):
             note_name = row.filename
             self.current_note_path = os.path.join(NOTES_DIR, note_name)
             self.load_note()
+            # Hide the sidebar on narrow widths after selecting a note if hide mode is active
+            if (
+                hasattr(self.split_view, "get_hide_sidebar")
+                and self.split_view.get_hide_sidebar()
+            ):
+                self.split_view.set_show_sidebar(False)
 
     def load_note(self):
         if self.current_note_path and os.path.exists(self.current_note_path):
@@ -297,12 +317,12 @@ class NotesApp(Adw.ApplicationWindow):
                 self.webview.load_html(html_content, "file:///")
                 self.content_stack.set_visible_child_name("preview")
         else:
-             self.current_note_path = None
-             self.content_buffer.set_text("")
-             self.webview.load_html("", "file:///")
-             self.content_stack.set_visible_child_name("preview")
-             self.load_notes()
-             self.refresh_note_list()
+            self.current_note_path = None
+            self.content_buffer.set_text("")
+            self.webview.load_html("", "file:///")
+            self.content_stack.set_visible_child_name("preview")
+            self.load_notes()
+            self.refresh_note_list()
 
     def save_note_content(self):
         if self.current_note_path:
@@ -328,10 +348,9 @@ class NotesApp(Adw.ApplicationWindow):
             self.content_stack.set_visible_child_name("edit")
             self.content_view.grab_focus()
         else:
-             self.content_buffer.set_text("")
-             self.content_stack.set_visible_child_name("edit")
-             self.content_view.grab_focus()
-
+            self.content_buffer.set_text("")
+            self.content_stack.set_visible_child_name("edit")
+            self.content_view.grab_focus()
 
     def exit_edit_mode(self):
         if self.is_editing:
@@ -340,6 +359,7 @@ class NotesApp(Adw.ApplicationWindow):
             self.load_note()
 
     def on_editor_focus_lost(self, controller):
+        # Basic focus lost save. Could be refined if needed.
         self.exit_edit_mode()
 
     def on_key_press(self, controller, keyval, keycode, state, user_data=None):
@@ -358,13 +378,9 @@ class NotesApp(Adw.ApplicationWindow):
         self.toggle_sidebar()
 
     def toggle_sidebar(self, *args):
-        """Toggles the visibility of the sidebar."""
-        is_visible = self.vbox_sidebar.get_visible()
-        self.vbox_sidebar.set_visible(not is_visible)
-        if is_visible:
-            self.sidebar_button.set_icon_name("sidebar-show-symbolic")
-        else:
-            self.sidebar_button.set_icon_name("sidebar-hide-symbolic")
+        """Toggles the visibility of the sidebar using Adw.OverlaySplitView."""
+        is_visible = self.split_view.get_show_sidebar()
+        self.split_view.set_show_sidebar(not is_visible)
 
 
     def on_webview_decide_policy(self, webview, decision, decision_type):
@@ -375,22 +391,24 @@ class NotesApp(Adw.ApplicationWindow):
             uri = request.get_uri()
 
             # Check if it's a link click and not a local file URI
-            if navigation_action.get_navigation_type() == WebKit.NavigationType.LINK_CLICKED:
-                 parsed_uri = urllib.parse.urlparse(uri)
-                 if parsed_uri.scheme in ["http", "https", "mailto", "ftp"]: # Added more common schemes
-                    # Use Gtk.UriLauncher (available since GTK 4.10) or Gtk.show_uri
-                    # Gtk.show_uri is simpler and more widely available across GTK4 versions
+            if (
+                navigation_action.get_navigation_type()
+                == WebKit.NavigationType.LINK_CLICKED
+            ):
+                parsed_uri = urllib.parse.urlparse(uri)
+                if parsed_uri.scheme in ["http", "https", "mailto", "ftp"]:
                     try:
+                        # Use Gtk.show_uri to open in the default external browser
+                        # Pass the main window as the parent for better dialog parenting
                         Gtk.show_uri(self, uri, Gdk.CURRENT_TIME)
                         # Ignore the navigation in the webview
                         decision.ignore()
-                        return True # Handled the decision
+                        return True
                     except GLib.Error as e:
                         print(f"Failed to open URI {uri}: {e}")
-                        # Optionally show an error message to the user
-                        decision.use() # Let webview handle it if external opening fails
-                        return False # Did not fully handle externally
-
+                        # Let webview handle it if external opening fails or is unsupported
+                        decision.use()
+                        return False
 
         # For other types of decisions or non-external links, use the default policy
         decision.use()
