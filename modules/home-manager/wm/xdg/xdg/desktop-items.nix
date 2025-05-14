@@ -125,8 +125,8 @@
 
       chat = {
         name = "Chat";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://chat.knoopx.net/"'';
-        icon = "x-office-document";
+        exec = ''${lib.getExe pkgs.chat}'';
+        icon = "chat-message-new-symbolic";
       };
       # https://chatgpt.com/
       # https://claudeai.com/

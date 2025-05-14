@@ -1,5 +1,6 @@
 {
   defaults,
+  config,
   pkgs,
   neuwaita,
   lib,
@@ -11,6 +12,9 @@ in {
     pkgs.adwaita-icon-theme
     (pkgs.theming.mkMoreWaitaTheme defaults.colorScheme.palette)
   ];
+
+  # TODO: --impure
+  # xdg.dataFile."gtksourceview-5/styles".source = "${config.home.homeDirectory}/.local/share/gedit/styles";
 
   gtk = {
     iconTheme = {

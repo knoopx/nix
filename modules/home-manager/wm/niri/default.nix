@@ -270,8 +270,9 @@ in {
         block-out-from "screencast"
     }
     window-rule {
-        match app-id="^kitty$"
+        match app-id="kitty"
         match app-id="transmission-gtk"
+        match app-id="net.knoopx.chat"
         default-column-width { proportion 0.5; }
     }
     window-rule {

@@ -42,6 +42,8 @@
     transmission_4-gtk
     vial
     dataset-viewer
+    notes
+    chat
   ];
 
   cli = with pkgs; [
