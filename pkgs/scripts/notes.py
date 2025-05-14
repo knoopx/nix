@@ -10,6 +10,7 @@ gi.require_version("Adw", "1")
 gi.require_version("WebKit", "6.0")
 from gi.repository import Gtk, GtkSource, Gdk, Pango, Adw, WebKit, GLib
 from markdown2 import markdown
+import urllib.parse
 
 NOTES_DIR = os.path.expanduser("~/Documents")
 EXT = ".md"
@@ -64,6 +65,7 @@ class NotesApp(Adw.ApplicationWindow):
         self.load_notes()
 
         self.create_ui()
+        self.setup_shortcuts()
 
         # Add focus controller for text entry shortcut
         key_controller = Gtk.EventControllerKey.new()
@@ -76,18 +78,26 @@ class NotesApp(Adw.ApplicationWindow):
         self.set_content(main_box)
         main_box.append(self.header)
 
-        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        main_box.append(hbox)
+        self.hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        main_box.append(self.hbox)
 
         # Sidebar
-        vbox_sidebar = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        hbox.append(vbox_sidebar)
+        self.vbox_sidebar = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        self.vbox_sidebar.set_size_request(300, -1)
+        self.hbox.append(self.vbox_sidebar)
+
+        # Add sidebar toggle button to the header bar
+        self.sidebar_button = Gtk.Button()
+        self.sidebar_button.set_icon_name("sidebar-show-symbolic")
+        self.sidebar_button.set_tooltip_text("Toggle Sidebar (Ctrl+B)")
+        self.sidebar_button.connect("clicked", self.on_sidebar_button_clicked)
+        self.header.pack_start(self.sidebar_button)
+
 
         # Notes List
         scrolled_window = Gtk.ScrolledWindow()
-        scrolled_window.set_size_request(300, 0)
         scrolled_window.set_vexpand(True)
-        vbox_sidebar.append(scrolled_window)
+        self.vbox_sidebar.append(scrolled_window)
 
         self.note_list = Gtk.ListBox()
         self.note_list.set_selection_mode(Gtk.SelectionMode.SINGLE)
@@ -98,7 +108,7 @@ class NotesApp(Adw.ApplicationWindow):
         self.content_stack = Gtk.Stack()
         self.content_stack.set_hexpand(True)
         self.content_stack.set_vexpand(True)
-        hbox.append(self.content_stack)
+        self.hbox.append(self.content_stack)
 
         # Source view with language manager for markdown highlighting
         edit_scroll = Gtk.ScrolledWindow()
@@ -119,6 +129,8 @@ class NotesApp(Adw.ApplicationWindow):
         self.webview = WebKit.WebView()
         self.webview.set_vexpand(True)
         self.webview.set_hexpand(True)
+        # Connect to the decide-policy signal
+        self.webview.connect("decide-policy", self.on_webview_decide_policy)
         preview_scroll.set_child(self.webview)
 
         # Add pages to stack
@@ -144,6 +156,16 @@ class NotesApp(Adw.ApplicationWindow):
         self.content_view.add_controller(focus_controller)
 
         self.refresh_note_list()
+
+    def setup_shortcuts(self):
+        # Shortcut for toggling sidebar (Ctrl+B)
+        shortcut_controller = Gtk.ShortcutController.new() # Corrected: Use Gtk.ShortcutController.new()
+        toggle_sidebar_shortcut = Gtk.Shortcut.new(
+            Gtk.ShortcutTrigger.parse_string("<control>b"),
+            Gtk.CallbackAction.new(self.toggle_sidebar, None)
+        )
+        shortcut_controller.add_shortcut(toggle_sidebar_shortcut)
+        self.add_controller(shortcut_controller) # Add the controller to the window
 
     def find_notes_recursively(self, directory):
         """Find all markdown files recursively starting from directory"""
@@ -194,46 +216,61 @@ class NotesApp(Adw.ApplicationWindow):
             self.note_list.append(row)
 
     def on_entry_activate(self, entry):
-        query = entry.get_text()
+        query = entry.get_text().strip()
         if not query:
             return
 
         # Add extension if not already present
-        if not query.endswith(EXT):
+        if not query.lower().endswith(EXT):
             filename = query + EXT
         else:
             filename = query
-            query = os.path.splitext(query)[0]  # Remove extension for display
+            query = os.path.splitext(query)[0]
+
+        # Normalize filename to be relative path from NOTES_DIR
+        filename_relative = os.path.relpath(os.path.join(NOTES_DIR, filename), NOTES_DIR)
+
 
         matching_notes = [
-            note for note in self.notes if filename.lower() in note.lower()
+            note for note in self.notes if filename_relative.lower() == note.lower()
         ]
         if not matching_notes:
             new_note_path = os.path.join(NOTES_DIR, filename)
             os.makedirs(os.path.dirname(new_note_path), exist_ok=True)
+            initial_content = f"# {query}\n\n"
             with open(new_note_path, "w") as f:
-                f.write(f"# {query}\n")
-            self.notes.append(filename)
+                f.write(initial_content)
+            self.notes.append(filename_relative)
+            self.notes.sort()
             self.refresh_note_list()
 
             # Select the newly created note
             for i, note in enumerate(self.filtered_notes):
-                if note == filename:
+                if note == filename_relative:
                     row = self.note_list.get_row_at_index(i)
-                    self.note_list.select_row(row)
+                    if row:
+                        self.note_list.select_row(row)
                     break
+        else:
+             # If a matching note exists, select it
+             for i, note in enumerate(self.filtered_notes):
+                if note == matching_notes[0]:
+                    row = self.note_list.get_row_at_index(i)
+                    if row:
+                        self.note_list.select_row(row)
+                    break
+
+
         entry.set_text("")
 
     def on_entry_changed(self, entry):
         self.refresh_note_list()
 
     def on_note_selected(self, listbox, row):
-        if row:
-            # Get the actual filename from Python attribute
-            if hasattr(row, "filename"):
-                note_name = row.filename
-                self.current_note_path = os.path.join(NOTES_DIR, note_name)
-                self.load_note()
+        if row and hasattr(row, "filename"):
+            note_name = row.filename
+            self.current_note_path = os.path.join(NOTES_DIR, note_name)
+            self.load_note()
 
     def load_note(self):
         if self.current_note_path and os.path.exists(self.current_note_path):
@@ -241,11 +278,9 @@ class NotesApp(Adw.ApplicationWindow):
                 content = f.read()
 
             if self.is_editing:
-                # Show raw markdown for editing
                 self.content_buffer.set_text(content)
                 self.content_stack.set_visible_child_name("edit")
             else:
-                # Convert markdown to HTML and display in WebView
                 html_content = f"""
                 <!DOCTYPE html>
                 <html>
@@ -255,12 +290,19 @@ class NotesApp(Adw.ApplicationWindow):
                     <style>{PREVIEW_CSS}</style>
                 </head>
                 <body>
-                    {markdown(content)}
+                    {markdown(content, extras=["fenced-code-blocks", "tables", "nofollow"])}
                 </body>
                 </html>
                 """
                 self.webview.load_html(html_content, "file:///")
                 self.content_stack.set_visible_child_name("preview")
+        else:
+             self.current_note_path = None
+             self.content_buffer.set_text("")
+             self.webview.load_html("", "file:///")
+             self.content_stack.set_visible_child_name("preview")
+             self.load_notes()
+             self.refresh_note_list()
 
     def save_note_content(self):
         if self.current_note_path:
@@ -268,7 +310,6 @@ class NotesApp(Adw.ApplicationWindow):
             end_iter = self.content_buffer.get_end_iter()
             content = self.content_buffer.get_text(start_iter, end_iter, True)
 
-            # Ensure directory exists (for nested notes)
             os.makedirs(os.path.dirname(self.current_note_path), exist_ok=True)
 
             with open(self.current_note_path, "w") as f:
@@ -286,6 +327,11 @@ class NotesApp(Adw.ApplicationWindow):
             self.content_buffer.set_text(content)
             self.content_stack.set_visible_child_name("edit")
             self.content_view.grab_focus()
+        else:
+             self.content_buffer.set_text("")
+             self.content_stack.set_visible_child_name("edit")
+             self.content_view.grab_focus()
+
 
     def exit_edit_mode(self):
         if self.is_editing:
@@ -303,10 +349,51 @@ class NotesApp(Adw.ApplicationWindow):
         return False
 
     def on_window_key_press(self, controller, keyval, keycode, state, user_data=None):
-        # Check for Ctrl+/ to focus search entry
         if keyval == Gdk.KEY_slash and state & Gdk.ModifierType.CONTROL_MASK:
             self.entry.grab_focus()
             return True
+        return False
+
+    def on_sidebar_button_clicked(self, button):
+        self.toggle_sidebar()
+
+    def toggle_sidebar(self, *args):
+        """Toggles the visibility of the sidebar."""
+        is_visible = self.vbox_sidebar.get_visible()
+        self.vbox_sidebar.set_visible(not is_visible)
+        if is_visible:
+            self.sidebar_button.set_icon_name("sidebar-show-symbolic")
+        else:
+            self.sidebar_button.set_icon_name("sidebar-hide-symbolic")
+
+
+    def on_webview_decide_policy(self, webview, decision, decision_type):
+        """Handle navigation policy decisions, opening external links externally."""
+        if decision_type == WebKit.PolicyDecisionType.NAVIGATION_ACTION:
+            navigation_action = decision.get_navigation_action()
+            request = navigation_action.get_request()
+            uri = request.get_uri()
+
+            # Check if it's a link click and not a local file URI
+            if navigation_action.get_navigation_type() == WebKit.NavigationType.LINK_CLICKED:
+                 parsed_uri = urllib.parse.urlparse(uri)
+                 if parsed_uri.scheme in ["http", "https", "mailto", "ftp"]: # Added more common schemes
+                    # Use Gtk.UriLauncher (available since GTK 4.10) or Gtk.show_uri
+                    # Gtk.show_uri is simpler and more widely available across GTK4 versions
+                    try:
+                        Gtk.show_uri(self, uri, Gdk.CURRENT_TIME)
+                        # Ignore the navigation in the webview
+                        decision.ignore()
+                        return True # Handled the decision
+                    except GLib.Error as e:
+                        print(f"Failed to open URI {uri}: {e}")
+                        # Optionally show an error message to the user
+                        decision.use() # Let webview handle it if external opening fails
+                        return False # Did not fully handle externally
+
+
+        # For other types of decisions or non-external links, use the default policy
+        decision.use()
         return False
 
 
