@@ -160,11 +160,11 @@
     "catppuccin-userstyles": {
       "flake": false,
       "locked": {
-        "lastModified": 1746994609,
-        "narHash": "sha256-WQmcxvVTVClzQrGCAdgVt/R4eN5NtNuzMU7Sz9ajrqc=",
+        "lastModified": 1747086375,
+        "narHash": "sha256-uiQWiM3Ia+jHhqoWwPJQDyaT39s5YvVTjQ6IWWdEG/I=",
         "owner": "catppuccin",
         "repo": "userstyles",
-        "rev": "d0ef1a5631c708630b1f0dfe5b6414c378f71f9d",
+        "rev": "a210fe879c0f38831d5002bebcf701a6c72afb5b",
         "type": "github"
       },
       "original": {
@@ -181,11 +181,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1747022610,
-        "narHash": "sha256-d6SvA0gTHDrOqt4tZRVD0Gm5G4w6jAFJ6lis79PjSPw=",
+        "lastModified": 1747109034,
+        "narHash": "sha256-fF38YfSv92vs5TGzXHhaGkHogLktiaUBXl4AkC+nF8o=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "d4b3ffe3e719e42b175ccdef13598516f0a8025d",
+        "rev": "715c43885ea99f47cb182c2f401103be9f9e8f92",
         "type": "gitlab"
       },
       "original": {
@@ -431,11 +431,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1747021744,
-        "narHash": "sha256-IDsM/9/tHQBlhG3tXI2fTM84AUN1uRa7JDPT1LMlGes=",
+        "lastModified": 1747106332,
+        "narHash": "sha256-mOdRWJzJAMp0hF8aSResyp8BeOO5VoSng1uqtEq+8xI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "fb061f555f821fe4fb49f8f6f2a0cc3d5728bd52",
+        "rev": "535a541b429c1e89f0955c160df1d6d2bfeaf802",
         "type": "github"
       },
       "original": {
@@ -469,11 +469,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1747043936,
-        "narHash": "sha256-9kh4GG6oyX9SAhk06xELbOWk+xc7TsfAIDjrREwgawg=",
+        "lastModified": 1747113435,
+        "narHash": "sha256-9oU1mKAM2BZLSots136UA75RIed53YtYgns9TUkr3ck=",
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "7227e641496b7b25ba007371f69757153af13f75",
+        "rev": "6d083ea49741d6e8e85d5a1d6b6bcaa837d3b5c0",
         "type": "github"
       },
       "original": {
@@ -520,11 +520,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1747044582,
-        "narHash": "sha256-0TXA8OZXRsxk6bmIfKNSMmtkOaOwhIQitpYtE850RQQ=",
+        "lastModified": 1747119519,
+        "narHash": "sha256-a3J6/gOXEzm18nqxi5xY0pLtbb219ZNgBbp36TihCZM=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "38f4d3e9c97065c78418b9b1c1c8504aaf877a2b",
+        "rev": "c6c1ed657c287b2f2bcfeeeafdaf843520e8514a",
         "type": "github"
       },
       "original": {
@@ -624,11 +624,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1747005453,
-        "narHash": "sha256-78PfIpo3jCuX7pT3k4DkEES+KEy7pnrFGugsQ2w652o=",
+        "lastModified": 1747099958,
+        "narHash": "sha256-erIu7Nw2mPeh9xITU+eZLn1Hk4IvDIStUrTm142HEro=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "6b8309550e50358b63366d9bf3edb7ef08b9a7cc",
+        "rev": "b63f66408631fcc04d74e2ad61cab1b1cfd7d587",
         "type": "github"
       },
       "original": {
@@ -779,11 +779,11 @@
       },
       "locked": {
         "dir": "packaging/nix",
-        "lastModified": 1747006583,
-        "narHash": "sha256-CNtMffLohp7hXnRFmLEUG4gZy2t45Yp2s6FQSTULaIo=",
+        "lastModified": 1747097613,
+        "narHash": "sha256-2vcAtOeJu0qIpKITzv1QBZqwmw3c8h+trXVS/1Pv7Ps=",
         "owner": "Open-Wine-Components",
         "repo": "umu-launcher",
-        "rev": "2b6b67d35d7a0d8e89c6bcf6aca20e36d279b236",
+        "rev": "6ba60cfdcfd36ff0aa9c18c3e3fc2b107f98b410",
         "type": "github"
       },
       "original": {
@@ -796,11 +796,11 @@
     "usememos": {
       "flake": false,
       "locked": {
-        "lastModified": 1747012149,
-        "narHash": "sha256-pXhb2Qh1GvmEJlN/9ie50ixZbvaF2DkIHKaNWBzwdS0=",
+        "lastModified": 1747060765,
+        "narHash": "sha256-lTMHUVrg3JzTneBh874tr0mbQPp7X3rMKrkOe+wcOL4=",
         "owner": "usememos",
         "repo": "memos",
-        "rev": "87798801fcc49bcddbcee818cb8e0c7da774d295",
+        "rev": "fa1ad7dc72050b0875b729baf9988e369186c591",
         "type": "github"
       },
       "original": {

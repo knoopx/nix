@@ -41,6 +41,7 @@
     sushi
     transmission_4-gtk
     vial
+    dataset-viewer
   ];
 
   cli = with pkgs; [

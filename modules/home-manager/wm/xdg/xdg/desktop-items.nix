@@ -7,7 +7,7 @@
     desktopEntries = {
       home-assistant = {
         name = "Home Assistant";
-        exec = ''${lib.getExe pkgs.raise-or-open} "https://home.knoopx.net/lovelace"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://home.knoopx.net/lovelace"'';
         icon =
           (pkgs.fetchurl {
             url = "https://www.svgrepo.com/show/331429/home-assistant.svg";
@@ -32,7 +32,7 @@
 
       gmail = {
         name = "Gmail";
-        exec = ''${lib.getExe pkgs.raise-or-open} "https://mail.google.com/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://mail.google.com/"'';
         icon =
           (pkgs.fetchurl {
             url = "https://www.svgrepo.com/download/452213/gmail.svg";
@@ -43,13 +43,13 @@
 
       telegram = {
         name = "Telegram";
-        exec = ''${lib.getExe pkgs.raise-or-open} "https://web.telegram.org/k/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://web.telegram.org/k/"'';
         icon = "telegram";
       };
 
       youtube = {
         name = "Youtube";
-        exec = ''${lib.getExe pkgs.raise-or-open} "https://www.youtube.com/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://www.youtube.com/"'';
         icon =
           (pkgs.fetchurl {
             url = "https://www.svgrepo.com/show/134513/youtube.svg";
@@ -60,7 +60,7 @@
 
       reddit = {
         name = "Reddit";
-        exec = ''${lib.getExe pkgs.raise-or-open} "https://www.reddit.com/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://www.reddit.com/"'';
         icon =
           (pkgs.fetchurl {
             url = "https://www.svgrepo.com/show/271111/reddit.svg";
@@ -71,25 +71,25 @@
 
       whatsapp = {
         name = "WhatsApp";
-        exec = ''${lib.getExe pkgs.raise-or-open} "https://web.whatsapp.com/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://web.whatsapp.com/"'';
         icon = "whatsapp";
       };
 
       spotify = {
         name = "Spotify";
-        exec = ''${lib.getExe pkgs.raise-or-open} "https://open.spotify.com/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://open.spotify.com/"'';
         icon = "spotify";
       };
 
       plex = {
         name = "Plex Web";
-        exec = ''${lib.getExe pkgs.raise-or-open} "https://app.plex.tv/desktop/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://app.plex.tv/desktop/"'';
         icon = "plexamp";
       };
 
       webull = {
         name = "Webull";
-        exec = ''${lib.getExe pkgs.raise-or-open} "https://app.webull.com/stocks"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://app.webull.com/stocks"'';
         icon =
           (pkgs.fetchurl {
             url = "https://app.webull.com/static/logo.png";
@@ -101,31 +101,31 @@
 
       stylix-palette = {
         name = "Stylix Color Palette";
-        exec = ''${lib.getExe pkgs.raise-or-open} "file:///etc/stylix/palette.html"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "file:///etc/stylix/palette.html"'';
         icon = "x-office-drawing";
       };
 
       devdocs = {
         name = "DevDocs";
-        exec = ''${lib.getExe pkgs.raise-or-open} "https://devdocs.io/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://devdocs.io/"'';
         icon = "x-office-document";
       };
 
       memos = {
         name = "Memos";
-        exec = ''${lib.getExe pkgs.raise-or-open} "https://memos.knoopx.net/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://memos.knoopx.net/"'';
         icon = "x-office-document";
       };
 
       wiki = {
         name = "Wiki";
-        exec = ''${lib.getExe pkgs.raise-or-open} "https://wiki.knoopx.net/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://wiki.knoopx.net/"'';
         icon = "x-office-document";
       };
 
       chat = {
         name = "Chat";
-        exec = ''${lib.getExe pkgs.raise-or-open} "https://chat.knoopx.net/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://chat.knoopx.net/"'';
         icon = "x-office-document";
       };
       # https://chatgpt.com/
@@ -136,7 +136,7 @@
 
       mailto-gmail = {
         name = "Send Email";
-        exec = ''${lib.getExe pkgs.raise-or-open} "https://mail.google.com/mail/?view=cm&fs=1&to=%u"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://mail.google.com/mail/?view=cm&fs=1&to=%u"'';
         mimeType = ["x-scheme-handler/mailto"];
         noDisplay = true;
       };

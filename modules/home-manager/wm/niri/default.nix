@@ -36,7 +36,7 @@ in {
     kooha
     libnotify
     niri-cycle
-    raise-or-open
+    raise-or-open-url
   ];
 
   # https://github.com/emersion/mako/blob/master/doc/mako.5.scd
@@ -191,9 +191,9 @@ in {
         Mod+Space { spawn "ags" "toggle" "launcher"; }
 
         Mod+Left { focus-column-left; }
-        Alt+Left { focus-column-left; }
+        //Alt+Left { focus-column-left; }
         Mod+Right { focus-column-right; }
-        Alt+Right { focus-column-right; }
+        //Alt+Right { focus-column-right; }
 
         //Mod+WheelScrollUp   cooldown-ms=150 { focus-column-left; }
         //Mod+WheelScrollDown cooldown-ms=150 { focus-column-right; }
@@ -256,7 +256,8 @@ in {
     }
 
     window-rule {
-        match app-id="^org.gnome.NautilusPreviewer$"
+        match app-id="org.gnome.NautilusPreviewer"
+        match app-id="re.sonny.Commit"
         default-column-width
         open-floating true
     }
@@ -290,6 +291,7 @@ in {
         match namespace="notifications"
         block-out-from "screen-capture"
     }
+
     animations { slowdown 0.6; }
   '';
 }
