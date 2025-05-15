@@ -5,6 +5,7 @@
   lib,
   ...
 } @ inputs: {
+  "update.mode" = "none";
   "extensions.ignoreRecommendations" = true;
   "terminal.integrated.enableImages" = true;
   "terminal.integrated.enableMultiLinePasteWarning" = "never";
