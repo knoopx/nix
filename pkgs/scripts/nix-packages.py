@@ -8,7 +8,7 @@ import threading
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
-from gi.repository import Gtk, Adw, Gio, GLib, GObject
+from gi.repository import Gtk, Adw, Gio, GLib, GObject, Gdk
 
 APP_ID = "net.knoopx.nix-packages"
 SEARCH_URL = "https://search.nixos.org/backend/latest-43-nixos-unstable/_search"
@@ -43,6 +43,9 @@ class MainWindow(Adw.ApplicationWindow):
         self._search_delay_id = 0
         self._current_search_thread = None
 
+        # Create a selection model
+        self._selection_model = Gtk.SingleSelection(model=self._package_store)
+
         main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.set_content(main_box)
 
@@ -53,27 +56,23 @@ class MainWindow(Adw.ApplicationWindow):
             hexpand=True, placeholder_text="Search for packages..."
         )
         self._search_entry.connect("search-changed", self._on_search_changed)
+        self._search_entry.connect("activate", self._on_search_activated)
         self._header_bar.set_title_widget(self._search_entry)
 
         self._content_stack = Gtk.Stack()
         self._content_stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
         main_box.append(self._content_stack)
 
-        scrolled_window = Gtk.ScrolledWindow(
-            hscrollbar_policy=Gtk.PolicyType.NEVER,
-            vscrollbar_policy=Gtk.PolicyType.AUTOMATIC,
-            vexpand=True,
-        )
+        scrolled_window = Gtk.ScrolledWindow(vexpand=True)
 
         factory = Gtk.SignalListItemFactory()
         factory.connect("setup", self._on_list_item_setup)
         factory.connect("bind", self._on_list_item_bind)
 
-        self._list_view = Gtk.ListView(
-            model=Gtk.NoSelection.new(self._package_store), factory=factory
-        )
+        self._list_view = Gtk.ListView(model=self._selection_model, factory=factory)
         self._list_view.set_vexpand(True)
         self._list_view.set_hexpand(True)
+        self._list_view.set_can_focus(True)  # Allow ListView to receive focus
 
         scrolled_window.set_child(self._list_view)
         self._content_stack.add_named(scrolled_window, "results")
@@ -91,18 +90,48 @@ class MainWindow(Adw.ApplicationWindow):
         self._empty_page = Adw.StatusPage(
             title="Search for Nix Packages",
             description="Type your query in the search bar above.",
-            icon_name="system-search-symbolic",  # Adw.system-search-symbolic
+            icon_name="system-search-symbolic",
         )
         self._content_stack.add_named(self._empty_page, "empty")
 
         self._error_page = Adw.StatusPage(
             title="An Error Occurred",
             description="Could not fetch package information.",
-            icon_name="dialog-error-symbolic",  # Adw.dialog-error-symbolic
+            icon_name="dialog-error-symbolic",
         )
         self._content_stack.add_named(self._error_page, "error")
 
         self._content_stack.set_visible_child_name("empty")
+
+        # Add event controller for key presses
+        key_controller = Gtk.EventControllerKey()
+        key_controller.connect("key-pressed", self._on_key_pressed)
+        # self.add_controller(key_controller)
+        self._search_entry.add_controller(key_controller)
+
+    def _on_search_activated(self, _):
+        selected_pos = self._selection_model.get_selected()
+        package_item = self._package_store.get_item(selected_pos)
+        if package_item:
+            if package_item and package_item.homepage:
+                Gtk.show_uri(self, package_item.homepage, Gdk.CURRENT_TIME)
+            GLib.timeout_add(50, self.get_application().quit)
+
+    def _on_key_pressed(self, controller, keyval, keycode, state):
+        selected_pos = self._selection_model.get_selected()
+
+        if keyval == Gdk.KEY_Escape:
+            self.get_application().quit()
+
+        if keyval == Gdk.KEY_Up:
+            if selected_pos > 0:
+                self._selection_model.set_selected(selected_pos - 1)
+            return True
+        elif keyval == Gdk.KEY_Down:
+            if selected_pos < self._package_store.get_n_items() - 1:
+                self._selection_model.set_selected(selected_pos + 1)
+            return True
+        return False
 
     def _on_list_item_setup(self, factory, list_item):
         box = Gtk.Box(
@@ -121,15 +150,14 @@ class MainWindow(Adw.ApplicationWindow):
         box.append(title_label)
         box.append(version_label)
         box.append(desc_label)
-        list_item.set_child(
-            Adw.ActionRow(child=box, activatable=False, selectable=False)
-        )
+        # Adw.ActionRow's activatable and selectable are False by default which is fine.
+        # ListView selection is handled by its own model.
+        list_item.set_child(Adw.ActionRow(child=box))
 
     def _on_list_item_bind(self, factory, list_item):
         package_item = list_item.get_item()
         action_row = list_item.get_child()
         box = action_row.get_child()
-        # A more robust way to get widgets: name them or store them in a dict on setup
         widgets = {}
         child = box.get_first_child()
         idx = 0
@@ -157,6 +185,7 @@ class MainWindow(Adw.ApplicationWindow):
             self._empty_page.set_title("Search for Nix Packages")
             self._empty_page.set_description("Type your query in the search bar above.")
             self._content_stack.set_visible_child_name("empty")
+            self._search_entry.grab_focus()  # Return focus to search entry
             self._search_delay_id = 0
             return
         self._search_delay_id = GLib.timeout_add(
@@ -166,10 +195,11 @@ class MainWindow(Adw.ApplicationWindow):
     def _trigger_search_thread(self, query):
         self._search_delay_id = 0
         self._content_stack.set_visible_child_name("loading")
-        self._package_store.remove_all()
+        self._package_store.remove_all()  # Clear previous results and selection
 
         if self._current_search_thread and self._current_search_thread.is_alive():
             print("Note: Previous search thread still running. New search queued.")
+            # One might want to implement cancellation for the previous thread here
 
         self._current_search_thread = threading.Thread(
             target=self._perform_search_request, args=(query,)
@@ -210,10 +240,9 @@ class MainWindow(Adw.ApplicationWindow):
         }
 
         headers = {
-            # "User-Agent": f"{APP_ID}/0.1 (github.com/yourusername/yourproject - example)",  # Be a good internet citizen
             "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:138.0) Gecko/20100101 Firefox/138.0",
-            "Origin": "https://search.nixos.org/",  # This is often required
-            "Accept": "application/json",  # Explicitly state we accept JSON
+            "Origin": "https://search.nixos.org/",
+            "Accept": "application/json",
             "Authorization": AUTH_TOKEN,
         }
 
@@ -227,7 +256,7 @@ class MainWindow(Adw.ApplicationWindow):
         except requests.exceptions.RequestException as e:
             print(f"Request failed: {e}")
             GLib.idle_add(self._handle_search_error, f"Request failed: {e}")
-        except json.JSONDecodeError as e:  # Handles cases where response.json() fails
+        except json.JSONDecodeError as e:
             print(f"Failed to parse JSON response: {e}")
             GLib.idle_add(
                 self._handle_search_error, f"Invalid response from server: {e}"
@@ -272,6 +301,7 @@ class MainWindow(Adw.ApplicationWindow):
                     "Try a different search term or check for typos."
                 )
                 self._content_stack.set_visible_child_name("empty")
+                self._search_entry.grab_focus()  # Focus search entry if no results
                 return GLib.SOURCE_REMOVE
 
             for hit_element in packages_array:
@@ -309,7 +339,19 @@ class MainWindow(Adw.ApplicationWindow):
                 )
                 self._package_store.append(package)
 
-            self._content_stack.set_visible_child_name("results")
+            if self._package_store.get_n_items() > 0:
+                self._content_stack.set_visible_child_name("results")
+                self._selection_model.set_selected(0)  # Select the first item
+            else:
+                # This case implies packages_array was non-empty but all items were invalid
+                self._empty_page.set_title(
+                    f"No displayable results for '{GLib.markup_escape_text(original_query)}'"
+                )
+                self._empty_page.set_description(
+                    "The server returned data, but it could not be shown."
+                )
+                self._content_stack.set_visible_child_name("empty")
+                self._search_entry.grab_focus()
 
         except Exception as e:
             print(f"Error processing search results: {e}")
