@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import subprocess
 import gi
 import shutil
 
@@ -8,37 +9,36 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("GtkSource", "5")
 gi.require_version("Adw", "1")
 gi.require_version("WebKit", "6.0")
-from gi.repository import Gtk, GtkSource, Gdk, Pango, Adw, WebKit, GLib, Gio
-
-from markdown2 import markdown
+from gi.repository import (
+    Gtk,
+    GtkSource,
+    Gdk,
+    Pango,
+    Adw,
+    WebKit,
+    GLib,
+    Gio,
+    GObject,
+)
 
 NOTES_DIR = os.path.expanduser("~/Documents/Notes")
 EXT = ".md"
 
-# CSS for WebView
-PREVIEW_CSS = """
-html, body {
-    font-family: sans-serif;
-    line-height: 1.6;
-    padding: 0 40px;
-    margin: 0;
-    background-color: #1e1e2e;
-    color: #cdd6f4;
-}
-pre {
-    padding: 10px;
-    border-radius: 5px;
-}
-code {
-    font-family: monospace;
-    padding: 2px 4px;
-    border-radius: 3px;
-}
 
-a {
-    color: #b4befe;
-}
-"""
+def markdown(markdown_content):
+    proc = subprocess.Popen(
+        ["md2html"],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+    stdout, stderr = proc.communicate(markdown_content)
+
+    if proc.returncode != 0:
+        raise RuntimeError(f"Error: {stderr.strip()}")
+
+    return stdout.strip()
 
 
 # Helper function to sanitize filenames (basic example)
@@ -46,8 +46,209 @@ def sanitize_filename(name):
     # Replace spaces with underscores, remove potentially problematic characters
     # This is a simple sanitization, a real app might need more robust handling
     name = name.replace(" ", "_")
-    name = "".join(c for c in name if c.isalnum() or c in ("_", "-"))
+    name = "".join(c for c in name if c.isalnum() or c in (".", "_", "-", "/"))
     return name
+
+
+class NoteContentView(Gtk.Box):
+    """
+    A custom widget that displays either a GtkSourceView for editing
+    or a WebKitWebView for previewing markdown content.
+    """
+
+    # Define signals that this widget can emit
+    __gsignals__ = {
+        "content-saved": (GObject.SignalFlags.RUN_FIRST, None, (str,)),
+        "edit-mode-exited": (GObject.SignalFlags.RUN_FIRST, None, ()),
+    }
+
+    def __init__(self):
+        super().__init__(orientation=Gtk.Orientation.VERTICAL)
+
+        self.is_editing = False
+        self._current_content = ""  # Store the current content being displayed/edited
+
+        # Content Area - Stack to switch between edit and preview
+        self.content_stack = Gtk.Stack()
+        self.content_stack.set_hexpand(True)
+        self.content_stack.set_vexpand(True)
+        self.append(self.content_stack)
+
+        # --- Source view for editing ---
+        edit_scroll = Gtk.ScrolledWindow()
+        edit_scroll.set_margin_start(20)
+        edit_scroll.set_margin_end(20)
+        edit_scroll.set_margin_top(20)
+        edit_scroll.set_margin_bottom(20)
+
+        # Setup GtkSourceView with markdown highlighting
+        lang_manager = GtkSource.LanguageManager()
+        buffer = GtkSource.Buffer()
+        markdown_lang = lang_manager.get_language("markdown")
+        if markdown_lang:
+            buffer.set_language(markdown_lang)
+
+        self.source_view = GtkSource.View(buffer=buffer)
+        self.source_view.set_wrap_mode(Gtk.WrapMode.WORD)
+        self.source_view.set_monospace(True)
+        self.content_buffer = self.source_view.get_buffer()
+
+        # Set a dark style scheme if available
+        style_manager = GtkSource.StyleSchemeManager.get_default()
+        style_scheme = style_manager.get_scheme("stylix")  # Attempt to use 'stylix'
+        if not style_scheme:
+            # Fallback to other common dark schemes if 'stylix' is not found
+            for scheme_id in ["oblivion", "dracula", "darcula", "darkmate"]:
+                style_scheme = style_manager.get_scheme(scheme_id)
+                if style_scheme:
+                    break
+
+        if style_scheme:
+            self.content_buffer.set_style_scheme(style_scheme)
+
+        edit_scroll.set_child(self.source_view)
+        self.content_stack.add_titled(edit_scroll, "edit", "Edit")
+
+        # Add key controller to the source view for shortcuts (like Escape, Ctrl+S)
+        content_key_controller = Gtk.EventControllerKey()
+        content_key_controller.connect("key-pressed", self.on_content_key_press)
+        self.source_view.add_controller(content_key_controller)
+
+        # Add focus controller to the source view to detect when editing stops
+        focus_controller = Gtk.EventControllerFocus()
+        focus_controller.connect("leave", self.on_source_view_focus_leave)
+        self.source_view.add_controller(focus_controller)
+
+        # --- WebView for previewing ---
+        preview_scroll = Gtk.ScrolledWindow()
+        self.webview = WebKit.WebView()
+        self.webview.set_vexpand(True)
+        self.webview.set_hexpand(True)
+        self.webview.get_settings().set_allow_file_access_from_file_urls(True)
+        self.webview.get_settings().set_allow_universal_access_from_file_urls(True)
+
+        # Connect to the decide-policy signal to handle link clicks
+        self.webview.connect("decide-policy", self.on_webview_decide_policy)
+
+        # Add gesture for double-click to enter edit mode
+        click_gesture = Gtk.GestureClick()
+        click_gesture.set_button(1)  # Left mouse button
+        click_gesture.connect("pressed", self.on_webview_double_click)
+        self.webview.add_controller(click_gesture)
+
+        preview_scroll.set_child(self.webview)
+        self.content_stack.add_titled(preview_scroll, "preview", "Preview")
+
+        # Default to preview mode initially
+        self.content_stack.set_visible_child_name("preview")
+
+    def set_content(self, content, is_editing=False):
+        """
+        Sets the content to be displayed and switches between edit/preview mode.
+        """
+        self._current_content = content
+        self.is_editing = is_editing
+
+        if self.is_editing:
+            self.content_buffer.set_text(self._current_content)
+            self.content_stack.set_visible_child_name("edit")
+            self.source_view.grab_focus()  # Focus the editor
+        else:
+            html_content = markdown(self._current_content)
+            self.webview.load_html(html_content, "file:///")
+            self.content_stack.set_visible_child_name("preview")
+
+    def get_content(self):
+        """
+        Gets the current content from the editor buffer.
+        """
+        start_iter = self.content_buffer.get_start_iter()
+        end_iter = self.content_buffer.get_end_iter()
+        return self.content_buffer.get_text(start_iter, end_iter, True)
+
+    def save_content(self):
+        """
+        Retrieves content from the editor and emits the 'content-saved' signal.
+        """
+        if self.is_editing:
+            content = self.get_content()
+            self.emit("content-saved", content)
+            self._current_content = content  # Update internal state after saving
+
+    def enter_edit_mode(self):
+        """
+        Switches to the edit view and populates the buffer.
+        """
+        if not self.is_editing:
+            self.is_editing = True
+            # Load the current content into the editor buffer
+            self.content_buffer.set_text(self._current_content)
+            self.content_stack.set_visible_child_name("edit")
+            self.source_view.grab_focus()
+
+    def exit_edit_mode(self):
+        """
+        Saves content, switches to preview, and emits 'edit-mode-exited'.
+        """
+        if self.is_editing:
+            self.save_content()  # Save before exiting edit mode
+            self.is_editing = False
+            # Reload content into preview (it was just saved)
+            self.set_content(self._current_content, is_editing=False)
+            self.emit("edit-mode-exited")  # Notify parent that editing stopped
+
+    def on_webview_double_click(self, gesture, n_press, x, y):
+        """
+        Handler for double-click on the preview area.
+        """
+        if n_press == 2:
+            self.enter_edit_mode()
+
+    def on_content_key_press(self, controller, keyval, keycode, state, user_data=None):
+        """
+        Handler for key presses in the source view (edit mode).
+        """
+        # Handle Escape key to exit edit mode
+        if keyval == Gdk.KEY_Escape:
+            self.exit_edit_mode()
+            return Gdk.EVENT_STOP  # Stop propagation
+
+        # Handle Ctrl+S shortcut for saving
+        if keyval == Gdk.KEY_s and state & Gdk.ModifierType.CONTROL_MASK:
+            self.save_content()
+            # print("Note content saved!") # Optional feedback
+            return Gdk.EVENT_STOP  # Stop propagation
+
+        return Gdk.EVENT_PROPAGATE  # Continue propagation for other keys
+
+    def on_source_view_focus_leave(self, controller, user_data=None):
+        """
+        Handler for when the source view loses focus.
+        Used to automatically exit edit mode if focus leaves the editor.
+        """
+        self.exit_edit_mode()
+
+    def on_webview_decide_policy(self, webview, decision, decision_type):
+        """
+        Handler for link clicks in the WebView.
+        Prevents opening external links within the WebView itself.
+        """
+        if decision_type == WebKit.PolicyDecisionType.NAVIGATION_ACTION:
+            navigation_action = decision.get_navigation_action()
+            if (
+                navigation_action.get_navigation_type()
+                == WebKit.NavigationType.LINK_CLICKED
+            ):
+                uri = navigation_action.get_request().get_uri()
+                # Allow local file links (if any) but block external http/https
+                if uri.startswith("http://") or uri.startswith("https://"):
+                    # Decide to ignore the navigation request
+                    decision.ignore()
+                    # Optionally open the link in an external browser
+                    # Gtk.show_uri(None, uri, Gdk.CURRENT_TIME) # Requires Gtk 4.4+
+                    print(f"Blocked external link click: {uri}")  # Basic feedback
+                    return True  # Indicate that we handled the decision
+        return False  # Allow other types of decisions/navigations
 
 
 class NotesApp(Adw.ApplicationWindow):
@@ -66,7 +267,6 @@ class NotesApp(Adw.ApplicationWindow):
         self.entry.connect("activate", self.on_entry_activate)
         self.entry.connect("search-changed", self.on_entry_changed)
 
-        # Add key controller specifically for the search entry
         self.entry_key_controller = Gtk.EventControllerKey.new()
         self.entry_key_controller.connect("key-pressed", self.on_search_entry_key_press)
         self.entry.add_controller(self.entry_key_controller)
@@ -76,7 +276,6 @@ class NotesApp(Adw.ApplicationWindow):
         self.notes = []
         self.filtered_notes = []
         self.current_note_path = None
-        self.is_editing = False
         self.load_notes()
 
         self.create_ui()
@@ -117,53 +316,19 @@ class NotesApp(Adw.ApplicationWindow):
         # Set the sidebar child of the SplitView
         self.split_view.set_sidebar(self.vbox_sidebar_content)
 
-        # Content Area - Stack to switch between edit and preview
-        self.content_stack = Gtk.Stack()
-        self.content_stack.set_hexpand(True)
-        self.content_stack.set_vexpand(True)
+        self.note_content_view = NoteContentView()
+        self.note_content_view.set_hexpand(True)
+        self.note_content_view.set_vexpand(True)
 
-        # Source view with language manager for markdown highlighting
-        edit_scroll = Gtk.ScrolledWindow()
-        edit_scroll.set_margin_start(20)
-        edit_scroll.set_margin_end(20)
-        edit_scroll.set_margin_top(20)
-        edit_scroll.set_margin_bottom(20)
-        lang_manager = GtkSource.LanguageManager()
-        buffer = GtkSource.Buffer()
-        markdown_lang = lang_manager.get_language("markdown")
-        if markdown_lang:
-            buffer.set_language(markdown_lang)
-
-        self.source_view = GtkSource.View(buffer=buffer)
-        self.source_view.set_wrap_mode(Gtk.WrapMode.WORD)
-        self.source_view.set_monospace(True)
-        self.content_buffer = self.source_view.get_buffer()
-        edit_scroll.set_child(self.source_view)
-
-        style_manager = GtkSource.StyleSchemeManager.get_default()
-        # Try to find a dark scheme. Common ones are 'oblivion', 'dracula', 'darcula', 'darkmate'.
-        style_scheme = style_manager.get_scheme("stylix")
-        if style_scheme:
-            self.content_buffer.set_style_scheme(style_scheme)
-
-        # Create WebView for preview
-        preview_scroll = Gtk.ScrolledWindow()
-        self.webview = WebKit.WebView()
-        self.webview.set_vexpand(True)
-        self.webview.set_hexpand(True)
-        # Connect to the decide-policy signal
-        self.webview.connect("decide-policy", self.on_webview_decide_policy)
-        preview_scroll.set_child(self.webview)
-
-        # Add pages to stack
-        self.content_stack.add_titled(edit_scroll, "edit", "Edit")
-        self.content_stack.add_titled(preview_scroll, "preview", "Preview")
-
-        # Default to preview mode
-        self.content_stack.set_visible_child_name("preview")
+        # Connect signals from the NoteContentView
+        self.note_content_view.connect("content-saved", self.on_content_view_saved)
+        self.note_content_view.connect(
+            "edit-mode-exited", self.on_content_view_edit_exited
+        )
 
         # Set the content child of the SplitView
-        self.split_view.set_content(self.content_stack)
+        # The NoteContentView contains the stack internally
+        self.split_view.set_content(self.note_content_view)
 
         # Add sidebar toggle button to the header bar
         self.sidebar_button = Gtk.Button()
@@ -173,23 +338,6 @@ class NotesApp(Adw.ApplicationWindow):
         self.sidebar_button.set_tooltip_text("Toggle Sidebar (Ctrl+B)")
         self.sidebar_button.connect("clicked", self.on_sidebar_button_clicked)
         self.header.pack_start(self.sidebar_button)
-
-        # Add click and key controllers to content view/webview
-        click_gesture = Gtk.GestureClick()
-        click_gesture.set_button(1)  # Left mouse button
-        click_gesture.connect("pressed", self.on_content_double_click)
-        self.webview.add_controller(click_gesture)
-
-        content_key_controller = Gtk.EventControllerKey()
-        content_key_controller.connect("key-pressed", self.on_content_key_press)
-        self.source_view.add_controller(content_key_controller)
-
-        # Focus controller for edit mode
-        focus_controller = Gtk.EventControllerFocus()
-        focus_controller.connect(
-            "leave", lambda x, y: self.exit_edit_mode(), self.source_view
-        )
-        self.source_view.add_controller(focus_controller)
 
         self.refresh_note_list()
 
@@ -239,7 +387,7 @@ class NotesApp(Adw.ApplicationWindow):
             note for note in self.notes if search_text in note.lower()
         ]
         # Sort by depth (folders first), then alphabetically
-        self.filtered_notes.sort(key=lambda x: (x.count(os.sep), x))
+        self.filtered_notes.sort(key=lambda x: (x.count(os.sep), *x.split(os.sep)))
 
         # Add filtered notes to the list box
         select_row_after_refresh = None
@@ -282,9 +430,7 @@ class NotesApp(Adw.ApplicationWindow):
         else:
             # No rows left, clear content area
             self.current_note_path = None
-            self.content_buffer.set_text("")
-            self.webview.load_html("", "file:///")
-            self.content_stack.set_visible_child_name("preview")
+            self.note_content_view.set_content("")  # Clear content in the view
 
     def on_search_entry_key_press(self, controller, keyval, keycode, state):
         num_rows = len(self.filtered_notes)
@@ -322,19 +468,6 @@ class NotesApp(Adw.ApplicationWindow):
                 self.entry.grab_focus()
                 return Gdk.EVENT_STOP
 
-        if keyval == Gdk.KEY_Return or keyval == Gdk.KEY_KP_Enter:
-            selected_row = self.note_list.get_selected_row()
-            if selected_row:
-                self.note_list.activate_row(selected_row)
-                self.enter_edit_mode()
-                return Gdk.EVENT_STOP
-            elif self.entry.get_text().strip():  # If entry has text, create a new note
-                self.on_entry_activate(self.entry)
-                return Gdk.EVENT_STOP
-            return (
-                Gdk.EVENT_PROPAGATE
-            )  # Let the default entry activation handle empty text
-
         return Gdk.EVENT_PROPAGATE
 
     def on_entry_activate(self, entry):
@@ -344,7 +477,7 @@ class NotesApp(Adw.ApplicationWindow):
             selected_row = self.note_list.get_selected_row()
             if selected_row:
                 self.on_note_selected(self.note_list, selected_row)
-                self.enter_edit_mode()
+                self.note_content_view.enter_edit_mode()  # Delegate to new widget
             return
 
         # Add extension if not already present
@@ -359,6 +492,7 @@ class NotesApp(Adw.ApplicationWindow):
         safe_filename = os.path.join(
             *[sanitize_filename(part) for part in filename.split(os.sep)]
         )
+
         filename_relative = os.path.relpath(
             os.path.join(NOTES_DIR, safe_filename), NOTES_DIR
         )
@@ -367,10 +501,12 @@ class NotesApp(Adw.ApplicationWindow):
         )  # Use full path for FS operations
 
         # Check if a note with this relative path already exists (case-insensitive check)
-        matching_notes = [
-            note for note in self.notes if filename_relative.lower() == note.lower()
-        ]
-        if not matching_notes:
+        # matching_notes = [
+        #     note for note in self.filtered_notes if filename_relative.lower() == note.lower()
+        # ]
+        # print(self.filtered_notes)
+
+        if not len(self.filtered_notes):
             try:
                 os.makedirs(os.path.dirname(filename_full_path), exist_ok=True)
                 initial_content = f"# {query}\n\n"
@@ -386,10 +522,9 @@ class NotesApp(Adw.ApplicationWindow):
                         row = self.note_list.get_row_at_index(i)
                         if row:
                             self.note_list.select_row(row)
-                            self.on_note_selected(
-                                self.note_list, row
-                            )  # Trigger display
-                            self.enter_edit_mode()  # Enter edit mode for new note
+                            # Manually trigger selection logic to ensure content is loaded
+                            self.on_note_selected(self.note_list, row)
+                            self.note_content_view.enter_edit_mode()  # Enter edit mode for new note
                         break
             except OSError as e:
                 print(
@@ -399,13 +534,17 @@ class NotesApp(Adw.ApplicationWindow):
         else:
             # If a matching note exists, select it
             for i, note in enumerate(self.filtered_notes):
-                if note == matching_notes[0]:  # Select the first match
+                idx = self.note_list.get_selected_row().get_index()
+                if note == self.filtered_notes[idx]:  # Select the first match
                     row = self.note_list.get_row_at_index(i)
+                    row.grab_focus()
+                    self.on_note_selected(self.note_list, row)
+                    # self.note_content_view.set_content
                     # Use a short delay before selecting to ensure the listbox is ready
                     # This can sometimes prevent issues with immediate selection after refresh
-                    GLib.timeout_add(
-                        50, self.select_row_after_creation, row, matching_notes[0]
-                    )
+                    # GLib.timeout_add(
+                    #     50, self.select_row_after_creation, row, matching_notes[0]
+                    # )
 
     def select_row_after_creation(self, row, note_filename_relative):
         """Helper to select a row after a short delay."""
@@ -422,19 +561,18 @@ class NotesApp(Adw.ApplicationWindow):
         if row and hasattr(row, "filename"):
             note_name = row.filename
             self.current_note_path = os.path.join(NOTES_DIR, note_name)
-            self.load_note()
+            self.load_note_into_view()  # Load content into the NoteContentView
             # Hide the sidebar on narrow widths after selecting a note if hide mode is active
             if (
                 hasattr(self.split_view, "get_hide_sidebar")
                 and self.split_view.get_hide_sidebar()
             ):
+                self.entry.set_text("")
                 self.split_view.set_show_sidebar(False)
         else:
             # Handle case where selection is cleared or an invalid row is selected
             self.current_note_path = None
-            self.content_buffer.set_text("")
-            self.webview.load_html("", "file:///")
-            self.content_stack.set_visible_child_name("preview")
+            self.note_content_view.set_content("")  # Clear content in the view
 
     def on_row_right_click(self, gesture, n_press, x, y):
         # Ensure it's a right-click (BUTTON_SECONDARY = 3) and only one press
@@ -516,29 +654,39 @@ class NotesApp(Adw.ApplicationWindow):
         entry.set_activates_default(True)  # Activate default button on Enter key
         box.append(entry)
 
-        dialog.show()
+        dialog.present()
+        dialog.connect(
+            "response",
+            self.on_rename_dialog_response,
+            entry,
+            current_filename_relative,
+            current_directory_relative,
+        )
 
-        response = dialog.run()
-
-        if response == Gtk.ResponseType.OK:
+    def on_rename_dialog_response(
+        self,
+        dialog,
+        response_id,
+        entry,
+        current_filename_relative,
+        current_directory_relative,
+    ):
+        if response_id == Gtk.ResponseType.OK:
             new_name = entry.get_text().strip()
             dialog.destroy()
 
             if not new_name:
-                print("New name cannot be empty.")  # Basic validation feedback
-                # Optionally show an error dialog
+                print("New name cannot be empty.")
                 return
 
-            # Sanitize the new name
             new_name_sanitized = sanitize_filename(new_name)
             if not new_name_sanitized:
                 print("Sanitized name is empty.")
-                # Optionally show an error dialog
                 return
+
             new_name_with_ext = new_name_sanitized + EXT
 
-            # Construct the new relative path (keeping the same directory)
-            if current_directory_relative == ".":  # Handle root directory case
+            if current_directory_relative == ".":
                 new_filename_relative = new_name_with_ext
             else:
                 new_filename_relative = os.path.join(
@@ -547,179 +695,106 @@ class NotesApp(Adw.ApplicationWindow):
 
             new_full_path = os.path.join(NOTES_DIR, new_filename_relative)
 
-            # Check if a file with the new name already exists (case-insensitive)
             existing_notes_lower = [n.lower() for n in self.notes]
             if new_filename_relative.lower() in existing_notes_lower:
                 print(f"Note with name '{new_name}' already exists.")
-                # Optionally show an error dialog
                 return
 
             try:
-                # Ensure the target directory exists
                 os.makedirs(os.path.dirname(new_full_path), exist_ok=True)
-
-                # Perform the rename (move) operation
                 shutil.move(self.current_note_path, new_full_path)
 
-                # Update internal list
                 try:
                     self.notes.remove(current_filename_relative)
                 except ValueError:
-                    pass  # Already removed or not found, ignore
+                    pass
 
                 self.notes.append(new_filename_relative)
                 self.notes.sort()
 
-                # Update current path
                 self.current_note_path = new_full_path
-
-                # Refresh the list and select the renamed note
                 self.refresh_note_list()
 
-                # Find and select the row with the new filename using timeout for safety
-                GLib.timeout_add(
-                    50,
-                    self.select_row_after_rename,
-                    new_filename_relative,
-                    new_full_path,
-                )
-
             except OSError as e:
-                print(
-                    f"Error renaming note from {self.current_note_path} to {new_full_path}: {e}"
-                )
-                # Optionally show an error dialog
-
-        else:  # Cancel was clicked
+                print(f"Error renaming note: {e}")
+        else:
             dialog.destroy()
 
-    def select_row_after_rename(self, new_filename_relative, new_full_path):
-        """Helper to find and select a row after rename, with a slight delay."""
-        for i in range(self.note_list.get_n_rows()):
-            row = self.note_list.get_row_at_index(i)
-            if (
-                row
-                and hasattr(row, "filename")
-                and row.filename == new_filename_relative
-            ):
-                self.note_list.select_row(row)
-                # Trigger display of the renamed note if it was currently viewed
-                if self.current_note_path == new_full_path:
-                    self.load_note()
-                return GLib.SOURCE_REMOVE  # Remove the timeout source
-        return GLib.SOURCE_REMOVE  # Remove if row not found
-
-    def on_delete_note(
-        self, menu_item
-    ):  # Keep this function, called by the action handler
+    def on_delete_note(self, menu_item):
         if not self.current_note_path:
-            return  # No note selected
+            return
 
-        filename = os.path.basename(
-            self.current_note_path
-        )  # Just the file name for dialog
+        filename = os.path.basename(self.current_note_path)
 
         # Create a confirmation dialog
-        dialog = Gtk.AlertDialog.new(
-            "Confirm Delete",
-            f"Are you sure you want to delete the note '{filename}'?",
-            ["Cancel", "Delete"],
-            "dialog-warning-symbolic",
+        dialog = Gtk.MessageDialog(
+            transient_for=self,
+            modal=True,
+            buttons=Gtk.ButtonsType.NONE,
+            message_type=Gtk.MessageType.WARNING,
+            text="Confirm Delete",
+            secondary_text=f"Are you sure you want to delete the note '{filename}'?",
         )
-        dialog.set_modal(True)
-        dialog.set_transient_for(self)
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        dialog.add_button("Delete", Gtk.ResponseType.OK)
+        dialog.connect("response", self.on_delete_confirmation_response)
+        dialog.show()
 
-        dialog.choose_future(None, self.on_delete_confirmation_response)
+    def on_delete_confirmation_response(self, dialog, response):
+        dialog.close()
 
-    def on_delete_confirmation_response(self, dialog, result):
+        if response != Gtk.ResponseType.OK:
+            return
+
+        if not self.current_note_path:
+            return
+
+        filename_relative = os.path.relpath(self.current_note_path, NOTES_DIR)
+        deleted_note_was_current = self.current_note_path == os.path.join(
+            NOTES_DIR, filename_relative
+        )
+
         try:
-            response = dialog.get_response(result)
-            dialog.unrealize()  # Clean up the dialog
+            os.remove(self.current_note_path)
 
-            if response == 1:  # "Delete" button index is 1 (0 is Cancel)
-                if not self.current_note_path:
-                    return  # Should not happen if triggered correctly
+            try:
+                self.notes.remove(filename_relative)
+            except ValueError:
+                pass
 
-                filename_relative = os.path.relpath(self.current_note_path, NOTES_DIR)
-                deleted_note_was_current = self.current_note_path == os.path.join(
-                    NOTES_DIR, filename_relative
-                )
+            if deleted_note_was_current:
+                self.current_note_path = None
+                self.note_content_view.set_content("")
 
-                try:
-                    os.remove(self.current_note_path)
+            self.refresh_note_list()
 
-                    # Remove from internal list
-                    try:
-                        self.notes.remove(filename_relative)
-                    except ValueError:
-                        pass  # Already removed or not found, ignore
+        except OSError as e:
+            print(f"Error deleting note {self.current_note_path}: {e}")
 
-                    # If the deleted note was the currently active one, clear content
-                    if deleted_note_was_current:
-                        self.current_note_path = None
-                        self.content_buffer.set_text("")
-                        self.webview.load_html("", "file:///")
-                        self.content_stack.set_visible_child_name("preview")
-
-                    self.refresh_note_list()
-
-                except OSError as e:
-                    print(f"Error deleting note {self.current_note_path}: {e}")
-                    # Optionally show an error dialog
-
-        except GLib.Error as e:
-            print(f"Dialog error: {e}")
-            dialog.unrealize()
-
-    def load_note(self):
+    def load_note_into_view(self):
+        """
+        Loads the content of the current note into the NoteContentView widget.
+        """
+        content = ""
         if self.current_note_path and os.path.exists(self.current_note_path):
             try:
                 with open(self.current_note_path, "r") as f:
                     content = f.read()
-
-                if self.is_editing:
-                    self.content_buffer.set_text(content)
-                    self.content_stack.set_visible_child_name("edit")
-                else:
-                    html_content = f"""
-                    <!DOCTYPE html>
-                    <html>
-                    <head>
-                        <meta charset="UTF-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1">
-                        <style>{PREVIEW_CSS}</style>
-                    </head>
-                    <body>
-                        {markdown(content, extras=["fenced-code-blocks", "tables", "nofollow"])}
-                    </body>
-                    </html>
-                    """
-                    self.webview.load_html(html_content, "file:///")
-                    self.content_stack.set_visible_child_name("preview")
             except OSError as e:
                 print(f"Error loading note {self.current_note_path}: {e}")
-                # Clear content if loading fails
-                self.current_note_path = None
-                self.content_buffer.set_text("")
-                self.webview.load_html("", "file:///")
-                self.content_stack.set_visible_child_name("preview")
-        else:
-            # No note path or file doesn't exist (e.g., after deletion)
-            self.current_note_path = None
-            self.content_buffer.set_text("")
-            self.webview.load_html("", "file:///")
-            self.content_stack.set_visible_child_name("preview")
-            # No need to reload notes here, refresh_note_list handles it after delete
+                # Content remains empty on error
 
-    def save_note_content(self):
+        # Set the content in the NoteContentView widget (defaults to preview mode)
+        self.note_content_view.set_content(content, is_editing=False)
+
+    def on_content_view_saved(self, note_content_view, content):
+        """
+        Handler for the 'content-saved' signal from NoteContentView.
+        Saves the content to the current note file.
+        """
         if self.current_note_path:
-            start_iter = self.content_buffer.get_start_iter()
-            end_iter = self.content_buffer.get_end_iter()
-            content = self.content_buffer.get_text(start_iter, end_iter, True)
-
             # Ensure directory exists before saving
             os.makedirs(os.path.dirname(self.current_note_path), exist_ok=True)
-
             try:
                 with open(self.current_note_path, "w") as f:
                     f.write(content)
@@ -728,55 +803,31 @@ class NotesApp(Adw.ApplicationWindow):
                 print(f"Error saving note {self.current_note_path}: {e}")
                 # Optionally show an error dialog
 
-    def on_content_double_click(self, gesture, n_press, x, y):
-        # Only enter edit mode if a note is loaded
-        if n_press == 2 and self.current_note_path:
-            self.enter_edit_mode()
-
-    def enter_edit_mode(self):
-        if self.current_note_path and os.path.exists(self.current_note_path):
-            self.is_editing = True
-            try:
-                with open(self.current_note_path, "r") as f:
-                    content = f.read()
-                self.content_buffer.set_text(content)
-                self.content_stack.set_visible_child_name("edit")
-                self.source_view.grab_focus()
-            except OSError as e:
-                print(f"Error reading note for editing {self.current_note_path}: {e}")
-                # Stay in preview or show error state
-                self.is_editing = False
-                self.content_stack.set_visible_child_name("preview")
-
-    def exit_edit_mode(self):
-        if self.is_editing:
-            self.is_editing = False
-            self.save_note_content()
-            self.load_note()  # Reload from disk to ensure preview is updated
-            self.entry.grab_focus()  # Return focus to the search entry
-
-    def on_content_key_press(self, controller, keyval, keycode, state, user_data=None):
-        # Handle Escape key in edit mode
-        if keyval == Gdk.KEY_Escape and self.is_editing:
-            self.exit_edit_mode()
-            return Gdk.EVENT_STOP  # Stop propagation
-
-        # Add Ctrl+S shortcut for saving in edit mode
-        if (
-            keyval == Gdk.KEY_s
-            and state & Gdk.ModifierType.CONTROL_MASK
-            and self.is_editing
-        ):
-            self.save_note_content()
-            # Optionally show a confirmation message
-            # print("Note saved!") # For debugging
-            return Gdk.EVENT_STOP  # Stop propagation
-
-        return Gdk.EVENT_PROPAGATE  # Continue propagation for other keys
+    def on_content_view_edit_exited(self, note_content_view):
+        """
+        Handler for the 'edit-mode-exited' signal from NoteContentView.
+        Returns focus to the search entry.
+        """
+        self.note_list.get_selected_row().grab_focus()
+        # self.entry.grab_focus()
 
     def on_window_key_press(self, controller, keyval, keycode, state, user_data=None):
+        if keyval == Gdk.KEY_Return or keyval == Gdk.KEY_KP_Enter:
+            selected_row = self.note_list.get_selected_row()
+            if selected_row:
+                # self.note_list.activate_row(selected_row)
+                self.note_content_view.enter_edit_mode()  # Delegate to new widget
+                return Gdk.EVENT_STOP
+            elif self.entry.get_text().strip():  # If entry has text, create a new note
+                self.on_entry_activate(self.entry)
+                return Gdk.EVENT_STOP
+            return (
+                Gdk.EVENT_PROPAGATE
+            )  # Let the default entry activation handle empty text
+
         # Handle Ctrl+/ to focus the search entry
-        if keyval == Gdk.KEY_slash and state & Gdk.ModifierType.CONTROL_MASK:
+        if keyval == Gdk.KEY_Escape:
+            # if keyval == Gdk.KEY_slash and state & Gdk.ModifierType.CONTROL_MASK:
             self.entry.grab_focus()
             return Gdk.EVENT_STOP  # Stop propagation
         return Gdk.EVENT_PROPAGATE  # Continue propagation for other keys
@@ -789,51 +840,19 @@ class NotesApp(Adw.ApplicationWindow):
         is_visible = self.split_view.get_show_sidebar()
         self.split_view.set_show_sidebar(not is_visible)
 
-    def on_webview_decide_policy(self, webview, decision, decision_type):
-        """Handle navigation policy decisions, opening external links externally."""
-        if decision_type == WebKit.PolicyDecisionType.NAVIGATION_ACTION:
-            navigation_action = decision.get_navigation_action()
-            request = navigation_action.get_request()
-            uri = request.get_uri()
 
-            # Check if it's a link click and not a local file URI
-            if (
-                navigation_action.get_navigation_type()
-                == WebKit.NavigationType.LINK_CLICKED
-            ):
-                # Use xdg-open for better compatibility with file paths and general URIs
-                try:
-                    # Ignore the navigation in the webview immediately
-                    decision.ignore()
-                    # Use GLib.spawn_command_line_async to run xdg-open without blocking
-                    GLib.spawn_command_line_async(f'xdg-open "{uri}"')
-                    return True  # Indicate that we handled the decision
-                except GLib.Error as e:
-                    print(f"Failed to open URI {uri} with xdg-open: {e}")
-                    # If xdg-open fails, let webview handle it (might fail for external)
-                    decision.use()
-                    return False  # Indicate that we didn't fully handle it externally
-
-        # For other types of decisions or non-external links, use the default policy
-        decision.use()
-        return False
-
-
+# Application setup
 class NotesApplication(Adw.Application):
     def __init__(self):
-        super().__init__(application_id="com.example.markdown_notes")
+        Adw.Application.__init__(self, application_id="net.knoopx.notes")
         self.connect("activate", self.on_activate)
 
     def on_activate(self, app):
-        window = NotesApp(app)
-        window.present()
-
-
-def main():
-    os.makedirs(NOTES_DIR, exist_ok=True)  # Ensure the notes directory exists
-    app = NotesApplication()
-    return app.run(None)
+        self.win = NotesApp(app)
+        self.win.present()
 
 
 if __name__ == "__main__":
-    main()
+    os.makedirs(NOTES_DIR, exist_ok=True)
+    app = NotesApplication()
+    app.run([])

@@ -22,7 +22,7 @@
     gitg
     gnome-calendar
     gnome-disk-utility
-    gnome-text-editor
+    # gnome-text-editor
     gnome-weather
     loupe
     mission-center
@@ -44,6 +44,8 @@
     dataset-viewer
     notes
     chat
+    reminder
+    nix-packages
   ];
 
   cli = with pkgs; [

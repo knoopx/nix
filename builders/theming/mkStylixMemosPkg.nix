@@ -65,16 +65,19 @@
       DEFAULT = "#${base0B}";
       dark = "#${base0B}";
       darker = "#${base0B}";
+      lighter = "#${base0B}";
     };
     danger = {
       DEFAULT = "#${base08}";
       dark = "#${base08}";
       darker = "#${base08}";
+      lighter = "#${base08}";
     };
     warning = {
       DEFAULT = "#${base0A}";
       dark = "#${base0A}";
       darker = "#${base0A}";
+      lighter = "#${base0A}";
     };
   };
 
@@ -93,7 +96,7 @@
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256-2LsTWEYkLGprTWgjx71fENqlVhjkbAtuwAQ8gx0xC1U=";
+    outputHash = "sha256-onMVdojkNSbWd9jxf7Z2JnhKD6/TcDulStWIFbEJ0o4=";
   };
 in
   pkgs.buildGoModule {

@@ -277,6 +277,10 @@
             type = "repository";
             repository = "NixOS/nixpkgs";
           }
+          {
+            type = "repository";
+            repository = "YaLTeR/niri";
+          }
         ];
       }
     ];

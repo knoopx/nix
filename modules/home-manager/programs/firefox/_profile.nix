@@ -80,6 +80,25 @@ in {
       #     }
       #   ];
       # };
+
+      "home-manager" = {
+        definedAliases = ["@hm"];
+        urls = [
+          {
+            template = "https://home-manager-options.extranix.com/";
+            params = [
+              {
+                name = "release";
+                value = "master";
+              }
+              {
+                name = "query";
+                value = "{searchTerms}";
+              }
+            ];
+          }
+        ];
+      };
       "nixpkgs" = {
         definedAliases = ["@nixpkgs"];
         urls = [
@@ -89,6 +108,10 @@ in {
               {
                 name = "type";
                 value = "packages";
+              }
+              {
+                name = "channel";
+                value = "unstable";
               }
               {
                 name = "query";

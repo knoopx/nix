@@ -3,11 +3,9 @@
   lib,
   ...
 }: let
-  md2pango = pkgs.callPackage ./md2pango.nix {};
-
   pkg = pkgs.python3Packages.buildPythonApplication {
-    name = "chat";
-    src = ./scripts/chat.py;
+    name = "nix-packages";
+    src = ./scripts/nix-packages.py;
     dontUnpack = true;
     pyproject = false;
 
@@ -18,23 +16,20 @@
 
     buildInputs = with pkgs; [
       libadwaita
-      gtksourceview5
-      webkitgtk_6_0
-      md2pango
     ];
 
     preFixup = ''
       gappsWrapperArgs+=(--prefix PYTHONPATH : "${pkgs.python3.withPackages (p: [
         p.pygobject3
-        p.openai
+        p.requests
       ])}/${pkgs.python3.sitePackages}")
     '';
 
     buildPhase = ''
-      install -m 755 -D $src $out/bin/chat
+      install -m 755 -D $src $out/bin/nix-packages
     '';
 
-    meta.mainProgram = "chat";
+    meta.mainProgram = "nix-packages";
   };
 in
   pkgs.symlinkJoin {
@@ -42,10 +37,10 @@ in
     paths = [
       pkg
       (pkgs.makeDesktopItem {
-        name = "chat";
-        desktopName = "Chat";
+        name = "nix-packages";
+        desktopName = "Nix Packages";
         exec = lib.getExe pkg;
-        icon = "chat-message-new-symbolic";
+        icon = "package-x-generic-symbolic";
       })
     ];
   }

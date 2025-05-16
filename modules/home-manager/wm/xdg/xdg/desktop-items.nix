@@ -75,18 +75,6 @@
         icon = "whatsapp";
       };
 
-      spotify = {
-        name = "Spotify";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://open.spotify.com/"'';
-        icon = "spotify";
-      };
-
-      plex = {
-        name = "Plex Web";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://app.plex.tv/desktop/"'';
-        icon = "plexamp";
-      };
-
       webull = {
         name = "Webull";
         exec = ''${lib.getExe pkgs.raise-or-open-url} "https://app.webull.com/stocks"'';
@@ -98,6 +86,18 @@
           })
           .outPath;
       };
+
+      # plex = {
+      #   name = "Plex Web";
+      #   exec = ''${lib.getExe pkgs.raise-or-open-url} "https://app.plex.tv/desktop/"'';
+      #   icon = "plexamp";
+      # };
+
+      # spotify = {
+      #   name = "Spotify";
+      #   exec = ''${lib.getExe pkgs.raise-or-open-url} "https://open.spotify.com/"'';
+      #   icon = "spotify";
+      # };
 
       stylix-palette = {
         name = "Stylix Color Palette";
@@ -117,17 +117,6 @@
         icon = "x-office-document";
       };
 
-      wiki = {
-        name = "Wiki";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://wiki.knoopx.net/"'';
-        icon = "x-office-document";
-      };
-
-      chat = {
-        name = "Chat";
-        exec = ''${lib.getExe pkgs.chat}'';
-        icon = "chat-message-new-symbolic";
-      };
       # https://chatgpt.com/
       # https://claudeai.com/
       # https://hugging.chat/
@@ -147,13 +136,10 @@
         icon = "system-reboot-symbolic";
       };
 
-      # TODO: turn into ags widget?
-      # remind = {
-      #   name = "Remind";
-      #   exec = lib.getExe (pkgs.writeScriptBin "remind" ''
-      #     notify-send --icon=system-reboot "Reminder" "$@"
-      #   '');
-      #   icon = "system-reboot-symbolic";
+      # wiki = {
+      #   name = "Wiki";
+      #   exec = ''${lib.getExe pkgs.raise-or-open-url} "https://wiki.knoopx.net/"'';
+      #   icon = "x-office-document";
       # };
     };
   };

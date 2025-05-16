@@ -2,7 +2,6 @@
   defaults,
   config,
   pkgs,
-  neuwaita,
   lib,
   ...
 }: let
@@ -19,19 +18,10 @@ in {
   gtk = {
     iconTheme = {
       name = "Neuwaita";
-      package = pkgs.stdenvNoCC.mkDerivation {
-        name = "Neuwaita";
-        src = neuwaita;
-
-        installPhase = ''
-          mkdir -p $out/share/icons/Neuwaita/{scalable,symbolic}/{apps,devices,legacy,mimetypes,places,status}
-          cp -r scalable/* $out/share/icons/Neuwaita/scalable/
-          cp -r index.theme $out/share/icons/Neuwaita/index.theme
-          substituteInPlace $out/share/icons/Neuwaita/index.theme --replace-fail "Inherits=Adwaita, hicolor, breeze" "Inherits=MoreWaita,Adwaita,hicolor,breeze"
-        '';
-      };
+      package = pkgs.neuwaita-icon-theme;
     };
   };
+
   dconf.settings = {
     "org/gtk/gtk4/settings/file-chooser" = {
       date-format = "regular";

@@ -3,11 +3,9 @@
   lib,
   ...
 }: let
-  md2pango = pkgs.callPackage ./md2pango.nix {};
-
   pkg = pkgs.python3Packages.buildPythonApplication {
-    name = "chat";
-    src = ./scripts/chat.py;
+    name = "reminder";
+    src = ./scripts/reminder.py;
     dontUnpack = true;
     pyproject = false;
 
@@ -18,34 +16,32 @@
 
     buildInputs = with pkgs; [
       libadwaita
-      gtksourceview5
-      webkitgtk_6_0
-      md2pango
+      evolution-data-server
     ];
 
     preFixup = ''
       gappsWrapperArgs+=(--prefix PYTHONPATH : "${pkgs.python3.withPackages (p: [
         p.pygobject3
-        p.openai
+        p.dateparser
       ])}/${pkgs.python3.sitePackages}")
     '';
 
     buildPhase = ''
-      install -m 755 -D $src $out/bin/chat
+      install -m 755 -D $src $out/bin/reminder
     '';
 
-    meta.mainProgram = "chat";
+    meta.mainProgram = "reminder";
   };
 in
   pkgs.symlinkJoin {
-    name = "Chat.app";
+    name = "reminder";
     paths = [
       pkg
       (pkgs.makeDesktopItem {
-        name = "chat";
-        desktopName = "Chat";
+        name = "reminder";
+        desktopName = "Reminder";
         exec = lib.getExe pkg;
-        icon = "chat-message-new-symbolic";
+        icon = "preferences-system-time-symbolic";
       })
     ];
   }

@@ -181,11 +181,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1747281799,
-        "narHash": "sha256-TB7CZflDLI8H0np8AsSmyF21v1smbhZ1u3c7RR4S78M=",
+        "lastModified": 1747368212,
+        "narHash": "sha256-8bjsQVrFR3Uc0EK7vycFMUbtksqwrBbi+/Sx3O0u3lU=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "49f3c5693b7d83dc5b6d1fb483cfc670bc397f6c",
+        "rev": "a55ddf6541db6a45e324c4f2f81f49e0322a400f",
         "type": "gitlab"
       },
       "original": {
@@ -431,11 +431,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1747279714,
-        "narHash": "sha256-UdxlE8yyrKiGq3bgGyJ78AdFwh+fuRAruKtyFY5Zq5I=",
+        "lastModified": 1747374689,
+        "narHash": "sha256-JT/aBZqmK1LbExzwT9cPkvxKc0IC4i6tZKOPjsSWFbI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "954615c510c9faa3ee7fb6607ff72e55905e69f2",
+        "rev": "d2263ce5f4c251c0f7608330e8fdb7d1f01f0667",
         "type": "github"
       },
       "original": {
@@ -520,11 +520,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1747292468,
-        "narHash": "sha256-fJL1Sl+MLb+4vn3aLYUb/ktGG7OZ32rJ8bZiiNL1kE8=",
+        "lastModified": 1747376826,
+        "narHash": "sha256-wxK5yiovTb38cQdw3z+uSduaQbGVd1eZB4R7q1/+Lpg=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "ce3b7072d7d2ebe70dd79c3a31594966513e9620",
+        "rev": "7154e12127dbb6b5fccb619c3c7e8b5f4ea0b81f",
         "type": "github"
       },
       "original": {
@@ -624,11 +624,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1747277033,
-        "narHash": "sha256-CXlOnolot/OYiDoG391q2dQVmdtuznpDRlsY+m55oHo=",
+        "lastModified": 1747365543,
+        "narHash": "sha256-r5HRe9CRFe6qvy7KLkTX9WySTqkNmvlobTR8g5AHLHA=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "b460904a6fc6273345d5e2525dc89ec033d68be9",
+        "rev": "7566bc015064ed3eb50b436f2225ddab06132beb",
         "type": "github"
       },
       "original": {
@@ -796,11 +796,11 @@
     "usememos": {
       "flake": false,
       "locked": {
-        "lastModified": 1747237502,
-        "narHash": "sha256-i19/dYdXNuJgS46Iwv5QyLk/9pYDXqSrvHkplczlA7Q=",
+        "lastModified": 1747318501,
+        "narHash": "sha256-WidbwC5IHjedaU7agKQ4csadKipuyUTxHZ33SIJY03w=",
         "owner": "usememos",
         "repo": "memos",
-        "rev": "1f79ee575b7a2befec3f2490b605da808e72c950",
+        "rev": "606924b4c980564604311678bfa55509700e3542",
         "type": "github"
       },
       "original": {

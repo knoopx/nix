@@ -6,6 +6,7 @@
   ...
 } @ inputs: {
   "update.mode" = "none";
+  "python.languageServer" = "Pylance";
   "extensions.ignoreRecommendations" = true;
   "terminal.integrated.enableImages" = true;
   "terminal.integrated.enableMultiLinePasteWarning" = "never";

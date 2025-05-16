@@ -40,6 +40,11 @@
       user = defaults.username;
     };
 
+    atd = {
+      enable = true;
+      allowEveryone = true;
+    };
+
     ollama = {
       enable = true;
       acceleration = "cuda";
