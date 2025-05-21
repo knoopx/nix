@@ -136,7 +136,7 @@
   ];
 in {
   programs.nix-ld = {
-    enable = false;
+    enable = true;
     libraries = electron-deps;
   };
 }
