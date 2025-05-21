@@ -118,9 +118,6 @@ in {
         Mod+T { spawn "kitty"; }
         Mod+V { spawn "nautilus"; }
         Mod+Delete { spawn "${lib.getExe pkgs.mission-center}"; }
-        //Mod+D { spawn "ags" "toggle" "launcher"; }
-        //Super+Super_L { spawn "ags" "toggle" "launcher"; }
-        //Mod+Space { spawn "ags" "toggle" "launcher"; }
         Mod+Space { spawn "${lib.getExe pkgs.launcher}"; }
 
         Mod+Left { focus-column-left; }
@@ -222,7 +219,6 @@ in {
     window-rule {
         match app-id="org.gnome.Calendar"
         match app-id="org.gnome.Weather"
-        //match app-id="com.github.qarmin.czkawka"
         default-column-width { proportion 0.75; }
         open-floating true
     }
