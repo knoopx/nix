@@ -87,12 +87,6 @@
           .outPath;
       };
 
-      # plex = {
-      #   name = "Plex Web";
-      #   exec = ''${lib.getExe pkgs.webkit-shell} --url "https://app.plex.tv/desktop/"'';
-      #   icon = "plexamp";
-      # };
-
       spotify = {
         name = "Spotify";
         exec = ''${lib.getExe pkgs.raise-or-open-url} "https://open.spotify.com/"'';
@@ -107,15 +101,21 @@
 
       devdocs = {
         name = "DevDocs";
-        exec = ''${lib.getExe pkgs.webkit-shell} --url "https://devdocs.io/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://devdocs.io/"'';
         icon = "x-office-document";
       };
 
-      memos = {
-        name = "Memos";
-        exec = ''${lib.getExe pkgs.webkit-shell} --url "https://memos.knoopx.net/"'';
-        icon = "x-office-document";
-      };
+      # plex = {
+      #   name = "Plex Web";
+      #   exec = ''${lib.getExe pkgs.webkit-shell} --url "https://app.plex.tv/desktop/"'';
+      #   icon = "plexamp";
+      # };
+
+      # memos = {
+      #   name = "Memos";
+      #   exec = ''${lib.getExe pkgs.webkit-shell} --url "https://memos.knoopx.net/"'';
+      #   icon = "x-office-document";
+      # };
 
       # https://chatgpt.com/
       # https://claudeai.com/
@@ -128,12 +128,6 @@
         exec = ''${lib.getExe pkgs.raise-or-open-url} "https://mail.google.com/mail/?view=cm&fs=1&to=%u"'';
         mimeType = ["x-scheme-handler/mailto"];
         noDisplay = true;
-      };
-
-      ags-restart = {
-        name = "Restart AGS";
-        exec = lib.getExe pkgs.ags-restart;
-        icon = "system-reboot-symbolic";
       };
 
       # wiki = {

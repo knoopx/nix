@@ -1,10 +1,4 @@
-{
-  lib,
-  pkgs,
-  defaults,
-  ...
-}:
-lib.mkIf defaults.wm.niri {
+{pkgs, ...}: {
   programs.dconf.enable = true;
 
   environment.systemPackages = with pkgs; [

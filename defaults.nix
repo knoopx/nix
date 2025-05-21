@@ -11,11 +11,6 @@ in {
   location = "Vilassar de Mar";
   primary-email = "knoopx@gmail.com";
 
-  wm = {
-    gnome = false;
-    niri = true;
-  };
-
   # cat $(nix-build --no-out-link '<nixpkgs>' -A xkeyboard_config)/etc/X11/xkb/rules/base.lst
   keyMap = "eu";
   timeZone = "Europe/Madrid";

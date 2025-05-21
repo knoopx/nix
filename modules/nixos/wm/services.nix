@@ -1,10 +1,4 @@
-{
-  pkgs,
-  lib,
-  defaults,
-  ...
-}:
-lib.mkIf defaults.wm.niri {
+{pkgs, ...}: {
   services = {
     displayManager = {
       sessionPackages = with pkgs; [
