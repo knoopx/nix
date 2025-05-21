@@ -11,8 +11,15 @@ import remarkParse from "remark-parse";
 import remarkFrontmatter from "remark-frontmatter";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
+import remarkOembed from "remark-oembed";
+import rehypeRaw from "rehype-raw";
+import rehypeFormat from "rehype-format";
 
 import { visit } from "unist-util-visit";
+
+// https://github.com/silvenon/remark-smartypants?tab=readme-ov-file
+// https://github.com/akebifiky/remark-simple-plantuml
+// https://github.com/s0/remark-code-extra
 
 function remarkDefinitionList() {
   return (tree) => {
@@ -34,7 +41,7 @@ function remarkDefinitionList() {
               if (currentTerm.length > 0) {
                 definitions.push({
                   term: currentTerm,
-                  definition: currentDef
+                  definition: currentDef,
                 });
               }
               currentTerm = [{ type: "text", value: match[1].trim() }];
@@ -53,7 +60,7 @@ function remarkDefinitionList() {
       if (currentTerm.length > 0) {
         definitions.push({
           term: currentTerm,
-          definition: currentDef
+          definition: currentDef,
         });
       }
 
@@ -64,15 +71,15 @@ function remarkDefinitionList() {
             {
               type: "dt",
               children: term,
-              data: { hName: "dt" }
+              data: { hName: "dt" },
             },
             {
               type: "dd",
               children: definition,
-              data: { hName: "dd" }
-            }
+              data: { hName: "dd" },
+            },
           ]),
-          data: { hName: "dl" }
+          data: { hName: "dl" },
         };
       }
     });
@@ -89,16 +96,17 @@ async function processMarkdown(input) {
       pageResolver: (pageName) => [pageName],
       hrefTemplate: (permalink) => `note://${permalink}`,
     })
-    .use(remarkRehype, {
-      handlers: {},
-    })
+    // .use(remarkOembed) // TODO: makes requests
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings)
     .use(rehypeHighlight)
     .use(rehypeDocument, {
       css: "@@CSS@@",
     })
-    .use(rehypeStringify)
+    .use(rehypeFormat)
+    .use(rehypeStringify, { allowDangerousHtml: true })
     .process(input);
   console.log(String(file));
 }

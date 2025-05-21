@@ -4,24 +4,27 @@ import gi
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
-from gi.repository import Gtk, Adw, Gio, Gdk
+from gi.repository import Gtk, Adw, Gio, Gdk, GLib
 
 import os
 import json
 from pathlib import Path
 
+
 class AppHistory:
     def __init__(self):
         # Use XDG_DATA_HOME or fallback to ~/.local/share
-        data_home = os.environ.get('XDG_DATA_HOME', os.path.expanduser('~/.local/share'))
-        self.data_file = Path(data_home) / 'launcher' / 'history.json'
+        data_home = os.environ.get(
+            "XDG_DATA_HOME", os.path.expanduser("~/.local/share")
+        )
+        self.data_file = Path(data_home) / "launcher" / "history.json"
         self.launch_counts = self._load_history()
 
     def _load_history(self):
         try:
             self.data_file.parent.mkdir(parents=True, exist_ok=True)
             if self.data_file.exists():
-                with open(self.data_file, 'r') as f:
+                with open(self.data_file, "r") as f:
                     return json.load(f)
         except Exception:
             pass
@@ -29,7 +32,7 @@ class AppHistory:
 
     def _save_history(self):
         try:
-            with open(self.data_file, 'w') as f:
+            with open(self.data_file, "w") as f:
                 json.dump(self.launch_counts, f)
         except Exception:
             pass
@@ -97,7 +100,10 @@ class LauncherWindow(Adw.ApplicationWindow):
         ]
         sorted_apps = sorted(
             unsorted_apps,
-            key=lambda app: (-self.app_history.get_launch_count(app.get_id()), app.get_name().lower()),
+            key=lambda app: (
+                -self.app_history.get_launch_count(app.get_id()),
+                app.get_name().lower(),
+            ),
         )
 
         for app_info in sorted_apps:
@@ -154,41 +160,44 @@ class LauncherWindow(Adw.ApplicationWindow):
             self.launch_app(selected.app_info)
         return True
 
-    def move_selection(self, direction):
-        selected = self.list_box.get_selected_row()
-
-        if not selected:
-            # Select first visible row
-            row = self.find_next_visible_row(0, 1)
-            if row:
-                self.list_box.select_row(row)
-                self.scroll_to_row(row)
-                return
-
-        current_index = selected.get_index()
-        next_row = self.find_next_visible_row(current_index, direction)
-
-        if next_row:
-            self.list_box.select_row(next_row)
-            self.scroll_to_row(next_row)
-
     def scroll_to_row(self, row):
         adj = self.scrolled.get_vadjustment()
         if not adj:
             return
 
-        row_alloc = row.get_allocation()
-        visible_rect = self.scrolled.get_allocation()
+        # Get row dimensions
+        row_height = row.get_allocated_height()
+        row_y = row.get_allocation().y
 
-        # Get current scroll position
-        current_scroll = adj.get_value()
+        # Get visible area dimensions
+        visible_height = self.scrolled.get_allocated_height()
 
-        # If row is above visible area, scroll up
-        if row_alloc.y < current_scroll:
-            adj.set_value(row_alloc.y)
-        # If row is below visible area, scroll down
-        elif (row_alloc.y + row_alloc.height) > (current_scroll + visible_rect.height):
-            adj.set_value(row_alloc.y + row_alloc.height - visible_rect.height)
+        # Calculate visible area boundaries
+        visible_top = adj.get_value()
+        visible_bottom = visible_top + visible_height
+
+        # If row is partially or fully outside visible area
+        if row_y < visible_top or (row_y + row_height) > visible_bottom:
+            # Center the row if possible
+            target = row_y - (visible_height - row_height) / 2
+            # Clamp the value between adjustment bounds
+            target = max(0, min(target, adj.get_upper() - visible_height))
+            adj.set_value(target)
+
+    def move_selection(self, direction):
+        selected = self.list_box.get_selected_row()
+        start_index = (
+            selected.get_index()
+            if selected
+            else (
+                -1 if direction > 0 else self.list_box.observe_children().get_n_items()
+            )
+        )
+
+        next_row = self.find_next_visible_row(start_index, direction)
+        if next_row:
+            self.list_box.select_row(next_row)
+            self.scroll_to_row(next_row)
 
     def find_next_visible_row(self, start_index, direction):
         index = start_index + direction
@@ -205,7 +214,17 @@ class LauncherWindow(Adw.ApplicationWindow):
         self.search_entry.set_text("")  # Clear search entry
         self.search_entry.emit("search-changed")  # Update list
         self.list_box.unselect_all()  # Clear selection
-        app_info.launch()
+
+        try:
+            context = self.get_display().get_app_launch_context()
+            launched = app_info.launch_uris_as_manager(
+                [], context, GLib.SpawnFlags.SEARCH_PATH, None, None
+            )
+            if not launched:
+                print(f"Failed to launch {app_info.get_id()}")
+        except Exception as e:
+            print(f"Error launching {app_info.get_id()}: {str(e)}")
+
         self.close()
 
     def on_row_activated(self, list_box, row):
@@ -213,13 +232,18 @@ class LauncherWindow(Adw.ApplicationWindow):
 
     def on_close_request(self, window):
         # Hide instead of destroy
-        self.hide()
+        self.set_visible(False)
         return True
 
     def on_window_activate(self, controller):
         # Select all text and move caret to end
         self.search_entry.select_region(0, -1)
         self.search_entry.set_position(-1)
+        # Ensure first visible item is selected
+        first_visible = self.find_next_visible_row(-1, 1)
+        if first_visible:
+            self.list_box.select_row(first_visible)
+            self.scroll_to_row(first_visible)
 
 
 class Launcher(Adw.Application):
@@ -239,8 +263,8 @@ class Launcher(Adw.Application):
         if not self.window:
             self.window = LauncherWindow(application=self)
 
-        if self.window.is_visible():
-            self.window.hide()
+        if self.window.get_visible():
+            self.window.set_visible(False)
         else:
             self.window.present()
 

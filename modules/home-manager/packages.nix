@@ -47,11 +47,11 @@
     reminder
     nix-packages
     webkit-shell
+    foliate
   ];
 
   cli = with pkgs; [
     # android-tools
-    aria2
     # asciinema
     # atuin
     # axel
@@ -128,18 +128,19 @@
     # yq
     # zlib
     # zstd
-    tgpt
-    inotify-tools
+    aria2
+    brotab
     dconf
     fclones
     ffmpeg
+    inotify-tools
     mpv
     nh
     ollamark
-    alpaca
     rclone
     rsync
-    brotab
+    tgpt
+    md2html
   ];
 
   dev = with pkgs; [

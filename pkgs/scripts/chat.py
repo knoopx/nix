@@ -101,6 +101,8 @@ class ChatAppWindow(Gtk.ApplicationWindow):
         self.current_assistant_webview = (
             None  # Add this attribute to store the webview reference
         )
+        self.chunk_counter = 0
+        self.update_threshold = 3  # Update every N chunks
 
         self.set_default_size(600, 700)
         self.set_title("Chat")
@@ -259,17 +261,21 @@ class ChatAppWindow(Gtk.ApplicationWindow):
         if not self.current_assistant_message:
             self.current_assistant_message = chunk
             # Create the container and WebView on the first chunk
-            # Add an empty message initially, the full content will be loaded at the end
             self.current_message_container = self.add_message("", "assistant-message")
-            # Store the webview reference for later update
-            self.current_assistant_webview = (
-                self.current_message_container.get_first_child()
-            )
+            self.current_assistant_webview = self.current_message_container.get_first_child()
         else:
             self.current_assistant_message += chunk
-            # Do NOT update the webview incrementally here to avoid flickering and incorrect resizing
 
-        # Scroll to bottom on each chunk (optional, but good for streaming feel)
+        # Update the webview periodically during streaming
+        self.chunk_counter += 1
+        if self.chunk_counter >= self.update_threshold:
+            self.chunk_counter = 0
+            def on_streaming_markdown_complete(html_content):
+                if self.current_assistant_webview:
+                    self.current_assistant_webview.load_html(html_content, "file:///")
+            markdown_async(self.current_assistant_message, on_streaming_markdown_complete)
+
+        # Scroll to bottom on each chunk
         GLib.idle_add(self.scroll_to_bottom)
 
     def on_send_message(self, widget):

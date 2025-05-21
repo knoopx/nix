@@ -7,7 +7,7 @@
     desktopEntries = {
       home-assistant = {
         name = "Home Assistant";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} --url "https://home.knoopx.net/lovelace"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://home.knoopx.net/lovelace"'';
         icon =
           (pkgs.fetchurl {
             url = "https://www.svgrepo.com/show/331429/home-assistant.svg";
@@ -32,7 +32,7 @@
 
       gmail = {
         name = "Gmail";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} --url "https://mail.google.com/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://mail.google.com/"'';
         icon =
           (pkgs.fetchurl {
             url = "https://www.svgrepo.com/download/452213/gmail.svg";
@@ -43,13 +43,13 @@
 
       telegram = {
         name = "Telegram";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} --ur "https://web.telegram.org/k/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://web.telegram.org/k/"'';
         icon = "telegram";
       };
 
       youtube = {
         name = "Youtube";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} --url "https://www.youtube.com/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://www.youtube.com/"'';
         icon =
           (pkgs.fetchurl {
             url = "https://www.svgrepo.com/show/134513/youtube.svg";
@@ -60,7 +60,7 @@
 
       reddit = {
         name = "Reddit";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} --url "https://www.reddit.com/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://www.reddit.com/"'';
         icon =
           (pkgs.fetchurl {
             url = "https://www.svgrepo.com/show/271111/reddit.svg";
@@ -71,13 +71,13 @@
 
       whatsapp = {
         name = "WhatsApp";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} --url "https://web.whatsapp.com/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://web.whatsapp.com/"'';
         icon = "whatsapp";
       };
 
       webull = {
         name = "Webull";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} --url "https://app.webull.com/stocks"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://app.webull.com/stocks"'';
         icon =
           (pkgs.fetchurl {
             url = "https://app.webull.com/static/logo.png";
@@ -95,7 +95,7 @@
 
       spotify = {
         name = "Spotify";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} --url "https://open.spotify.com/"'';
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://open.spotify.com/"'';
         icon = "spotify";
       };
 

@@ -145,10 +145,11 @@
   in {
     packages.x86_64-linux = {
       chat = pkgs.callPackage ./pkgs/chat.nix {};
+      launcher = pkgs.callPackage ./pkgs/launcher.nix {};
+      md2html = pkgs.callPackage ./pkgs/md2html.nix {};
+      mdx-editor = pkgs.callPackage ./pkgs/mdx-editor.nix {};
       notes = pkgs.callPackage ./pkgs/notes.nix {};
       reminder = pkgs.callPackage ./pkgs/reminder.nix {};
-      mdx-editor = pkgs.callPackage ./pkgs/mdx-editor.nix {};
-      launcher = pkgs.callPackage ./pkgs/launcher.nix {};
       webkit-shell = pkgs.callPackage ./pkgs/webkit-shell.nix {};
     };
     nixosConfigurations = {

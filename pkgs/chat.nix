@@ -20,7 +20,6 @@
       libadwaita
       gtksourceview5
       webkitgtk_6_0
-      md2html
       glib-networking
     ];
 
