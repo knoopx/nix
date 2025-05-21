@@ -498,11 +498,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1747811891,
-        "narHash": "sha256-w6/4M4BwxWGhYcy5uxHCrmev1OWp7S0jftmqOdj1L4w=",
+        "lastModified": 1747819837,
+        "narHash": "sha256-CqzY9q1UeEAoCehc099qw3pYYG0YcbZmOZAI1+qbT9g=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "9e60293a4c23b290538dc9ecd7dceb53d2d8d3e0",
+        "rev": "00cec70de635fddc6f8a611c2cdb39596f36f26e",
         "type": "github"
       },
       "original": {
@@ -555,6 +555,7 @@
         "stylix": "stylix",
         "umu-launcher": "umu-launcher",
         "usememos": "usememos",
+        "vibeapps": "vibeapps",
         "yay-nix": "yay-nix"
       }
     },
@@ -605,11 +606,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1747769259,
-        "narHash": "sha256-UGfeK8/iUZVWDOYdEpbcbt0liTRIDNNepVzKzWPp6Zc=",
+        "lastModified": 1747818590,
+        "narHash": "sha256-O8hKI4Eh7GWWVVxuoZGmDrRmLBX+fE3lI53t6IGx6pg=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "69b3dd05e6b64c71a10fb749b5ac4d7c8e40f720",
+        "rev": "42b1521816580633a27c5367c57695cc99a0f0c1",
         "type": "github"
       },
       "original": {
@@ -786,6 +787,26 @@
       "original": {
         "owner": "usememos",
         "repo": "memos",
+        "type": "github"
+      }
+    },
+    "vibeapps": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1747820399,
+        "narHash": "sha256-aUpd7O2mmz4NQFFxIXqE3TJmgVt2mboKgMQ4X1Vy3bs=",
+        "owner": "knoopx",
+        "repo": "vibeapps",
+        "rev": "a3e718a139996009f32e3fd4a1e595113afac5e4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "knoopx",
+        "repo": "vibeapps",
         "type": "github"
       }
     },

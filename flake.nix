@@ -5,6 +5,9 @@
     # nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     nixpkgs.url = "github:nixos/nixpkgs";
 
+    vibeapps.url = "github:knoopx/vibeapps";
+    vibeapps.inputs.nixpkgs.follows = "nixpkgs";
+
     haumea.url = "github:nix-community/haumea";
     haumea.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -68,6 +71,7 @@
     umu-launcher,
     yay-nix,
     niri,
+    vibeapps,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -93,6 +97,7 @@
       {
         nixpkgs.overlays =
           [
+            (self: super: vibeapps.packages.${system})
             (self: super: {niri = niri.packages.${system}.default;})
             (self: super: umu-launcher.packages.${system})
             (
@@ -143,15 +148,6 @@
       }
     ];
   in {
-    packages.x86_64-linux = {
-      chat = pkgs.callPackage ./pkgs/chat.nix {};
-      launcher = pkgs.callPackage ./pkgs/launcher.nix {};
-      md2html = pkgs.callPackage ./pkgs/md2html.nix {};
-      mdx-editor = pkgs.callPackage ./pkgs/mdx-editor.nix {};
-      notes = pkgs.callPackage ./pkgs/notes.nix {};
-      reminder = pkgs.callPackage ./pkgs/reminder.nix {};
-      webkit-shell = pkgs.callPackage ./pkgs/webkit-shell.nix {};
-    };
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
