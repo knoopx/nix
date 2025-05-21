@@ -92,6 +92,12 @@ class LauncherWindow(Adw.ApplicationWindow):
         window_controller.connect("enter", self.on_window_activate)
         self.add_controller(window_controller)
 
+        # Connect map signal for initial focus
+        self.connect("map", self.on_window_map)
+
+    def on_window_map(self, window):
+        self.search_entry.grab_focus()
+
     def load_apps(self):
         self.apps = []
         # Collect apps and sort by launch frequency and name

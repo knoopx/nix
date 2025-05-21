@@ -34,13 +34,7 @@
       interactiveShellInit = ''
         set fish_greeting
 
-        set -gx OPENAI_API_BASE "https://text.pollinations.ai/openai"
-        set -gx OPENAI_API_KEY pollinations
-
-        set -gx OLLAMA_API_BASE "http://127.0.0.1:11434"
         set -gx DEEPSEEK_API_KEY (secret-tool lookup deepseek-api key | head | tr -d "\n")
-
-        set -gx AI_PROVIDER "pollinations"
 
         fish_add_path -g "$HOME/.bun/bin"
         fish_add_path -g "$HOME/.cargo/bin:"

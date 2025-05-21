@@ -98,11 +98,7 @@ class ChatAppWindow(Gtk.ApplicationWindow):
         super().__init__(*args, **kwargs)
         self.streamer = OpenAIStreamer()
         self.current_assistant_message = ""
-        self.current_assistant_webview = (
-            None  # Add this attribute to store the webview reference
-        )
-        self.chunk_counter = 0
-        self.update_threshold = 3  # Update every N chunks
+        self.current_assistant_webview = None  # Add this attribute to store the webview reference
 
         self.set_default_size(600, 700)
         self.set_title("Chat")
@@ -266,14 +262,10 @@ class ChatAppWindow(Gtk.ApplicationWindow):
         else:
             self.current_assistant_message += chunk
 
-        # Update the webview periodically during streaming
-        self.chunk_counter += 1
-        if self.chunk_counter >= self.update_threshold:
-            self.chunk_counter = 0
-            def on_streaming_markdown_complete(html_content):
-                if self.current_assistant_webview:
-                    self.current_assistant_webview.load_html(html_content, "file:///")
-            markdown_async(self.current_assistant_message, on_streaming_markdown_complete)
+        def on_streaming_markdown_complete(html_content):
+            if self.current_assistant_webview:
+                self.current_assistant_webview.load_html(html_content, "file:///")
+        markdown_async(self.current_assistant_message, on_streaming_markdown_complete)
 
         # Scroll to bottom on each chunk
         GLib.idle_add(self.scroll_to_bottom)
