@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  md2pango = pkgs.callPackage ./md2pango.nix {};
+  md2html = pkgs.callPackage ./md2html.nix {};
 
   pkg = pkgs.python3Packages.buildPythonApplication {
     name = "chat";
@@ -20,11 +20,12 @@
       libadwaita
       gtksourceview5
       webkitgtk_6_0
-      md2pango
+      md2html
+      glib-networking
     ];
 
     preFixup = ''
-      gappsWrapperArgs+=(--prefix PYTHONPATH : "${pkgs.python3.withPackages (p: [
+      gappsWrapperArgs+=(--prefix PATH : "${md2html}/bin" --prefix PYTHONPATH : "${pkgs.python3.withPackages (p: [
         p.pygobject3
         p.openai
       ])}/${pkgs.python3.sitePackages}")
@@ -38,7 +39,7 @@
   };
 in
   pkgs.symlinkJoin {
-    name = "Chat.app";
+    name = "chat";
     paths = [
       pkg
       (pkgs.makeDesktopItem {

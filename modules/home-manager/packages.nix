@@ -46,11 +46,12 @@
     chat
     reminder
     nix-packages
+    webkit-shell
   ];
 
   cli = with pkgs; [
     # android-tools
-    # aria2
+    aria2
     # asciinema
     # atuin
     # axel

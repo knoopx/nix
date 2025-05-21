@@ -80,7 +80,8 @@ in {
             color "#000"
         }
         insert-hint { color "rgb(${nix-colors.lib-core.conversions.hexToRGBString " " defaults.colorScheme.palette.base0D} / 50%)"; }
-        default-column-width { proportion 0.75; }
+        //default-column-width { proportion 0.75; }
+        default-column-width { fixed ${toString (builtins.elemAt defaults.display.windowSize 0)}; }
         preset-column-widths {
             proportion 0.25
             proportion 0.50
@@ -119,7 +120,8 @@ in {
         Mod+Delete { spawn "${lib.getExe pkgs.mission-center}"; }
         //Mod+D { spawn "ags" "toggle" "launcher"; }
         //Super+Super_L { spawn "ags" "toggle" "launcher"; }
-        Mod+Space { spawn "ags" "toggle" "launcher"; }
+        //Mod+Space { spawn "ags" "toggle" "launcher"; }
+        Mod+Space { spawn "${lib.getExe pkgs.launcher}"; }
 
         Mod+Left { focus-column-left; }
         //Alt+Left { focus-column-left; }
@@ -189,7 +191,7 @@ in {
     window-rule {
         match app-id="org.gnome.NautilusPreviewer"
         match app-id="re.sonny.Commit"
-        default-column-width
+        match app-id="^floating."
         open-floating true
     }
     window-rule {
@@ -200,6 +202,7 @@ in {
     }
     window-rule {
         match app-id="net.knoopx.nix-packages"
+        match app-id="net.knoopx.launcher"
         open-floating true
     }
     window-rule {

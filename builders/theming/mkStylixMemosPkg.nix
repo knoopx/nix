@@ -96,7 +96,7 @@
 
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256-onMVdojkNSbWd9jxf7Z2JnhKD6/TcDulStWIFbEJ0o4=";
+    outputHash = "sha256-XVU/2bo5D+nz4mdO2ghik/oRvwpaEc+WNrw5yfOKVGI=";
   };
 in
   pkgs.buildGoModule {

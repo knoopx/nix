@@ -2,18 +2,12 @@ html,
 body {
   font-family: sans-serif;
   line-height: 1.6;
-  padding: 0 40px;
   margin: 0;
-  background-color: #1e1e2e;
   color: #cdd6f4;
 }
-pre {
-  padding: 10px;
-  border-radius: 5px;
-}
+
 code {
   font-family: monospace;
-  padding: 2px 4px;
   border-radius: 3px;
 }
 
@@ -21,13 +15,36 @@ a {
   color: #b4befe;
 }
 
+img {
+  max-width: 25%;
+  height: auto;
+  border-radius: 8px;
+  margin: auto 0;
+}
+
+code:not(.hljs) {
+  background-color: #181825;
+  color: #cdd6f4;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+pre {
+  background-color: #181825;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
 blockquote {
   background-color: #313244;
   border-left: 4px solid #89b4fa;
-  padding: 1rem;
-  margin: 1rem 0;
+  margin: 0;
   color: #a6adc8;
   font-style: italic;
+}
+blockquote p {
+  padding: 0.75rem 1.5rem;
 }
 
 table {
@@ -44,12 +61,12 @@ th,
 td {
   padding: 0.75rem;
   text-align: left;
-  border-bottom: 1px solid #45475a;
+  border-bottom: 1px solid #313244;
 }
 
 th {
-  background-color: #45475a;
-  color: #b4befe;
+  background-color: #313244;
+  color: ##cdd6f4;
   font-weight: 600;
 }
 
@@ -74,7 +91,6 @@ hr {
 
 code.hljs {
   color: #cdd6f4;
-  background: #1e1e2e;
 }
 code .hljs-keyword {
   color: #cba6f7;
@@ -213,4 +229,27 @@ code .hljs-addition {
 code .hljs-deletion {
   color: #f38ba8;
   background: rgba(243, 139, 168, 0.15);
+}
+
+dl {
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.5rem 1rem;
+}
+
+dt {
+  color: #cdd6f4;
+  font-weight: bold;
+  text-align: right;
+  grid-column: 1;
+}
+
+dd {
+  margin: 0;
+  grid-column: 2;
+}
+
+dd p {
+  margin: 0;
 }

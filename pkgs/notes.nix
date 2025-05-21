@@ -19,6 +19,7 @@
       libadwaita
       gtksourceview5
       webkitgtk_6_0
+      glib-networking
     ];
 
     preFixup = ''

@@ -1,144 +1,180 @@
+#!/usr/bin/env python
+
 import gi
-gi.require_version('Gtk', '3.0')
-# While we require '4.0' for the GObject Introspection API,
-# the underlying WebKit2Gtk library might be an older minor version
-# that lacks newer API features.
-gi.require_version('WebKit2', '4.0')
-from gi.repository import Gtk, WebKit2, GLib, Gio
+
+gi.require_version("Gtk", "4.0")
+gi.require_version("WebKit", "6.0")
+from gi.repository import Gtk, Gdk, WebKit, GLib, Gio
 import os
 import sys
+import argparse
 
 # Application ID for proper desktop integration and data directory management
-APP_ID = "org.example.WebKitShell"
-# Name of the subdirectory within the user's data directory for session persistence
-SESSION_DATA_DIR_NAME = "webkit-shell"
+APP_ID = "net.knoopx.webkit-shell"
 # Name for the file where cookies will be stored (SQLite is preferred)
 COOKIES_FILE_NAME = "cookies.sqlite"
+
 
 class WebKitShell(Gtk.Application):
     """
     A simple GTK application that wraps a given URL in a WebKit frame.
     No browser elements are displayed, and session data is persisted.
     """
-    def __init__(self):
-        super().__init__(application_id=APP_ID, flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE)
-        self.url = None
-        self.window = None
-        self.webview = None
-        self.web_context = None # Will be initialized in do_startup
 
-        # Add a command-line option to specify the URL
-        self.add_main_option(
-            "url",                # Long option name (--url)
-            ord('u'),             # Short option name (-u)
-            GLib.OptionFlags.NONE,
-            GLib.OptionArg.STRING,
-            "URL to load in the web view",
-            "URL"                 # Argument description in help message
+    def __init__(
+        self, app_id=APP_ID, url=None, width=800, height=600, title="WebKit Shell"
+    ):
+        super().__init__(
+            application_id=app_id,
+            flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE
+            | Gio.ApplicationFlags.REPLACE,
         )
+        self.url = url
+        self.window_width = width
+        self.window_height = height
+        self.window = None  # Initialize window attribute
+        self.webview = None
+        self.web_context = None  # Will be initialized in do_startup
+        self.app_id = app_id  # Store the application ID
+        self.title = title
 
     def do_startup(self):
-        """
-        Called when the application is starting up.
-        Initializes WebKit components and sets up session persistence.
-        """
         Gtk.Application.do_startup(self)
 
         # Determine the user-specific data directory for session persistence
         user_data_dir = GLib.get_user_data_dir()
-        session_data_path = os.path.join(user_data_dir, SESSION_DATA_DIR_NAME)
-        os.makedirs(session_data_path, exist_ok=True) # Ensure the directory exists
+        session_data_path = os.path.join(user_data_dir, self.app_id)
+        os.makedirs(session_data_path, exist_ok=True)
 
         print(f"Session data will be stored in: {session_data_path}")
 
-        # --- REVISED FIX FOR VERY OLD WEBKIT2GTK VERSIONS ---
-        # If WebsiteDataManager constructors are not available,
-        # we create the WebContext directly and configure its CookieManager.
-        # This is the most compatible way for persistent cookies in older versions.
-        # For other persistent data (localStorage, IndexedDB), we rely on WebKit's
-        # default behavior for WebContext.new(), which typically means per-user persistence.
-        self.web_context = WebKit2.WebContext.new()
-
-        # Attempt to get the CookieManager from the WebContext and configure persistence
-        cookie_manager = self.web_context.get_cookie_manager()
-        if cookie_manager:
-            cookies_file_path = os.path.join(session_data_path, COOKIES_FILE_NAME)
-            try:
-                # Attempt to use SQLITE for robust cookie storage.
-                # This requires WebKit2Gtk 2.16 or newer.
-                cookie_manager.set_persistent_storage(cookies_file_path, WebKit2.CookiePersistentStorage.SQLITE)
-                print(f"Cookies will be stored in: {cookies_file_path} (SQLITE)")
-            except AttributeError:
-                # Fallback if SQLITE enum is not available (very old WebKit2Gtk < 2.16)
-                try:
-                    cookie_manager.set_persistent_storage(cookies_file_path, WebKit2.CookiePersistentStorage.TEXT)
-                    print(f"Cookies will be stored in: {cookies_file_path} (TEXT)")
-                except Exception as e:
-                    print(f"Warning: Could not set persistent storage for cookies (TEXT fallback failed): {e}")
-            except Exception as e:
-                print(f"Warning: Could not set persistent storage for cookies (SQLITE attempt failed): {e}")
-        else:
-            print("Warning: Could not get CookieManager from WebContext for explicit persistence.")
-        # --- END REVISED FIX ---
-
-        # Create the WebKit WebView with the configured WebContext.
-        # This will now be properly initialized as WebContext.new() should always work.
-        self.webview = WebKit2.WebView.new_with_context(self.web_context)
+    def on_decide_policy(self, webview, decision, decision_type):
+        if decision_type == WebKit.PolicyDecisionType.NAVIGATION_ACTION:
+            navigation_action = decision.get_navigation_action()
+            if (
+                navigation_action.get_navigation_type()
+                == WebKit.NavigationType.LINK_CLICKED
+            ):
+                uri = navigation_action.get_request().get_uri()
+                if uri.startswith("http://") or uri.startswith("https://"):
+                    decision.ignore()
+                    Gtk.show_uri(None, uri, Gdk.CURRENT_TIME)  # Requires Gtk 4.4+
+                    return True  # Indicate that we handled the decision
+        return False  # Allow other types of decisions/navigations
 
     def do_activate(self):
         """
         Called when the application is activated (e.g., launched from desktop or command line).
         Creates the main window and loads the URL.
         """
+        if not self.webview:
+            # Configure settings for WebKit 6.0
+            settings = WebKit.Settings.new()
+            settings.set_enable_developer_extras(True)
+            settings.set_enable_javascript(True)
+            settings.set_enable_write_console_messages_to_stdout(True)
+            settings.set_property("allow-file-access-from-file-urls", True)
+            settings.set_property("allow-universal-access-from-file-urls", True)
+            settings.set_property("enable-developer-extras", True)
+            settings.set_property("enable-javascript", True)
+            settings.set_property("enable-media-stream", True)
+            settings.set_property("enable-site-specific-quirks", True)
+            settings.set_property("enable-webgl", True)
+            settings.set_property("enable-write-console-messages-to-stdout", True)
+
+            # Create WebView with settings
+            self.webview = WebKit.WebView()
+            self.webview.set_settings(settings)
+            self.webview.connect("decide-policy", self.on_decide_policy)
+
         if not self.window:
             self.window = Gtk.ApplicationWindow(application=self)
-            self.window.set_title("WebKit Shell")
-            self.window.set_default_size(800, 600) # Set a reasonable default size
+            self.window.set_title(self.title)
 
-            # Add the WebView directly to the window. No other browser controls are added.
-            self.window.add(self.webview) # This should now be a valid object
-            self.window.show_all()
+            # Set default size or use values from command-line arguments
+            width = 800  # Default width
+            height = 600  # Default height
+            if hasattr(self, "window_width") and hasattr(self, "window_height"):
+                width = self.window_width
+                height = self.window_height
+
+            self.window.set_default_size(width, height)
+
+            # Create a box to hold the WebView (required in GTK 4)
+            self.window.set_child(self.webview)  # GTK 4 uses set_child instead of add
+
+            self.window.present()  # GTK 4 uses present instead of show_all
 
             if self.url:
                 print(f"Loading URL: {self.url}")
                 self.webview.load_uri(self.url)
             else:
-                print("No URL provided. Please provide one via '--url <URL>' or as a positional argument.")
-                # Display a simple message if no URL is provided
+                print(
+                    "No URL provided. Please provide one via '--url <URL>' or as a positional argument."
+                )
                 self.webview.load_html(
                     "<h1>No URL Provided</h1>"
                     "<p>Please launch with a URL, e.g., "
                     "<code>python webkit-shell.py https://www.google.com</code> "
                     "or <code>python webkit-shell.py --url https://www.google.com</code></p>",
-                    "file:///" # Base URI for relative paths, not strictly needed for this simple HTML
+                    "file:///",
                 )
 
     def do_command_line(self, command_line):
         """
         Handles command-line arguments.
-        Prioritizes the --url flag, then checks for a positional argument.
+        If this is called on an existing instance, it will update the window.
         """
         options = command_line.get_options_dict()
-        options = options.end().unpack() # Unpack GLib.VariantDict to a Python dict
+        options = options.end().unpack()
 
-        if 'url' in options:
-            self.url = options['url']
+        # Update window settings if this is a second instance
+        if self.window:
+            if "width" in options or "height" in options:
+                width = options.get("width", self.window_width)
+                height = options.get("height", self.window_height)
+                self.window.set_default_size(width, height)
+
+            if "url" in options:
+                self.url = options["url"]
+                self.webview.load_uri(self.url)
+
+            if "title" in options:
+                self.window.set_title(options["title"])
+
+            self.window.present()
         else:
-            # Check for positional arguments. args[0] is the program name.
-            args = command_line.get_arguments()
-            if len(args) > 1:
-                self.url = args[1] # The first positional argument is taken as the URL
+            self.activate()
 
-        self.activate() # Activate the application once arguments are processed
-        return 0 # Indicate successful command-line processing
+        return 0
+
 
 def main():
     """
     Entry point for the application.
+    Parse arguments and initialize the application.
     """
-    app = WebKitShell()
+    parser = argparse.ArgumentParser(description="WebKit Shell - A minimal web browser")
+    parser.add_argument(
+        "--app-id", "-a", default=APP_ID, help="Application ID for the GTK application"
+    )
+    parser.add_argument("--url", "-u", help="URL to load in the web view")
+    parser.add_argument("--width", "-w", type=int, default=800, help="Window width")
+    parser.add_argument("--height", "-t", type=int, default=600, help="Window height")
+    parser.add_argument("--title", "-l", default="WebKit Shell", help="Window title")
+
+    args = parser.parse_args()
+
+    app = WebKitShell(
+        app_id=args.app_id,
+        url=args.url,
+        width=args.width,
+        height=args.height,
+        title=args.title,
+    )
     exit_status = app.run(sys.argv)
     sys.exit(exit_status)
+
 
 if __name__ == "__main__":
     main()

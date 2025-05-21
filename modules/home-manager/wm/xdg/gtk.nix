@@ -12,8 +12,16 @@ in {
     (pkgs.theming.mkMoreWaitaTheme defaults.colorScheme.palette)
   ];
 
-  # TODO: --impure
-  # xdg.dataFile."gtksourceview-5/styles".source = "${config.home.homeDirectory}/.local/share/gedit/styles";
+  xdg.dataFile."gtksourceview-5/styles/catppuccin-mocha.xml".source = let
+    themeContent = pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/catppuccin/gedit/refs/heads/main/themes/catppuccin-mocha.xml";
+      sha256 = "sha256-+Ew1IR0GjGSJJUOe4DOws+V2AtvojG+zUfXI9ZD7CAE=";
+    };
+  in
+    pkgs.runCommand "catppuccin-mocha.xml" {} ''
+      cp ${themeContent} $out
+      substituteInPlace $out --replace-fail 'kind="dark">' 'kind="dark" version="1.0">'
+    '';
 
   gtk = {
     iconTheme = {

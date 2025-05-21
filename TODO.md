@@ -8,6 +8,8 @@
 * dialog app
 * notes app
     * journal
+    * allow creating random scripts. print stdout.
+
 * nixpkgs app
 * noogle/hm app
 * firefox bookmarks app
@@ -15,3 +17,5 @@
     notify-send --icon=system-reboot "Reminder" "$@"
 
 * write mdast-based markdown to pango markup so we can have proper markdown
+
+https://github.com/mietto-dev/ffmpeg-nautilus

@@ -1,14 +1,18 @@
 #!/usr/bin/env python
 
+import subprocess
 import sys
+
 import gi
 import openai
 import os
 import threading
 
+gi.require_version("Gdk", "4.0")
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
-from gi.repository import Gtk, GLib, Pango, Adw
+gi.require_version("WebKit", "6.0")
+from gi.repository import Gtk, GLib, Gdk, Adw, WebKit
 
 
 client = openai.OpenAI(
@@ -16,40 +20,34 @@ client = openai.OpenAI(
 )
 
 
-class MessageBubble(Gtk.Box):
-    def __init__(self, message, className="user-bubble"):
-        super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=4)
-        self.set_halign(Gtk.Align.START)
-        self.set_margin_start(12)
-        self.set_margin_end(12)
-        self.set_margin_top(6)
-        self.set_margin_bottom(6)
+def markdown(markdown_content):
+    proc = subprocess.Popen(
+        ["md2html"],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+    stdout, stderr = proc.communicate(markdown_content)
 
-        # Constrain width to prevent window expansion
-        self.set_size_request(-1, -1)  # Natural height, constrained width
+    if proc.returncode != 0:
+        raise RuntimeError(f"Error: {stderr.strip()}")
 
-        # Label to hold the text
-        label = Gtk.Label(label=message)
-        label.set_selectable(True)
-        label.set_wrap(True)  # Enable text wrapping
-        label.set_wrap_mode(
-            Pango.WrapMode.WORD_CHAR
-        )  # Wrap at word boundaries or characters
+    return stdout.strip()
 
-        # label.set_max_width_chars(60)  # Limit width in characters
-        label.set_xalign(0.0)  # Left align text within the label
-        label.set_ellipsize(Pango.EllipsizeMode.NONE)  # Don't ellipsize, wrap instead
 
-        # Bubble container
-        bubble = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        bubble.add_css_class(className)
-        bubble.set_margin_start(10)
-        bubble.set_margin_end(10)
-        bubble.set_margin_top(5)
-        bubble.set_margin_bottom(5)
-        bubble.append(label)
+def markdown_async(markdown_content, callback):
+    def worker():
+        try:
+            html = markdown(markdown_content)
+            GLib.idle_add(lambda: callback(html))
+        except Exception as e:
+            print(f"Markdown rendering error: {e}")
+            GLib.idle_add(lambda: callback(f"<pre>{markdown_content}</pre>"))
 
-        self.append(bubble)
+    thread = threading.Thread(target=worker)
+    thread.daemon = True
+    thread.start()
 
 
 class OpenAIStreamer:
@@ -100,6 +98,9 @@ class ChatAppWindow(Gtk.ApplicationWindow):
         super().__init__(*args, **kwargs)
         self.streamer = OpenAIStreamer()
         self.current_assistant_message = ""
+        self.current_assistant_webview = (
+            None  # Add this attribute to store the webview reference
+        )
 
         self.set_default_size(600, 700)
         self.set_title("Chat")
@@ -118,20 +119,19 @@ class ChatAppWindow(Gtk.ApplicationWindow):
         self.scrolled_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
 
         # Message list container
-        self.messages_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.messages_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=20)
         self.messages_box.set_margin_start(10)
         self.messages_box.set_margin_end(10)
         self.messages_box.set_margin_top(10)
         self.messages_box.set_margin_bottom(10)
 
-        # Use a viewport to allow the messages box to expand
         viewport = Gtk.Viewport()
         viewport.set_child(self.messages_box)
         self.scrolled_window.set_child(viewport)
 
         self.main_box.append(self.scrolled_window)
 
-        # Input area at the bottom
+        # Input area
         input_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
         input_box.set_margin_start(10)
         input_box.set_margin_end(10)
@@ -146,49 +146,137 @@ class ChatAppWindow(Gtk.ApplicationWindow):
 
         send_button = Gtk.Button(label="Send")
         send_button.connect("clicked", self.on_send_message)
-        send_button.add_css_class("suggested-action")  # Blue accent button
+        send_button.add_css_class("suggested-action")
         input_box.append(send_button)
 
         self.main_box.append(input_box)
-
         self.input_entry.grab_focus()
 
     def setup_css(self):
         css_provider = Gtk.CssProvider()
         css = """
-        .user-bubble, .assistant-bubble, .error-bubble {
-            color: #cdd6f4;
-            border-radius: 18px;
-            padding: 10px 14px;
+        .user-message, .assistant-message, .error-message {
+            padding: 0 20px;
+            border-radius: 4px;
         }
-        .user-bubble { background-color: #181825; }
-        .assistant-bubble { background-color: #313244; }
-        .error-bubble {
-            background-color: #f5e0dc;
-            color: #f38ba8;
-        }
+        .user-message { background-color: #181825; }
+        .assistant-message { background-color: #313244; }
+        .error-message { background-color: #f38ba8; }
         """
         css_provider.load_from_data(css.encode())
         Gtk.StyleContext.add_provider_for_display(
             self.get_display(), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
 
-    def add_message_bubble(self, text, className):
-        bubble = MessageBubble(text, className)
-        self.messages_box.append(bubble)
-        # Scroll to the bottom to show the new message
-        GLib.idle_add(self.scroll_to_bottom)
+    def add_message(self, text, className):
+        web_view = WebKit.WebView()
+        web_view.set_vexpand(False)
+        web_view.set_hexpand(True)
+        settings = web_view.get_settings()
+        settings.set_enable_javascript(True)
+        settings.set_enable_developer_extras(True)
+        settings.set_enable_write_console_messages_to_stdout(True)
+        settings.set_property("allow-universal-access-from-file-urls", True)
+        settings.set_property("allow-file-access-from-file-urls", True)
+
+        message_container = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        message_container.set_vexpand(False)
+        message_container.set_hexpand(True)
+        message_container.append(web_view)
+        message_container.add_css_class(className)
+        self.messages_box.append(message_container)
+
+        web_view.connect("load-changed", self.on_load_changed)
+
+        # Only load initial text if provided (e.g., for user messages or errors)
+        # For streaming assistant messages, the content is loaded at the end
+        if text:
+
+            def on_markdown_complete(html_content):
+                # Use "file:///" as the base URI
+                web_view.load_html(html_content, "file:///")
+
+            markdown_async(text, on_markdown_complete)
+
+        rgba = Gdk.RGBA()
+        rgba.parse("rgba(0,0,0,0)")
+        web_view.set_background_color(rgba)
+        return message_container
+
+    def on_load_changed(self, web_view, event):
+        if event == WebKit.LoadEvent.FINISHED:
+            print("Load finished, querying height...")
+            GLib.timeout_add(50, lambda: self.query_content_height(web_view))
+
+    def query_content_height(self, web_view):
+        # Pass the callback function and user data (self)
+        web_view.evaluate_javascript(
+            "Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);",
+            -1,  # length, -1 means null terminated
+            None,  # world_name
+            None,  # source_uri
+            None,  # cancellable
+            self._handle_height_result,  # callback function
+            self,  # user_data
+        )
+        return False
+
+    def _handle_height_result(self, web_view, async_result, user_data):
+        # This is the actual callback function now, accepting standard async args
+        try:
+            # Get the actual result from the async_result
+            js_value = web_view.evaluate_javascript_finish(async_result)
+
+            # Check if the result is a number and get its integer value
+            if js_value and js_value.is_number():
+                height = int(js_value.to_double())  # Use to_double for safety, then int
+                print(f"Got height from JS: {height}")
+                # Use user_data to access the instance and call the method
+                user_data.update_webview_height(web_view, height)
+            else:
+                print("Got non-numeric or null JS value")
+                # Do not update height if value is invalid
+                pass  # Removed default height fallback
+
+        except Exception as e:
+            print(f"Error getting height result: {e}")
+            # Do not update height on error
+            pass  # Removed default height fallback
+
+    def update_webview_height(self, web_view, height):
+        # Remove the minimum height constraint
+        height_val = height
+        web_view.set_size_request(-1, height_val)
+        web_view.queue_resize()
 
     def scroll_to_bottom(self):
-        adj = self.scrolled_window.get_vadjustment()
-        if adj:
-            adj.set_value(adj.get_upper() - adj.get_page_size())
-        return False  # Remove idle callback
+        adjustment = self.scrolled_window.get_vadjustment()
+        adjustment.set_value(adjustment.get_upper() - adjustment.get_page_size())
+        return False  # Required for GLib.idle_add
+
+    def handle_stream_chunk(self, chunk):
+        # Accumulate the message chunk by chunk
+        if not self.current_assistant_message:
+            self.current_assistant_message = chunk
+            # Create the container and WebView on the first chunk
+            # Add an empty message initially, the full content will be loaded at the end
+            self.current_message_container = self.add_message("", "assistant-message")
+            # Store the webview reference for later update
+            self.current_assistant_webview = (
+                self.current_message_container.get_first_child()
+            )
+        else:
+            self.current_assistant_message += chunk
+            # Do NOT update the webview incrementally here to avoid flickering and incorrect resizing
+
+        # Scroll to bottom on each chunk (optional, but good for streaming feel)
+        GLib.idle_add(self.scroll_to_bottom)
 
     def on_send_message(self, widget):
         if not client:
-            self.add_message_bubble(
-                "OpenAI client is not initialized. Cannot send message.", "error-bubble"
+            self.add_message(
+                "OpenAI client is not initialized. Cannot send message.",
+                "error-message",
             )
             return
 
@@ -196,15 +284,16 @@ class ChatAppWindow(Gtk.ApplicationWindow):
         if not prompt.strip():
             return
 
-        # Add user message bubble
-        self.add_message_bubble(prompt, "user-bubble")
+        # Add user message immediately
+        self.add_message(prompt, "user-message")
         self.input_entry.set_text("")
-        self.input_entry.set_sensitive(False)  # Disable input while streaming
+        self.input_entry.set_sensitive(False)
 
-        # Reset the current assistant message
+        # Reset assistant message state for the new response
         self.current_assistant_message = ""
+        self.current_assistant_webview = None
 
-        # Start streaming the response
+        # Start the streaming process
         self.streamer.get_completion_stream(
             prompt,
             on_chunk_received=self.handle_stream_chunk,
@@ -212,31 +301,42 @@ class ChatAppWindow(Gtk.ApplicationWindow):
             on_error=self.handle_stream_error,
         )
 
-    def handle_stream_chunk(self, chunk):
-        if not self.current_assistant_message:
-            # First chunk - create the initial bubble
-            self.current_assistant_message = chunk
-            self.add_message_bubble(chunk, "assistant-bubble")
-        else:
-            # Update existing bubble
-            self.current_assistant_message += chunk
-
-            # Remove the last bubble and replace with updated content
-            last_child = self.messages_box.get_last_child()
-            if last_child:
-                self.messages_box.remove(last_child)
-
-            self.add_message_bubble(self.current_assistant_message, "assistant-bubble")
-
     def handle_stream_end(self, full_assistant_response):
+        # Add the complete message to history
         self.streamer.add_message("assistant", full_assistant_response)
-        self.input_entry.set_sensitive(True)  # Re-enable input
+
+        # Re-enable input and focus
+        self.input_entry.set_sensitive(True)
         self.input_entry.grab_focus()
+
+        # Now, render the full accumulated message and load it into the webview
+        if self.current_assistant_webview and self.current_assistant_message:
+
+            def on_final_markdown_complete(html_content):
+                # Load the final HTML content into the webview
+                # This already uses "file:///" as the base URI
+                self.current_assistant_webview.load_html(html_content, "file:///")
+                # The on_load_changed signal will be triggered by load_html
+                # and will handle the height update based on the final content.
+
+                # Clear the temporary webview reference and message string AFTER loading
+                self.current_assistant_webview = None
+                self.current_assistant_message = ""
+
+            # Trigger markdown rendering for the complete message
+            markdown_async(self.current_assistant_message, on_final_markdown_complete)
 
     def handle_stream_error(self, error_message):
-        self.add_message_bubble(error_message, "error-bubble")
-        self.input_entry.set_sensitive(True)  # Re-enable input
+        # Display the error message
+        self.add_message(error_message, "error-message")
+
+        # Re-enable input and focus
+        self.input_entry.set_sensitive(True)
         self.input_entry.grab_focus()
+
+        # Clear any partial state
+        self.current_assistant_webview = None
+        self.current_assistant_message = ""
 
 
 class ChatApp(Adw.Application):
@@ -252,10 +352,13 @@ class ChatApp(Adw.Application):
             GLib.idle_add(self.handle_init_prompt)
 
     def handle_init_prompt(self):
-        app.chat_window.input_entry.set_text(self.init_prompt)
-        app.chat_window.on_send_message(None)
+        # Access the window via the instance stored in self
+        self.chat_window.input_entry.set_text(self.init_prompt)
+        self.chat_window.on_send_message(None)
 
 
 if __name__ == "__main__":
-    app = ChatApp(init_prompt=" ".join(sys.argv[1:]) if len(sys.argv) > 1 else None)
+    # Pass the initial prompt from command line arguments
+    init_prompt_arg = " ".join(sys.argv[1:]) if len(sys.argv) > 1 else None
+    app = ChatApp(init_prompt=init_prompt_arg)
     app.run(None)

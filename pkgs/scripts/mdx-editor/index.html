@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MDXEditor</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
+      #editor-container {
+        height: 100vh;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="editor-container"></div>
+    <script type="module">
+      import React from "react";
+      import { createRoot } from "react-dom/client";
+      import {
+        MDXEditor,
+        InsertFrontmatter,
+        BoldItalicUnderlineToggles,
+        headingsPlugin,
+        listsPlugin,
+        markdownShortcutPlugin,
+        quotePlugin,
+        thematicBreakPlugin,
+        toolbarPlugin,
+        linkPlugin,
+        linkDialogPlugin,
+        tablePlugin,
+        codeBlockPlugin,
+        sandpackPlugin,
+        codeMirrorPlugin,
+        // defaultSnippetContent,
+        UndoRedo,
+      } from "@mdxeditor/editor";
+
+      import "@mdxeditor/editor/style.css";
+
+      const simpleSandpackConfig = {
+        defaultPreset: "react",
+        presets: [
+          {
+            label: "React",
+            name: "react",
+            meta: "live react",
+            sandpackTemplate: "react",
+            sandpackTheme: "light",
+            snippetFileName: "/App.js",
+            snippetLanguage: "jsx",
+            // initialSnippetContent: defaultSnippetContent,
+          },
+        ],
+      };
+
+      const App = () => {
+        const ref = React.useRef(null);
+        window.setMarkdown = (m) => {
+          ref.current?.setMarkdown(m);
+        };
+
+        React.useEffect(() => {
+          window.webkit.messageHandlers.editorReady.postMessage("ready");
+        }, []);
+
+        return React.createElement(MDXEditor, {
+          ref,
+          markdown: "",
+          plugins: [
+            headingsPlugin(),
+            listsPlugin(),
+            quotePlugin(),
+            thematicBreakPlugin(),
+            markdownShortcutPlugin(),
+            toolbarPlugin(),
+            linkPlugin(),
+            linkDialogPlugin(),
+            tablePlugin(),
+            codeBlockPlugin({ defaultCodeBlockLanguage: "js" }),
+            sandpackPlugin({ sandpackConfig: simpleSandpackConfig }),
+            codeMirrorPlugin({
+              codeBlockLanguages: { js: "JavaScript", css: "CSS" },
+            }),
+          ],
+          onChange: (markdown) => {
+            window.webkit.messageHandlers.markdownChanged.postMessage(markdown);
+          },
+        });
+      };
+
+      const root = createRoot(document.getElementById("editor-container"));
+      root.render(React.createElement(App));
+    </script>
+  </body>
+</html>
