@@ -80,8 +80,7 @@ in {
             color "#000"
         }
         insert-hint { color "rgb(${nix-colors.lib-core.conversions.hexToRGBString " " defaults.colorScheme.palette.base0D} / 50%)"; }
-        //default-column-width { proportion 0.75; }
-        default-column-width { fixed ${toString (builtins.elemAt defaults.display.windowSize 0)}; }
+        default-column-width { proportion 0.75; }
         preset-column-widths {
             proportion 0.25
             proportion 0.50

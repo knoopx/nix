@@ -5,6 +5,7 @@ import subprocess
 import gi
 import shutil
 import threading
+from datetime import datetime  # Add this at the top with other imports
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("GtkSource", "5")
@@ -471,8 +472,7 @@ class NotesApp(Adw.ApplicationWindow):
         self.filtered_notes = [
             note for note in self.notes if search_text in note.lower()
         ]
-        # Sort by depth (folders first), then alphabetically
-        self.filtered_notes.sort(key=lambda x: (x.count(os.sep), *x.split(os.sep)))
+        self.filtered_notes.sort(key=lambda x: x.split(os.sep))
 
         # Add filtered notes to the list box
         select_row_after_refresh = None
@@ -548,6 +548,21 @@ class NotesApp(Adw.ApplicationWindow):
 
         return Gdk.EVENT_PROPAGATE
 
+    def on_entry_changed(self, entry):
+        text = entry.get_text().strip()
+        # Handle @today expansion immediately
+        if text == "@today":
+            today = datetime.now()
+            new_text = f"Journal/{today.year}/{today.month:02d}/{today.day:02d}"
+            # Temporarily block the changed signal to prevent recursion
+            entry.handler_block_by_func(self.on_entry_changed)
+            entry.set_text(new_text)
+            entry.handler_unblock_by_func(self.on_entry_changed)
+            # Move cursor to end
+            entry.set_position(-1)
+            return
+        self.refresh_note_list()
+
     def on_entry_activate(self, entry):
         query = entry.get_text().strip()
         if not query:
@@ -565,12 +580,8 @@ class NotesApp(Adw.ApplicationWindow):
             filename = query
             query = os.path.splitext(query)[0]  # Use base name for title
 
-        filename_relative = os.path.relpath(
-            os.path.join(NOTES_DIR, filename), NOTES_DIR
-        )
-        filename_full_path = os.path.join(
-            NOTES_DIR, filename_relative
-        )  # Use full path for FS operations
+        filename_relative = os.path.relpath(os.path.join(NOTES_DIR, filename), NOTES_DIR)
+        filename_full_path = os.path.join(NOTES_DIR, filename_relative)
 
         if not len(self.filtered_notes):
             try:
@@ -619,9 +630,6 @@ class NotesApp(Adw.ApplicationWindow):
             # Manually trigger selection logic to ensure content is loaded
             self.on_note_selected(self.note_list, row)
         return GLib.SOURCE_REMOVE  # Remove the timeout source
-
-    def on_entry_changed(self, entry):
-        self.refresh_note_list()
 
     def on_note_selected(self, listbox, row):
         if row and hasattr(row, "filename"):
