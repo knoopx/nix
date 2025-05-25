@@ -32,7 +32,14 @@
       # "--vision"
     ];
   };
-
+  console-ninja = {
+    command = "npx";
+    args = [
+      "-y"
+      "-c"
+      "node ~/.console-ninja/mcp/"
+    ];
+  };
   puppeteer = {
     command = "${pkgs.nodejs}/bin/npx";
     args = ["-y" "@modelcontextprotocol/server-puppeteer"];
@@ -43,17 +50,6 @@
     args = ["-y" "@modelcontextprotocol/server-filesystem" "${config.home.homeDirectory}/Documents"];
   };
 
-  memos = {
-    command = "${pkgs.uv}/bin/uvx";
-    args = [
-      "--prerelease=allow"
-      "mcp-server-memos"
-      "--host"
-      "memos.knoopx.net"
-      "--token"
-      ''$(secret-tool lookup memos token | head | tr -d "\n")''
-    ];
-  };
   # "github": {
   #   "command": "/bin/sh",
   #   "args":  ["-c", "PATH=/run/current-system/sw/bin:$PATH exec npx -y @modelcontextprotocol/server-github ${documents_dir}"],

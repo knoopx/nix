@@ -264,10 +264,6 @@
                 url = "https://github.com/silverbulletmd/silverbullet/releases.atom";
               }
               {
-                title = "Memos";
-                url = "https://github.com/usememos/memos/releases.atom";
-              }
-              {
                 title = "Glance";
                 url = "https://github.com/glanceapp/glance/releases.atom";
               }

@@ -1,7 +1,7 @@
 final: prev: {
   glance = prev.glance.overrideAttrs (before: {
     preConfigure = ''
-      ${prev.lib.getExe prev.ast-grep} run -U -l js internal/glance/static/js/main.js \
+      ${prev.lib.getExe prev.ast-grep} run -U -l js internal/glance/static/js/page.js \
       -p 'function setupCollapsibleLists() { $$$ }' \
       --rewrite 'function setupCollapsibleLists() {
         const collapsibleLists = document.querySelectorAll(".list.collapsible-container");
@@ -19,7 +19,7 @@ final: prev: {
         }
       }'
 
-      echo 'let t; document.addEventListener("visibilitychange", () => { clearTimeout(t); if (document.visibilityState === "hidden") t = setTimeout(() => location.reload(), 300000); });' >> internal/glance/static/js/main.js
+      echo 'let t; document.addEventListener("visibilitychange", () => { clearTimeout(t); if (document.visibilityState === "hidden") t = setTimeout(() => location.reload(), 300000); });' >> internal/glance/static/js/page.js
     '';
   });
 }

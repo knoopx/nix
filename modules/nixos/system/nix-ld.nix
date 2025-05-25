@@ -26,6 +26,20 @@
     xorg.libXrandr
   ];
 
+  gtk-dev = with pkgs; [
+    glib-networking
+    gst_all_1.gst-plugins-bad
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-plugins-ugly
+    gst_all_1.gstreamer
+    gtk3
+    gtksourceview5
+    libadwaita
+    libhandy
+    webkitgtk_6_0
+  ];
+
   other = with pkgs; [
     # acl
     # at-spi2-core
@@ -137,6 +151,6 @@
 in {
   programs.nix-ld = {
     enable = true;
-    libraries = electron-deps;
+    libraries = electron-deps ++ gtk-dev ++ other;
   };
 }

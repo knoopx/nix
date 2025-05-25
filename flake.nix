@@ -57,9 +57,6 @@
 
     neuwaita.url = "github:RusticBard/Neuwaita";
     neuwaita.flake = false;
-
-    usememos.url = "github:usememos/memos";
-    usememos.flake = false;
   };
 
   outputs = {

@@ -111,12 +111,6 @@
       #   icon = "plexamp";
       # };
 
-      # memos = {
-      #   name = "Memos";
-      #   exec = ''${lib.getExe pkgs.webkit-shell} --url "https://memos.knoopx.net/"'';
-      #   icon = "x-office-document";
-      # };
-
       # https://chatgpt.com/
       # https://claudeai.com/
       # https://hugging.chat/

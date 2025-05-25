@@ -202,7 +202,7 @@ in {
         open-floating true
     }
     window-rule {
-        match app-id="^org.gnome.Nautilus$"
+        match app-id="org.gnome.Nautilus"
         block-out-from "screencast"
     }
     window-rule {
@@ -213,6 +213,8 @@ in {
     }
     window-rule {
         match app-id="Plexamp"
+        match app-id="org.knoopx.music"
+        match app-id="io.bassi.Amberol"
         default-column-width { proportion 0.25; }
     }
     window-rule {
