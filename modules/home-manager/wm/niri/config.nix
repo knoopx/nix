@@ -193,7 +193,6 @@ in {
         open-floating true
     }
     window-rule {
-        match app-id="net.knoopx.nix-packages"
         match app-id="net.knoopx.launcher"
         open-floating true
     }
@@ -210,6 +209,8 @@ in {
     window-rule {
         match app-id="Plexamp"
         match app-id="org.knoopx.music"
+        match app-id="net.knoopx.nix-packages"
+        match app-id="net.knoopx.bookmarks"
         match app-id="io.bassi.Amberol"
         default-column-width { proportion 0.25; }
     }
