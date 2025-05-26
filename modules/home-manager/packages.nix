@@ -142,14 +142,7 @@
     rsync
     tgpt
     md2html
-    (python312.withPackages
-      (p: [
-        p.pygobject3
-        p.openai
-        p.lark
-        p.pyparsing
-        p.pygobject-stubs
-      ]))
+    python312
   ];
 
   dev = with pkgs; [

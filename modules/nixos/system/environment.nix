@@ -26,6 +26,14 @@
         gst-vaapi
         gstreamer
       ]);
+
+      PYTHONPATH = "${pkgs.python312.withPackages (p: [
+        p.pygobject3
+        p.openai
+        p.lark
+        p.pyparsing
+        p.pygobject-stubs
+      ])}/${pkgs.python3.sitePackages}";
     };
   };
 }
