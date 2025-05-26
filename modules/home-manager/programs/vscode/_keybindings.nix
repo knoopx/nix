@@ -32,7 +32,7 @@
     command = "workbench.action.focusActiveEditorGroup";
   }
   {
-    "key" = "ctrl+shift+a";
-    "command" = "roo-cline.SidebarProvider.focus";
+    key = "ctrl+shift+j";
+    command = "workbench.action.toggleAuxiliaryBar";
   }
 ]

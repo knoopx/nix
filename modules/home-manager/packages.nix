@@ -18,7 +18,6 @@
     # f3d
     fclones-gui
     file-roller
-    folio
     gitg
     gnome-calendar
     gnome-disk-utility
@@ -47,6 +46,7 @@
     scratchpad
     reminder
     nix-packages
+    bookmarks
     webkit-shell
     foliate
   ];
@@ -142,7 +142,6 @@
     rsync
     tgpt
     md2html
-    foxmarks
   ];
 
   dev = with pkgs; [
