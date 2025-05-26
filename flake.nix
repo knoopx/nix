@@ -141,6 +141,15 @@
     ];
   in {
     nixosConfigurations = {
+      vm = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+        modules =
+          nixosModules
+          ++ [
+            ./hosts/vm
+          ];
+      };
+
       desktop = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
         modules =
