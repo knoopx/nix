@@ -9,7 +9,7 @@
 in {
   home.packages = [
     pkgs.adwaita-icon-theme
-    (pkgs.theming.mkMoreWaitaTheme defaults.colorScheme.palette)
+    (pkgs.theming.mkMoreWaitaIconTheme defaults.colorScheme.palette)
   ];
 
   xdg.dataFile."gtksourceview-5/styles/catppuccin-mocha.xml".source = let

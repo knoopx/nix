@@ -48,6 +48,7 @@ in {
     output "DP-1" {
         scale 2.00
         transform "normal"
+        background-color "#${defaults.colorScheme.palette.base02}"
     }
     screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
@@ -70,14 +71,6 @@ in {
             width 1
             active-color "#${defaults.colorScheme.palette.base02}"
             inactive-color "#${defaults.colorScheme.palette.base02}"
-        }
-        shadow {
-            on
-            offset x=0.00 y=5.00
-            softness 30.00
-            spread 5.00
-            draw-behind-window false
-            color "#000"
         }
         insert-hint { color "rgb(${nix-colors.lib-core.conversions.hexToRGBString " " defaults.colorScheme.palette.base0D} / 50%)"; }
         default-column-width { proportion 0.75; }
@@ -105,6 +98,9 @@ in {
     overview {
       zoom 0.7
       backdrop-color "#${defaults.colorScheme.palette.base02}"
+      workspace-shadow {
+        off
+      }
     }
 
     environment {

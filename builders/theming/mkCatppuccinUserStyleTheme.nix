@@ -27,7 +27,7 @@
     "youtube"
     "bsky"
     "hacker-news"
-    "searxng"
+    # "searxng"
     # "wikipedia"
   ];
 
@@ -60,8 +60,6 @@ in
     src = catppuccin-userstyles;
     buildInputs = with pkgs; [lessc];
 
-    # ${lib.getExe pkgs.theming.matchThemeColors} "$file" > "$file"
-    # substituteInPlace $file ${lib.concatStringsSep " " (lib.mapAttrsToList (k: v: lib.strings.escapeShellArgs ["--replace-warn" k v]) colorMap)}
     buildPhase = ''
       export NODE_PATH=${pkgs.nodePackages.less-plugin-clean-css}/lib/node_modules
 
@@ -69,7 +67,5 @@ in
         userstyle=$(cat $file && echo ${lib.strings.escapeShellArg (lessVarDecl lessVars "")})
         echo "$userstyle" | lessc  --source-map-no-annotation --clean-css="-b --s0 --skip-rebase --skip-advanced --skip-aggressive-merging --skip-shorthand-compacting" - >> $out
       done
-
-      substituteInPlace $out --replace-fail "search.bus-hit.me" "search.knoopx.net"
     '';
   }
