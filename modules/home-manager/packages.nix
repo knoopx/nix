@@ -49,6 +49,7 @@
     bookmarks
     webkit-shell
     foliate
+    authenticator
   ];
 
   cli = with pkgs; [
