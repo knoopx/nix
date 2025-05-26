@@ -142,10 +142,11 @@
     rsync
     tgpt
     md2html
-    python312
+    foxmarks
   ];
 
   dev = with pkgs; [
+    python312
     alejandra
     ast-grep
     bun

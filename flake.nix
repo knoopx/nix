@@ -37,9 +37,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    umu-launcher.url = "github:Open-Wine-Components/umu-launcher?dir=packaging/nix";
-    umu-launcher.inputs.nixpkgs.follows = "nixpkgs";
-
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -65,7 +62,6 @@
     home-manager,
     nixpkgs,
     stylix,
-    umu-launcher,
     yay-nix,
     niri,
     vibeapps,
@@ -96,7 +92,6 @@
           [
             (self: super: vibeapps.packages.${system})
             (self: super: {niri = niri.packages.${system}.default;})
-            (self: super: umu-launcher.packages.${system})
             (
               self: super: {firefox-addons = firefox-addons.packages.${system};}
             )

@@ -15,22 +15,15 @@
     command = "${pkgs.uv}/bin/uvx";
     args = ["mcp-server-fetch"];
   };
+
   memory = {
     command = "${pkgs.nodejs}/bin/npx";
     args = ["-y" "@modelcontextprotocol/server-memory"];
   };
+
   time = {
     command = "${pkgs.uv}/bin/uvx";
     args = ["mcp-server-time" "--local-timezone=Europe/Madrid"];
-  };
-  playwright = {
-    command = "${pkgs.nodejs}/bin/npx";
-    args = [
-      "@playwright/mcp@latest"
-      # "--browser firefox"
-      # "--headless"
-      # "--vision"
-    ];
   };
   console-ninja = {
     command = "npx";
@@ -44,11 +37,19 @@
     command = "${pkgs.nodejs}/bin/npx";
     args = ["-y" "@modelcontextprotocol/server-puppeteer"];
   };
-
-  documents = {
-    command = "${pkgs.nodejs}/bin/npx";
-    args = ["-y" "@modelcontextprotocol/server-filesystem" "${config.home.homeDirectory}/Documents"];
-  };
+  # playwright = {
+  #   command = "${pkgs.nodejs}/bin/npx";
+  #   args = [
+  #     "@playwright/mcp@latest"
+  #     # "--browser firefox"
+  #     # "--headless"
+  #     # "--vision"
+  #   ];
+  # };
+  # documents = {
+  #   command = "${pkgs.nodejs}/bin/npx";
+  #   args = ["-y" "@modelcontextprotocol/server-filesystem" "${config.home.homeDirectory}/Documents"];
+  # };
 
   # "github": {
   #   "command": "/bin/sh",
