@@ -29,6 +29,8 @@
     ags.url = "github:aylur/ags";
     ags.inputs.nixpkgs.follows = "nixpkgs";
 
+    astal-shell.url = "github:knoopx/ags";
+
     niri.url = "github:YaLTeR/niri";
     niri.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -65,6 +67,7 @@
     yay-nix,
     niri,
     vibeapps,
+    astal-shell,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -90,6 +93,7 @@
       {
         nixpkgs.overlays =
           [
+            astal-shell.overlays.default
             (self: super: vibeapps.packages.${system})
             (self: super: {niri = niri.packages.${system}.default;})
             (

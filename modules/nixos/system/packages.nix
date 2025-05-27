@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     # gnumake
+    astal-shell
     bat
     binutils
     btop
