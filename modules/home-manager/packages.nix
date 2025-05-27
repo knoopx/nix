@@ -74,7 +74,6 @@
     # hdparm
     # iftop
     # iperf
-    # jq
     # less
     # libarchive
     # libelf
@@ -127,13 +126,13 @@
     fclones
     ffmpeg
     inotify-tools
+    jq
     mpv
     nh
     ollamark
     rclone
     rsync
     tgpt
-    md2html
   ];
 
   dev = with pkgs; [
