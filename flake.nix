@@ -22,7 +22,7 @@
     nix-colors.url = "github:misterio77/nix-colors";
     nix-colors.inputs.nixpkgs-lib.follows = "nixpkgs";
 
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:nix-community/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.home-manager.follows = "home-manager";
 
