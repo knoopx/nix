@@ -8,7 +8,7 @@
     timesyncd.enable = lib.mkDefault true;
     fwupd.enable = true;
     printing.enable = false;
-    libinput.enable = false;
+    libinput.enable = true;
     gvfs.enable = true;
     colord.enable = false;
     hardware.bolt.enable = false;
