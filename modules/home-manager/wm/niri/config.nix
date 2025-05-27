@@ -204,6 +204,7 @@ in {
         match app-id="kitty"
         match app-id="transmission-gtk"
         match app-id="net.knoopx.chat"
+        match app-id="net.knoopx.notes"
         default-column-width { proportion 0.5; }
     }
     window-rule {
@@ -211,6 +212,7 @@ in {
         match app-id="org.knoopx.music"
         match app-id="net.knoopx.nix-packages"
         match app-id="net.knoopx.bookmarks"
+        match app-id="net.knoopx.scratchpad"
         match app-id="io.bassi.Amberol"
         default-column-width { proportion 0.25; }
     }
