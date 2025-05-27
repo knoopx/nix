@@ -50,6 +50,8 @@
     webkit-shell
     foliate
     authenticator
+    launcher
+    scratchpad
   ];
 
   cli = with pkgs; [
