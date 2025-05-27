@@ -136,6 +136,9 @@
           extraSpecialArgs = specialArgs;
           backupFileExtension = "bak";
           users.${defaults.username} = import ./home/${defaults.username}.nix;
+          sharedModules = [
+            vibeapps.homeManagerModules.default
+          ];
         };
       }
     ];
@@ -174,6 +177,7 @@
         inherit pkgs;
         extraSpecialArgs = specialArgs;
         modules = [
+          vibeapps.homeManagerModules.default
           ./home/knoopx
         ];
       };

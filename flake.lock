@@ -498,11 +498,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1748373395,
-        "narHash": "sha256-PaZ114lQJYR0/k2DowrniHbS+5jmt4112ndjxmJitTc=",
+        "lastModified": 1748375928,
+        "narHash": "sha256-wZ6w/14lds90iysubHv2eBnaN3s7d6LmMh3dj2VFHQs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a71042be11e42590d6b3ed09f79c7f486571d723",
+        "rev": "c0eb3efa921fee591a46769b1ff43fb3263d8555",
         "type": "github"
       },
       "original": {
@@ -757,11 +757,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748374709,
-        "narHash": "sha256-EG2T0Pmx8Jx+C1XnwsO/S7IhsgEfQ01jbqgtpm152jc=",
+        "lastModified": 1748376196,
+        "narHash": "sha256-btXgQ4W7v9sm0uPCsVGcagVP/jmcuJcLsBvklZY2sYQ=",
         "owner": "knoopx",
         "repo": "vibeapps",
-        "rev": "71f1dfd04107d8e212adcc9ef58ab15ebbfb0c02",
+        "rev": "3801ef3907577ceac2af8c4e5bd6899f0b40a280",
         "type": "github"
       },
       "original": {

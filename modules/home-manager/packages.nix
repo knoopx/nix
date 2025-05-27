@@ -1,5 +1,6 @@
 {pkgs, ...}: let
   gtk = with pkgs; [
+    # f3d
     # lapce
     # qmk
     # zed-editor
@@ -10,14 +11,15 @@
     commit
     cromite
     czkawka
+    dataset-viewer
     dconf-editor
     decibels
     drawing
     eog
     evince
-    # f3d
     fclones-gui
     file-roller
+    foliate
     gitg
     gnome-calendar
     gnome-disk-utility
@@ -39,19 +41,6 @@
     sushi
     transmission_4-gtk
     vial
-    dataset-viewer
-    notes
-    chat
-    music
-    scratchpad
-    reminder
-    nix-packages
-    bookmarks
-    webkit-shell
-    foliate
-    authenticator
-    launcher
-    scratchpad
   ];
 
   cli = with pkgs; [
