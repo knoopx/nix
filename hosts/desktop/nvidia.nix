@@ -7,24 +7,12 @@
 
   environment = {
     variables = {
-      NIXOS_OZONE_WL = "1";
-      # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-      # EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/10_nvidia.json";
-      # GBM_BACKEND = "nvidia-drm";
-      # GDK_BACKEND = "wayland";
-      # LIBVA_DRIVER_NAME = "nvidia";
-      # MOZ_ENABLE_WAYLAND = "1";
-      # NVD_BACKEND = "direct";
-      # NVIDIA_DRIVER_CAPABILITIES = "all";
-      # NVIDIA_VISIBLE_DEVICES = "all";
-      # QT_QPA_PLATFORM = "wayland;xcb";
-      # QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-      # SDL_VIDEODRIVER = "wayland";
-      # WLR_BACKEND = "vulkan";
-      # WLR_DRM_NO_ATOMIC = "1";
-      # WLR_NO_HARDWARE_CURSORS = "1";
-      # WLR_RENDERER = "vulkan";
-      # XDG_SESSION_TYPE = "wayland";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/10_nvidia.json";
+      GBM_BACKEND = "nvidia-drm";
+      NVD_BACKEND = "direct";
+      NVIDIA_DRIVER_CAPABILITIES = "all";
+      NVIDIA_VISIBLE_DEVICES = "all";
     };
 
     systemPackages = with pkgs; [
