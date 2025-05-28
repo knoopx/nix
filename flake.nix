@@ -29,7 +29,8 @@
     ags.url = "github:aylur/ags";
     ags.inputs.nixpkgs.follows = "nixpkgs";
 
-    astal-shell.url = "github:knoopx/ags";
+    astal-shell.url = "github:knoopx/astal-shell";
+    astal-shell.inputs.nixpkgs.follows = "nixpkgs";
 
     niri-flake.url = "github:knoopx/niri-flake";
     niri-flake.inputs.nixpkgs.follows = "nixpkgs";

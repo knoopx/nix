@@ -83,19 +83,21 @@
     "astal-shell": {
       "inputs": {
         "ags": "ags_2",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1748448020,
         "narHash": "sha256-9N9It+vH2P1C8f5eARIleKBGioEk1bvUCoFoAhfFQds=",
         "owner": "knoopx",
-        "repo": "ags",
+        "repo": "astal-shell",
         "rev": "2ca3a0770bb03bf1c323c4b01685370671412cff",
         "type": "github"
       },
       "original": {
         "owner": "knoopx",
-        "repo": "ags",
+        "repo": "astal-shell",
         "type": "github"
       }
     },
@@ -593,21 +595,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1748344075,
-        "narHash": "sha256-PsZAY3H0e/PBoDVn4fLwGEmeSwESj7SZPZ6CMfgbWFU=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "e0042dedfbc9134ef973f64e5c7f56a38cc5cc97",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixpkgs-unstable",
-        "type": "indirect"
-      }
-    },
     "nur": {
       "inputs": {
         "flake-parts": [
@@ -649,7 +636,7 @@
         "neuwaita": "neuwaita",
         "niri-flake": "niri-flake",
         "nix-colors": "nix-colors",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "stylix": "stylix",
         "vibeapps": "vibeapps"
       }
@@ -680,11 +667,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1748447709,
-        "narHash": "sha256-E6VJbT7bdDKEfmYi2XYh96b3EhDZp5G0aq3W108on50=",
+        "lastModified": 1748450356,
+        "narHash": "sha256-r4ftEbA22jCoLnaB0w58wo5Pp8jgSGwwAEfGgvZGFcs=",
         "owner": "nix-community",
         "repo": "stylix",
-        "rev": "ba217a812810fd788c42d6dc68a0e0e93c6634e2",
+        "rev": "257939576384a9057a8259e76689090643f5a127",
         "type": "github"
       },
       "original": {
