@@ -75,35 +75,23 @@
         icon = "whatsapp";
       };
 
-      webull = {
-        name = "Webull";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://app.webull.com/stocks"'';
-        icon =
-          (pkgs.fetchurl {
-            url = "https://app.webull.com/static/logo.png";
-            # https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/98c67950-4c89-46ec-b5cb-b81b54d05f4c/deky42j-0ced14a8-66a4-4d30-b4ce-3c2eab2cf8b4.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzk4YzY3OTUwLTRjODktNDZlYy1iNWNiLWI4MWI1NGQwNWY0Y1wvZGVreTQyai0wY2VkMTRhOC02NmE0LTRkMzAtYjRjZS0zYzJlYWIyY2Y4YjQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.WbM1NgY6Y9ZO1w0Ux7xAzxzeLdeMTF8iTp2cc0jUZN0
-            sha256 = "sha256-WAW/LjVN6vdTfhAlSmkAUXaOrjfqTdCfvKMTCBQHzkE=";
-          })
-          .outPath;
-      };
-
       spotify = {
         name = "Spotify";
         exec = ''${lib.getExe pkgs.raise-or-open-url} "https://open.spotify.com/"'';
         icon = "spotify";
       };
 
-      stylix-palette = {
-        name = "Stylix Color Palette";
-        exec = ''${lib.getExe pkgs.webkit-shell} --url "file:///etc/stylix/palette.html" --app-id "floating.stylix" --title "Stylix Color Palette" --width 820 --height 470'';
-        icon = "x-office-drawing";
-      };
+      # stylix-palette = {
+      #   name = "Stylix Color Palette";
+      #   exec = ''${lib.getExe pkgs.webkit-shell} --url "file:///etc/stylix/palette.html" --app-id "floating.stylix" --title "Stylix Color Palette" --width 820 --height 470'';
+      #   icon = "x-office-drawing";
+      # };
 
-      devdocs = {
-        name = "DevDocs";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://devdocs.io/"'';
-        icon = "x-office-document";
-      };
+      # devdocs = {
+      #   name = "DevDocs";
+      #   exec = ''${lib.getExe pkgs.raise-or-open-url} "https://devdocs.io/"'';
+      #   icon = "x-office-document";
+      # };
 
       # plex = {
       #   name = "Plex Web";
@@ -122,6 +110,18 @@
         exec = ''${lib.getExe pkgs.raise-or-open-url} "https://mail.google.com/mail/?view=cm&fs=1&to=%u"'';
         mimeType = ["x-scheme-handler/mailto"];
         noDisplay = true;
+      };
+
+      webull = {
+        name = "Webull";
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://app.webull.com/stocks"'';
+        icon =
+          (pkgs.fetchurl {
+            url = "https://app.webull.com/static/logo.png";
+            # https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/98c67950-4c89-46ec-b5cb-b81b54d05f4c/deky42j-0ced14a8-66a4-4d30-b4ce-3c2eab2cf8b4.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzk4YzY3OTUwLTRjODktNDZlYy1iNWNiLWI4MWI1NGQwNWY0Y1wvZGVreTQyai0wY2VkMTRhOC02NmE0LTRkMzAtYjRjZS0zYzJlYWIyY2Y4YjQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.WbM1NgY6Y9ZO1w0Ux7xAzxzeLdeMTF8iTp2cc0jUZN0
+            sha256 = "sha256-WAW/LjVN6vdTfhAlSmkAUXaOrjfqTdCfvKMTCBQHzkE=";
+          })
+          .outPath;
       };
 
       # wiki = {

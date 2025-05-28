@@ -1,4 +1,10 @@
-{modulesPath, ...} @ inputs: let
+{
+  defaults,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+} @ inputs: let
   system = "x86_64-linux";
   listNixModulesRecusive = import ../../lib/listNixModulesRecusive.nix inputs;
 in {
@@ -12,7 +18,7 @@ in {
   networking.hostName = "vm";
 
   system = {
-    stateVersion = "24.05";
+    stateVersion = "25.05";
   };
 
   virtualisation.memorySize = 4096;
@@ -28,6 +34,23 @@ in {
       guest.port = 22;
     }
   ];
+
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = defaults.username;
+  services.xserver.displayManager.gdm.enable = lib.mkForce false;
+
+  home-manager.users.${defaults.username} = {
+    programs.niri.settings = {
+      spawn-at-startup = [
+        {command = ["kitty" "bash" "${./demo.sh}"];}
+      ];
+
+      outputs."Virtual-1" = {
+        scale = 2.0;
+        background-color = "#${defaults.colorScheme.palette.base02}";
+      };
+    };
+  };
 
   nixpkgs = {
     hostPlatform = {

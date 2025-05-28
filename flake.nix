@@ -2,8 +2,8 @@
   description = "kOS";
 
   inputs = {
-    # nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs";
 
     vibeapps.url = "github:knoopx/vibeapps";
     vibeapps.inputs.nixpkgs.follows = "nixpkgs";
@@ -31,9 +31,9 @@
 
     astal-shell.url = "github:knoopx/ags";
 
-    niri-flake.url = "github:sodiboo/niri-flake";
+    niri-flake.url = "github:knoopx/niri-flake";
     niri-flake.inputs.nixpkgs.follows = "nixpkgs";
-    niri-flake.inputs.niri-stable.url = "github:YaLTeR/niri/v25.05.1";
+    # niri-flake.inputs.niri-stable.url = "github:YaLTeR/niri/v25.05.1";
 
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
@@ -141,16 +141,22 @@
         };
       }
     ];
+
+    vmConfiguration = nixpkgs.lib.nixosSystem {
+      inherit specialArgs;
+      modules =
+        nixosModules
+        ++ [
+          ./hosts/vm
+        ];
+    };
   in {
+    packages.${system} = {
+      vm = vmConfiguration.config.system.build.vm;
+    };
+
     nixosConfigurations = {
-      vm = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-        modules =
-          nixosModules
-          ++ [
-            ./hosts/vm
-          ];
-      };
+      vm = vmConfiguration;
 
       desktop = nixpkgs.lib.nixosSystem {
         inherit specialArgs;

@@ -5,10 +5,6 @@
   nix-colors,
   ...
 }: {
-  home.packages = [
-    pkgs.niri-cycle
-  ];
-
   # https://github.com/sodiboo/niri-flake/blob/main/docs.md
   # https://github.com/YaLTeR/niri/blob/main/resources/default-config.kdl
 
@@ -166,24 +162,6 @@
       # Screenshots
       "Print".action.screenshot = [];
       "Shift+Print".action.screenshot-window = [];
-
-      # Window cycling
-      "Mod+Tab".action.spawn = [
-        (lib.getExe pkgs.niri-cycle)
-      ];
-      "Shift+Mod+Tab".action.spawn = [
-        (lib.getExe pkgs.niri-cycle)
-        "--reverse"
-      ];
-      "Mod+Escape".action.spawn = [
-        (lib.getExe pkgs.niri-cycle)
-        "--app"
-      ];
-      "Shift+Mod+Escape".action.spawn = [
-        (lib.getExe pkgs.niri-cycle)
-        "--app"
-        "--reverse"
-      ];
 
       # Media keys
       "XF86AudioPlay".action.spawn = [
