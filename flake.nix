@@ -153,6 +153,7 @@
   in {
     packages.${system} = {
       vm = vmConfiguration.config.system.build.vm;
+      nfoview = pkgs.callPackage ./pkgs/nfoview.nix {inherit pkgs;};
     };
 
     nixosConfigurations = {

@@ -88,8 +88,3 @@ curl -sL "https://monitoring.nixos.org/prometheus/api/v1/query?query=channel_rev
 - https://search.nixos.org/options
 - https://home-manager-options.extranix.com/
 - https://noogle.dev/
-
-## TODO
-
-- fix plexamp
-- allow notifs by default on firefox kiosk prof
