@@ -1,22 +1,16 @@
 {pkgs, ...}: {
-  security.pam.services.greetd = {
-    enableGnomeKeyring = true;
-  };
+  programs.niri.enable = true;
+  programs.xwayland.enable = true;
+
+  security.polkit.enable = true;
+
   services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm.wayland = true;
 
   services = {
-    # xserver.displayManager.lightdm = {
-    # enable = true;
-    # greeter.enable = false;
-    # greeters.slick.enable = true;
-    # };
-
-    displayManager = {
-      sessionPackages = with pkgs; [
-        niri
-      ];
-      defaultSession = "niri";
-    };
+    dbus.enable = true;
+    gvfs.enable = true;
+    flatpak.enable = true;
     gnome = {
       gnome-keyring.enable = true;
       gnome-online-accounts.enable = true;

@@ -40,7 +40,6 @@ in {
       };
       theme = with defaults.colorScheme.palette; {
         custom-css-file = "assets/${customCSS.name}";
-        # contrast-multiplier = 1.2;
         background-color = hexToHSL base00;
         primary-color = hexToHSL base07;
         positive-color = hexToHSL base0B;

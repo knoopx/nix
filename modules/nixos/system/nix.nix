@@ -1,7 +1,7 @@
 _: {
   nix = {
-    # gc.automatic = true;
-    # gc.dates = "5:00";
+    gc.automatic = true;
+    gc.dates = "5:00";
 
     optimise.automatic = true;
     optimise.dates = ["4:00"];

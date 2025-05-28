@@ -3,28 +3,6 @@
   config,
   ...
 }: {
-  # "postgres" = {
-  #   "command" = "${pkgs.nodejs}/bin/npx";
-  #   "args" = [
-  #     "-y"
-  #     "@modelcontextprotocol/server-postgres"
-  #     "postgresql://localhost/mydb"
-  #   ];
-  # };
-  fetch = {
-    command = "${pkgs.uv}/bin/uvx";
-    args = ["mcp-server-fetch"];
-  };
-
-  memory = {
-    command = "${pkgs.nodejs}/bin/npx";
-    args = ["-y" "@modelcontextprotocol/server-memory"];
-  };
-
-  time = {
-    command = "${pkgs.uv}/bin/uvx";
-    args = ["mcp-server-time" "--local-timezone=Europe/Madrid"];
-  };
   console-ninja = {
     command = "npx";
     args = [
@@ -37,6 +15,29 @@
     command = "${pkgs.nodejs}/bin/npx";
     args = ["-y" "@modelcontextprotocol/server-puppeteer"];
   };
+
+  # memory = {
+  #   command = "${pkgs.nodejs}/bin/npx";
+  #   args = ["-y" "@modelcontextprotocol/server-memory"];
+  # };
+
+  # time = {
+  #   command = "${pkgs.uv}/bin/uvx";
+  #   args = ["mcp-server-time" "--local-timezone=Europe/Madrid"];
+  # };
+  # fetch = {
+  #   command = "${pkgs.uv}/bin/uvx";
+  #   args = ["mcp-server-fetch"];
+  # };
+
+  # "postgres" = {
+  #   "command" = "${pkgs.nodejs}/bin/npx";
+  #   "args" = [
+  #     "-y"
+  #     "@modelcontextprotocol/server-postgres"
+  #     "postgresql://localhost/mydb"
+  #   ];
+  # };
   # playwright = {
   #   command = "${pkgs.nodejs}/bin/npx";
   #   args = [

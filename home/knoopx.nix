@@ -1,7 +1,7 @@
-{yay-nix, ...} @ inputs: let
+{...} @ inputs: let
   listNixModulesRecusive = import ../lib/listNixModulesRecusive.nix inputs;
 in {
-  imports = [yay-nix.homeManagerModules.default] ++ (listNixModulesRecusive ../modules/home-manager);
+  imports = listNixModulesRecusive ../modules/home-manager;
 
   home = {
     stateVersion = "24.05";

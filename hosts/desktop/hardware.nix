@@ -1,4 +1,4 @@
-_: {
+{pkgs, ...}: {
   hardware = {
     ksm.enable = true;
     cpu.intel.updateMicrocode = true;
@@ -11,6 +11,11 @@ _: {
     graphics = {
       enable = true;
       enable32Bit = true; # for 32-bit wine games
+      extraPackages = with pkgs; [
+        intel-compute-runtime
+        intel-media-driver
+        vaapiIntel
+      ];
     };
   };
 
