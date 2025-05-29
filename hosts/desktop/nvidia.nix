@@ -16,13 +16,6 @@
     };
 
     systemPackages = with pkgs; [
-      # egl-wayland
-      # glxinfo
-      # libva
-      # libva-utils
-      # vulkan-loader
-      # vulkan-tools
-      # vulkan-validation-layers
     ];
   };
 
@@ -31,26 +24,15 @@
       "nvidia nvidia_modeset nvidia_uvm nvidia_drm"
     ];
 
-    # options nvidia NVreg_EnablePCIeGen3=1
-    # options nvidia NVreg_EnableMSI=1
-    # options nvidia NVreg_InitializeSystemMemoryAllocations=1
-    # options nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1; PowerMizerLevel=0x3; PowerMizerDefault=0x3; PowerMizerDefaultAC=0x3; PerfLevelSrc=0x3333; OverrideMaxPerf=0x1"
+    # extraModprobeConfig = ''
 
-    extraModprobeConfig = ''
-      options nvidia_drm modeset=1
-      options nvidia_drm fbdev=1
-      options nvidia NVreg_UsePageAttributeTable=1
-      options nvidia NVreg_EnableGpuFirmware=0
-      options nvidia NVreg_PreserveVideoMemoryAllocations=1
-    '';
-
-    kernelParams = [
-      "nomodeset"
-      "intel_iommu=on"
-      "iommu=pt"
-      "nvidia_drm.modeset=1"
-      "nvidia_drm.fbdev=1"
-    ];
+    # kernelParams = [
+    #   "nomodeset"
+    #   "intel_iommu=on"
+    #   "iommu=pt"
+    #   "nvidia_drm.modeset=1"
+    #   "nvidia_drm.fbdev=1"
+    # ];
 
     blacklistedKernelModules = ["nouveau"];
   };
@@ -62,10 +44,10 @@
     graphics = {
       enable = true;
       extraPackages = with pkgs; [
-        libvdpau-va-gl
-        nvidia-vaapi-driver
-        # vaapiIntel
-        vaapiVdpau
+        # libvdpau-va-gl
+        # nvidia-vaapi-driver
+        # # vaapiIntel
+        # vaapiVdpau
       ];
     };
 
@@ -84,7 +66,7 @@
       # nvidiaPersistenced = true;
 
       # https://http.download.nvidia.com/XFree86/Linux-x86_64/
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      # package = config.boot.kernelPackages.nvidiaPackages.beta;
 
       # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       #   version = "535.183.01";

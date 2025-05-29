@@ -8,19 +8,7 @@
     timesyncd.enable = lib.mkDefault true;
     fwupd.enable = true;
     printing.enable = false;
-    libinput.enable = true;
-    gvfs.enable = true;
-    colord.enable = false;
-    hardware.bolt.enable = false;
-    # geoclue2.enable = false;
-    # udisks2.enable = false;
-    # upower.enable = false;
-
-    xserver = {
-      enable = true;
-      xkb.layout = defaults.keyMap;
-      excludePackages = [pkgs.xterm];
-    };
+    libinput.enable = false;
 
     pipewire = {
       enable = true;

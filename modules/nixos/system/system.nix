@@ -52,6 +52,12 @@
     LC_TIME = defaults.region;
   };
 
+  i18n.inputMethod = {
+    enable = true;
+    type = "ibus";
+    ibus.engines = [];
+  };
+
   console = {
     earlySetup = true;
   };
