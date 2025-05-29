@@ -1,12 +1,3 @@
-```
-       _
-      (_)
- _ __  ___  __
-| '_ \| \ \/ /
-| | | | |>  <
-|_| |_|_/_/\_\
-```
-
 ![Screenshot](screenshot.png)
 
 # Description
@@ -37,7 +28,7 @@ This configuration prioritizes:
 - **Kitty**: GPU-accelerated terminal with Fish shell and intelligent completions
 - **Nautilus**: File manager with quick preview capabilities
 - **Glance**: Self-hosted dashboard for weather, calendar, news feeds, and monitoring
-- **Vibeapps**: A collection of keyboard-centric, minimalist GTK4/Adwaita micro-applications built with Python, including:
+- [**Vibeapps**](https://github.com/knoopx/vibeapps/): A collection of keyboard-centric, minimalist GTK4/Adwaita micro-applications built with Python, including:
   - **Launcher**: Minimalist application launcher with search functionality and launch history tracking
   - **Notes**: Markdown note-taking application with wiki-links support and live preview
   - **Chat**: OpenAI API chat interface with markdown rendering support and streaming responses
