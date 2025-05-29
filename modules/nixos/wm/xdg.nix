@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     libsecret
+    gvfs
   ];
 
   # Ensure proper session management

@@ -69,6 +69,7 @@ in {
   home-manager.users.${defaults.username} = {
     programs.niri.settings = {
       spawn-at-startup = [
+        {command = ["nautilus"];}
         # {command = ["kitty" "bash" "${./demo.sh}"];}
       ];
 

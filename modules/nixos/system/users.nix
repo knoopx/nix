@@ -24,6 +24,7 @@
       "lxd"
       "networkmanager"
       "qemu-libvirtd"
+      "users"
       "video"
       "wheel"
       "ydotool"

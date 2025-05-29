@@ -158,6 +158,7 @@
     };
   in {
     packages.${system} = {
+      default = vmConfiguration.config.system.build.vm;
       vm = vmConfiguration.config.system.build.vm;
       nfoview = pkgs.callPackage ./pkgs/nfoview.nix {inherit pkgs;};
     };

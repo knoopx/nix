@@ -25,9 +25,13 @@
     dbus = {
       enable = true;
       packages = with pkgs; [
-        dconf
         darkman
+        dconf
+        gcr
+        gnome-keyring
+        gvfs
         nautilus-open-any-terminal
+        udisks2
       ];
     };
 
