@@ -25,7 +25,19 @@ in {
   virtualisation.cores = 8;
   virtualisation.resolution.x = 1920;
   virtualisation.resolution.y = 1080;
-  virtualisation.qemu.options = ["-vga none" "-device virtio-vga-gl" "-display gtk,gl=on"];
+  virtualisation.qemu.options = [
+    "-vga none"
+    "-device virtio-vga-gl"
+    "-display gtk,gl=on"
+    "-device usb-tablet"
+    "-device usb-kbd"
+  ];
+
+  # Enable spice agent for better VM integration
+  services.spice-vdagentd.enable = true;
+
+  # Ensure proper input kernel modules are loaded
+  boot.kernelModules = ["uinput" "evdev"];
 
   virtualisation.forwardPorts = [
     {
@@ -37,12 +49,27 @@ in {
 
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = defaults.username;
-  services.xserver.displayManager.gdm.enable = lib.mkForce false;
+  services.displayManager.gdm.enable = lib.mkForce false;
+
+  # Configure proper display manager for niri
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd niri-session";
+        user = "greeter";
+      };
+      initial_session = {
+        command = "niri-session";
+        user = defaults.username;
+      };
+    };
+  };
 
   home-manager.users.${defaults.username} = {
     programs.niri.settings = {
       spawn-at-startup = [
-        {command = ["kitty" "bash" "${./demo.sh}"];}
+        # {command = ["kitty" "bash" "${./demo.sh}"];}
       ];
 
       outputs."Virtual-1" = {

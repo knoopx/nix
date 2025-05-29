@@ -253,13 +253,19 @@
         block-out-from = "screencast";
       }
 
+      {
+        matches = [
+          {app-id = "net.knoopx.notes";}
+        ];
+        default-column-width.proportion = 0.75;
+      }
+
       # Half-width windows
       {
         matches = [
           {app-id = "kitty";}
           {app-id = "transmission-gtk";}
           {app-id = "net.knoopx.chat";}
-          {app-id = "net.knoopx.notes";}
         ];
         default-column-width.proportion = 0.5;
       }
@@ -272,6 +278,7 @@
           {app-id = "net.knoopx.nix-packages";}
           {app-id = "net.knoopx.bookmarks";}
           {app-id = "net.knoopx.scratchpad";}
+          {app-id = "net.knoopx.process-manager";}
           {app-id = "io.bassi.Amberol";}
         ];
         default-column-width.proportion = 0.25;
