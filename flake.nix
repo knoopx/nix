@@ -5,6 +5,9 @@
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     # nixpkgs.url = "github:nixos/nixpkgs";
 
+    ollamark.url = "github:knoopx/ollamark";
+    ollamark.inputs.nixpkgs.follows = "nixpkgs";
+
     vibeapps.url = "github:knoopx/vibeapps";
     vibeapps.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -63,6 +66,7 @@
     stylix,
     niri-flake,
     vibeapps,
+    ollamark,
     astal-shell,
     ...
   } @ inputs: let
@@ -89,6 +93,7 @@
       {
         nixpkgs.overlays =
           [
+            ollamark.overlays.default
             niri-flake.overlays.niri
             astal-shell.overlays.default
             (self: super: vibeapps.packages.${system})
