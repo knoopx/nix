@@ -1,5 +1,6 @@
 {
   pkgs,
+  nixosConfig,
   lib,
   defaults,
   nix-colors,
@@ -112,6 +113,8 @@
     # Environment variables
     environment = {
       DISPLAY = ":0";
+      # required for nautilus to launch properly (because niri spawn does not set env)
+      GIO_EXTRA_MODULES = "${nixosConfig.services.gvfs.package}/lib/gio/modules";
     };
 
     # Keybindings
