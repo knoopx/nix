@@ -1,6 +1,7 @@
 {
   pkgs,
   defaults,
+  lib,
   ...
 }: {
   services = {
@@ -14,10 +15,13 @@
     upower.enable = true;
     flatpak.enable = true;
 
-    dbus.packages = with pkgs; [
-      gcr
-      gnome-keyring
-    ];
+    # dbus.packages = with pkgs; [
+    #   gcr
+    #   gnome-keyring
+    #   gvfs
+    #   gtk3
+    #   glib
+    # ];
 
     xserver = {
       enable = false;
@@ -33,12 +37,4 @@
       evolution-data-server.enable = true;
     };
   };
-
-  # Environment variables for better session management
-  # environment.sessionVariables = {
-  #   # Ensure proper input method integration
-  #   GTK_IM_MODULE = "ibus";
-  #   QT_IM_MODULE = "ibus";
-  #   XMODIFIERS = "@im=ibus";
-  # };
 }

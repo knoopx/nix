@@ -117,8 +117,8 @@
     # Keybindings
     binds = {
       # Application launchers
-      "Mod+G".action.spawn = "firefox";
-      "Mod+B".action.spawn = "code";
+      "Mod+N".action.spawn = "firefox";
+      "Mod+G".action.spawn = "code";
       "Mod+T".action.spawn = "kitty";
       "Mod+V".action.spawn = "nautilus";
       "Mod+Delete".action.spawn = lib.getExe pkgs.mission-center;
