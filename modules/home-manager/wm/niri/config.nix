@@ -11,7 +11,6 @@
 
   programs.niri.settings = {
     spawn-at-startup = [
-      {command = ["astal-shell"];}
       {command = ["xwayland-satellite"];}
     ];
 
