@@ -239,11 +239,16 @@
         open-floating = true;
       }
 
-      # Launcher
       {
         matches = [
           {app-id = "net.knoopx.launcher";}
+          {app-id = "net.knoopx.music";}
+          {app-id = "net.knoopx.nix-packages";}
+          {app-id = "net.knoopx.bookmarks";}
+          {app-id = "net.knoopx.scratchpad";}
+          {app-id = "net.knoopx.process-manager";}
         ];
+        default-column-width.proportion = 0.25;
         open-floating = true;
       }
 
@@ -276,11 +281,6 @@
       {
         matches = [
           {app-id = "Plexamp";}
-          {app-id = "net.knoopx.music";}
-          {app-id = "net.knoopx.nix-packages";}
-          {app-id = "net.knoopx.bookmarks";}
-          {app-id = "net.knoopx.scratchpad";}
-          {app-id = "net.knoopx.process-manager";}
           {app-id = "io.bassi.Amberol";}
         ];
         default-column-width.proportion = 0.25;
