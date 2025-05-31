@@ -18,7 +18,7 @@
       actions = true;
       markup = true;
       icons = true;
-      layer = "top";
+      layer = "overlay";
       anchor = "top-right";
       border-size = 0;
       border-radius = 10;
