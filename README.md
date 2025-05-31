@@ -19,7 +19,7 @@ This configuration prioritizes:
 ### Window Management & Navigation
 
 - **Niri**: Columnar tiling layout with keyboard-driven workflow and smart window rules
-- **Astal Shell**: Modern desktop shell with widgets and system integration
+- **[Astal Shell](https://github.com/knoopx/astal-shell)**: Modern desktop shell with widgets and system integration
 
 ### Applications & Tools
 

@@ -276,7 +276,7 @@
       {
         matches = [
           {app-id = "Plexamp";}
-          {app-id = "org.knoopx.music";}
+          {app-id = "net.knoopx.music";}
           {app-id = "net.knoopx.nix-packages";}
           {app-id = "net.knoopx.bookmarks";}
           {app-id = "net.knoopx.scratchpad";}
