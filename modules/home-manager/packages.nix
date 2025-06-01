@@ -127,6 +127,7 @@
     ffmpeg
     inotify-tools
     jq
+    exiftool
     mpv
     nh
     ollamark
