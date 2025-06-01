@@ -66,7 +66,7 @@
       # nvidiaPersistenced = true;
 
       # https://http.download.nvidia.com/XFree86/Linux-x86_64/
-      # package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
 
       # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       #   version = "535.183.01";
