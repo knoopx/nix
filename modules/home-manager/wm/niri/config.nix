@@ -242,7 +242,6 @@
       {
         matches = [
           {app-id = "net.knoopx.launcher";}
-          {app-id = "net.knoopx.music";}
           {app-id = "net.knoopx.nix-packages";}
           {app-id = "net.knoopx.bookmarks";}
           {app-id = "net.knoopx.scratchpad";}
@@ -273,8 +272,16 @@
           {app-id = "kitty";}
           {app-id = "transmission-gtk";}
           {app-id = "net.knoopx.chat";}
+          {app-id = "net.knoopx.music";}
         ];
         default-column-width.proportion = 0.5;
+      }
+
+      {
+        matches = [
+          {app-id = "code";}
+        ];
+        default-column-width.proportion = 1.0;
       }
 
       # Quarter-width windows

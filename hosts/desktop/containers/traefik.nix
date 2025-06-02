@@ -9,6 +9,7 @@
   hostServices = {
     # "search" = config.services.searx.settings.server.port;
     "glance" = 9000;
+    "ollama" = 11434;
   };
 
   providers = (pkgs.formats.yaml {}).generate "traefik-providers.yaml" {

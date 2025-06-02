@@ -137,7 +137,6 @@
   ];
 
   dev = with pkgs; [
-    python312
     alejandra
     ast-grep
     bun
