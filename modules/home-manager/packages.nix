@@ -151,6 +151,7 @@
     ruby-lsp
     rufo
     uv
+    strip-python-comments
   ];
 in {
   home = {
