@@ -261,6 +261,13 @@
 
       {
         matches = [
+          {app-id = "code";}
+        ];
+        default-column-width.proportion = 1.0;
+      }
+
+      {
+        matches = [
           {app-id = "net.knoopx.notes";}
         ];
         default-column-width.proportion = 0.75;
@@ -272,16 +279,15 @@
           {app-id = "kitty";}
           {app-id = "transmission-gtk";}
           {app-id = "net.knoopx.chat";}
-          {app-id = "net.knoopx.music";}
         ];
         default-column-width.proportion = 0.5;
       }
 
       {
         matches = [
-          {app-id = "code";}
+          {app-id = "net.knoopx.music";}
         ];
-        default-column-width.proportion = 1.0;
+        default-column-width.proportion = 0.33;
       }
 
       # Quarter-width windows
