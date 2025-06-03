@@ -56,6 +56,9 @@
 
     neuwaita.url = "github:RusticBard/Neuwaita";
     neuwaita.flake = false;
+
+    autofirma-nix.url = "github:nix-community/autofirma-nix";
+    autofirma-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -68,6 +71,7 @@
     vibeapps,
     ollamark,
     astal-shell,
+    autofirma-nix,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -143,6 +147,7 @@
           users.${defaults.username} = import ./home/${defaults.username}.nix;
           sharedModules = [
             vibeapps.homeManagerModules.default
+            autofirma-nix.homeManagerModules.default
           ];
         };
       }

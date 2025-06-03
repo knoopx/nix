@@ -6,6 +6,7 @@
 }: let
   theme = pkgs.theming.mkStylixFirefoxGnomeTheme defaults.colorScheme.palette;
 in {
+  id = 0;
   isDefault = true;
 
   extensions.packages = with pkgs.firefox-addons; [
