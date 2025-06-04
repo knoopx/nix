@@ -245,6 +245,7 @@
           {app-id = "net.knoopx.nix-packages";}
           {app-id = "net.knoopx.bookmarks";}
           {app-id = "net.knoopx.scratchpad";}
+          {app-id = "net.knoopx.windows";}
           {app-id = "net.knoopx.process-manager";}
         ];
         default-column-width.proportion = 0.25;
