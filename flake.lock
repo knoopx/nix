@@ -1064,11 +1064,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1749064153,
-        "narHash": "sha256-FTJaRqgQaxnplPrs+E9Qmd9xP8BDv0VEIbXobrUMpzc=",
+        "lastModified": 1749068526,
+        "narHash": "sha256-eiGO4jTvjsZ5+GY08EPYcSUf6I6W4PVhx4wfibEtNK0=",
         "owner": "knoopx",
         "repo": "vibeapps",
-        "rev": "0ad16cb1719fb8bf115bfc0f1654943e705520dc",
+        "rev": "b7b120805eb57d6a7c0fad44abfc1f0f083dc02d",
         "type": "github"
       },
       "original": {
