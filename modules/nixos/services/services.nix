@@ -8,7 +8,7 @@
     timesyncd.enable = lib.mkDefault true;
     fwupd.enable = true;
     printing.enable = false;
-    libinput.enable = false;
+    libinput.enable = true; # required for niri mouse handling
 
     pipewire = {
       enable = true;
