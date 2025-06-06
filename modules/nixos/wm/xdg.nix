@@ -1,10 +1,8 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     libsecret
-    gvfs
   ];
 
-  # Ensure proper session management
   security.pam.services.gdm.enableGnomeKeyring = true;
   security.pam.services.login.enableGnomeKeyring = true;
 
@@ -12,32 +10,34 @@
     portal = {
       enable = true;
       xdgOpenUsePortal = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
-        xdg-desktop-portal-gnome
-      ];
+      wlr.enable = true;
+
       config = {
         common = {
-          default = [
-            "gtk"
-          ];
+          default = ["gtk"];
+          "org.freedesktop.impl.portal.Screenshot" = ["wlr"];
+          "org.freedesktop.impl.portal.ScreenCast" = ["wlr"];
+          "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
+          "org.freedesktop.impl.portal.Settings" = ["darkman"];
+          "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
+          "org.freedesktop.impl.portal.Print" = ["gtk"];
         };
         niri = {
-          default = [
-            "gnome"
-            "gtk"
-          ];
-          "org.freedesktop.impl.portal.FileChooser" = [
-            "gnome"
-          ];
-          "org.freedesktop.impl.portal.ScreenCast" = [
-            "gnome"
-          ];
-          "org.freedesktop.impl.portal.Screenshot" = [
-            "gnome"
-          ];
+          default = ["wlr" "gtk"];
+          "org.freedesktop.impl.portal.Screenshot" = ["wlr"];
+          "org.freedesktop.impl.portal.ScreenCast" = ["wlr"];
+          "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
+          "org.freedesktop.impl.portal.Settings" = ["darkman"];
+          "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
+          "org.freedesktop.impl.portal.Print" = ["gtk"];
         };
       };
+
+      extraPortals = with pkgs; [
+        # xdg-desktop-portal-gnome
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-wlr
+      ];
     };
   };
 }

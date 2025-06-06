@@ -33,7 +33,6 @@
     onlyoffice-bin
     picard
     pinta
-    popsicle
     prusa-slicer
     seahorse
     showtime
@@ -134,6 +133,7 @@
     rclone
     rsync
     tgpt
+    caligula
   ];
 
   dev = with pkgs; [
