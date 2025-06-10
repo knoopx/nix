@@ -35,10 +35,6 @@
     astal-shell.url = "github:knoopx/astal-shell";
     astal-shell.inputs.nixpkgs.follows = "nixpkgs";
 
-    niri-flake.url = "github:knoopx/niri-flake";
-    niri-flake.inputs.nixpkgs.follows = "nixpkgs";
-    # niri-flake.inputs.niri-stable.url = "github:YaLTeR/niri/v25.05.1";
-
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -67,7 +63,6 @@
     home-manager,
     nixpkgs,
     stylix,
-    niri-flake,
     vibeapps,
     ollamark,
     astal-shell,
@@ -93,12 +88,10 @@
       };
 
     nixosModules = [
-      niri-flake.nixosModules.niri
       {
         nixpkgs.overlays =
           [
             ollamark.overlays.default
-            niri-flake.overlays.niri
             astal-shell.overlays.default
             (self: super: vibeapps.packages.${system})
             (

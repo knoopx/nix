@@ -66,19 +66,19 @@ in {
     };
   };
 
-  home-manager.users.${defaults.username} = {
-    programs.niri.settings = {
-      spawn-at-startup = [
-        {command = ["nautilus"];}
-        # {command = ["kitty" "bash" "${./demo.sh}"];}
-      ];
+  # home-manager.users.${defaults.username} = {
+  #   programs.niri.settings = {
+  #     spawn-at-startup = [
+  #       {command = ["nautilus"];}
+  #       # {command = ["kitty" "bash" "${./demo.sh}"];}
+  #     ];
 
-      outputs."Virtual-1" = {
-        scale = 2.0;
-        background-color = "#${defaults.colorScheme.palette.base02}";
-      };
-    };
-  };
+  #     outputs."Virtual-1" = {
+  #       scale = 2.0;
+  #       background-color = "#${defaults.colorScheme.palette.base02}";
+  #     };
+  #   };
+  # };
 
   nixpkgs = {
     hostPlatform = {
