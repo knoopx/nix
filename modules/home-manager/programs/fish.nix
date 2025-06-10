@@ -20,6 +20,7 @@
         llama3 = "ollamark -t 0.3 --model llama3";
         qwen = "ollamark -t 0.3 --model qwen2.5-coder";
         phi = "ollamark -t 0.3 --model phi";
+        weather = "curl wttr.in";
       };
 
       shellAbbrs = {
