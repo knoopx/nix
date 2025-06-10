@@ -119,7 +119,7 @@
     # Keybindings
     binds = {
       # Application launchers
-      "Mod+N".action.spawn = "firefox";
+      "Mod+H".action.spawn = "firefox";
       "Mod+G".action.spawn = "code";
       "Mod+T".action.spawn = "kitty";
       "Mod+V".action.spawn = "nautilus";
