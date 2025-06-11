@@ -7,8 +7,9 @@
     icons.enable = true;
   };
 
-  services.displayManager.sessionPackages = [pkgs.niri];
   hardware.graphics.enable = true;
+
+  services.displayManager.sessionPackages = [pkgs.niri];
 
   xdg.portal = {
     enable = true;
@@ -18,20 +19,6 @@
 
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
-
-  systemd.user.services.niri-polkit = {
-    description = "PolicyKit Authentication Agent for Niri";
-    wantedBy = ["niri.service"];
-    after = ["graphical-session.target"];
-    partOf = ["graphical-session.target"];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
-      Restart = "on-failure";
-      RestartSec = 1;
-      TimeoutStopSec = 10;
-    };
-  };
 
   security.pam.services.swaylock = {};
   programs.dconf.enable = true;
