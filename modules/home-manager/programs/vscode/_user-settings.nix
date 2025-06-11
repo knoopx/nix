@@ -145,10 +145,10 @@
   "qalc.output.lowerExponentBound" = -4;
   "github.copilot.chat.commitMessageGeneration.instructions" = [
     {
-      file = pkgs.fetchurl {
+      text = lib.readFile (pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/SimonSkoda13/Copilot-commit-message-instructions/refs/heads/main/.copilot-commit-message-instructions.md";
         sha256 = "sha256-62lXbUnXVqY2uxJ0iY0DFK5KKASEP7UhlMkABcKxxGE=";
-      };
+      });
     }
   ];
 
