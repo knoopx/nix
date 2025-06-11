@@ -1,7 +1,6 @@
 {
   pkgs,
   defaults,
-  lib,
   ...
 }: {
   services = {
