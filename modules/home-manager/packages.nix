@@ -121,19 +121,20 @@
     # zstd
     aria2
     brotab
+    caligula
     dconf
+    exiftool
     fclones
     ffmpeg
+    imagemagick
     inotify-tools
     jq
-    exiftool
     mpv
     nh
     ollamark
     rclone
     rsync
     tgpt
-    caligula
   ];
 
   dev = with pkgs; [
@@ -150,8 +151,8 @@
     ruby
     ruby-lsp
     rufo
-    uv
     strip-python-comments
+    uv
   ];
 in {
   home = {
