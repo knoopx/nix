@@ -18,8 +18,6 @@
   # https://github.com/YaLTeR/niri/blob/main/resources/default-config.kdl
 
   xdg.configFile."niri/config.kdl".text = ''
-    spawn-at-startup "xwayland-satellite"
-
     input {
         keyboard {
             xkb {
@@ -101,8 +99,12 @@
     }
 
     hotkey-overlay { skip-at-startup; }
+
+    xwayland-satellite {
+        path "${lib.getExe pkgs.xwayland-satellite}"
+    }
+
     environment {
-        DISPLAY ":0"
         // required for nautilus to launch properly (because niri spawn does not set env)
         GIO_EXTRA_MODULES "${nixosConfig.services.gvfs.package}/lib/gio/modules"
     }

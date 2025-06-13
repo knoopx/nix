@@ -29,6 +29,12 @@
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.home-manager.follows = "home-manager";
 
+    niri.url = "github:YaLTeR/niri";
+    niri.inputs.nixpkgs.follows = "nixpkgs";
+
+    xwayland-satellite.url = "github:Supreeeme/xwayland-satellite";
+    xwayland-satellite.inputs.nixpkgs.follows = "nixpkgs";
+
     ags.url = "github:aylur/ags";
     ags.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -63,6 +69,8 @@
     home-manager,
     nixpkgs,
     stylix,
+    niri,
+    xwayland-satellite,
     vibeapps,
     ollamark,
     astal-shell,
@@ -94,6 +102,8 @@
             ollamark.overlays.default
             astal-shell.overlays.default
             (self: super: vibeapps.packages.${system})
+            (self: super: {niri = niri.packages.${system}.default;})
+            (self: super: {xwayland-satellite = xwayland-satellite.packages.${system}.default;})
             (
               self: super: {firefox-addons = firefox-addons.packages.${system};}
             )
