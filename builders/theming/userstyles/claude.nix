@@ -6,7 +6,7 @@
   hexToHSL = x: pkgs.lib.theming.hexToHSL x "%";
 in
   pkgs.writeTextFile {
-    name = "immich.userstyle.css";
+    name = "claude.userstyle.css";
 
     text = with colorScheme; ''
       @-moz-document domain("claude.ai") {
