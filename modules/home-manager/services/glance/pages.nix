@@ -251,11 +251,6 @@
                 url = "https://github.com/Koenkk/zigbee2mqtt/releases.atom";
               }
               {
-                title = "Immich";
-                url = "https://github.com/immich-app/immich/releases.atom";
-              }
-
-              {
                 title = "ES-DE";
                 url = "https://gitlab.com/es-de/emulationstation-de/-/releases.atom";
               }
