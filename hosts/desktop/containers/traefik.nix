@@ -4,39 +4,19 @@
   config,
   ...
 }: let
-  hostname = "knoopx.net";
-
-  hostServices = {
-    # "search" = config.services.searx.settings.server.port;
-    "glance" = 9000;
-    "ollama" = 11434;
-  };
+  cfg = config.services.traefik-proxy;
 
   providers = (pkgs.formats.yaml {}).generate "traefik-providers.yaml" {
     http = {
-      # middlewares =
-      #   lib.mapAttrs (
-      #     k: v: {
-      #       ipWhiteList = {
-      #         sourceRange = [
-      #           "127.0.0.1/32"
-      #           # "192.168.1.0/24"
-      #         ];
-      #       };
-      #     }
-      #   )
-      #   hostServices;
-
       routers =
         lib.mapAttrs (
           k: v: {
             service = k;
-            rule = "Host(`${k}.knoopx.net`)";
-            # rule = "Host(`${k}.knoopx.net`) && ( ClientIP(172.16.1.0/24) || ClientIP(192.168.1.0/24) )";
+            rule = "Host(`${k}.${cfg.domain}`)";
             entryPoints = ["http"];
           }
         )
-        hostServices;
+        cfg.hostServices;
 
       services =
         lib.mapAttrs (
@@ -50,47 +30,57 @@
             };
           }
         )
-        hostServices;
+        cfg.hostServices;
     };
   };
 in {
-  virtualisation.oci-containers.containers = {
-    traefik = {
-      autoStart = true;
-      image = "traefik:latest";
-      ports = ["80:80"];
-      # ports = ["80:80" "8080:8080"];
-      volumes = [
-        "/var/run/docker.sock:/var/run/docker.sock:ro"
-        "${providers}:/etc/traefik/dynamic/dynamic.yml"
-      ];
-      cmd = [
-        "--providers.docker=true"
-        "--providers.docker.defaultRule=Host(`{{ normalize .Name }}.${hostname}`)"
-        "--providers.file.directory=/etc/traefik/dynamic"
-        "--global.sendAnonymousUsage=false"
-        "--global.checkNewVersion=false"
-        "--api.dashboard=true"
-        "--api.insecure=true"
-        "--accesslog=true"
-        "--entryPoints.http.address=:80"
-        "--entryPoints.http.forwardedHeaders.trustedIPs=192.168.1.1"
-        # "--log.level=DEBUG"
-      ];
-      labels = {
-        "traefik.http.services.traefik.loadbalancer.server.port" = "8080";
-        # "traefik.http.routers.api.service" = "api@internal";
-        # "traefik.http.routers.api.middlewares" = "authelia@docker";
+  options.services.traefik-proxy = {
+    enable = lib.mkEnableOption "Traefik reverse proxy";
 
-        # "traefik.http.routers.search.rule" = "Host(`search.knoopx.net`)";
-        # "traefik.http.services.search.loadbalancer.server.port" = "8081";
-        # "traefik.http.routers.search.entrypoints" = "web";
-        # # "traefik.http.routers.search.tls" = "true";
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "knoopx.net";
+      description = "Base domain for services";
+    };
 
-        # "traefik.http.routers.glance.rule" = "Host(`glance.knoopx.net`)";
-        # "traefik.http.services.glance.loadbalancer.server.port" = "9000";
+    hostServices = lib.mkOption {
+      type = lib.types.attrsOf lib.types.port;
+      default = {};
+      description = "Map of service names to their local ports";
+      example = {
+        "glance" = 9000;
+        "ollama" = 11434;
       };
-      extraOptions = ["--network=host"];
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    virtualisation.oci-containers.containers = {
+      traefik = {
+        autoStart = true;
+        image = "traefik:latest";
+        ports = ["80:80"];
+        volumes = [
+          "/var/run/docker.sock:/var/run/docker.sock:ro"
+          "${providers}:/etc/traefik/dynamic/dynamic.yml"
+        ];
+        cmd = [
+          "--providers.docker=true"
+          "--providers.docker.defaultRule=Host(`{{ normalize .Name }}.${cfg.domain}`)"
+          "--providers.file.directory=/etc/traefik/dynamic"
+          "--global.sendAnonymousUsage=false"
+          "--global.checkNewVersion=false"
+          "--api.dashboard=true"
+          "--api.insecure=true"
+          "--accesslog=true"
+          "--entryPoints.http.address=:80"
+          "--entryPoints.http.forwardedHeaders.trustedIPs=192.168.1.1"
+        ];
+        labels = {
+          "traefik.http.services.traefik.loadbalancer.server.port" = "8080";
+        };
+        extraOptions = ["--network=host"];
+      };
     };
   };
 }

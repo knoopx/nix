@@ -45,13 +45,11 @@
       allowEveryone = true;
     };
 
-    ollama = {
+    traefik-proxy = {
       enable = true;
-      acceleration = "cuda";
-      host = "[::]";
-      environmentVariables = {
-        OLLAMA_FLASH_ATTENTION = "1";
-        OLLAMA_CONTEXT_LENGTH = "8192";
+      domain = "knoopx.net";
+      hostServices = {
+        glance = 9000;
       };
     };
   };

@@ -9,7 +9,6 @@
     authenticator
     baobab
     commit
-    cromite
     czkawka
     dataset-viewer
     dconf-editor
