@@ -56,6 +56,11 @@
 
     autofirma-nix.url = "github:nix-community/autofirma-nix";
     autofirma-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+
+    minibook-support.url = "github:petitstrawberry/minibook-support-nix";
+    minibook-support.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -70,6 +75,8 @@
     ollamark,
     astal-shell,
     autofirma-nix,
+    nixos-hardware,
+    minibook-support,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -162,12 +169,20 @@
   in {
     packages.${system} = {
       default = vmConfiguration.config.system.build.vm;
-      vm = vmConfiguration.config.system.build.vm;
       nfoview = pkgs.callPackage ./pkgs/nfoview.nix {inherit pkgs;};
     };
 
     nixosConfigurations = {
       vm = vmConfiguration;
+
+      live-usb = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+        modules =
+          nixosModules
+          ++ [
+            ./hosts/live-usb
+          ];
+      };
 
       desktop = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
@@ -178,12 +193,14 @@
           ];
       };
 
-      macbook = nixpkgs.lib.nixosSystem {
+      minibookx = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
         modules =
           nixosModules
           ++ [
-            ./hosts/macbook
+            minibook-support.nixosModules.default
+            nixos-hardware.nixosModules.chuwi-minibook-x
+            ./hosts/minibookx
           ];
       };
     };

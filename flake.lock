@@ -571,11 +571,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750033262,
-        "narHash": "sha256-TcFN78w6kPspxpbPsxW/8vQ1GAtY8Y3mjBaC+oB8jo4=",
+        "lastModified": 1750099781,
+        "narHash": "sha256-6EVPi3XzioPzwxLZ/2nD6jbKCLA2ZXRdOWFgHg2ozrA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "66523b0efe93ce5b0ba96dcddcda15d36673c1f0",
+        "rev": "1db3cb415da14c81d8e0fdd3a5edeba82ad13a1f",
         "type": "github"
       },
       "original": {
@@ -598,6 +598,26 @@
         "owner": "ctt-gob-es",
         "ref": "v1.8",
         "repo": "jmulticard",
+        "type": "github"
+      }
+    },
+    "minibook-support": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1745142134,
+        "narHash": "sha256-aMSo+OjnwvlD6mNPD37hV3AuI6s/kprKMO4Eg8v3qBo=",
+        "owner": "petitstrawberry",
+        "repo": "minibook-support-nix",
+        "rev": "bb68d7daa224b7eabaf6a6ce17a5e873842d8dd4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "petitstrawberry",
+        "repo": "minibook-support-nix",
         "type": "github"
       }
     },
@@ -724,6 +744,21 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1750083401,
+        "narHash": "sha256-ynqbgIYrg7P1fAKYqe8I/PMiLABBcNDYG9YaAP/d/C4=",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "61837d2a33ccc1582c5fabb7bf9130d39fee59ad",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1749285348,
@@ -742,11 +777,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1750097387,
-        "narHash": "sha256-qIYlZ+LC+lYB+FOe+e9eWO12+sV8kzM5HFSdrurAiHM=",
+        "lastModified": 1750106395,
+        "narHash": "sha256-XFAJd/krlrV7N1IzqwxUW3xeoF2s+gIMU2z3RBIl6Wk=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "cad5eaf64ddeddb211b3fb7df3d1f0f954c0a974",
+        "rev": "30feafd36d04bb786539c1eb59a370890d842a0b",
         "type": "github"
       },
       "original": {
@@ -814,9 +849,11 @@
         "firefox-gnome-theme": "firefox-gnome-theme",
         "haumea": "haumea",
         "home-manager": "home-manager_2",
+        "minibook-support": "minibook-support",
         "neuwaita": "neuwaita",
         "niri": "niri",
         "nix-colors": "nix-colors",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "ollamark": "ollamark",
         "stylix": "stylix",
