@@ -2,8 +2,8 @@
   description = "kOS";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    # nixpkgs.url = "github:nixos/nixpkgs";
+    # nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs";
 
     ollamark.url = "github:knoopx/ollamark";
     ollamark.inputs.nixpkgs.follows = "nixpkgs";
@@ -13,11 +13,6 @@
 
     haumea.url = "github:nix-community/haumea";
     haumea.inputs.nixpkgs.follows = "nixpkgs";
-
-    globset = {
-      url = "github:pdtpartners/globset";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
