@@ -101,7 +101,7 @@
     hotkey-overlay { skip-at-startup; }
 
     xwayland-satellite {
-        path "${lib.getExe pkgs.xwayland-satellite}"
+        path "${pkgs.xwayland-satellite}/bin/xwayland-satellite"
     }
 
     environment {
