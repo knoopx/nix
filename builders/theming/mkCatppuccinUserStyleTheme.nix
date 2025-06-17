@@ -14,21 +14,26 @@
       vars);
 
   userStyles = lib.strings.concatStringsSep "," [
+    "arch-wiki"
+    "brave-search"
+    "bsky"
     "chatgpt"
+    "cinny"
     "duckduckgo"
     "github"
     "google"
+    "hacker-news"
+    "lobste.rs"
     "nixos-*"
     "npm"
     "ollama"
-    "whatsapp-web"
+    "perplexity"
     "reddit"
     "spotify-web"
+    "stack-overflow"
+    "whatsapp-web"
+    "wikipedia"
     "youtube"
-    "bsky"
-    "hacker-news"
-    # "searxng"
-    # "wikipedia"
   ];
 
   lessVars = {
