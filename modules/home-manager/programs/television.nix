@@ -1,5 +1,5 @@
 {config, ...}: {
-  xdg.configFile."/television/config.toml".text = ''
+  xdg.configFile."television/config.toml".text = ''
     [ui]
     use_nerd_font_icons = true
     input_bar_position = "top"
@@ -9,7 +9,7 @@
     theme = "${config.programs.bat.config.theme}"
   '';
 
-  xdg.configFile."/television/channels.toml".text = ''
+  xdg.configFile."television/channels.toml".text = ''
     [[cable_channel]]
     name = "git-diff"
     source_command = "git diff --name-only"
