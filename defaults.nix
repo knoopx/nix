@@ -66,7 +66,8 @@ in {
   #faefa5
   #ffb454
   #3b5364
-  #193549  #35ad68
+  #193549
+  #35ad68
   #aaaaaa
   #5c5c61
   #3ad900
@@ -118,7 +119,7 @@ in {
 
   colorScheme =
     # #181825 #131327
-    # #1e1e2e #1e1e3f
+    # #1e1e2e #191935
     # #313244 #25254b #3b5364
     # #45475a #2d2b55
     # #585b70 #494685
@@ -135,11 +136,27 @@ in {
     # #8aadf4 #a599e9# #fad000
     # #cba6f7  #faefa5 #ad70fc
     # #f2cdcd  #fb94ff #faefa5
+    # base00 #1e1e2e # base
+    # base01 #181825 # mantle
+    # base02 #313244 # surface0
+    # base03 #45475a # surface1
+    # base04 #585b70 # surface2
+    # base05 #cdd6f4 # text
+    # base06 #f5e0dc # rosewater
+    # base07 #b4befe # lavender
+    # base08 #f38ba8 # red
+    # base09 #fab387 # peach
+    # base0A #f9e2af # yellow
+    # base0B #a6e3a1 # green
+    # base0C #94e2d5 # teal
+    # base0D #89b4fa # blue
+    # base0E #cba6f7 # mauve
+    # base0F #f2cdcd # flamingo
     {
       name = "custom";
       palette = {
         base00 = "131327";
-        base01 = "1e1e3f";
+        base01 = "191935";
         base02 = "25254b";
         base03 = "2d2b55";
         base04 = "494685";
