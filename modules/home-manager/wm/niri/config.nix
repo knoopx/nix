@@ -213,6 +213,10 @@
         block-out-from "screen-capture"
     }
 
-    animations { slowdown 0.6; }
+    animations {
+        slowdown 0.6
+        window-open { off; }
+        window-close { off; }
+    }
   '';
 }
