@@ -41,7 +41,7 @@ in {
       theme = with defaults.colorScheme.palette; {
         custom-css-file = "assets/${customCSS.name}";
         background-color = hexToHSL base00;
-        primary-color = hexToHSL base07;
+        primary-color = hexToHSL base05;
         positive-color = hexToHSL base0B;
         negative-color = hexToHSL base08;
       };
