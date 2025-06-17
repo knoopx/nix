@@ -73,13 +73,8 @@
         focus-ring {
             width 3
             active-color "#${defaults.colorScheme.palette.base0D}"
-            inactive-color "#${defaults.colorScheme.palette.base02}"
         }
-        border {
-            width 1
-            active-color "#${defaults.colorScheme.palette.base02}"
-            inactive-color "#${defaults.colorScheme.palette.base02}"
-        }
+        border { off; }
         insert-hint { color "rgb(${nix-colors.lib-core.conversions.hexToRGBString " " defaults.colorScheme.palette.base0D} / 50%)"; }
 
         default-column-width { proportion 0.75; }
