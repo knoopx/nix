@@ -9,7 +9,7 @@
   };
 in
   pkgs.writeTextFile {
-    name = "telegram.userstyle.css";
+    name = "discord.userstyle.css";
     text = ''
       @-moz-document domain("discord.com") {
         ${lib.readFile userstyle}
