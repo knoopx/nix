@@ -14,7 +14,6 @@
       vars);
 
   userStyles = lib.strings.concatStringsSep "," [
-    "arch-wiki"
     "brave-search"
     "bsky"
     "chatgpt"
