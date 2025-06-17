@@ -61,28 +61,12 @@ in {
   userContent = ''
     @import "${theme}/theme/userContent.css";
     ${builtins.readFile "${pkgs.theming.mkUserStyles defaults.colorScheme.palette}"}
-
   '';
 
   search = {
     default = "qwant";
     force = true;
     engines = {
-      # "searxng" = {
-      #   # definedAliases = ["@sx"];
-      #   urls = [
-      #     {
-      #       template = "http://search.knoopx.net";
-      #       params = [
-      #         {
-      #           name = "q";
-      #           value = "{searchTerms}";
-      #         }
-      #       ];
-      #     }
-      #   ];
-      # };
-
       "home-manager" = {
         definedAliases = ["@hm"];
         urls = [
