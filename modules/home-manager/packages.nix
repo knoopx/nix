@@ -33,6 +33,7 @@
     picard
     pinta
     prusa-slicer
+    rnote
     seahorse
     showtime
     snapshot
