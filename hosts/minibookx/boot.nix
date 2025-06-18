@@ -6,7 +6,7 @@
   };
 
   boot = {
-    kernelParams = ["acpi_override=1"];
+    # kernelParams = ["acpi_override=1"];
     kernelModules = ["kvm-intel"];
     extraModulePackages = [];
     kernelPackages = pkgs.linuxPackages_zen;
@@ -24,27 +24,27 @@
         "sdhci_pci"
       ];
 
-      prepend = let
-        acpi-override = pkgs.stdenv.mkDerivation {
-          name = "acpi-override";
-          CPIO_PATH = "kernel/firmware/acpi";
+      # prepend = let
+      #   acpi-override = pkgs.stdenv.mkDerivation {
+      #     name = "acpi-override";
+      #     CPIO_PATH = "kernel/firmware/acpi";
 
-          src = ./acpi;
+      #     src = ./acpi;
 
-          nativeBuildInputs = with pkgs; [
-            acpica-tools
-            cpio
-          ];
+      #     nativeBuildInputs = with pkgs; [
+      #       acpica-tools
+      #       cpio
+      #     ];
 
-          installPhase = ''
-            mkdir -p $CPIO_PATH
-            iasl -tc mxc6655-override.asl
-            cp mxc6655-override.aml $CPIO_PATH
-            find kernel | cpio -H newc --create > acpi_override
-            cp acpi_override $out
-          '';
-        };
-      in [(toString acpi-override)];
+      #     installPhase = ''
+      #       mkdir -p $CPIO_PATH
+      #       iasl -tc mxc6655-override.asl
+      #       cp mxc6655-override.aml $CPIO_PATH
+      #       find kernel | cpio -H newc --create > acpi_override
+      #       cp acpi_override $out
+      #     '';
+      #   };
+      # in [(toString acpi-override)];
     };
 
     loader = {
