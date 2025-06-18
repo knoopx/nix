@@ -26,18 +26,45 @@
             repeat-rate 25
             track-layout "global"
         }
+
+        tablet {
+            map-to-output "DSI-1"
+        }
+
+        touch {
+            map-to-output "DSI-1"
+        }
+
         touchpad {
             tap
-            natural-scroll
+            //natural-scroll
+            dwt
+            click-method "clickfinger"
             accel-speed 0.0
         }
         mouse { accel-speed 0.0; }
         trackpoint { accel-speed 0.0; }
         trackball { accel-speed 0.0; }
-        tablet
-        touch
         warp-mouse-to-focus
         workspace-auto-back-and-forth
+    }
+
+    gestures {
+        dnd-edge-view-scroll {
+            trigger-width 30
+            delay-ms 100
+            max-speed 1500
+        }
+
+        dnd-edge-workspace-switch {
+            trigger-height 50
+            delay-ms 100
+            max-speed 1500
+        }
+
+        hot-corners {
+            // off
+        }
     }
 
     output "DP-1" {
