@@ -47,6 +47,12 @@
         transform "normal"
     }
 
+    output "DSI-1" {
+        background-color "#${defaults.colorScheme.palette.base02}"
+        transform "270"
+        scale 1.5
+    }
+
     screenshot-path "~/Pictures/Screenshots/%Y-%m-%d %H-%M-%S.png"
 
     prefer-no-csd

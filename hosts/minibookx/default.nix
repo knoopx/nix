@@ -26,4 +26,15 @@ in {
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
   services.minibook-support.enable = true;
+
+  # TODOS
+
+  # astal-shell position
+  # astal-shell battery widget
+  # brightness control
+  # cpu scheduler
+  # keyboard layout
+  # swap alt<->window keys
+  # tablet-mode
+  # display size in settings
 }
