@@ -148,6 +148,14 @@
         XF86MonBrightnessDown { spawn "${lib.getExe pkgs.brightnessctl}" "set" "5%-"; }
         XF86MonBrightnessUp { spawn "${lib.getExe pkgs.brightnessctl}" "set" "5%+"; }
     }
+
+    switch-events {
+        lid-close { spawn "${lib.getExe pkgs.niri}" "msg" "action" "power-off-monitors"; }
+        //"loginctl" "lock-session"
+        tablet-mode-on { spawn "bash" "-c" "gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true"; }
+        tablet-mode-off { spawn "bash" "-c" "gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false"; }
+    }
+
     window-rule {
         match
         draw-border-with-background false

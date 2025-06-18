@@ -9,6 +9,7 @@
     libnotify
     polkit_gnome
     raise-or-open-url
+    squeekboard
   ];
 
   # https://github.com/emersion/mako/blob/master/doc/mako.5.scd
