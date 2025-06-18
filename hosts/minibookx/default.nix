@@ -48,6 +48,7 @@ in {
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelParams = ["acpi_override=1"];
 
   system.stateVersion = "25.11";
 
