@@ -88,11 +88,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1749459522,
-        "narHash": "sha256-47/XG1Px3p9Au282wWnDBFfxT0HO4FZjeNsgMsv/gK4=",
+        "lastModified": 1750263482,
+        "narHash": "sha256-suvg92HNDCmPL5m/AIb613FrLLFvdeYW6GPW6Kwj10U=",
         "owner": "knoopx",
         "repo": "astal-shell",
-        "rev": "ab8dbfc9ab602942c347254659295ac4fa68cbee",
+        "rev": "bfcbe606eca73ac4886fa4ff5c06af7a2e980624",
         "type": "github"
       },
       "original": {
@@ -571,11 +571,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750127463,
-        "narHash": "sha256-K2xFtlD3PcKAZriOE3LaBLYmVfGQu+rIF4Jr1RFYR0Q=",
+        "lastModified": 1750263149,
+        "narHash": "sha256-VYSGDzq4ds4LIYvyEYG+RBqGMGBZhES2tvnmU4TJBn0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "28eef8722d1af18ca13e687dbf485e1c653a0402",
+        "rev": "85e68c6a388ef1dfc799aaa01f00758c58e87d89",
         "type": "github"
       },
       "original": {
@@ -1119,11 +1119,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750254648,
-        "narHash": "sha256-vTxVNV+pnfeeGYFbjlhRSunrW8t87p+hzESgpsEwtlc=",
+        "lastModified": 1750263878,
+        "narHash": "sha256-5WVvh57PTuXFS1t0pGxa3ojuRjXJkGkb3aZ8iLwMjT4=",
         "owner": "knoopx",
         "repo": "vibeapps",
-        "rev": "f7d97aa547b25917749949b67d6af8c6708a335a",
+        "rev": "554247161c0a11813dda09aef2e0796b6753fa1b",
         "type": "github"
       },
       "original": {

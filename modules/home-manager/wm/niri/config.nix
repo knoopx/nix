@@ -158,55 +158,7 @@
         match is-active=false
         opacity 0.9
     }
-    window-rule {
-        match app-id="org.gnome.NautilusPreviewer"
-        match app-id="re.sonny.Commit"
-        match app-id="^floating."
-        open-floating true
-    }
-    window-rule {
-        match app-id="net.knoopx.launcher"
-        match app-id="net.knoopx.nix-packages"
-        match app-id="net.knoopx.bookmarks"
-        match app-id="net.knoopx.scratchpad"
-        match app-id="net.knoopx.windows"
-        match app-id="net.knoopx.process-manager"
-        default-column-width { proportion 0.25; }
-        open-floating true
-    }
-    window-rule {
-        match app-id="org.gnome.Nautilus"
-        block-out-from "screencast"
-    }
-    window-rule {
-        match app-id="code"
-        default-column-width { proportion 1.0; }
-    }
-    window-rule {
-        match app-id="net.knoopx.notes"
-        default-column-width { proportion 0.75; }
-    }
-    window-rule {
-        match app-id="kitty"
-        match app-id="transmission-gtk"
-        match app-id="net.knoopx.chat"
-        default-column-width { proportion 0.5; }
-    }
-    window-rule {
-        match app-id="net.knoopx.music"
-        default-column-width { proportion 0.33; }
-    }
-    window-rule {
-        match app-id="Plexamp"
-        match app-id="io.bassi.Amberol"
-        default-column-width { proportion 0.25; }
-    }
-    window-rule {
-        match app-id="org.gnome.Calendar"
-        match app-id="org.gnome.Weather"
-        default-column-width { proportion 0.75; }
-        open-floating true
-    }
+
     layer-rule {
         match namespace="notifications"
         block-out-from "screen-capture"
@@ -217,5 +169,39 @@
         window-open { off; }
         window-close { off; }
     }
+
+    ${lib.concatStringsSep "\n" (
+      let
+        appWidths = nixosConfig.defaults.display.appWidths or {};
+        floatingApps = nixosConfig.defaults.display.floatingApps or [];
+        isFloating = appId: lib.elem appId floatingApps;
+        rules = lib.map (
+          appId: let
+            width = appWidths.${appId};
+            floating = isFloating appId;
+            matchLine = "match app-id=\"${appId}\"";
+            widthLine =
+              if width != null
+              then "default-column-width { proportion ${toString width}; }"
+              else null;
+            floatingLine =
+              if floating
+              then "open-floating true"
+              else null;
+            body = lib.concatStringsSep "\n" (lib.filter (x: x != null) [matchLine widthLine floatingLine]);
+          in
+            if body != ""
+            then "window-rule {\n${body}\n}"
+            else null
+        ) (lib.attrNames appWidths);
+        floatingOnly = lib.filter (appId: !(appWidths ? appId)) floatingApps;
+        floatingRules =
+          lib.map (
+            appId: "window-rule {\nmatch app-id=\"${appId}\"\nopen-floating true\n}"
+          )
+          floatingOnly;
+      in
+        rules ++ floatingRules
+    )}
   '';
 }

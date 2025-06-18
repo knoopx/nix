@@ -327,6 +327,26 @@ with lib; {
             default = [0.25 0.5 0.75];
             description = "List of column width presets as percentages";
           };
+          appWidths = mkOption {
+            type = types.attrsOf types.float;
+            default = {};
+            description = "Mapping of app-id to default column width proportion (0.0-1.0)";
+          };
+          floatingApps = mkOption {
+            type = types.listOf types.str;
+            default = [
+              "org.gnome.NautilusPreviewer"
+              "re.sonny.Commit"
+              "^floating."
+              "net.knoopx.launcher"
+              "net.knoopx.nix-packages"
+              "net.knoopx.bookmarks"
+              "net.knoopx.scratchpad"
+              "net.knoopx.windows"
+              "net.knoopx.process-manager"
+            ];
+            description = "List of app-ids that should open as floating windows.";
+          };
         };
       };
       default = {};

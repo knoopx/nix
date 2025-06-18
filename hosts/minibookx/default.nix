@@ -37,20 +37,17 @@ in {
 
   # TODOS
 
-  # astal-shell position
-  # astal-shell battery widget
-  # brightness control
   # cpu scheduler
-  # keyboard layout
   # swap alt<->window keys (kmonad/keyd)
   # tablet-mode
-  # display size in settings
   # default niri widths
   # home encryption
   # proper locking
   # energy saving
   # vibeapp height
   # charge limit 80%
+  # 60hz edid
+  # low-batery/charging notifications
 
   home-manager.users.${config.defaults.username} = import ../../home/${config.defaults.username}.nix;
 }
