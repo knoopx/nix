@@ -16,6 +16,20 @@ in {
   system.stateVersion = "25.11";
 
   services.minibook-support.enable = true;
+  services.keyd = {
+    enable = true;
+    keyboards = {
+      default = {
+        ids = ["*"];
+        settings = {
+          main = {
+            leftmeta = "leftalt";
+            leftalt = "leftmeta";
+          };
+        };
+      };
+    };
+  };
 
   networking.hostName = "minibookx";
   nix.settings.system-features = [
