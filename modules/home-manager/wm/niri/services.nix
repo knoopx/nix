@@ -32,4 +32,18 @@
       background-color = lib.mkForce "#${nixosConfig.defaults.colorScheme.palette.base0D}";
     };
   };
+
+  systemd.user.services.squeekboard = {
+    Unit = {
+      Description = "On-Screen Keyboard";
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${lib.getExe pkgs.squeekboard}/bin/.squeekboard-wrapped";
+      Restart = "on-failure";
+    };
+    Install = {
+      WantedBy = ["graphical-session.target"];
+    };
+  };
 }
