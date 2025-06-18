@@ -8,6 +8,7 @@
 in {
   imports =
     [
+      ./boot.nix
       ./hardware.nix
     ]
     ++ (listNixModulesRecusive ../../modules/nixos);
@@ -51,6 +52,7 @@ in {
   # proper locking
   # energy saving
   # vibeapp height
+  # charge limit 80%
 
   home-manager.users.${config.defaults.username} = import ../../home/${config.defaults.username}.nix;
 }

@@ -5,7 +5,7 @@
   nix-colors,
   ...
 }: {
-  home.packages = [pkgs.niri];
+  home.packages = [pkgs.niri pkgs.launcher pkgs.playerctl pkgs.wireplumber pkgs.xwayland-satellite];
   services.gnome-keyring.enable = true;
 
   xdg.portal = {
@@ -145,6 +145,8 @@
         XF86AudioPrev { spawn "${lib.getExe pkgs.playerctl}" "previous"; }
         XF86AudioRaiseVolume { spawn "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
         XF86AudioStop { spawn "${lib.getExe pkgs.playerctl}" "pause"; }
+        XF86MonBrightnessDown { spawn "${lib.getExe pkgs.brightnessctl}" "set" "5%-"; }
+        XF86MonBrightnessUp { spawn "${lib.getExe pkgs.brightnessctl}" "set" "5%+"; }
     }
     window-rule {
         match
