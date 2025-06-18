@@ -5,6 +5,25 @@
 } @ inputs: let
   listNixModulesRecusive = import ../../lib/listNixModulesRecusive.nix inputs;
   system = "x86_64-linux";
+
+  acpiOverride = pkgs.stdenv.mkDerivation {
+    name = "acpi-dsdt-override";
+    cpio_path = "kernel/firmware/acpi";
+
+    src = ./acpi/mxc6655-override.asl;
+
+    nativeBuildInputs = [pkgs.cpio];
+
+    unpackPhase = "true";
+
+    # iasl mxc6655-override.asl
+    installPhase = ''
+      mkdir -p $cpio_path
+      cp $src $cpio_path/dsdt.aml
+      find kernel | cpio -H newc --create > acpi_override
+      cp acpi_override $out
+    '';
+  };
 in {
   imports =
     [
@@ -51,4 +70,10 @@ in {
   # low-batery/charging notifications
 
   home-manager.users.${config.defaults.username} = import ../../home/${config.defaults.username}.nix;
+
+  # https://github.com/petitstrawberry/minibook-support/issues/17
+  # https://github.com/arkaitzsilva/dotfiles/blob/b58798fd6e6cfeccfc3148c444a94ac00bca2cd2/hosts/Alienware13/dsdt-override.nix#L5
+
+  boot.initrd.prepend = [(toString acpiOverride)];
+  boot.kernelParams = ["acpi_override=1"];
 }
