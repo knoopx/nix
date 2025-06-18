@@ -14,28 +14,6 @@ in {
     ]
     ++ (listNixModulesRecusive ../../modules/nixos);
 
-  boot.initrd.prepend = let
-    acpi-override = pkgs.stdenv.mkDerivation {
-      name = "acpi-override";
-      CPIO_PATH = "kernel/firmware/acpi";
-
-      src = ./acpi;
-
-      nativeBuildInputs = with pkgs; [
-        acpica-tools
-        cpio
-      ];
-
-      installPhase = ''
-        mkdir -p $CPIO_PATH
-        iasl -tc acpi/mxc6655-override.asl
-        cp acpi/mxc6655-override.aml $CPIO_PATH
-        find kernel | cpio -H newc --create > acpi_override
-        cp acpi_override $out
-      '';
-    };
-  in [(toString acpi-override)];
-
   networking.hostName = "minibookx";
   nix.settings.system-features = [
   ];
@@ -45,10 +23,6 @@ in {
       inherit system;
     };
   };
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = ["acpi_override=1"];
 
   system.stateVersion = "25.11";
 
