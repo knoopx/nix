@@ -1,9 +1,9 @@
-{defaults, ...}: {
+{nixosConfig, ...}: {
   programs = {
     git = {
       enable = true;
-      userName = defaults.full-name;
-      userEmail = defaults.primary-email;
+      userName = nixosConfig.defaults.fullName;
+      userEmail = nixosConfig.defaults.primaryEmail;
 
       aliases = {
         d = "diff";
@@ -15,7 +15,7 @@
         s = "status";
         g = "log --graph --pretty=format:'%Cgreen%h%Creset -%C(yellow)%d%Creset %s %C(black)(%cr)%Creset' --abbrev-commit --date=relative";
         unstage = "reset HEAD";
-        reset-permissions = "git push origin devel help config  diff -p | grep -E '^(diff|old mode|new mode)' | sed -e 's/^old/NEW/;s/^new/old/;s/^NEW/new/' | git apply";
+        reset-permissions = "git push origin devel help nixosConfig  diff -p | grep -E '^(diff|old mode|new mode)' | sed -e 's/^old/NEW/;s/^new/old/;s/^NEW/new/' | git apply";
       };
 
       attributes = [
@@ -36,7 +36,7 @@
         };
 
         core = {
-          inherit (defaults) editor;
+          editor = nixosConfig.defaults.editor;
           autocrlf = false;
           quotePath = false;
         };

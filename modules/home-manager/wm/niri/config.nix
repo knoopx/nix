@@ -1,8 +1,7 @@
 {
   pkgs,
-  nixosConfig,
   lib,
-  defaults,
+  nixosConfig,
   nix-colors,
   ...
 }: {
@@ -21,7 +20,7 @@
     input {
         keyboard {
             xkb {
-                layout "eu"
+                layout "${nixosConfig.defaults.keyMap}"
             }
             repeat-delay 600
             repeat-rate 25
@@ -42,13 +41,13 @@
     }
 
     output "DP-1" {
-        background-color "#${defaults.colorScheme.palette.base02}"
+        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         scale 2.0
         transform "normal"
     }
 
     output "DSI-1" {
-        background-color "#${defaults.colorScheme.palette.base02}"
+        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         transform "270"
         scale 1.5
     }
@@ -58,7 +57,7 @@
     prefer-no-csd
 
     overview {
-        backdrop-color "#${defaults.colorScheme.palette.base02}"
+        backdrop-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         workspace-shadow {
             off
             softness 40.0
@@ -78,16 +77,14 @@
         }
         focus-ring {
             width 3
-            active-color "#${defaults.colorScheme.palette.base0D}"
+            active-color "#${nixosConfig.defaults.colorScheme.palette.base0D}"
         }
         border { off; }
-        insert-hint { color "rgb(${nix-colors.lib-core.conversions.hexToRGBString " " defaults.colorScheme.palette.base0D} / 50%)"; }
+        insert-hint { color "rgb(${nix-colors.lib-core.conversions.hexToRGBString " " nixosConfig.defaults.colorScheme.palette.base0D} / 50%)"; }
 
-        default-column-width { proportion 0.75; }
+        default-column-width { proportion ${toString nixosConfig.defaults.display.defaultColumnWidthPercent}; }
         preset-column-widths {
-            proportion 0.25
-            proportion 0.5
-            proportion 0.75
+            ${lib.concatMapStringsSep "\n            " (width: "proportion ${toString width}") nixosConfig.defaults.display.columnWidthPercentPresets}
         }
         center-focused-column "on-overflow"
         always-center-single-column
@@ -163,12 +160,6 @@
         match app-id="org.gnome.NautilusPreviewer"
         match app-id="re.sonny.Commit"
         match app-id="^floating."
-        open-floating true
-    }
-    window-rule {
-        match app-id="io.missioncenter.MissionCenter"
-        default-column-width { fixed ${toString (builtins.elemAt defaults.display.windowSize 0)}; }
-        default-window-height { fixed ${toString (builtins.elemAt defaults.display.windowSize 1)}; }
         open-floating true
     }
     window-rule {

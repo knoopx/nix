@@ -1,6 +1,6 @@
 {
   pkgs,
-  defaults,
+  config,
   ...
 }: {
   services = {
@@ -37,7 +37,7 @@
     plex = {
       enable = true;
       group = "wheel";
-      user = defaults.username;
+      user = config.defaults.username;
     };
 
     atd = {

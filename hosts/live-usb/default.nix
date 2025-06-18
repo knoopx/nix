@@ -1,5 +1,5 @@
 {
-  defaults,
+  config,
   lib,
   pkgs,
   modulesPath,
@@ -34,7 +34,7 @@ in {
       };
       initial_session = {
         command = "niri-session";
-        user = defaults.username;
+        user = config.defaults.username;
       };
     };
   };
@@ -44,4 +44,6 @@ in {
       inherit system;
     };
   };
+
+  home-manager.users.${config.defaults.username} = import ../../home/${config.defaults.username}.nix;
 }

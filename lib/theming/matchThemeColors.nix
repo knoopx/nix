@@ -1,6 +1,6 @@
 {
   pkgs,
-  defaults,
+  config,
   lib,
   ...
 }: let
@@ -17,7 +17,7 @@
         Math.sqrt((c1[0] - c2[0]) ** 2 + (c1[1] - c2[1]) ** 2 + (c1[2] - c2[2]) ** 2)
       end
 
-      TARGET_COLORS = JSON.parse('${builtins.toJSON defaults.colorScheme.palette}')
+      TARGET_COLORS = JSON.parse('${builtins.toJSON config.defaults.colorScheme.palette}')
 
       fail "No target colors given." unless TARGET_COLORS.any?
 

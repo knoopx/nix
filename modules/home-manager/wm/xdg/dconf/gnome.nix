@@ -1,4 +1,4 @@
-{defaults, ...}: {
+{nixosConfig, ...}: {
   dconf.settings = {
     "org/gnome/evolution/calendar" = {
       prefer-new-item = "";
@@ -14,9 +14,9 @@
     };
 
     "org/gnome/file-roller/ui" = {
-      sidebar-width = defaults.display.sidebarWidth;
-      window-width = builtins.elemAt defaults.display.windowSize 0;
-      window-height = builtins.elemAt defaults.display.windowSize 1;
+      sidebar-width = nixosConfig.defaults.display.sidebarWidth;
+      window-width = builtins.elemAt nixosConfig.defaults.display.windowSize 0;
+      window-height = builtins.elemAt nixosConfig.defaults.display.windowSize 1;
     };
   };
 }

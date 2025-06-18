@@ -1,7 +1,7 @@
-{defaults, ...}: {
+{nixosConfig, ...}: {
   dconf.settings = {
     "system/locale" = {
-      region = defaults.region;
+      region = nixosConfig.defaults.region;
     };
   };
 }

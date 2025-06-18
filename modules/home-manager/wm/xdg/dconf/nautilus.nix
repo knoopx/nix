@@ -1,5 +1,5 @@
 {
-  defaults,
+  nixosConfig,
   lib,
   ...
 }: {
@@ -17,7 +17,7 @@
     };
 
     "org/gnome/nautilus/window-state" = {
-      initial-size = lib.hm.gvariant.mkTuple defaults.display.windowSize;
+      initial-size = lib.hm.gvariant.mkTuple nixosConfig.defaults.display.windowSize;
       maximized = false;
     };
   };

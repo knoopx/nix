@@ -1,4 +1,4 @@
-{...} @ inputs: let
+{config, ...} @ inputs: let
   system = "x86_64-linux";
   listNixModulesRecusive = import ../../lib/listNixModulesRecusive.nix inputs;
 in {
@@ -35,4 +35,6 @@ in {
       cudaSupport = true;
     };
   };
+
+  home-manager.users.${config.defaults.username} = import ../../home/${config.defaults.username}.nix;
 }

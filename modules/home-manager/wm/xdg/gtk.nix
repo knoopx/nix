@@ -1,6 +1,5 @@
 {
-  defaults,
-  config,
+  nixosConfig,
   pkgs,
   lib,
   ...
@@ -9,7 +8,7 @@
 in {
   home.packages = [
     pkgs.adwaita-icon-theme
-    (pkgs.theming.mkMoreWaitaIconTheme defaults.colorScheme.palette)
+    (pkgs.theming.mkMoreWaitaIconTheme nixosConfig.defaults.colorScheme.palette)
   ];
 
   xdg.dataFile."gtksourceview-5/styles/catppuccin-mocha.xml".source = let
@@ -37,13 +36,13 @@ in {
       show-hidden = false;
       show-size-column = true;
       show-type-column = true;
-      sidebar-width = defaults.display.sidebarWidth;
+      sidebar-width = nixosConfig.defaults.display.sidebarWidth;
       sort-column = "name";
       sort-directories-first = true;
       sort-order = "ascending";
       type-format = "category";
       view-type = "list";
-      window-size = mkTuple defaults.display.windowSize;
+      window-size = mkTuple nixosConfig.defaults.display.windowSize;
     };
 
     "org/gtk/settings/file-chooser" = {
@@ -52,13 +51,13 @@ in {
       show-hidden = false;
       show-size-column = true;
       show-type-column = true;
-      sidebar-width = defaults.display.sidebarWidth;
+      sidebar-width = nixosConfig.defaults.display.sidebarWidth;
       sort-column = "name";
       sort-directories-first = true;
       sort-order = "ascending";
       type-format = "category";
       view-type = "list";
-      window-size = mkTuple defaults.display.windowSize;
+      window-size = mkTuple nixosConfig.defaults.display.windowSize;
     };
   };
 }

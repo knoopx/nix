@@ -1,14 +1,14 @@
 {
   pkgs,
-  defaults,
+  config,
   ...
 }: {
   stylix = {
     enable = true;
     autoEnable = true;
     polarity = "dark";
-    base16Scheme = defaults.colorScheme;
-    fonts = defaults.fonts;
+    base16Scheme = config.defaults.colorScheme;
+    fonts = config.defaults.fonts;
     cursor = {
       package = pkgs.quintom-cursor-theme;
       name = "Quintom_Snow";

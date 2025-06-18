@@ -1,5 +1,5 @@
 {
-  defaults,
+  config,
   lib,
   pkgs,
   modulesPath,
@@ -48,7 +48,7 @@ in {
   ];
 
   services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = defaults.username;
+  services.displayManager.autoLogin.user = config.defaults.username;
   services.displayManager.gdm.enable = lib.mkForce false;
 
   # Configure proper display manager for niri
@@ -61,28 +61,16 @@ in {
       };
       initial_session = {
         command = "niri-session";
-        user = defaults.username;
+        user = config.defaults.username;
       };
     };
   };
-
-  # home-manager.users.${defaults.username} = {
-  #   programs.niri.settings = {
-  #     spawn-at-startup = [
-  #       {command = ["nautilus"];}
-  #       # {command = ["kitty" "bash" "${./demo.sh}"];}
-  #     ];
-
-  #     outputs."Virtual-1" = {
-  #       scale = 2.0;
-  #       background-color = "#${defaults.colorScheme.palette.base02}";
-  #     };
-  #   };
-  # };
 
   nixpkgs = {
     hostPlatform = {
       inherit system;
     };
   };
+
+  home-manager.users.${config.defaults.username} = import ../../home/${config.defaults.username}.nix;
 }

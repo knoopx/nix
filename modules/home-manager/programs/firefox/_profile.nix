@@ -1,10 +1,10 @@
 {
   pkgs,
-  defaults,
+  nixosConfig,
   betterfox,
   ...
 }: let
-  theme = pkgs.theming.mkStylixFirefoxGnomeTheme defaults.colorScheme.palette;
+  theme = pkgs.theming.mkStylixFirefoxGnomeTheme nixosConfig.defaults.colorScheme.palette;
 in {
   id = 0;
   isDefault = true;
@@ -60,7 +60,7 @@ in {
 
   userContent = ''
     @import "${theme}/theme/userContent.css";
-    ${builtins.readFile "${pkgs.theming.mkUserStyles defaults.colorScheme.palette}"}
+    ${builtins.readFile "${pkgs.theming.mkUserStyles nixosConfig.defaults.colorScheme.palette}"}
   '';
 
   search = {

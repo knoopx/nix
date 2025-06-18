@@ -1,9 +1,9 @@
 {
   pkgs,
-  defaults,
+  nixosConfig,
   ...
 }: let
-  customCSS = with defaults.colorScheme.palette;
+  customCSS = with nixosConfig.defaults.colorScheme.palette;
     pkgs.writeTextFile {
       name = "glance.css";
       text = ''
@@ -38,7 +38,7 @@ in {
         hide-footer = true;
         logo-text = "K";
       };
-      theme = with defaults.colorScheme.palette; {
+      theme = with nixosConfig.defaults.colorScheme.palette; {
         custom-css-file = "assets/${customCSS.name}";
         background-color = hexToHSL base00;
         primary-color = hexToHSL base05;

@@ -1,7 +1,7 @@
 {
   pkgs,
   modulesPath,
-  defaults,
+  config,
   ...
 }: {
   imports = [
@@ -30,8 +30,8 @@
     ];
   };
 
-  time.timeZone = defaults.timeZone;
-  i18n.defaultLocale = defaults.defaultLocale;
+  time.timeZone = config.defaults.timeZone;
+  i18n.defaultLocale = config.defaults.defaultLocale;
 
   i18n.supportedLocales = [
     "en_US.UTF-8/UTF-8"
@@ -39,17 +39,17 @@
   ];
 
   i18n.extraLocaleSettings = {
-    LANGUAGE = defaults.defaultLocale;
-    LC_ALL = defaults.region;
-    LC_ADDRESS = defaults.region;
-    LC_IDENTIFICATION = defaults.region;
-    LC_MEASUREMENT = defaults.region;
-    LC_MONETARY = defaults.region;
-    LC_NAME = defaults.region;
-    LC_NUMERIC = defaults.region;
-    LC_PAPER = defaults.region;
-    LC_TELEPHONE = defaults.region;
-    LC_TIME = defaults.region;
+    LANGUAGE = config.defaults.defaultLocale;
+    LC_ALL = config.defaults.region;
+    LC_ADDRESS = config.defaults.region;
+    LC_IDENTIFICATION = config.defaults.region;
+    LC_MEASUREMENT = config.defaults.region;
+    LC_MONETARY = config.defaults.region;
+    LC_NAME = config.defaults.region;
+    LC_NUMERIC = config.defaults.region;
+    LC_PAPER = config.defaults.region;
+    LC_TELEPHONE = config.defaults.region;
+    LC_TIME = config.defaults.region;
   };
 
   console = {
@@ -71,10 +71,10 @@
       enable = true;
       antialias = true;
       defaultFonts = {
-        serif = [defaults.fonts.serif.name];
-        sansSerif = [defaults.fonts.sansSerif.name];
-        monospace = [defaults.fonts.monospace.name];
-        emoji = [defaults.fonts.emoji.name];
+        serif = [config.defaults.fonts.serif.name];
+        sansSerif = [config.defaults.fonts.sansSerif.name];
+        monospace = [config.defaults.fonts.monospace.name];
+        emoji = [config.defaults.fonts.emoji.name];
       };
     };
   };

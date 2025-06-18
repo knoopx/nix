@@ -1,6 +1,6 @@
 {
-  defaults,
   config,
+  nixosConfig,
   ...
 }: let
   homePage = {
@@ -11,7 +11,7 @@
         widgets = [
           {
             type = "weather";
-            location = defaults.location;
+            location = nixosConfig.defaults.location;
           }
           {type = "calendar";}
           {

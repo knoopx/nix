@@ -1,13 +1,13 @@
 {
   pkgs,
-  defaults,
   config,
+  nixosConfig,
   ...
 }: {
   programs.autofirma = {
     enable = true;
     firefoxIntegration.profiles = {
-      "${defaults.username}" = {
+      "${nixosConfig.defaults.username}" = {
         enable = true;
       };
     };
@@ -20,7 +20,7 @@
   programs.configuradorfnmt = {
     enable = true;
     firefoxIntegration.profiles = {
-      "${defaults.username}" = {
+      "${nixosConfig.defaults.username}" = {
         enable = true;
       };
     };

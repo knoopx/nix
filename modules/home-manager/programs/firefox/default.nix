@@ -1,5 +1,5 @@
 {
-  defaults,
+  nixosConfig,
   pkgs,
   ...
 } @ args: let
@@ -8,8 +8,8 @@ in {
     enable = true;
     package = pkgs.firefox-bin;
     policies = import ./_policies.nix args;
-    profiles."${defaults.username}" = import ./_profile.nix args;
+    profiles."${nixosConfig.defaults.username}" = import ./_profile.nix args;
   };
 
-  stylix.targets.firefox.profileNames = ["${defaults.username}"];
+  stylix.targets.firefox.profileNames = ["${nixosConfig.defaults.username}"];
 }

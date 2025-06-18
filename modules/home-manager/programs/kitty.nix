@@ -1,4 +1,4 @@
-{defaults, ...}: {
+{nixosConfig, ...}: {
   programs.kitty = {
     enable = true;
 
@@ -14,7 +14,7 @@
       window_padding_width = 10;
     };
 
-    extraConfig = with defaults.colorScheme.palette; ''
+    extraConfig = with nixosConfig.defaults.colorScheme.palette; ''
       map ctrl+shift+enter new_window_with_cwd
       map ctrl+shift+t new_tab_with_cwd
 

@@ -1,3 +1,3 @@
-{defaults, ...}: {
-  home.file.".face" = {source = defaults.avatar-image;};
+{nixosConfig, ...}: {
+  home.file.".face" = {source = nixosConfig.defaults.avatarImage;};
 }

@@ -1,5 +1,5 @@
 {
-  defaults,
+  nixosConfig,
   pkgs,
   lib,
   ...
@@ -27,8 +27,8 @@
       height = 200;
       default-timeout = 5000;
       max-icon-size = 32;
-      text-color = lib.mkForce "#${defaults.colorScheme.palette.base00}";
-      background-color = lib.mkForce "#${defaults.colorScheme.palette.base0D}";
+      text-color = lib.mkForce "#${nixosConfig.defaults.colorScheme.palette.base00}";
+      background-color = lib.mkForce "#${nixosConfig.defaults.colorScheme.palette.base0D}";
     };
   };
 }

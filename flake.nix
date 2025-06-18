@@ -2,8 +2,8 @@
   description = "kOS";
 
   inputs = {
-    # nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs";
 
     ollamark.url = "github:knoopx/ollamark";
     ollamark.inputs.nixpkgs.follows = "nixpkgs";
@@ -81,13 +81,11 @@
   } @ inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
-    defaults = pkgs.callPackage ./defaults.nix inputs;
 
     specialArgs =
       (nixpkgs.lib.removeAttrs inputs ["self"])
       // {
         inherit inputs;
-        inherit defaults;
       };
 
     haumeaInputs = prev:
@@ -98,6 +96,7 @@
       };
 
     nixosModules = [
+      ./modules/nixos/defaults.nix
       {
         nixpkgs.overlays =
           [
@@ -149,7 +148,6 @@
           useUserPackages = true;
           extraSpecialArgs = specialArgs;
           backupFileExtension = "bak";
-          users.${defaults.username} = import ./home/${defaults.username}.nix;
           sharedModules = [
             vibeapps.homeManagerModules.default
             autofirma-nix.homeManagerModules.default
@@ -157,7 +155,6 @@
         };
       }
     ];
-
     vmConfiguration = nixpkgs.lib.nixosSystem {
       inherit specialArgs;
       modules =
@@ -204,16 +201,15 @@
           ];
       };
     };
-
-    homeConfigurations = {
-      "${defaults.username}" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = specialArgs;
-        modules = [
-          vibeapps.homeManagerModules.default
-          ./home/knoopx
-        ];
-      };
-    };
+    # homeConfigurations = {
+    #   "${username}" = home-manager.lib.homeManagerConfiguration {
+    #     inherit pkgs;
+    #     extraSpecialArgs = specialArgs;
+    #     modules = [
+    #       vibeapps.homeManagerModules.default
+    #       ./home/knoopx
+    #     ];
+    #   };
+    # };
   };
 }

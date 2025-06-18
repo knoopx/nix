@@ -1,17 +1,17 @@
 {
   pkgs,
-  defaults,
+  config,
   ...
 }: {
   # users.mutableUsers = false;
   users.defaultUserShell = pkgs.fish;
-  users.users.root.initialPassword = defaults.password;
+  users.users.root.initialPassword = config.defaults.password;
 
-  users.users.${defaults.username} = {
+  users.users.${config.defaults.username} = {
     isNormalUser = true;
 
-    description = defaults.full-name;
-    initialPassword = defaults.password;
+    description = config.defaults.fullName;
+    initialPassword = config.defaults.password;
 
     shell = pkgs.fish;
     extraGroups = [
@@ -31,7 +31,7 @@
     ];
 
     openssh.authorizedKeys.keys = let
-      authorizedKeys = pkgs.fetchurl defaults.pubKeys;
+      authorizedKeys = pkgs.fetchurl config.defaults.pubKeys;
     in
       pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
   };

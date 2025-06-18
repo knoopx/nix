@@ -1,7 +1,7 @@
 {
   pkgs,
-  defaults,
   config,
+  nixosConfig,
   lib,
   ...
 } @ inputs: {
@@ -25,8 +25,8 @@
   "editor.suggestSelection" = "first";
   "editor.wordWrap" = "off";
 
-  "custom-ui-style.font.monospace" = defaults.fonts.monospace.name;
-  "custom-ui-style.font.sansSerif" = defaults.fonts.sansSerif.name;
+  "custom-ui-style.font.monospace" = nixosConfig.defaults.fonts.monospace.name;
+  "custom-ui-style.font.sansSerif" = nixosConfig.defaults.fonts.sansSerif.name;
 
   "editor.minimap.enabled" = false;
   "editor.minimap.maxColumn" = 80;
@@ -107,7 +107,7 @@
           expr = ''(builtins.getFlake "${flake}").nixosConfigurations.desktop.options'';
         };
         home-manager = {
-          expr = ''(builtins.getFlake "${flake}").homeConfigurations.${defaults.username}.options'';
+          expr = ''(builtins.getFlake "${flake}").homeConfigurations.${nixosConfig.defaults.username}.options'';
         };
       };
     };
@@ -115,7 +115,7 @@
 
   "workbench.colorCustomizations" = {
     # https://code.visualstudio.com/api/references/theme-color
-    "[Stylix]" = with defaults.colorScheme.palette; {
+    "[Stylix]" = with nixosConfig.defaults.colorScheme.palette; {
       "activityBar.border" = "#${base02}";
       "checkbox.border" = "#${base02}";
       "commandCenter.border" = "#${base02}";

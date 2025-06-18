@@ -1,6 +1,6 @@
 {
   pkgs,
-  defaults,
+  config,
   ...
 }: {
   services = {
@@ -19,7 +19,7 @@
 
     xserver = {
       enable = false;
-      xkb.layout = defaults.keyMap;
+      xkb.layout = config.defaults.keyMap;
       excludePackages = [pkgs.xterm];
     };
 
