@@ -20,7 +20,8 @@ in {
     enable = true;
     keyboards = {
       default = {
-        ids = ["*"];
+        # cat /proc/bus/input/devices
+        ids = ["0001:0001"];
         settings = {
           main = {
             leftmeta = "leftalt";
