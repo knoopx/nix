@@ -28,8 +28,6 @@ in {
 
   system.stateVersion = "25.11";
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-
   services.minibook-support.enable = true;
 
   defaults.display.width = 1920;

@@ -31,13 +31,13 @@
       "sdhci_pci"
     ];
 
-    loader = {
-      grub = {
-        enable = true;
-        device = "nodev";
-        efiSupport = true;
-      };
-      efi.canTouchEfiVariables = true;
-    };
+    # loader = {
+    #   grub = {
+    #     enable = true;
+    #     device = "nodev";
+    #     # efiSupport = true;
+    #   };
+    #   # efi.canTouchEfiVariables = true;
+    # };
   };
 }
