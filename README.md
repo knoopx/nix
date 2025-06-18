@@ -42,7 +42,7 @@ This configuration prioritizes:
 ### Host Configurations
 
 - **desktop/**: My primary development workstation with NVIDIA GPU, BTRFS storage, and container services
-- **macbook/**: My Macbook configuration with Apple hardware-specific drivers and touchbar support
+- **minibook/**: My Chuwi Minibook X N150 configuration.
 - **vm/**: Virtual machine configuration for testing and demos
 
 ### Modular Architecture
@@ -53,6 +53,12 @@ This configuration prioritizes:
 - **builders/**: Functions that create derivations
 
 ## Usage
+
+### build ISO image
+
+```
+nix build path:.#nixosConfigurations.live-usb.config.system.build.isoImage
+```
 
 #### install os
 

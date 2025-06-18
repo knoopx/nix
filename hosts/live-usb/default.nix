@@ -10,12 +10,12 @@
 in {
   imports =
     [
+      "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
     ]
     ++ (listNixModulesRecusive ../../modules/nixos);
 
-  networking.hostName = "vm";
+  networking.hostName = "live-usb";
   networking.wireless.enable = lib.mkForce false;
-  # networking.networkmanager.enable = lib.mkForce false;
 
   system = {
     stateVersion = "25.05";
