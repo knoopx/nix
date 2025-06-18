@@ -1,6 +1,5 @@
 {
   ags,
-  astal-shell,
   pkgs,
   ...
 }: {
@@ -10,7 +9,7 @@
     enable = true;
     configDir = null; # Don't symlink since we're using the bundled version
     extraPackages = [
-      astal-shell.packages.${pkgs.system}.default
+      pkgs.astal-shell
     ];
   };
 
@@ -22,7 +21,7 @@
     };
     Service = {
       Type = "simple";
-      ExecStart = "${astal-shell.packages.${pkgs.system}.default}/bin/astal-shell";
+      ExecStart = "${pkgs.astal-shell}/bin/astal-shell";
       Restart = "on-failure";
       RestartSec = 3;
     };
