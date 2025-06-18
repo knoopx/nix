@@ -8,7 +8,6 @@
 in {
   imports =
     [
-      ./overlays.nix
       ./boot.nix
       ./hardware.nix
     ]

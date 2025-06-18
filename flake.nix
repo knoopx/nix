@@ -95,50 +95,58 @@
         inherit (nixpkgs) lib;
       };
 
-    nixosModules = [
+    globalOverlays =
+      [
+        ollamark.overlays.default
+        astal-shell.overlays.default
+        (self: super: vibeapps.packages.${system})
+        (self: super: {niri = niri.packages.${system}.default;})
+        (self: super: {xwayland-satellite = xwayland-satellite.packages.${system}.default;})
+        (
+          self: super: {firefox-addons = firefox-addons.packages.${system};}
+        )
+        (
+          final: prev:
+            haumea.lib.load {
+              src = ./pkgs;
+              loader = haumea.lib.loaders.scoped;
+              inputs =
+                haumeaInputs prev;
+            }
+        )
+        (
+          final: prev: {
+            lib =
+              prev.lib.extend
+              (p: x: (haumea.lib.load {
+                src = ./lib;
+                inputs = haumeaInputs prev;
+              }));
+          }
+        )
+        (
+          final: prev:
+            haumea.lib.load {
+              src = ./builders;
+              inputs = haumeaInputs prev;
+            }
+        )
+      ]
+      ++ (nixpkgs.lib.attrsets.attrValues (haumea.lib.load {
+        src = ./overlays;
+        loader = haumea.lib.loaders.verbatim;
+      }));
+
+    mkNixosModules = hostPath: let
+      hostOverlaysPath = hostPath + "/overlays.nix";
+      hostOverlays =
+        if builtins.pathExists hostOverlaysPath
+        then [(import hostOverlaysPath)]
+        else [];
+    in [
       ./modules/nixos/defaults.nix
       {
-        nixpkgs.overlays =
-          [
-            ollamark.overlays.default
-            astal-shell.overlays.default
-            (self: super: vibeapps.packages.${system})
-            (self: super: {niri = niri.packages.${system}.default;})
-            (self: super: {xwayland-satellite = xwayland-satellite.packages.${system}.default;})
-            (
-              self: super: {firefox-addons = firefox-addons.packages.${system};}
-            )
-            (
-              final: prev:
-                haumea.lib.load {
-                  src = ./pkgs;
-                  loader = haumea.lib.loaders.scoped;
-                  inputs =
-                    haumeaInputs prev;
-                }
-            )
-            (
-              final: prev: {
-                lib =
-                  prev.lib.extend
-                  (p: x: (haumea.lib.load {
-                    src = ./lib;
-                    inputs = haumeaInputs prev;
-                  }));
-              }
-            )
-            (
-              final: prev:
-                haumea.lib.load {
-                  src = ./builders;
-                  inputs = haumeaInputs prev;
-                }
-            )
-          ]
-          ++ (nixpkgs.lib.attrsets.attrValues (haumea.lib.load {
-            src = ./overlays;
-            loader = haumea.lib.loaders.verbatim;
-          }));
+        nixpkgs.overlays = globalOverlays ++ hostOverlays;
       }
       stylix.nixosModules.stylix
       home-manager.nixosModules.home-manager
@@ -154,14 +162,11 @@
           ];
         };
       }
+      hostPath
     ];
     vmConfiguration = nixpkgs.lib.nixosSystem {
       inherit specialArgs;
-      modules =
-        nixosModules
-        ++ [
-          ./hosts/vm
-        ];
+      modules = mkNixosModules ./hosts/vm;
     };
   in {
     packages.${system} = {
@@ -174,30 +179,21 @@
 
       live-usb = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
-        modules =
-          nixosModules
-          ++ [
-            ./hosts/live-usb
-          ];
+        modules = mkNixosModules ./hosts/live-usb;
       };
 
       desktop = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
-        modules =
-          nixosModules
-          ++ [
-            ./hosts/desktop
-          ];
+        modules = mkNixosModules ./hosts/desktop;
       };
 
       minibookx = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
         modules =
-          nixosModules
+          (mkNixosModules ./hosts/minibookx)
           ++ [
             minibook-support.nixosModules.default
             nixos-hardware.nixosModules.chuwi-minibook-x
-            ./hosts/minibookx
           ];
       };
     };
