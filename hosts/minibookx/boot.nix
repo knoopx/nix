@@ -38,8 +38,8 @@
 
           installPhase = ''
             mkdir -p $CPIO_PATH
-            iasl -tc acpi/mxc6655-override.asl
-            cp acpi/mxc6655-override.aml $CPIO_PATH
+            iasl -tc mxc6655-override.asl
+            cp mxc6655-override.aml $CPIO_PATH
             find kernel | cpio -H newc --create > acpi_override
             cp acpi_override $out
           '';
