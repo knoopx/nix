@@ -15,12 +15,11 @@ in {
 
   system.stateVersion = "25.11";
 
-  services.minibook-support.enable = true;
   services.keyd = {
     enable = true;
     keyboards = {
       default = {
-        # cat /proc/bus/input/devices
+        # nix run nixpkgs#keyd monitor
         ids = ["0001:0001"];
         settings = {
           main = {

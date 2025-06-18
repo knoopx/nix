@@ -601,26 +601,6 @@
         "type": "github"
       }
     },
-    "minibook-support": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1745142134,
-        "narHash": "sha256-aMSo+OjnwvlD6mNPD37hV3AuI6s/kprKMO4Eg8v3qBo=",
-        "owner": "petitstrawberry",
-        "repo": "minibook-support-nix",
-        "rev": "bb68d7daa224b7eabaf6a6ce17a5e873842d8dd4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "petitstrawberry",
-        "repo": "minibook-support-nix",
-        "type": "github"
-      }
-    },
     "neuwaita": {
       "flake": false,
       "locked": {
@@ -849,7 +829,6 @@
         "firefox-gnome-theme": "firefox-gnome-theme",
         "haumea": "haumea",
         "home-manager": "home-manager_2",
-        "minibook-support": "minibook-support",
         "neuwaita": "neuwaita",
         "niri": "niri",
         "nix-colors": "nix-colors",

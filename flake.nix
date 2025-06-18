@@ -58,9 +58,6 @@
     autofirma-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-
-    minibook-support.url = "github:petitstrawberry/minibook-support-nix";
-    minibook-support.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -76,7 +73,6 @@
     astal-shell,
     autofirma-nix,
     nixos-hardware,
-    minibook-support,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -192,7 +188,6 @@
         modules =
           (mkNixosModules ./hosts/minibookx)
           ++ [
-            minibook-support.nixosModules.default
             nixos-hardware.nixosModules.chuwi-minibook-x
           ];
       };
