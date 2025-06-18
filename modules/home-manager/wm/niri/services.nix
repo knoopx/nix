@@ -39,7 +39,7 @@
     };
     Service = {
       Type = "simple";
-      ExecStart = "${lib.getExe pkgs.squeekboard}/bin/.squeekboard-wrapped";
+      ExecStart = "${pkgs.squeekboard}/bin/.squeekboard-wrapped";
       Restart = "on-failure";
     };
     Install = {
