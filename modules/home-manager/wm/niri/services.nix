@@ -37,6 +37,8 @@
     squeekboard = {
       Unit = {
         Description = "On-Screen Keyboard";
+        After = ["graphical-session.target"];
+        PartOf = ["graphical-session.target"];
       };
       Service = {
         Type = "simple";
@@ -44,16 +46,15 @@
         Restart = "on-failure";
       };
       Install = {
-        WantedBy = ["graphical-session.target"];
+        WantedBy = ["niri.service"];
       };
     };
 
     polkit-gnome-authentication-agent-1 = {
       Unit = {
         Description = "GNOME Polkit Authentication Agent";
-        PartOf = ["graphical-session.target"];
-        Wants = ["graphical-session.target"];
         After = ["graphical-session.target"];
+        PartOf = ["graphical-session.target"];
       };
       Service = {
         Type = "simple";
@@ -61,7 +62,7 @@
         Restart = "on-failure";
       };
       Install = {
-        WantedBy = ["graphical-session.target"];
+        WantedBy = ["niri.service"];
       };
     };
   };
