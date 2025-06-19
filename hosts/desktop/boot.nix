@@ -56,17 +56,14 @@
       "xhci_pci"
     ];
 
-    # TODO:
-    # MSI motherboard will wipe out boot entries if efi is not installed at fallback location
-    # run `grub-install --removable ...` to also install grub at fallback location
     loader = {
       grub = {
         enable = true;
         device = "nodev";
         # useOSProber = true;
         efiSupport = true;
+        efiInstallAsRemovable = true;
       };
-      efi.canTouchEfiVariables = true;
     };
   };
 }
