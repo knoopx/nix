@@ -33,17 +33,36 @@
     };
   };
 
-  systemd.user.services.squeekboard = {
-    Unit = {
-      Description = "On-Screen Keyboard";
+  systemd.user.services = {
+    squeekboard = {
+      Unit = {
+        Description = "On-Screen Keyboard";
+      };
+      Service = {
+        Type = "simple";
+        ExecStart = "${pkgs.squeekboard}/bin/.squeekboard-wrapped";
+        Restart = "on-failure";
+      };
+      Install = {
+        WantedBy = ["graphical-session.target"];
+      };
     };
-    Service = {
-      Type = "simple";
-      ExecStart = "${pkgs.squeekboard}/bin/.squeekboard-wrapped";
-      Restart = "on-failure";
-    };
-    Install = {
-      WantedBy = ["graphical-session.target"];
+
+    polkit-gnome-authentication-agent-1 = {
+      Unit = {
+        Description = "GNOME Polkit Authentication Agent";
+        PartOf = ["graphical-session.target"];
+        Wants = ["graphical-session.target"];
+        After = ["graphical-session.target"];
+      };
+      Service = {
+        Type = "simple";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+      };
+      Install = {
+        WantedBy = ["graphical-session.target"];
+      };
     };
   };
 }
