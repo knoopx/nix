@@ -908,11 +908,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1750369088,
-        "narHash": "sha256-njtrVYrl+4I3ikgAoKLyQ+5MZ1BKwazAiEpLq2efwrE=",
+        "lastModified": 1750459519,
+        "narHash": "sha256-5r+n+UspGQmATwiaA/HPoHgLWkmlIFEweHC3A4fqk80=",
         "owner": "nix-community",
         "repo": "stylix",
-        "rev": "8c1421ae02475a874f2a09cc4a7ad6de63fbc9e8",
+        "rev": "faa5a34c3fd533b289ed082ff2b0e579634e3e4f",
         "type": "github"
       },
       "original": {
@@ -1098,11 +1098,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750457465,
-        "narHash": "sha256-ONQWo7AO7sGRasSfUoC7phrMkjnn6YeZrfIf7bQY8z4=",
+        "lastModified": 1750457944,
+        "narHash": "sha256-x+T5KZefxssJm/H+162u7+XfwGpFng0T4e00e6PyeXM=",
         "owner": "knoopx",
         "repo": "vibeapps",
-        "rev": "077cd2997a87ec61e543f6d7387dc4b2e9eca739",
+        "rev": "68ec1c552c1ab256547ece968cd689e655ed313c",
         "type": "github"
       },
       "original": {
