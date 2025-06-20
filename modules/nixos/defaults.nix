@@ -63,8 +63,8 @@ with lib; {
     avatarImage = mkOption {
       type = types.path;
       default = pkgs.fetchurl {
-        url = "https://gravatar.com/userimage/10402619/9d663d9a46ad2c752bf6cfeb93cff4fd.jpeg?size=512";
-        sha256 = "sha256-raMsbyJQgf7JPMvZtAFOBIBwFg8V7HpmtERO9J/50qQ=";
+        url = "https://avatars.githubusercontent.com/u/100993?s=512&u=1703477b683272ffb744f2d41d4b7599010d239b&v=4";
+        sha256 = "sha256-bMHK0ZX9oZYJPI9FqYOcXMQonzipb0Hmbb4MnlhoiLY=";
       };
       description = "User avatar image";
     };
