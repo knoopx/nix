@@ -15,7 +15,6 @@ in {
     enable = true;
     keyboards = {
       default = {
-        # nix run nixpkgs#keyd monitor
         ids = ["0001:0001"];
         settings = {
           main = {
