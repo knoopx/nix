@@ -33,6 +33,6 @@
   }
   {
     key = "ctrl+shift+j";
-    command = "workbench.action.toggleAuxiliaryBar";
+    command = "workbench.panel.chat";
   }
 ]
