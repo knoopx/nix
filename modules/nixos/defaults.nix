@@ -335,15 +335,16 @@ with lib; {
           floatingApps = mkOption {
             type = types.listOf types.str;
             default = [
-              "org.gnome.NautilusPreviewer"
-              "re.sonny.Commit"
               "^floating."
+              "net.knoopx.bookmarks"
               "net.knoopx.launcher"
               "net.knoopx.nix-packages"
-              "net.knoopx.bookmarks"
+              "net.knoopx.process-manager"
               "net.knoopx.scratchpad"
               "net.knoopx.windows"
-              "net.knoopx.process-manager"
+              "net.knoopx.wireless-networks"
+              "org.gnome.NautilusPreviewer"
+              "re.sonny.Commit"
             ];
             description = "List of app-ids that should open as floating windows.";
           };

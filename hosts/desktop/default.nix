@@ -39,6 +39,7 @@ in {
   home-manager.users.${config.defaults.username} = import ../../home/${config.defaults.username}.nix;
 
   defaults.display.appWidths = {
+    "code" = 1.0;
     "io.bassi.Amberol" = 0.25;
     "kitty" = 0.5;
     "net.knoopx.bookmarks" = 0.25;
