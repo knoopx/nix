@@ -144,7 +144,7 @@
         Mod+G { spawn "code"; }
         Mod+H { spawn "firefox"; }
         Mod+I { consume-or-expel-window-left; }
-        Mod+J { toggle-overview; }
+        Mod+Period { toggle-overview; }
         Mod+Left { focus-column-left; }
         Mod+O { consume-or-expel-window-right; }
         Mod+Q { close-window; }

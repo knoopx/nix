@@ -19,7 +19,7 @@ in {
         settings = {
           main = {
             leftmeta = "leftalt";
-            leftalt = "overload(meta, M-j)";
+            leftalt = "overload(meta, M-.)";
           };
         };
       };

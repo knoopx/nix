@@ -7,7 +7,7 @@
         ids = ["*"];
         settings = {
           main = {
-            meta = "overload(meta, M-j)";
+            meta = "overload(meta, M-.)";
           };
         };
       };
