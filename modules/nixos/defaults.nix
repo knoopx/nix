@@ -307,6 +307,11 @@ with lib; {
             default = 1080 * 2;
             description = "Display height in pixels";
           };
+          idleTimeout = mkOption {
+            type = types.int;
+            default = 5 * 60;
+            description = "Idle timeout in seconds before powering off monitors";
+          };
           windowSize = mkOption {
             type = types.listOf types.int;
             default = [1240 900];

@@ -39,6 +39,7 @@ in {
 
   defaults.display.width = 1920;
   defaults.display.height = 1200;
+  defaults.display.idleTimeout = 60; # 1 minute for battery conservation
   defaults.display.defaultColumnWidthPercent = 1.0;
   defaults.display.columnWidthPercentPresets = [0.5 0.75];
 

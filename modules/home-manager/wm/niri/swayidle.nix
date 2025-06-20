@@ -1,4 +1,5 @@
 {
+  nixosConfig,
   pkgs,
   lib,
   ...
@@ -13,7 +14,7 @@
     ];
     timeouts = [
       {
-        timeout = 5 * 60;
+        timeout = nixosConfig.defaults.display.idleTimeout;
         command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
       }
     ];
