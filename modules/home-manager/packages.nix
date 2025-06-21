@@ -131,6 +131,7 @@
     jq
     mpv
     nh
+    nixos-changelog
     ollamark
     rclone
     rsync
