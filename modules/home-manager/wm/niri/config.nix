@@ -160,6 +160,12 @@
         Mod+Shift+Right { move-column-right; }
         Mod+Shift+Up { move-column-to-workspace-up; }
         Mod+Space { spawn "${lib.getExe pkgs.launcher}"; }
+        Mod+Tab { spawn "${lib.getExe pkgs.windows}"; }
+        Mod+P { spawn "${lib.getExe pkgs.process-manager}"; }
+        Mod+M { spawn "${lib.getExe pkgs.music}"; }
+        Mod+B { spawn "${lib.getExe pkgs.bookmarks}"; }
+        Mod+N { spawn "${lib.getExe pkgs.notes}"; }
+        Mod+S { spawn "${lib.getExe pkgs.scratchpad}"; }
         Mod+T { spawn "kitty"; }
         Mod+Up { focus-workspace-up; }
         Mod+V { spawn "nautilus"; }
