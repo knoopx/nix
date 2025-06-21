@@ -164,10 +164,21 @@
       inherit specialArgs;
       modules = mkNixosModules ./hosts/vm;
     };
+
+    # Create pkgs with overlays for package exports
+    pkgsWithOverlays = import nixpkgs {
+      inherit system;
+      overlays = globalOverlays;
+    };
   in {
     packages.${system} = {
       default = vmConfiguration.config.system.build.vm;
-      nfoview = pkgs.callPackage ./pkgs/nfoview.nix {inherit pkgs;};
+
+      # Repository packages
+      importantize = pkgsWithOverlays.importantize;
+      neuwaita-icon-theme = pkgsWithOverlays.neuwaita-icon-theme;
+      nfoview = pkgsWithOverlays.nfoview;
+      strip-python-comments = pkgsWithOverlays.strip-python-comments;
     };
 
     nixosConfigurations = {
