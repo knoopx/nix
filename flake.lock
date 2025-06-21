@@ -252,11 +252,11 @@
     "betterfox": {
       "flake": false,
       "locked": {
-        "lastModified": 1750106755,
-        "narHash": "sha256-jmZ1DTdND9wpPtPZ3TgJhgZc0ed+dre8mRUaA2llBL0=",
+        "lastModified": 1750480196,
+        "narHash": "sha256-Kkk3mqfQCXf/J+SoAKki46e4OoD6ZPHTlXT+yezj6gU=",
         "owner": "yokoffing",
         "repo": "BetterFox",
-        "rev": "82553f016744f0eb0528f8d92c3eb30ef9a1f6c4",
+        "rev": "e66de491acd5e87f53abc3dfe9622f7ce5e2a101",
         "type": "github"
       },
       "original": {
@@ -306,11 +306,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1750392203,
-        "narHash": "sha256-rJU+WeeLxDinRWEGXw5OT4tToIAO8zy/ULFVWHhLp/Q=",
+        "lastModified": 1750478603,
+        "narHash": "sha256-W+PwT19YbzRH8YawEeV3jBb5dp8CbfwWZ4uFQkGwZbA=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "09e3cfed476fc06384610a7e6027df221fc93bd3",
+        "rev": "26d54102450b4e23d56d4319ef0722f155b5b37c",
         "type": "gitlab"
       },
       "original": {
@@ -1098,11 +1098,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750465257,
-        "narHash": "sha256-7mNNur847oPoYB1safONrHByESGOJS/QJqiN5uxvkhU=",
+        "lastModified": 1750498921,
+        "narHash": "sha256-va6ioaLD9ln7uBYNmOqJ8dQnGH3pvj61R8rPw1buiVE=",
         "owner": "knoopx",
         "repo": "vibeapps",
-        "rev": "24fac96f74083714503f5c35fe0e1bbb1bf3f6a7",
+        "rev": "5f7d811ef9e26b312b37f7058d8a7dfcf10e6184",
         "type": "github"
       },
       "original": {
