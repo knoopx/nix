@@ -41,7 +41,7 @@ in {
   defaults.display.appWidths = {
     "code" = 1.0;
     "io.bassi.Amberol" = 0.25;
-    "kitty" = 0.5;
+    "kitty" = 0.75;
     "net.knoopx.bookmarks" = 0.25;
     "net.knoopx.chat" = 0.5;
     "net.knoopx.launcher" = 0.25;
