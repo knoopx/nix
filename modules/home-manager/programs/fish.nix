@@ -46,7 +46,7 @@
         set -x LIBRARY_PATH "$LD_LIBRARY_PATH"
         set -gx TRITON_LIBCUDA_PATH /run/opengl-driver/lib/
 
-
+        set -gx GH_TOKEN (secret-tool lookup github token | head | tr -d "\n")
       '';
     };
   };
