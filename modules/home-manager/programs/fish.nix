@@ -17,10 +17,8 @@
       ];
 
       shellAliases = {
-        llama3 = "ollamark -t 0.3 --model llama3";
-        qwen = "ollamark -t 0.3 --model qwen2.5-coder";
-        phi = "ollamark -t 0.3 --model phi";
         weather = "curl wttr.in";
+        gemini = "bunx @google/gemini-cli";
       };
 
       shellAbbrs = {
@@ -47,6 +45,8 @@
         set -x LD_LIBRARY_PATH "/run/opengl-driver/lib/:$NIX_LD_LIBRARY_PATH"
         set -x LIBRARY_PATH "$LD_LIBRARY_PATH"
         set -gx TRITON_LIBCUDA_PATH /run/opengl-driver/lib/
+
+
       '';
     };
   };
