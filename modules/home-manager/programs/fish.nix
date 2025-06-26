@@ -19,6 +19,9 @@
       shellAliases = {
         weather = "curl wttr.in";
         gemini = "bunx @google/gemini-cli";
+        claude = "bunx @anthropic-ai/claude-code";
+        codex = "bunx @openai/codex";
+        opencode = "bunx opencode-ai";
       };
 
       shellAbbrs = {
