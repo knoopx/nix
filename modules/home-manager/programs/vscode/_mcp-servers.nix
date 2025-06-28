@@ -21,19 +21,16 @@
   "deepwiki" = {
     "command" = "bunx";
     "args" = ["mcp-deepwiki"];
-    "trust" = true;
   };
 
   "huggingface" = {
     "command" = "uvx";
     "args" = ["huggingface-mcp-server"];
-    "trust" = true;
   };
 
   "markitdown" = {
     "command" = "uvx";
     "args" = ["markitdown-mcp"];
-    "trust" = true;
   };
 
   "github" = {
@@ -45,11 +42,11 @@
       "-e"
       "GITHUB_PERSONAL_ACCESS_TOKEN"
       "-v"
-      "$'{PWD}:/workspace"
+      "$PWD:/workspace"
       "ghcr.io/github/github-mcp-server"
     ];
     "env" = {
-      "GITHUB_PERSONAL_ACCESS_TOKEN" = "$'{GH_TOKEN}";
+      "GITHUB_PERSONAL_ACCESS_TOKEN" = "$GITHUB_TOKEN";
     };
   };
 
@@ -61,6 +58,5 @@
   # "duckdb" = {
   #   "command" = "uvx";
   #   "args" = ["mcp-server-duckdb"];
-  #   "trust" = true;
   # };
 }
