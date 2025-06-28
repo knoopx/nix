@@ -1,17 +1,7 @@
-{
-  ags,
-  pkgs,
-  ...
-}: {
-  imports = [ags.homeManagerModules.default];
-
-  programs.ags = {
-    enable = true;
-    configDir = null; # Don't symlink since we're using the bundled version
-    extraPackages = [
-      pkgs.astal-shell
-    ];
-  };
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    astal-shell
+  ];
 
   systemd.user.services.astal-shell = {
     Unit = {

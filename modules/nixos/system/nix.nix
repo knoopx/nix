@@ -16,7 +16,6 @@ _: {
         "https://cache.lix.systems"
         "https://nix-community.cachix.org"
         "https://niri.cachix.org"
-        "https://ags.cachix.org"
         # "https://nyx.chaotic.cx"
         # "https://hyprland.cachix.org"
         # "https://nixpkgs-wayland.cachix.org"

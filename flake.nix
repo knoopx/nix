@@ -30,12 +30,8 @@
     xwayland-satellite.url = "github:Supreeeme/xwayland-satellite";
     xwayland-satellite.inputs.nixpkgs.follows = "nixpkgs";
 
-    ags.url = "github:aylur/ags";
-    ags.inputs.nixpkgs.follows = "nixpkgs";
-
     astal-shell.url = "github:knoopx/astal-shell";
     astal-shell.inputs.nixpkgs.follows = "nixpkgs";
-    astal-shell.inputs.ags.follows = "ags";
 
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
