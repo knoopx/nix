@@ -10,6 +10,7 @@ in {
       ./nvidia.nix
       ./services.nix
     ]
+    ++ (listNixModulesRecusive ./programs)
     ++ (listNixModulesRecusive ./services)
     ++ (listNixModulesRecusive ./containers)
     ++ (listNixModulesRecusive ../../modules/nixos);
