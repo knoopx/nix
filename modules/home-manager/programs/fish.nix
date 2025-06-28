@@ -21,7 +21,7 @@
         gemini = "bunx @google/gemini-cli";
         claude = "bunx @anthropic-ai/claude-code";
         codex = "bunx @openai/codex";
-        opencode = "bunx opencode-ai";
+        opencode-ai = "bunx opencode-ai";
       };
 
       shellAbbrs = {
@@ -37,6 +37,12 @@
         set fish_greeting
 
         set -gx DEEPSEEK_API_KEY (secret-tool lookup deepseek-api key | head | tr -d "\n")
+        set -gx GITHUB_TOKEN (secret-tool lookup github token | head | tr -d "\n")
+
+        # AI_PROVIDER = "pollinations";
+        # OLLAMA_API_BASE = "http://127.0.0.1:11434";
+        # OPENAI_API_BASE = "https://text.pollinations.ai/openai";
+        # OPENAI_API_KEY = "pollinations";
 
         fish_add_path -g "$HOME/.bun/bin"
         fish_add_path -g "$HOME/.cargo/bin:"
@@ -44,12 +50,12 @@
         fish_add_path -g "$HOME/.local/share/gem/ruby/3.1.0/bin/"
         fish_add_path -g "$HOME/bin/"
         fish_add_path -g "$HOME/go/bin"
+        fish_add_path -g "$HOME/.opencode/bin"
 
         set -x LD_LIBRARY_PATH "/run/opengl-driver/lib/:$NIX_LD_LIBRARY_PATH"
         set -x LIBRARY_PATH "$LD_LIBRARY_PATH"
         set -gx TRITON_LIBCUDA_PATH /run/opengl-driver/lib/
 
-        set -gx GH_TOKEN (secret-tool lookup github token | head | tr -d "\n")
       '';
     };
   };
