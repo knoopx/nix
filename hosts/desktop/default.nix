@@ -10,7 +10,6 @@ in {
       ./nvidia.nix
       ./services.nix
     ]
-    ++ (listNixModulesRecusive ./programs)
     ++ (listNixModulesRecusive ./services)
     ++ (listNixModulesRecusive ./containers)
     ++ (listNixModulesRecusive ../../modules/nixos);
@@ -37,7 +36,9 @@ in {
     };
   };
 
-  home-manager.users.${config.defaults.username} = import ../../home/${config.defaults.username}.nix;
+  home-manager.users.${config.defaults.username} = {
+    imports = [../../home/${config.defaults.username}.nix] ++ (listNixModulesRecusive ./programs);
+  };
 
   defaults.display.appWidths = {
     "code" = 1.0;
