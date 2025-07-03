@@ -135,6 +135,7 @@
     }
 
     binds {
+        MouseForward { toggle-overview; }
         Alt+Down { focus-workspace-down; }
         Alt+Up { focus-workspace-up; }
         Mod+C { center-window; }
