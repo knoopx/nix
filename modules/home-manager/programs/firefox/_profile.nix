@@ -151,6 +151,10 @@ in {
   };
 
   settings = {
+    "browser.link.open_newwindow.disabled_in_fullscreen" = false;
+    "browser.link.open_newwindow.external" = 2;
+    "browser.link.open_newwindow.restriction" = 0;
+    "browser.link.open_newwindow" = 2;
     "browser.newtab.preload" = true;
     "browser.newtab.privateAllowed" = true;
     "browser.newtabpage.activity-stream.feeds.telemetry" = false;
@@ -173,6 +177,7 @@ in {
     "extensions.htmlaboutaddons.recommendations.enabled" = false;
     "gfx.webrender.all" = true;
     "layers.acceleration.force-enabled" = true;
+    "sidebar.animation.enabled" = false;
     "svg.context-properties.content.enabled" = true;
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "toolkit.telemetry.archive.enabled" = false;
@@ -190,9 +195,5 @@ in {
     "toolkit.telemetry.unifiedIsOptIn" = false;
     "toolkit.telemetry.updatePing.enabled" = false;
     "widget.gtk.rounded-bottom-corners.enabled" = true;
-    "browser.link.open_newwindow" = 2;
-    "browser.link.open_newwindow.external" = 2;
-    "browser.link.open_newwindow.restriction" = 0;
-    "browser.link.open_newwindow.disabled_in_fullscreen" = false;
   };
 }
