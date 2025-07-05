@@ -54,5 +54,10 @@ in {
   defaults.display.defaultColumnWidthPercent = 1.0;
   defaults.display.columnWidthPercentPresets = [0.5 0.75];
 
-  home-manager.users.${config.defaults.username} = import ../../home/${config.defaults.username}.nix;
+  home-manager.users.${config.defaults.username} = {
+    imports = [
+      ../../home/${config.defaults.username}.nix
+    ];
+    home.packages = with pkgs; [niri-rotate-display-desktop-items];
+  };
 }
