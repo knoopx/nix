@@ -16,6 +16,7 @@ _: {
         "https://cache.lix.systems"
         "https://nix-community.cachix.org"
         "https://niri.cachix.org"
+        "https://cuda-maintainers.cachix.org"
         # "https://nyx.chaotic.cx"
         # "https://hyprland.cachix.org"
         # "https://nixpkgs-wayland.cachix.org"
@@ -36,6 +37,7 @@ _: {
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+        "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
       ];
     };
 
