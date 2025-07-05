@@ -176,6 +176,7 @@
       neuwaita-icon-theme = pkgsWithOverlays.neuwaita-icon-theme;
       nfoview = pkgsWithOverlays.nfoview;
       strip-python-comments = pkgsWithOverlays.strip-python-comments;
+      minibook-dual-accelerometer = pkgsWithOverlays.minibook-dual-accelerometer;
     };
 
     nixosConfigurations = {
