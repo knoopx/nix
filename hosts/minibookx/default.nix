@@ -1,4 +1,8 @@
-{config, ...} @ inputs: let
+{
+  pkgs,
+  config,
+  ...
+} @ inputs: let
   listNixModulesRecusive = import ../../lib/listNixModulesRecusive.nix inputs;
   system = "x86_64-linux";
 in {
