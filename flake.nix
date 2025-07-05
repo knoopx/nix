@@ -201,9 +201,9 @@
           (mkNixosModules ./hosts/minibookx)
           ++ [
             nixos-hardware.nixosModules.chuwi-minibook-x
+            {nixpkgs.overlays = globalOverlays ++ [(import (inputs.chuwi-grub-rotation + "/overlays/grub2"))];}
           ];
         # Register the chuwi-grub-rotation overlay for this host
-        nixpkgs.overlays = globalOverlays ++ [(import (inputs.chuwi-grub-rotation + "/overlays/grub2"))];
       };
     };
     # homeConfigurations = {

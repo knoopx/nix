@@ -242,6 +242,22 @@
         "type": "github"
       }
     },
+    "chuwi-grub-rotation": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1750067185,
+        "narHash": "sha256-hNgNRMgtBSOrhMMdi28thrHN8ieeLePqVXgbpCH5l/I=",
+        "owner": "iggyZiggy",
+        "repo": "chuwi-grub-rotation-nix-patch",
+        "rev": "146b4415309e8cefeccbc211b30c82e3f24c641a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "iggyZiggy",
+        "repo": "chuwi-grub-rotation-nix-patch",
+        "type": "github"
+      }
+    },
     "clienteafirma-external-src": {
       "flake": false,
       "locked": {
@@ -767,6 +783,7 @@
         "autofirma-nix": "autofirma-nix",
         "betterfox": "betterfox",
         "catppuccin-userstyles": "catppuccin-userstyles",
+        "chuwi-grub-rotation": "chuwi-grub-rotation",
         "firefox-addons": "firefox-addons",
         "firefox-gnome-theme": "firefox-gnome-theme",
         "haumea": "haumea",
