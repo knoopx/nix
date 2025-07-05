@@ -47,6 +47,15 @@
         enable = true;
         device = "nodev";
         efiSupport = true;
+
+        extraConfig = ''
+          export GRUB_FB_ROTATION=270
+          GRUB_FB_ROTATION=270
+          set rotation=270
+        '';
+
+        gfxmodeEfi = "1200x1920x32";
+        gfxpayloadEfi = "keep";
       };
       efi.canTouchEfiVariables = true;
     };
