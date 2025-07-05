@@ -10,4 +10,9 @@ final: prev: {
         --replace-fail "const verticalMargin = 100" "const verticalMargin = 70"
     '';
   });
+
+  grub2 = prev.grub2.overrideAttrs (oldAttrs: {
+    # Disable unused variable warnings to fix compilation error
+    NIX_CFLAGS_COMPILE = (oldAttrs.NIX_CFLAGS_COMPILE or "") + " -Wno-unused-variable";
+  });
 }
