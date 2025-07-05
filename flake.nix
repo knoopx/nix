@@ -56,6 +56,9 @@
     autofirma-nix.inputs.home-manager.follows = "home-manager";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+
+    chuwi-grub-rotation.url = "github:iggyZiggy/chuwi-grub-rotation-nix-patch";
+    chuwi-grub-rotation.flake = false;
   };
 
   outputs = {
@@ -199,6 +202,8 @@
           ++ [
             nixos-hardware.nixosModules.chuwi-minibook-x
           ];
+        # Register the chuwi-grub-rotation overlay for this host
+        nixpkgs.overlays = globalOverlays ++ [(import (inputs.chuwi-grub-rotation + "/overlays/grub2"))];
       };
     };
     # homeConfigurations = {
