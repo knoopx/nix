@@ -40,6 +40,7 @@
     sushi
     transmission_4-gtk
     vial
+    balatro
   ];
 
   cli = with pkgs; [
