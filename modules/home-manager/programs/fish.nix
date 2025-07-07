@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  nixosConfig,
+  ...
+}: {
   home.shell.enableFishIntegration = true;
 
   programs = {
@@ -38,11 +42,7 @@
 
         set -gx DEEPSEEK_API_KEY (secret-tool lookup deepseek-api key | head | tr -d "\n")
         set -gx GITHUB_TOKEN (secret-tool lookup github token | head | tr -d "\n")
-
-        # AI_PROVIDER = "pollinations";
-        # OLLAMA_API_BASE = "http://127.0.0.1:11434";
-        # OPENAI_API_BASE = "https://text.pollinations.ai/openai";
-        # OPENAI_API_KEY = "pollinations";
+        set -gx OPENAI_API_BASE "https://ai.${nixosConfig.services.traefik-proxy.domain}/v1/"
 
         fish_add_path -g "$HOME/.bun/bin"
         fish_add_path -g "$HOME/.cargo/bin:"
@@ -55,7 +55,6 @@
         set -x LD_LIBRARY_PATH "/run/opengl-driver/lib/:$NIX_LD_LIBRARY_PATH"
         set -x LIBRARY_PATH "$LD_LIBRARY_PATH"
         set -gx TRITON_LIBCUDA_PATH /run/opengl-driver/lib/
-
       '';
     };
   };
