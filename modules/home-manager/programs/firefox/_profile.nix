@@ -15,7 +15,6 @@ in {
     sponsorblock
     dictionary-spanish
     brotab
-    stylus
   ];
 
   extraConfig = ''
