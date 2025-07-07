@@ -26,7 +26,6 @@
     # glibc
     # glibc.dev
     # glow
-    # gum
     # hdparm
     # iftop
     # iperf
@@ -86,6 +85,7 @@
     fclones
     ffmpeg
     gcalcli
+    gum
     imagemagick
     inotify-tools
     jq
@@ -99,5 +99,6 @@
     rsync
     say
     strip-python-comments
+    wl-clipboard
   ];
 }
