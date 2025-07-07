@@ -47,10 +47,6 @@ in {
       type = lib.types.attrsOf lib.types.port;
       default = {};
       description = "Map of service names to their local ports";
-      example = {
-        "glance" = 9000;
-        "ollama" = 11434;
-      };
     };
   };
 
