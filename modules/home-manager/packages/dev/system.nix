@@ -4,5 +4,7 @@
     gcc
     gnumake
     pkg-config
+    # fish-lsp
+    # bash-language-server
   ];
 }

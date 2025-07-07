@@ -6,7 +6,6 @@
     # axel
     # bandwhich
     # bash
-    # bash-language-server
     # bison
     # btrfs-snap
     # ccache
@@ -101,5 +100,6 @@
     say
     strip-python-comments
     wl-clipboard
+    python313Packages.markitdown
   ];
 }
