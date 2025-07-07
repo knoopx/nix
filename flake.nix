@@ -58,21 +58,24 @@
 
     chuwi-grub-rotation.url = "github:iggyZiggy/chuwi-grub-rotation-nix-patch";
     chuwi-grub-rotation.flake = false;
+
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 
   outputs = {
+    astal-shell,
+    autofirma-nix,
     firefox-addons,
     haumea,
     home-manager,
-    nixpkgs,
-    stylix,
     niri,
-    xwayland-satellite,
-    vibeapps,
-    ollamark,
-    astal-shell,
-    autofirma-nix,
+    nix-vscode-extensions,
     nixos-hardware,
+    nixpkgs,
+    ollamark,
+    stylix,
+    vibeapps,
+    xwayland-satellite,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -92,14 +95,13 @@
 
     globalOverlays =
       [
-        ollamark.overlays.default
         astal-shell.overlays.default
+        nix-vscode-extensions.overlays.default
+        ollamark.overlays.default
         (self: super: vibeapps.packages.${system})
         (self: super: {niri = niri.packages.${system}.default;})
         (self: super: {xwayland-satellite = xwayland-satellite.packages.${system}.default;})
-        (
-          self: super: {firefox-addons = firefox-addons.packages.${system};}
-        )
+        (self: super: {firefox-addons = firefox-addons.packages.${system};})
         (
           final: prev:
             haumea.lib.load {

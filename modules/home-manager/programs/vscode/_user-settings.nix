@@ -153,6 +153,6 @@
   ];
 
   mcp = {
-    servers = import ./_mcp-servers.nix inputs;
+    servers = nixosConfig.ai.mcp;
   };
 }
