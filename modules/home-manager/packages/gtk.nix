@@ -1,0 +1,44 @@
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    amberol
+    apostrophe
+    authenticator
+    balatro
+    baobab
+    commit
+    czkawka
+    dataset-viewer
+    dconf-editor
+    decibels
+    drawing
+    eog
+    errands
+    evince
+    fclones-gui
+    file-roller
+    foliate
+    gitg
+    gnome-calendar
+    gnome-disk-utility
+    gnome-text-editor
+    gnome-weather
+    google-chrome
+    loupe
+    mission-center
+    nautilus
+    nfoview
+    nicotine-plus
+    onlyoffice-bin
+    picard
+    pinta
+    planify
+    prusa-slicer
+    rnote
+    seahorse
+    showtime
+    snapshot
+    sushi
+    transmission_4-gtk
+    vial
+  ];
+}
