@@ -1,0 +1,7 @@
+% jq, json
+
+# keyify, array to object
+jq 'map({ (.key): del(.key) }) | add'
+
+# keyify, array to object, pick props
+jq 'map({ (.key): { value: .value } }) | add'

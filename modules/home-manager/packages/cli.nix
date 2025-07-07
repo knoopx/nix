@@ -92,6 +92,7 @@
     llama-cpp
     llm
     mpv
+    navi
     nh
     nixos-changelog
     ollamark

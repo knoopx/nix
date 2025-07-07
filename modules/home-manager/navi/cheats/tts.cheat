@@ -1,0 +1,10 @@
+# agenda
+begin; printf "Agenda for today:\n"; gcalcli agenda --tsv | duckdb -noheader -list -c "SELECT title FROM read_csv_auto('/dev/stdin', delim='\t');"; end | say
+
+# read URL
+curl <url> | nix run nixpkgs#python313Packages.markitdown | say
+
+
+# text to speech
+say "<text>"
+$ text: gum write --placeholder "prompt..."

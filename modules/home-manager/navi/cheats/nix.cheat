@@ -1,0 +1,28 @@
+% nix
+
+# update flake
+nix flake update
+
+# nixos switch
+nh os switch path:~/.nix
+
+# nixos repl (:q to quit)
+nix repl --expr "builtins.getFlake ''$PWD''"
+
+# nixos pin to specific rev until next update
+nix flake lock --override-input nixpkgs github:NixOS/nixpkgs/revision
+
+# nixos get last cached rev
+curl -sL "https://monitoring.nixos.org/prometheus/api/v1/query?query=channel_revision" | jq -r ".data.result[] | select(.metric.channel==\"nixos-unstable\") | .metric.revision"
+
+# nixos packages, nixpkgs
+xdg-open https://search.nixos.org/options
+
+# home-manager options
+xdg-open https://home-manager-options.extranix.com/
+
+# nixos options
+xdg-open https://noogle.dev/
+
+# nix garbage collect
+sudo nix-collect-garbage -d; nix-collect-garbage -d;

@@ -1,0 +1,13 @@
+% duckduckgo
+
+# duckduckgo search input
+gum input --placeholder "search..."
+
+# duckduckgo search and open
+xdg-open $(ddgr --json --noprompt --expand "<text>" \
+  | jq -rc '. | map("{{ Color \"99\" \"\(.title)\" }}\n\(.abstract)\n\(.url)\n") | .[]' \
+  | gum format -t template \
+  | perl -0 -pe 's/\n\n/\0/gm' \
+  | fzf --read0 --ansi --multi --highlight-line --layout reverse \
+  | tail -n 1)
+$ text: gum input --placeholder "search..."

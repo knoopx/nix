@@ -1,0 +1,9 @@
+% docker
+
+# docker shell container
+sudo docker exec -ti <container> "/bin/sh"
+$ container: sudo docker ps
+
+# docker purge
+docker system prune -a
+sudo docker system prune -a

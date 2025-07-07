@@ -1,0 +1,6 @@
+% systemd
+
+# systemctl
+systemctl <command> --user <service>
+$ command: echo "status;restart;start;stop;" | tr ';' '\n'
+$ service: systemctl list-units --user

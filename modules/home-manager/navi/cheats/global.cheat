@@ -1,0 +1,11 @@
+% global
+
+# clipboard fuzzy
+list-actions --text "{pbpaste}" | fuzzy
+
+# hacker-news fuzzy
+run-action hacker-news | fuzzy
+
+# downloads
+find <downloads_dir>
+$ downloads_dir: ~/Downloads
