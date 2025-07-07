@@ -151,8 +151,4 @@
       });
     }
   ];
-
-  mcp = {
-    servers = nixosConfig.ai.mcp;
-  };
 }
