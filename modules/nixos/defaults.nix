@@ -8,92 +8,63 @@ with lib; {
   options.defaults = {
     username = mkOption {
       type = types.str;
-      default = "knoopx";
       description = "Default username for the system";
     };
-
     password = mkOption {
       type = types.str;
-      default = config.defaults.username;
       description = "Default password (same as username)";
     };
-
     fullName = mkOption {
       type = types.str;
-      default = "Victor Martinez";
       description = "Full name of the user";
     };
-
     location = mkOption {
       type = types.str;
-      default = "Vilassar de Mar";
       description = "User location";
     };
-
     primaryEmail = mkOption {
       type = types.str;
-      default = "knoopx@gmail.com";
       description = "Primary email address";
     };
-
     keyMap = mkOption {
       type = types.str;
-      default = "eu";
       description = "Keyboard layout mapping";
     };
-
     timeZone = mkOption {
       type = types.str;
-      default = "Europe/Madrid";
       description = "System timezone";
     };
-
     defaultLocale = mkOption {
       type = types.str;
-      default = "en_US.UTF-8";
       description = "Default system locale";
     };
-
     region = mkOption {
       type = types.str;
-      default = "es_ES.UTF-8";
       description = "Regional locale settings";
     };
-
     avatarImage = mkOption {
       type = types.path;
-      default = pkgs.fetchurl {
-        url = "https://avatars.githubusercontent.com/u/100993?s=512&u=1703477b683272ffb744f2d41d4b7599010d239b&v=4";
-        sha256 = "sha256-bMHK0ZX9oZYJPI9FqYOcXMQonzipb0Hmbb4MnlhoiLY=";
-      };
       description = "User avatar image";
     };
-
     editor = mkOption {
       type = types.str;
-      default = "re.sonny.Commit";
       description = "Default text editor";
     };
-
     pubKeys = mkOption {
       type = types.submodule {
         options = {
           url = mkOption {
             type = types.str;
-            default = "https://github.com/${config.defaults.username}.keys";
             description = "URL to fetch public keys from";
           };
           sha256 = mkOption {
             type = types.str;
-            default = "sha256-385krE9Aoea23aQ3FJo2kpPtRrIOwxxXCCt43gHEo0Q=";
             description = "SHA256 hash of the public keys";
           };
         };
       };
-      default = {};
       description = "Public keys configuration";
     };
-
     fonts = mkOption {
       type = types.submodule {
         options = {
@@ -102,102 +73,81 @@ with lib; {
               options = {
                 applications = mkOption {
                   type = types.int;
-                  default = 11;
                   description = "Font size for applications";
                 };
               };
             };
-            default = {};
             description = "Font size configuration";
           };
-
           sansSerif = mkOption {
             type = types.submodule {
               options = {
                 name = mkOption {
                   type = types.str;
-                  default = "Inter";
                   description = "Sans-serif font name";
                 };
                 package = mkOption {
                   type = types.package;
-                  default = pkgs.inter;
                   description = "Sans-serif font package";
                 };
               };
             };
-            default = {};
             description = "Sans-serif font configuration";
           };
-
           serif = mkOption {
             type = types.submodule {
               options = {
                 name = mkOption {
                   type = types.str;
-                  default = "Roboto Slab";
                   description = "Serif font name";
                 };
                 package = mkOption {
                   type = types.package;
-                  default = pkgs.roboto;
                   description = "Serif font package";
                 };
               };
             };
-            default = {};
             description = "Serif font configuration";
           };
-
           emoji = mkOption {
             type = types.submodule {
               options = {
                 name = mkOption {
                   type = types.str;
-                  default = "Twitter Color Emoji";
                   description = "Emoji font name";
                 };
                 package = mkOption {
                   type = types.package;
-                  default = pkgs.twitter-color-emoji;
                   description = "Emoji font package";
                 };
               };
             };
-            default = {};
             description = "Emoji font configuration";
           };
-
           monospace = mkOption {
             type = types.submodule {
               options = {
                 name = mkOption {
                   type = types.str;
-                  default = "JetBrainsMono Nerd Font";
                   description = "Monospace font name";
                 };
                 package = mkOption {
                   type = types.package;
-                  default = pkgs.nerd-fonts.jetbrains-mono;
                   description = "Monospace font package";
                 };
               };
             };
-            default = {};
             description = "Monospace font configuration";
           };
         };
       };
-      default = {};
       description = "Font configuration";
     };
-
     colorScheme = mkOption {
       type = types.submodule {
         options = {
           name = mkOption {
             type = types.str;
-            default = "custom";
             description = "Color scheme name";
           };
           palette = mkOption {
@@ -205,163 +155,206 @@ with lib; {
               options = {
                 base00 = mkOption {
                   type = types.str;
-                  default = "131327";
                   description = "Base color 00";
                 };
                 base01 = mkOption {
                   type = types.str;
-                  default = "191935";
                   description = "Base color 01";
                 };
                 base02 = mkOption {
                   type = types.str;
-                  default = "25254b";
                   description = "Base color 02";
                 };
                 base03 = mkOption {
                   type = types.str;
-                  default = "2d2b55";
                   description = "Base color 03";
                 };
                 base04 = mkOption {
                   type = types.str;
-                  default = "494685";
                   description = "Base color 04";
                 };
                 base05 = mkOption {
                   type = types.str;
-                  default = "e1efff";
-                  description = "Base color 05 (text)";
+                  description = "Base color 05";
                 };
                 base06 = mkOption {
                   type = types.str;
-                  default = "e5e4fb";
                   description = "Base color 06";
                 };
                 base07 = mkOption {
                   type = types.str;
-                  default = "fad000";
                   description = "Base color 07";
                 };
                 base08 = mkOption {
                   type = types.str;
-                  default = "ff628c";
                   description = "Base color 08";
                 };
                 base09 = mkOption {
                   type = types.str;
-                  default = "ffb454";
                   description = "Base color 09";
                 };
                 base0A = mkOption {
                   type = types.str;
-                  default = "ffee80";
                   description = "Base color 0A";
                 };
                 base0B = mkOption {
                   type = types.str;
-                  default = "a5ff90";
                   description = "Base color 0B";
                 };
                 base0C = mkOption {
                   type = types.str;
-                  default = "80fcff";
                   description = "Base color 0C";
                 };
                 base0D = mkOption {
                   type = types.str;
-                  default = "fad000";
                   description = "Base color 0D";
                 };
                 base0E = mkOption {
                   type = types.str;
-                  default = "faefa5";
                   description = "Base color 0E";
                 };
                 base0F = mkOption {
                   type = types.str;
-                  default = "fb94ff";
                   description = "Base color 0F";
                 };
               };
             };
-            default = {};
             description = "Color palette configuration";
           };
         };
       };
-      default = {};
       description = "Color scheme configuration following base16 scheme";
     };
-
     display = mkOption {
       type = types.submodule {
         options = {
           width = mkOption {
             type = types.int;
-            default = 1920 * 2;
             description = "Display width in pixels";
           };
           height = mkOption {
             type = types.int;
-            default = 1080 * 2;
             description = "Display height in pixels";
           };
           idleTimeout = mkOption {
             type = types.int;
-            default = 5 * 60;
             description = "Idle timeout in seconds before powering off monitors";
           };
           windowSize = mkOption {
             type = types.listOf types.int;
-            default = [1240 900];
             description = "Default window size [width, height]";
           };
           sidebarWidth = mkOption {
             type = types.int;
-            default = 200;
             description = "Default sidebar width in pixels";
           };
           defaultColumnWidthPercent = mkOption {
             type = types.float;
-            default = 0.75;
             description = "Default column width";
           };
           columnWidthPercentPresets = mkOption {
             type = types.listOf types.float;
-            default = [0.25 0.5 0.75];
             description = "List of column width presets as percentages";
           };
           appWidths = mkOption {
             type = types.attrsOf types.float;
-            default = {};
             description = "Mapping of app-id to default column width proportion (0.0-1.0)";
           };
           floatingApps = mkOption {
             type = types.listOf types.str;
-            default = [
-              "^floating."
-              "net.knoopx.bookmarks"
-              "net.knoopx.launcher"
-              "net.knoopx.nix-packages"
-              "net.knoopx.process-manager"
-              "net.knoopx.scratchpad"
-              "net.knoopx.windows"
-              "net.knoopx.wireless-networks"
-              "org.gnome.NautilusPreviewer"
-              "re.sonny.Commit"
-            ];
             description = "List of app-ids that should open as floating windows.";
           };
         };
       };
-      default = {};
       description = "Display configuration settings";
     };
   };
 
   config = {
     # Set default values for the module - this ensures all options are properly initialized
-    defaults = mkDefault {};
+    defaults = {
+      username = "knoopx";
+      password = "knoopx";
+      fullName = "Victor Martinez";
+      location = "Vilassar de Mar";
+      primaryEmail = "knoopx@gmail.com";
+      keyMap = "eu";
+      timeZone = "Europe/Madrid";
+      defaultLocale = "en_US.UTF-8";
+      region = "es_ES.UTF-8";
+      avatarImage = pkgs.fetchurl {
+        url = "https://avatars.githubusercontent.com/u/100993?s=512&u=1703477b683272ffb744f2d41d4b7599010d239b&v=4";
+        sha256 = "sha256-bMHK0ZX9oZYJPI9FqYOcXMQonzipb0Hmbb4MnlhoiLY=";
+      };
+      editor = "re.sonny.Commit";
+      pubKeys = {
+        url = "https://github.com/${config.defaults.username}.keys";
+        sha256 = "sha256-385krE9Aoea23aQ3FJo2kpPtRrIOwxxXCCt43gHEo0Q=";
+      };
+      fonts = {
+        sizes = {
+          applications = 11;
+        };
+        sansSerif = {
+          name = "Inter";
+          package = pkgs.inter;
+        };
+        serif = {
+          name = "Roboto Slab";
+          package = pkgs.roboto;
+        };
+        emoji = {
+          name = "Twitter Color Emoji";
+          package = pkgs.twitter-color-emoji;
+        };
+        monospace = {
+          name = "JetBrainsMono Nerd Font";
+          package = pkgs.nerd-fonts.jetbrains-mono;
+        };
+      };
+      colorScheme = {
+        name = "custom";
+        palette = {
+          base00 = "131327";
+          base01 = "191935";
+          base02 = "25254b";
+          base03 = "2d2b55";
+          base04 = "494685";
+          base05 = "e1efff";
+          base06 = "e5e4fb";
+          base07 = "fad000";
+          base08 = "ff628c";
+          base09 = "ffb454";
+          base0A = "ffee80";
+          base0B = "a5ff90";
+          base0C = "80fcff";
+          base0D = "fad000";
+          base0E = "faefa5";
+          base0F = "fb94ff";
+        };
+      };
+      display = {
+        width = 1920 * 2;
+        height = 1080 * 2;
+        idleTimeout = 5 * 60;
+        windowSize = [1240 900];
+        sidebarWidth = 200;
+        defaultColumnWidthPercent = 0.75;
+        columnWidthPercentPresets = [0.25 0.5 0.75];
+        appWidths = {};
+        floatingApps = [
+          "^floating."
+          "net.knoopx.bookmarks"
+          "net.knoopx.launcher"
+          "net.knoopx.nix-packages"
+          "net.knoopx.process-manager"
+          "net.knoopx.scratchpad"
+          "net.knoopx.windows"
+          "net.knoopx.wireless-networks"
+          "org.gnome.NautilusPreviewer"
+          "re.sonny.Commit"
+        ];
+      };
+    };
   };
 }
