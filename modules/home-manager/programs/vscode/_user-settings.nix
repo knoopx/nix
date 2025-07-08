@@ -85,8 +85,6 @@
   "python.analysis.autoImportCompletions" = true;
   "python.analysis.autoImportUserSymbols" = true;
 
-  "aider-composer.pythonPath" = "/nix/store/c9m6yd8fg1flz2j5r4bif1ib5j20a0cy-python3-3.12.8/bin/python3.12";
-
   "nix.enableLanguageServer" = true;
   "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
   "nix.serverSettings" = {
@@ -143,12 +141,12 @@
   "qalc.output.notation" = "auto";
   "qalc.output.precision" = 0;
   "qalc.output.lowerExponentBound" = -4;
+  "github.copilot.codeGeneration.instructions" = (
+    map (file: {file = toString file;}) nixosConfig.ai.instructions.code
+  );
   "github.copilot.chat.commitMessageGeneration.instructions" = [
     {
-      text = lib.readFile (pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/SimonSkoda13/Copilot-commit-message-instructions/refs/heads/main/.copilot-commit-message-instructions.md";
-        sha256 = "sha256-62lXbUnXVqY2uxJ0iY0DFK5KKASEP7UhlMkABcKxxGE=";
-      });
+      file = nixosConfig.ai.instructions.commit;
     }
   ];
 }

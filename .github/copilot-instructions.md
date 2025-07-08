@@ -1,3 +1,20 @@
+# Coding Style and Review Policy
+
+## Remove, Don't Comment Out
+
+When asked to remove a feature, option, or code path, **delete the code entirely** instead of commenting it out or leaving dead code. Do not leave commented-out code or references to removed features. The codebase should remain clean and free of unused logic or options.
+
+This applies to:
+- Command-line options
+- Default values
+- Help messages
+- Any code path or logic related to the removed feature
+
+**Example:**
+
+If asked to remove an `output_file` option, delete all code, help text, and logic related to it. Do not leave comments like `# output_file removed` or `# output_file option ignored`.
+
+---
 # NixOS Dotfiles Repository Structure & Usage Guide
 
 This is a comprehensive NixOS configuration repository (kOS) that manages both system-level and user-level configurations using Nix flakes. The repository follows a modular structure for maintainability and reusability.

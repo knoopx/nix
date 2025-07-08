@@ -13,6 +13,20 @@ with lib; {
       description = "Base URL for the AI service.";
       default = "https://ai.${config.services.traefik-proxy.domain}";
     };
+
+    instructions = {
+      commit = mkOption {
+        type = with types; nullOr path;
+        description = "Path to commit message instructions file for the AI service.";
+        default = null;
+      };
+      code = mkOption {
+        type = with types; nullOr (listOf path);
+        description = "List of paths to code generation instructions files for the AI service.";
+        default = null;
+      };
+    };
+
     mcp = mkOption {
       description = "AI MCP configuration";
       type = types.attrsOf (types.submodule {
@@ -90,6 +104,16 @@ with lib; {
 
   config = {
     ai = {
+      instructions = {
+        commit = ./ai/instructions/commit.md;
+        code = [
+          ./ai/instructions/code/general.instructions.md
+          ./ai/instructions/code/ruby.instructions.md
+          ./ai/instructions/code/python.instructions.md
+          ./ai/instructions/code/nix.instructions.md
+          ./ai/instructions/code/javascript.instructions.md
+        ];
+      };
       # https://github.com/aidan-labs/stt-tts-agent/
       models = {
         # ${pkgs.llama-cpp}/bin/llama-server -hf unsloth/gemma-3n-E4B-it-GGUF:Q8_0 --port ''${PORT}
@@ -138,20 +162,20 @@ with lib; {
             "tts-1"
           ];
         };
-        "whisper" = {
-          unlisted = true;
-          checkEndpoint = "/v1/audio/transcriptions/";
-          cmd = let
-            whisper-large-v3-turbo = pkgs.fetchurl {
-              url = "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo-q8_0.bin";
-              sha256 = "sha256-MX62nBFnPJ3h4fDUWbJTmZgE7HGsTCPBfs9fviTiWaE=";
-            };
-          in ''
-            ${pkgs.docker}/bin/docker run --device=nvidia.com/gpu=all -p ''${PORT}:8080 \
-                -v ${whisper-large-v3-turbo}:/models/ggml-large-v3-turbo-q8_0.bin \
-                ghcr.io/ggml-org/whisper.cpp:main-cuda 'whisper-server --model /models/ggml-large-v3-turbo-q8_0.bin --request-path /v1/audio/transcriptions --inference-path ""'
-          '';
-        };
+        # "whisper" = {
+        #   unlisted = true;
+        #   checkEndpoint = "/v1/audio/transcriptions/";
+        #   cmd = let
+        #     whisper-large-v3-turbo = pkgs.fetchurl {
+        #       url = "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo-q8_0.bin";
+        #       sha256 = "sha256-MX62nBFnPJ3h4fDUWbJTmZgE7HGsTCPBfs9fviTiWaE=";
+        #     };
+        #   in ''
+        #     ${pkgs.docker}/bin/docker run --device=nvidia.com/gpu=all -p ''${PORT}:8080 \
+        #         -v ${whisper-large-v3-turbo}:/models/ggml-large-v3-turbo-q8_0.bin \
+        #         ghcr.io/ggml-org/whisper.cpp:main-cuda 'whisper-server --model /models/ggml-large-v3-turbo-q8_0.bin --request-path /v1/audio/transcriptions --inference-path ""'
+        #   '';
+        # };
       };
 
       mcp = {
