@@ -142,11 +142,11 @@
   "qalc.output.precision" = 0;
   "qalc.output.lowerExponentBound" = -4;
   "github.copilot.codeGeneration.instructions" = (
-    map (file: {file = toString file;}) nixosConfig.ai.instructions.code
+    map (file: {text = lib.readFile file;}) nixosConfig.ai.instructions.code
   );
   "github.copilot.chat.commitMessageGeneration.instructions" = [
     {
-      file = nixosConfig.ai.instructions.commit;
+      text = lib.readFile nixosConfig.ai.instructions.commit;
     }
   ];
 }
