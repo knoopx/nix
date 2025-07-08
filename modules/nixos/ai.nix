@@ -114,44 +114,93 @@ with lib; {
           ./ai/instructions/code/javascript.instructions.md
         ];
       };
-      # https://github.com/aidan-labs/stt-tts-agent/
-      models = {
-        # ${pkgs.llama-cpp}/bin/llama-server -hf unsloth/gemma-3n-E4B-it-GGUF:Q8_0 --port ''${PORT}
-        # # vllm serve "unsloth/Qwen3-14B-GGUF"
-        # --host 127.0.0.1 --port 9503 --flash-attn --metrics--slots
-        # --cache-type-k q8_0 --cache-type-v q8_0
-        # --ctx-size 32000
-        # --samplers "top_k;top_p;min_p;temperature;dry;typ_p;xtc"
-        # --temp 0.6 --repeat-penalty 1.1 --dry-multiplier 0.5
-        # --min-p 0.01 --top-k 40 --top-p 0.95
-        # -ngl 99
-        # --model /mnt/nvme/models/bartowski/Qwen_QwQ-32B-Q4_K_M.gguf
+      models = let
+        # llamaServer = arguments: ''
+        #   ${pkgs.llama-cpp}/bin/llama-server ${lib.concatStringsSep " " (arguments
+        #     ++ [
+        #       "--port \${PORT}"
+        #     ])}
+        # '';
+        llamaServer = arguments: ''
+          ${pkgs.docker}/bin/docker run --rm --device=nvidia.com/gpu=all --ipc=host -p ''${PORT}:8080 \
+            -v /var/cache/llama.cpp/:/root/.cache/llama.cpp/ \
+            ghcr.io/ggml-org/llama.cpp:server-cuda \
+            ${lib.concatStringsSep " " arguments}
+        '';
 
-        # "qwen/qwen3-30b-a3b"
+        vllm = arguments: ''
+          ${pkgs.docker}/bin/docker run --device=nvidia.com/gpu=all --ipc=host -p ''${PORT}:8080 \
+            -v /var/cache/huggingface:/root/.cache/huggingface \
+            vllm/vllm-openai:latest \
+            ${lib.concatStringsSep " " arguments}
+        '';
+        #   --model mistralai/Mistral-7B-v0.1
+      in {
+        "qwq-32b" = {
+          cmd = llamaServer [
+            "--cache-type-k q8_0"
+            "--cache-type-v q8_0"
+            "--ctx-size 32000"
+            "--flash-attn"
+            "--jinja"
+            "--metrics"
+            "--min-p 0.01"
+            "--no-context-shift"
+            "--no-mmap"
+            "--reasoning-format deepseek"
+            "--samplers top_k;top_p;min_p;temperature;dry;typ_p;xtc"
+            "--slots"
+            "--temp 0.6"
+            "--top-k 40"
+            "--top-p 0.95"
+            "-hf bartowski/Qwen_QwQ-32B:Q4_K_M"
+            "-ngl 99"
+          ];
+        };
         "qwen3-14b" = {
-          # ${pkgs.llama-cpp}/bin/llama-server \
-          cmd = ''
-            ${pkgs.docker}/bin/docker run --rm --device=nvidia.com/gpu=all \
-              -p ''${PORT}:8080 \
-              -v /var/cache/llama.cpp/:/root/.cache/llama.cpp/ \
-              ghcr.io/ggml-org/llama.cpp:server-cuda \
-              -hf unsloth/Qwen3-14B-GGUF:Q8_0 \
-              --flash-attn --metrics --slots \
-              --cache-type-k q8_0 --cache-type-v q8_0 \
-              --ctx-size 32000 --no-context-shift \
-              --temp 0.6 --min-p 0 \
-              --top-k 20 --top-p 0.95 -ngl 99 \
-              --jinja --reasoning-format deepseek \
-              --no-mmap
-          '';
+          cmd = llamaServer [
+            "--cache-type-k q8_0"
+            "--cache-type-v q8_0"
+            "--ctx-size 32000"
+            "--flash-attn"
+            "--jinja"
+            "--metrics"
+            "--min-p 0"
+            "--no-context-shift"
+            "--no-mmap"
+            "--reasoning-format deepseek"
+            "--slots"
+            "--temp 0.6"
+            "--top-k 20"
+            "--top-p 0.95"
+            "-hf unsloth/Qwen3-14B-GGUF:Q8_0"
+            "-ngl 99"
+          ];
         };
 
-        # docker run --device=nvidia.com/gpu=all \
-        #   -v /var/cache/huggingface:/root/.cache/huggingface \
-        #   -p 8000:8000 \
-        #   --ipc=host \
-        #   vllm/vllm-openai:latest \
-        #   --model mistralai/Mistral-7B-v0.1
+        "jan-nano" = {
+          cmd = llamaServer [
+            "--cache-type-k q8_0"
+            "--cache-type-v q8_0"
+            "--ctx-size 128000"
+            "--flash-attn"
+            "--jinja"
+            "--metrics"
+            "--min-p 0.0"
+            "--no-context-shift"
+            "--no-mmap"
+            "--rope-scale 3.2"
+            "--rope-scaling yarn"
+            "--slots"
+            "--temp 0.7"
+            "--top-k 20"
+            "--top-p 0.8"
+            "--yarn-orig-ctx 40960"
+            "-hf Menlo/Jan-nano-128k-gguf:Q8_0"
+            "-ngl 99"
+          ];
+        };
+
         "kokoro" = {
           unlisted = true;
           cmd = ''
