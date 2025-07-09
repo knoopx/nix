@@ -222,6 +222,14 @@
             cache = "1h";
             feeds = [
               {
+                title = "Visual Studio Code";
+                url = "https://github.com/microsoft/vscode/releases.atom";
+              }
+              {
+                title = "Gemini CLI";
+                url = "https://github.com/google-gemini/gemini-cli/releases.atom";
+              }
+              {
                 title = "Ollama";
                 url = "https://github.com/ollama/ollama/releases.atom";
               }
