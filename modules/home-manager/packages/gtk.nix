@@ -32,6 +32,7 @@
     picard
     pinta
     planify
+    plexamp
     prusa-slicer
     rnote
     seahorse

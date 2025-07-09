@@ -95,11 +95,14 @@
     nh
     nixos-changelog
     ollamark
+    playwright
+    playwright-driver.browsers
+    playwright-mcp
+    python313Packages.markitdown
     rclone
     rsync
     say
     strip-python-comments
     wl-clipboard
-    python313Packages.markitdown
   ];
 }
