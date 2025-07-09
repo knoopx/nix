@@ -141,9 +141,14 @@
   "qalc.output.notation" = "auto";
   "qalc.output.precision" = 0;
   "qalc.output.lowerExponentBound" = -4;
-  "github.copilot.codeGeneration.instructions" = (
-    map (file: {text = lib.readFile file;}) nixosConfig.ai.instructions.code
-  );
+  "github.copilot.codeGeneration.instructions" =
+    [
+      {file = "README.md";}
+      {file = "AGENT.md";}
+    ]
+    ++ (
+      map (file: {text = lib.readFile file;}) nixosConfig.ai.instructions.code
+    );
   "github.copilot.chat.commitMessageGeneration.instructions" = [
     {
       text = lib.readFile nixosConfig.ai.instructions.commit;
