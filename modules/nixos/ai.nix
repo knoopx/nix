@@ -136,11 +136,15 @@ with lib; {
         '';
         #   --model mistralai/Mistral-7B-v0.1
       in {
+        # bartowski/Qwen2.5-Coder-32B-Instruct-GGUF
+        # unsloth/Devstral-Small-2505-GGUF:Q4_K_M # 128k https://huggingface.co/unsloth/Devstral-Small-2505-GGUF
+        # https://huggingface.co/THUDM/codegeex4-all-9b
         "qwq-32b" = {
           cmd = llamaServer [
+            "-hf bartowski/Qwen_QwQ-32B-GGUF:IQ4_XS"
             "--cache-type-k q8_0"
             "--cache-type-v q8_0"
-            "--ctx-size 32000"
+            "--ctx-size 16000"
             "--flash-attn"
             "--jinja"
             "--metrics"
@@ -153,7 +157,25 @@ with lib; {
             "--temp 0.6"
             "--top-k 40"
             "--top-p 0.95"
-            "-hf bartowski/Qwen_QwQ-32B:Q4_K_M"
+            "-ngl 99"
+          ];
+        };
+        "qwen-coder" = {
+          cmd = llamaServer [
+            "-hf bartowski/Qwen2.5-Coder-32B-Instruct-GGUF:IQ2_M"
+            "--cache-type-k q8_0"
+            "--cache-type-v q8_0"
+            "--ctx-size 8192"
+            "--flash-attn"
+            "--jinja"
+            "--metrics"
+            "--min-p 0.01"
+            "--no-context-shift"
+            "--no-mmap"
+            "--slots"
+            "--temp 0.6"
+            "--top-k 40"
+            "--top-p 0.95"
             "-ngl 99"
           ];
         };
@@ -175,6 +197,37 @@ with lib; {
             "--top-p 0.95"
             "-hf unsloth/Qwen3-14B-GGUF:Q8_0"
             "-ngl 99"
+          ];
+        };
+        "qwen3-30b" = {
+          cmd = llamaServer [
+            "-hf unsloth/Qwen3-30B-A3B-GGUF:Q4_K_M"
+            # "--ctx-size 8192"
+            "--cache-type-k q8_0"
+            "--cache-type-v q8_0"
+            "--flash-attn"
+            "--no-context-shift"
+            "--no-mmap"
+            "--slots"
+          ];
+        };
+        "smollm3-3b" = {
+          cmd = llamaServer [
+            # "--cache-type-k q8_0"
+            # "--cache-type-v q8_0"
+            # "--ctx-size 8192"
+            # "--flash-attn"
+            "--jinja"
+            # "--metrics"
+            # "--min-p 0.01"
+            # "--no-context-shift"
+            # "--no-mmap"
+            # "--slots"
+            # "--temp 0.6"
+            # "--top-k 20"
+            # "--top-p 0.95"
+            "-hf ggml-org/SmolLM3-3B-GGUF:Q8_0"
+            # "-ngl 99"
           ];
         };
 
@@ -201,10 +254,31 @@ with lib; {
           ];
         };
 
+        "phi4-reasoning-plus" = {
+          cmd = llamaServer [
+            "--cache-type-k q8_0"
+            "--cache-type-v q8_0"
+            "--ctx-size 8192"
+            "--flash-attn"
+            "--jinja"
+            "--metrics"
+            "--min-p 0.01"
+            "--no-context-shift"
+            "--no-mmap"
+            "--reasoning-format deepseek"
+            "--slots"
+            "--temp 0.6"
+            "--top-k 20"
+            "--top-p 0.95"
+            "-hf bartowski/microsoft_Phi-4-reasoning-plus-GGUF:Q8_0"
+            "-ngl 99"
+          ];
+        };
+
         "kokoro" = {
           unlisted = true;
           cmd = ''
-            ${pkgs.docker}/bin/docker run --device=nvidia.com/gpu=all -p ''${PORT}:8880 ghcr.io/remsky/kokoro-fastapi-gpu:latest
+            ${pkgs.docker}/bin/docker run --name kokoro --device=nvidia.com/gpu=all -p ''${PORT}:8880 ghcr.io/remsky/kokoro-fastapi-gpu:latest
           '';
           # useModelName = "kokoro";
           aliases = [
