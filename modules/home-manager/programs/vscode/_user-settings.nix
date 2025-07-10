@@ -142,6 +142,7 @@
   "qalc.output.precision" = 0;
   "qalc.output.lowerExponentBound" = -4;
   "terminal.integrated.stickyScroll.enabled" = false;
+  "chat.editing.confirmEditRequestRemoval" = false;
   # "github.copilot.codeGeneration.instructions" =
   #   [
   #     {file = "README.md";}
