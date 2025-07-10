@@ -27,7 +27,6 @@ in
     # semanticdiff.semanticdiff
     # skyapps.fish-vscode
     # takumii.markdowntable
-    # tamasfe.even-better-toml
     # tanvir.ollama-modelfile
     # teclado.vscode-nginx-format
     # tetradresearch.vscode-h2o
@@ -71,6 +70,7 @@ in
     ast-grep.ast-grep-vscode
     file-icons.file-icons
     esbenp.prettier-vscode
+    tamasfe.even-better-toml
     # naumovs.color-highlight
     # nortakales.vs-qalc
 
