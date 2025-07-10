@@ -122,14 +122,15 @@ with lib; {
         #     ])}
         # '';
         llamaServer = arguments: ''
-          ${pkgs.docker}/bin/docker run --rm --device=nvidia.com/gpu=all --ipc=host -p ''${PORT}:8080 \
+          ${pkgs.docker}/bin/docker run --rm --name llama-server --device=nvidia.com/gpu=all --ipc=host -p ''${PORT}:8080 \
             -v /var/cache/llama.cpp/:/root/.cache/llama.cpp/ \
             ghcr.io/ggml-org/llama.cpp:server-cuda \
+            --ctx-size 0 \
             ${lib.concatStringsSep " " arguments}
         '';
 
         vllm = arguments: ''
-          ${pkgs.docker}/bin/docker run --device=nvidia.com/gpu=all --ipc=host -p ''${PORT}:8080 \
+          ${pkgs.docker}/bin/docker run --rm --name vllm --device=nvidia.com/gpu=all --ipc=host -p ''${PORT}:8080 \
             -v /var/cache/huggingface:/root/.cache/huggingface \
             vllm/vllm-openai:latest \
             ${lib.concatStringsSep " " arguments}
@@ -144,7 +145,6 @@ with lib; {
             "-hf bartowski/Qwen_QwQ-32B-GGUF:IQ4_XS"
             "--cache-type-k q8_0"
             "--cache-type-v q8_0"
-            "--ctx-size 16000"
             "--flash-attn"
             "--jinja"
             "--metrics"
@@ -165,7 +165,6 @@ with lib; {
             "-hf bartowski/Qwen2.5-Coder-32B-Instruct-GGUF:IQ2_M"
             "--cache-type-k q8_0"
             "--cache-type-v q8_0"
-            "--ctx-size 8192"
             "--flash-attn"
             "--jinja"
             "--metrics"
@@ -183,7 +182,6 @@ with lib; {
           cmd = llamaServer [
             "--cache-type-k q8_0"
             "--cache-type-v q8_0"
-            "--ctx-size 32000"
             "--flash-attn"
             "--jinja"
             "--metrics"
@@ -202,7 +200,6 @@ with lib; {
         "qwen3-30b" = {
           cmd = llamaServer [
             "-hf unsloth/Qwen3-30B-A3B-GGUF:Q4_K_M"
-            # "--ctx-size 8192"
             "--cache-type-k q8_0"
             "--cache-type-v q8_0"
             "--flash-attn"
@@ -235,7 +232,6 @@ with lib; {
           cmd = llamaServer [
             "--cache-type-k q8_0"
             "--cache-type-v q8_0"
-            "--ctx-size 128000"
             "--flash-attn"
             "--jinja"
             "--metrics"
@@ -258,7 +254,6 @@ with lib; {
           cmd = llamaServer [
             "--cache-type-k q8_0"
             "--cache-type-v q8_0"
-            "--ctx-size 8192"
             "--flash-attn"
             "--jinja"
             "--metrics"
@@ -275,16 +270,54 @@ with lib; {
           ];
         };
 
+        "devstral" = {
+          cmd = llamaServer [
+            "--cache-type-k q8_0"
+            "--cache-type-v q8_0"
+            "--flash-attn"
+            "--jinja"
+            "--metrics"
+            "--min-p 0.01"
+            "--no-context-shift"
+            "--no-mmap"
+            "--slots"
+            "--temp 0.6"
+            "--top-k 20"
+            "--top-p 0.95"
+            "-hf unsloth/Devstral-Small-2507-GGUF:Q4_K_M"
+            "-ngl 99"
+          ];
+        };
+
         "kokoro" = {
           unlisted = true;
           cmd = ''
-            ${pkgs.docker}/bin/docker run --name kokoro --device=nvidia.com/gpu=all -p ''${PORT}:8880 ghcr.io/remsky/kokoro-fastapi-gpu:latest
+            ${pkgs.docker}/bin/docker run --rm --name kokoro --device=nvidia.com/gpu=all -p ''${PORT}:8880 ghcr.io/remsky/kokoro-fastapi-gpu:latest
           '';
           # useModelName = "kokoro";
           aliases = [
             "tts-1"
           ];
         };
+
+        # "say" = let
+        #   say-api =
+        #     pkgs.writeShellApplication
+        #     {
+        #       name = "say-api";
+        #       runtimeInputs = [pkgs.shell2http pkgs.bash pkgs.say pkgs.curl pkgs.jq pkgs.mpv];
+        #       checkPhase = "";
+        #       text = ''
+        #         shell2http --port "$@" -shell bash -form / 'curl "https://${ai.config.baseURL}/v1/audio/speech" -H "Content-Type: application/json" -d "{\"input\":\"\$v_input\"}" | mpv --no-terminal --force-window=no -'
+        #       '';
+        #     };
+        # in {
+        #   unlisted = true;
+        #   cmd = ''
+        #     ${lib.getExe say-api} ''${PORT}
+        #   '';
+        # };
+
         # "whisper" = {
         #   unlisted = true;
         #   checkEndpoint = "/v1/audio/transcriptions/";
