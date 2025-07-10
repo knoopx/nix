@@ -143,7 +143,7 @@
         Mod+Down { focus-workspace-down; }
         Mod+F { maximize-column; }
         Mod+G { spawn "code"; }
-        Mod+H { spawn "firefox"; }
+        Mod+J { spawn "firefox"; }
         Mod+I { consume-or-expel-window-left; }
         Mod+Period { toggle-overview; }
         Mod+Left { focus-column-left; }
