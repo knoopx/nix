@@ -1,11 +1,11 @@
 {pkgs, ...}: let
-  version = "137";
+  version = "fff572a8da24bebd2f59ee7ef97d10f8796ca6dc";
 
   src = pkgs.fetchFromGitHub {
-    owner = "mostlygeek";
-    repo = "llama-swap";
-    rev = "v${version}";
-    hash = "sha256-DyAbZMTy4gvmF8HnUJ5B4ypIqhL9MDS7zBzeQfapFD8=";
+    owner = "kooshi";
+    repo = "llama-swappo";
+    rev = version;
+    hash = "sha256-SDcUGkm5PEplBlCIYASj9jon5uWYOw2rfzjbFkT2bwc=";
   };
 
   ui = pkgs.stdenv.mkDerivation {
