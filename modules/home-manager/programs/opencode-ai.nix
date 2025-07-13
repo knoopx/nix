@@ -10,12 +10,15 @@ in {
     "$schema" = "https://opencode.ai/config.json";
     theme = "system";
     mcp = {
-      # TODO
+      # text-to-speech = {
+      #   type = "local";
+      #   command = ["uvx" "mcp-shell-server"];
+      #   environment = {ALLOW_COMMANDS = "say";};
+      # };
     };
     provider = {
       "google-cloud-code" = {
         name = "Google Cloud Code";
-        doc = "https://github.com/aryasaatvik/cloud-code-ai-provider";
         npm = "cloud-code-ai-provider";
         models = {
           "gemini-2.5-pro" = {
@@ -25,14 +28,7 @@ in {
             reasoning = true;
             temperature = true;
             tool_call = true;
-            knowledge = "2025-01";
             release_date = "2025-03-20";
-            last_updated = "2025-06-05";
-            modalities = {
-              input = ["text" "image" "audio" "video" "pdf"];
-              output = ["text"];
-            };
-            open_weights = false;
             cost = {
               input = 1.25;
               output = 10;
@@ -53,11 +49,6 @@ in {
             knowledge = "2025-01";
             release_date = "2025-03-20";
             last_updated = "2025-06-05";
-            modalities = {
-              input = ["text" "image" "audio" "video" "pdf"];
-              output = ["text"];
-            };
-            open_weights = false;
             cost = {
               input = 0.3;
               output = 2.5;
