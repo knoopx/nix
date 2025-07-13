@@ -83,6 +83,7 @@
     exiftool
     fclones
     ffmpeg
+    python313Packages.aubio
     gcalcli
     gum
     imagemagick
@@ -104,5 +105,9 @@
     say
     strip-python-comments
     wl-clipboard
+    yt-dlp
+    p7zip
+    _7zz
+    # vllm
   ];
 }

@@ -18,6 +18,7 @@
     ps.torchvision
     ps.transformers
     ps.xformers
+    ps.pysoundfile
   ]);
 in {
   home.packages = with pkgs; [

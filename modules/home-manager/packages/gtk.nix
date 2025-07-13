@@ -17,6 +17,8 @@
     fclones-gui
     file-roller
     foliate
+    gearlever
+    geary
     gitg
     gnome-calendar
     gnome-disk-utility
