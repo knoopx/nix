@@ -95,7 +95,7 @@ with lib; {
           context = mkOption {
             type = with types; nullOr int;
             description = "Context size for the model.";
-            default = 8192;
+            default = 0;
           };
         };
       });
@@ -121,12 +121,16 @@ with lib; {
         #       "--port \${PORT}"
         #     ])}
         # '';
-        llamaServer = arguments: ''
+        llamaServer = {
+          name,
+          context,
+          args,
+        }: ''
           ${pkgs.docker}/bin/docker run --rm --name llama-server --device=nvidia.com/gpu=all --ipc=host -p ''${PORT}:8080 \
             -v /var/cache/llama.cpp/:/root/.cache/llama.cpp/ \
             ghcr.io/ggml-org/llama.cpp:server-cuda \
-            --ctx-size 0 \
-            ${lib.concatStringsSep " " arguments}
+            -hf ${name} --ctx-size ${toString context} \
+            ${lib.concatStringsSep " " args}
         '';
 
         vllm = arguments: ''
@@ -135,158 +139,108 @@ with lib; {
             vllm/vllm-openai:latest \
             ${lib.concatStringsSep " " arguments}
         '';
-        #   --model mistralai/Mistral-7B-v0.1
       in {
-        # bartowski/Qwen2.5-Coder-32B-Instruct-GGUF
-        # unsloth/Devstral-Small-2505-GGUF:Q4_K_M # 128k https://huggingface.co/unsloth/Devstral-Small-2505-GGUF
         # https://huggingface.co/THUDM/codegeex4-all-9b
         "qwq-32b" = {
-          cmd = llamaServer [
-            "-hf bartowski/Qwen_QwQ-32B-GGUF:IQ4_XS"
-            "--cache-type-k q8_0"
-            "--cache-type-v q8_0"
-            "--flash-attn"
-            "--jinja"
-            "--metrics"
-            "--min-p 0.01"
-            "--no-context-shift"
-            "--no-mmap"
-            "--reasoning-format deepseek"
-            "--samplers top_k;top_p;min_p;temperature;dry;typ_p;xtc"
-            "--slots"
-            "--temp 0.6"
-            "--top-k 40"
-            "--top-p 0.95"
-            "-ngl 99"
-          ];
+          context = 32768;
+          cmd = llamaServer {
+            name = "bartowski/Qwen_QwQ-32B-GGUF:IQ4_XS";
+            context = 32000;
+            args = [
+              "--cache-type-k q8_0"
+              "--cache-type-v q8_0"
+              "--flash-attn"
+              "--jinja"
+              "--metrics"
+              "--min-p 0.01"
+              "--no-context-shift"
+              "--no-mmap"
+              "--reasoning-format deepseek"
+              "--samplers top_k;top_p;min_p;temperature;dry;typ_p;xtc"
+              "--slots"
+              "--temp 0.6"
+              "--top-k 40"
+              "--top-p 0.95"
+              "-ngl 99"
+            ];
+          };
         };
         "qwen-coder" = {
-          cmd = llamaServer [
-            "-hf bartowski/Qwen2.5-Coder-32B-Instruct-GGUF:IQ2_M"
-            "--cache-type-k q8_0"
-            "--cache-type-v q8_0"
-            "--flash-attn"
-            "--jinja"
-            "--metrics"
-            "--min-p 0.01"
-            "--no-context-shift"
-            "--no-mmap"
-            "--slots"
-            "--temp 0.6"
-            "--top-k 40"
-            "--top-p 0.95"
-            "-ngl 99"
-          ];
+          context = 32768;
+          cmd = llamaServer {
+            name = "bartowski/Qwen2.5-Coder-32B-Instruct-GGUF:IQ2_M";
+            context = 32000;
+            args = [
+              "--cache-type-k q8_0"
+              "--cache-type-v q8_0"
+              "--flash-attn"
+              "--jinja"
+              "--metrics"
+              "--min-p 0.01"
+              "--no-context-shift"
+              "--no-mmap"
+              "--slots"
+              "--temp 0.6"
+              "--top-k 40"
+              "--top-p 0.95"
+              "-ngl 99"
+            ];
+          };
         };
+
         "qwen3-14b" = {
-          cmd = llamaServer [
-            "--cache-type-k q8_0"
-            "--cache-type-v q8_0"
-            "--flash-attn"
-            "--jinja"
-            "--metrics"
-            "--min-p 0"
-            "--no-context-shift"
-            "--no-mmap"
-            "--reasoning-format deepseek"
-            "--slots"
-            "--temp 0.6"
-            "--top-k 20"
-            "--top-p 0.95"
-            "-hf unsloth/Qwen3-14B-GGUF:Q8_0"
-            "-ngl 99"
-          ];
-        };
-        "qwen3-30b" = {
-          cmd = llamaServer [
-            "-hf unsloth/Qwen3-30B-A3B-GGUF:Q4_K_M"
-            "--cache-type-k q8_0"
-            "--cache-type-v q8_0"
-            "--flash-attn"
-            "--no-context-shift"
-            "--no-mmap"
-            "--slots"
-          ];
-        };
-        "smollm3-3b" = {
-          cmd = llamaServer [
-            # "--cache-type-k q8_0"
-            # "--cache-type-v q8_0"
-            # "--ctx-size 8192"
-            # "--flash-attn"
-            "--jinja"
-            # "--metrics"
-            # "--min-p 0.01"
-            # "--no-context-shift"
-            # "--no-mmap"
-            # "--slots"
-            # "--temp 0.6"
-            # "--top-k 20"
-            # "--top-p 0.95"
-            "-hf ggml-org/SmolLM3-3B-GGUF:Q8_0"
-            # "-ngl 99"
-          ];
-        };
-
-        "jan-nano" = {
-          cmd = llamaServer [
-            "--cache-type-k q8_0"
-            "--cache-type-v q8_0"
-            "--flash-attn"
-            "--jinja"
-            "--metrics"
-            "--min-p 0.0"
-            "--no-context-shift"
-            "--no-mmap"
-            "--rope-scale 3.2"
-            "--rope-scaling yarn"
-            "--slots"
-            "--temp 0.7"
-            "--top-k 20"
-            "--top-p 0.8"
-            "--yarn-orig-ctx 40960"
-            "-hf Menlo/Jan-nano-128k-gguf:Q8_0"
-            "-ngl 99"
-          ];
-        };
-
-        "phi4-reasoning-plus" = {
-          cmd = llamaServer [
-            "--cache-type-k q8_0"
-            "--cache-type-v q8_0"
-            "--flash-attn"
-            "--jinja"
-            "--metrics"
-            "--min-p 0.01"
-            "--no-context-shift"
-            "--no-mmap"
-            "--reasoning-format deepseek"
-            "--slots"
-            "--temp 0.6"
-            "--top-k 20"
-            "--top-p 0.95"
-            "-hf bartowski/microsoft_Phi-4-reasoning-plus-GGUF:Q8_0"
-            "-ngl 99"
-          ];
+          context = 32000;
+          cmd = llamaServer {
+            name = "unsloth/Qwen3-14B-GGUF:Q8_0";
+            context = 32000;
+            args = [
+              "--cache-type-k q8_0"
+              "--cache-type-v q8_0"
+              "--flash-attn"
+              "--jinja"
+              "--metrics"
+              "--min-p 0"
+              "--no-context-shift"
+              "--no-mmap"
+              "--reasoning-format deepseek"
+              "--slots"
+              "--temp 0.6"
+              "--top-k 20"
+              "--top-p 0.95"
+              "-ngl 99"
+            ];
+          };
         };
 
         "devstral" = {
-          cmd = llamaServer [
-            "--cache-type-k q8_0"
-            "--cache-type-v q8_0"
-            "--flash-attn"
-            "--jinja"
-            "--metrics"
-            "--min-p 0.01"
-            "--no-context-shift"
-            "--no-mmap"
-            "--slots"
-            "--temp 0.6"
-            "--top-k 20"
-            "--top-p 0.95"
-            "-hf unsloth/Devstral-Small-2507-GGUF:Q4_K_M"
-            "-ngl 99"
-          ];
+          context = 128000;
+          # cmd = vllm [
+          #   "--model unsloth/Devstral-Small-2507-GGUF"
+          #   "--tokenizer-mode mistral"
+          #   "--config-format mistral"
+          #   "--load-format mistral"
+          #   "--tool-call-parser mistral"
+          #   "--enable-auto-tool-choice"
+          # ];
+          cmd = llamaServer {
+            name = "unsloth/Devstral-Small-2507-GGUF:Q4_K_M";
+            context = 32000;
+            args = [
+              "--jinja"
+              "--cache-type-k q8_0"
+              "--cache-type-v q8_0"
+              "--flash-attn"
+              "--no-context-shift"
+              "--no-mmap"
+              "--slots"
+              # "--min-p 0.01"
+              # "--temp 0.6"
+              # "--top-k 20"
+              # "--top-p 0.95"
+              "-ngl 75"
+              # "--metrics"
+            ];
+          };
         };
 
         "kokoro" = {
@@ -308,7 +262,7 @@ with lib; {
         #       runtimeInputs = [pkgs.shell2http pkgs.bash pkgs.say pkgs.curl pkgs.jq pkgs.mpv];
         #       checkPhase = "";
         #       text = ''
-        #         shell2http --port "$@" -shell bash -form / 'curl "https://${ai.config.baseURL}/v1/audio/speech" -H "Content-Type: application/json" -d "{\"input\":\"\$v_input\"}" | mpv --no-terminal --force-window=no -'
+        #         shell2http --port "$@" -shell bash -form / 'curl "https://\${ai.config.baseURL}/v1/audio/speech" -H "Content-Type: application/json" -d "{\"input\":\"$v_input\"}" | mpv --no-terminal --force-window=no -'
         #       '';
         #     };
         # in {
