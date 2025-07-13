@@ -161,10 +161,10 @@
       }
       hostPath
     ];
-    vmConfiguration = nixpkgs.lib.nixosSystem {
-      inherit specialArgs;
-      modules = mkNixosModules ./hosts/vm;
-    };
+    # vmConfiguration = nixpkgs.lib.nixosSystem {
+    #   inherit specialArgs;
+    #   modules = mkNixosModules ./hosts/vm;
+    # };
 
     # Create pkgs with overlays for package exports
     pkgsWithOverlays = import nixpkgs {
@@ -173,7 +173,7 @@
     };
   in {
     packages.${system} = {
-      default = vmConfiguration.config.system.build.vm;
+      # default = vmConfiguration.config.system.build.vm;
 
       # Repository packages
       importantize = pkgsWithOverlays.importantize;
@@ -184,7 +184,7 @@
     };
 
     nixosConfigurations = {
-      vm = vmConfiguration;
+      # vm = vmConfiguration;
 
       live-usb = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
