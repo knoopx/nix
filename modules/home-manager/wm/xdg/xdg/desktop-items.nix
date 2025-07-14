@@ -47,6 +47,12 @@
         icon = "telegram";
       };
 
+      discord = {
+        name = "Discord";
+        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://discord.com/channels/"'';
+        icon = "discord";
+      };
+
       youtube = {
         name = "Youtube";
         exec = ''${lib.getExe pkgs.raise-or-open-url} "https://www.youtube.com/"'';
