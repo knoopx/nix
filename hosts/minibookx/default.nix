@@ -15,6 +15,17 @@ in {
 
   system.stateVersion = "25.11";
 
+  nix = {
+    settings = {
+      substituters = [
+        "nix.knoopx.net"
+      ];
+      trusted-public-keys = [
+        "nix.knoopx.net:m55885bbh7U/YhK02fUu+5j9X3NnV1qo8BIYJ1nBJqo="
+      ];
+    };
+  };
+
   services.keyd = {
     enable = true;
     keyboards = {

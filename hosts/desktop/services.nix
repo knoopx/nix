@@ -50,7 +50,16 @@
       domain = "knoopx.net";
       hostServices = {
         glance = 9000;
+        nix = config.services.nix-serve.port;
       };
+    };
+
+    # https://nix.dev/tutorials/nixos/binary-cache-setup.html
+    # nix-store --generate-binary-cache-key nix.knoopx.net /var/secrets/cache-private-key.pem /var/secrets/cache-public-key.pem
+    nix-serve = {
+      enable = true;
+      port = 5000;
+      secretKeyFile = "/var/secrets/cache-private-key.pem";
     };
   };
 }
