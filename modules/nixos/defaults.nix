@@ -51,18 +51,7 @@ with lib; {
       description = "Default text editor";
     };
     pubKeys = mkOption {
-      type = types.submodule {
-        options = {
-          url = mkOption {
-            type = types.str;
-            description = "URL to fetch public keys from";
-          };
-          sha256 = mkOption {
-            type = types.str;
-            description = "SHA256 hash of the public keys";
-          };
-        };
-      };
+      type = types.path;
       description = "Public keys configuration";
     };
     fonts = mkOption {
