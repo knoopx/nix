@@ -143,17 +143,9 @@
   "qalc.output.lowerExponentBound" = -4;
   "terminal.integrated.stickyScroll.enabled" = false;
   "chat.editing.confirmEditRequestRemoval" = false;
-  # "github.copilot.codeGeneration.instructions" =
-  #   [
-  #     {file = "README.md";}
-  #     {file = "AGENT.md";}
-  #   ]
-  #   ++ (
-  #     map (file: {text = lib.readFile file;}) nixosConfig.ai.instructions.code
-  #   );
   "github.copilot.chat.commitMessageGeneration.instructions" = [
     {
-      text = lib.readFile nixosConfig.ai.instructions.commit;
+      text = lib.readFile ../../ai/instructions/commit.md;
     }
   ];
 }
