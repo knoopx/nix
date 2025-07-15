@@ -31,7 +31,7 @@
     ];
 
     openssh.authorizedKeys.keys = let
-      authorizedKeys = pkgs.fetchurl config.defaults.pubKeys;
+      authorizedKeys = config.defaults.pubKeys;
     in
       pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
   };

@@ -287,7 +287,7 @@ with lib; {
         sha256 = "sha256-bMHK0ZX9oZYJPI9FqYOcXMQonzipb0Hmbb4MnlhoiLY=";
       };
       editor = "re.sonny.Commit";
-      pubKeys = {
+      pubKeys = pkgs.fetchurl {
         url = "https://github.com/${config.defaults.username}.keys";
         sha256 = "sha256-385krE9Aoea23aQ3FJo2kpPtRrIOwxxXCCt43gHEo0Q=";
       };
