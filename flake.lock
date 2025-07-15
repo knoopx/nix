@@ -1075,11 +1075,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752605645,
-        "narHash": "sha256-ImIWBghkddDRhAzZ14SxYBNWN3QcqxF1g2B8pgnanFE=",
+        "lastModified": 1752605684,
+        "narHash": "sha256-+rkfPcgj9la98HK4CBpAir0m0RgEK55+ixQCdS48HnQ=",
         "owner": "knoopx",
         "repo": "vibescripts",
-        "rev": "92604b4e536163a9cf353c1bb6bb0cd1bc50f9a8",
+        "rev": "0076b11f9a52f40deab9721c94749606bc26796e",
         "type": "github"
       },
       "original": {
