@@ -44,9 +44,6 @@
         set -gx GITHUB_TOKEN (secret-tool lookup github token | head | tr -d "\n")
         set -gx OPENAI_API_BASE "https://ai.${nixosConfig.services.traefik-proxy.domain}/v1/"
 
-        set -gx PLAYWRIGHT_BROWSERS_PATH "${pkgs.playwright-driver.browsers}"
-        set -gx PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS "true"
-
         fish_add_path -g "$HOME/.bun/bin"
         fish_add_path -g "$HOME/.cargo/bin:"
         fish_add_path -g "$HOME/.local/bin/"

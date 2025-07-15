@@ -96,9 +96,6 @@
     nh
     nixos-changelog
     ollamark
-    playwright
-    playwright-driver.browsers
-    playwright-mcp
     python313Packages.markitdown
     rclone
     rsync
