@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    _7zz
     # android-tools
     # asciinema
     # atuin
@@ -25,6 +26,7 @@
     # glibc
     # glibc.dev
     # glow
+    # goose-cli
     # hdparm
     # iftop
     # iperf
@@ -68,6 +70,7 @@
     # tree
     # usbutils
     # util-linux
+    # vllm
     # w3m
     # walk
     # xz
@@ -83,8 +86,8 @@
     exiftool
     fclones
     ffmpeg
-    python313Packages.aubio
     gcalcli
+    gnome-mcp-server
     gum
     imagemagick
     inotify-tools
@@ -96,6 +99,8 @@
     nh
     nixos-changelog
     ollamark
+    p7zip
+    python313Packages.aubio
     python313Packages.markitdown
     rclone
     rsync
@@ -103,8 +108,5 @@
     strip-python-comments
     wl-clipboard
     yt-dlp
-    p7zip
-    _7zz
-    # vllm
   ];
 }
