@@ -11,6 +11,9 @@
     vibeapps.url = "github:knoopx/vibeapps";
     vibeapps.inputs.nixpkgs.follows = "nixpkgs";
 
+    vibescripts.url = "github:knoopx/vibescripts";
+    vibescripts.inputs.nixpkgs.follows = "nixpkgs";
+
     haumea.url = "github:nix-community/haumea";
     haumea.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -78,6 +81,7 @@
     ollamark,
     stylix,
     vibeapps,
+    vibescripts,
     xwayland-satellite,
     vscode,
     ...
@@ -118,6 +122,7 @@
           }
         )
         (self: super: vibeapps.packages.${system})
+        (self: super: vibescripts.packages.${system})
         (self: super: {niri = niri.packages.${system}.default;})
         (self: super: {xwayland-satellite = xwayland-satellite.packages.${system}.default;})
         (self: super: {firefox-addons = firefox-addons.packages.${system};})
