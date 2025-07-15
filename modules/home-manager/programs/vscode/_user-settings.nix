@@ -143,6 +143,7 @@
   "qalc.output.lowerExponentBound" = -4;
   "terminal.integrated.stickyScroll.enabled" = false;
   "chat.editing.confirmEditRequestRemoval" = false;
+  "github.copilot.nextEditSuggestions.enabled" = true;
   "github.copilot.chat.commitMessageGeneration.instructions" = [
     {
       text = lib.readFile ../../ai/instructions/commit.md;
