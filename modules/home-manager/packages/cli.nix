@@ -100,11 +100,11 @@
     nixos-changelog
     ollamark
     p7zip
-    python313Packages.aubio
     python313Packages.markitdown
     rclone
     rsync
     say
+    shfmt
     strip-python-comments
     wl-clipboard
     yt-dlp
