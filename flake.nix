@@ -60,6 +60,9 @@
     chuwi-grub-rotation.flake = false;
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
+    vscode.url = "https://update.code.visualstudio.com/latest/linux-x64/stable";
+    vscode.flake = false;
   };
 
   outputs = {
@@ -76,6 +79,7 @@
     stylix,
     vibeapps,
     xwayland-satellite,
+    vscode,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -98,6 +102,21 @@
         astal-shell.overlays.default
         nix-vscode-extensions.overlays.default
         ollamark.overlays.default
+        (
+          final: prev: {
+            vscode = prev.vscode.overrideAttrs (oldAttrs: {
+              version = "latest";
+              src = prev.stdenv.mkDerivation {
+                name = "vscode-latest.tar.gz";
+                src = vscode;
+                phases = ["installPhase"];
+                installPhase = ''
+                  ln -s $src $out
+                '';
+              };
+            });
+          }
+        )
         (self: super: vibeapps.packages.${system})
         (self: super: {niri = niri.packages.${system}.default;})
         (self: super: {xwayland-satellite = xwayland-satellite.packages.${system}.default;})
