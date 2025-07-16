@@ -73,7 +73,7 @@
       # };
 
       # github = {
-      #   command = "docker";
+      #   command = "podman";
       #   args = [
       #     "run"
       #     "-i"

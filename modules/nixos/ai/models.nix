@@ -10,7 +10,7 @@
   }: {
     context = context;
     cmd = ''
-      ${pkgs.docker}/bin/docker run --rm --name llama-server --device=nvidia.com/gpu=all --ipc=host -p ''${PORT}:8080 \
+      ${pkgs.podman}/bin/podman run --rm --name llama-server --device=nvidia.com/gpu=all --ipc=host -p ''${PORT}:8080 \
         -v /var/cache/llama.cpp/:/root/.cache/llama.cpp/ \
         ghcr.io/ggml-org/llama.cpp:server-cuda \
         -hf ${name} --ctx-size ${toString context} \
@@ -19,7 +19,7 @@
   };
 
   vllm = arguments: ''
-    ${pkgs.docker}/bin/docker run --rm --name vllm --device=nvidia.com/gpu=all --ipc=host -p ''${PORT}:8080 \
+    ${pkgs.podman}/bin/podman run --rm --name vllm --device=nvidia.com/gpu=all --ipc=host -p ''${PORT}:8080 \
       -v /var/cache/huggingface:/root/.cache/huggingface \
       vllm/vllm-openai:latest \
       ${lib.concatStringsSep " " arguments}
@@ -139,7 +139,6 @@ in {
           "--top-p 0.95"
           "--min-p 0"
           "--presence-penalty 1.5"
-          "-c 40960"
           "-n 32768"
           "--no-context-shift"
         ];
@@ -148,7 +147,7 @@ in {
       "kokoro" = {
         unlisted = true;
         cmd = ''
-          ${pkgs.docker}/bin/docker run --rm --name kokoro --device=nvidia.com/gpu=all -p ''${PORT}:8880 ghcr.io/remsky/kokoro-fastapi-gpu:latest
+          ${pkgs.podman}/bin/podman run --rm --name kokoro --device=nvidia.com/gpu=all -p ''${PORT}:8880 ghcr.io/remsky/kokoro-fastapi-gpu:latest
         '';
         aliases = [
           "tts-1"

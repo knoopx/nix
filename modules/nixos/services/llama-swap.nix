@@ -36,8 +36,6 @@ in {
         RestartSec = 3;
         Type = "exec";
         DynamicUser = false;
-        # SupplementaryGroups = ["docker"];
-        # BindPaths = ["/var/run/docker.sock"];
       };
     };
   };

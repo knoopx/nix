@@ -57,7 +57,7 @@ in {
         image = "traefik:latest";
         ports = ["80:80"];
         volumes = [
-          "/var/run/docker.sock:/var/run/docker.sock:ro"
+          "/var/run/podman/podman.sock:/var/run/docker.sock:ro"
           "${providers}:/etc/traefik/dynamic/dynamic.yml"
         ];
         cmd = [

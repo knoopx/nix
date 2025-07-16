@@ -1,4 +1,7 @@
 _: {
+  # fix for podman + nvidia-container-toolkit
+  environment.etc."cdi/nvidia-container-toolkit.json".source = "/run/cdi/nvidia-container-toolkit.json";
+
   virtualisation = {
     # lxd.enable = true;
     # virtualbox.host.enable = true;
@@ -23,18 +26,11 @@ _: {
     #   };
     # };
 
-    oci-containers.backend = "docker";
-    # defaultNetwork.settings.dns_enabled = true;
-
-    docker = {
+    podman = {
       enable = true;
-      autoPrune.enable = true;
-      autoPrune.dates = "daily";
-      enableOnBoot = true;
-
-      rootless = {
-        enable = true;
-        setSocketVariable = true;
+      # dockerCompat = true;
+      defaultNetwork.settings = {
+        dns_enabled = true;
       };
     };
   };
