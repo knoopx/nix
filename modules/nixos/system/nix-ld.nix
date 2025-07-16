@@ -101,7 +101,7 @@
     # libtheora
     # libtiff
     # libudev0-shim
-    # libusb1
+    libusb1
     # libuv
     # libva
     # libvdpau
