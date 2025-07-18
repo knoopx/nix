@@ -142,8 +142,9 @@
         Mod+Delete { spawn "${lib.getExe pkgs.mission-center}"; }
         Mod+Down { focus-workspace-down; }
         Mod+F { maximize-column; }
-        Mod+G { spawn "code"; }
         Mod+J { spawn "firefox"; }
+        Mod+K { spawn "code"; }
+        Mod+L { spawn "kitty"; }
         Mod+I { consume-or-expel-window-left; }
         Mod+Period { toggle-overview; }
         Mod+Left { focus-column-left; }
@@ -167,7 +168,6 @@
         Mod+B { spawn "${lib.getExe pkgs.bookmarks}"; }
         Mod+N { spawn "${lib.getExe pkgs.notes}"; }
         Mod+S { spawn "${lib.getExe pkgs.scratchpad}"; }
-        Mod+T { spawn "kitty"; }
         Mod+Up { focus-workspace-up; }
         Mod+V { spawn "nautilus"; }
         Mod+W { close-window; }
