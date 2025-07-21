@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   ...
 } @ inputs: let
@@ -24,16 +25,17 @@ in {
     };
   };
 
-  defaults.display.width = 1920;
-  defaults.display.height = 1200;
-  defaults.display.idleTimeout = 60; # 1 minute for battery conservation
-  defaults.display.defaultColumnWidthPercent = 1.0;
-  defaults.display.columnWidthPercentPresets = [0.5 0.75];
+  defaults.display.width = lib.mkForce 1920;
+  defaults.display.height = lib.mkForce 1200;
+  defaults.display.idleTimeout = lib.mkForce 60; # 1 minute for battery conservation
+  defaults.display.defaultColumnWidthPercent = lib.mkForce 1.0;
+  defaults.display.columnWidthPercentPresets = lib.mkForce [0.5 0.75];
 
   home-manager.users.${config.defaults.username} = {
     imports = [
       ../../home/${config.defaults.username}.nix
     ];
     home.packages = with pkgs; [niri-rotate-display-desktop-items];
+    services.autoDisplayRotation.enable = true;
   };
 }

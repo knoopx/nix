@@ -33,7 +33,9 @@
 
   powerManagement = {
     enable = true;
-    # powertop.enable = false;
+    powertop.enable = true;
     # cpuFreqGovernor = "performance";
   };
+
+  hardware.sensor.iio.enable = true;
 }

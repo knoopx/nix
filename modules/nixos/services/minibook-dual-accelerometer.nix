@@ -61,29 +61,29 @@ in {
 
     # Ensure chuwi-ltsm-hack module is loaded after DKMS builds it
     boot.extraModprobeConfig = ''
-      # Allow intel-hid module to recognize tablet-mode switch events on MiniBook X
       options intel-hid force_tablet_mode=Y
     '';
 
     # udev rules for accelerometer detection and configuration
-    services.udev.extraRules = ''
-      # The dual accelerometers on the MiniBook X have the same modalias, so hwdb
-      # can't tell them apart. Differentiate them using the devpath and set
-      # ACCEL_LOCATION as appropriate.
+    services.udev.extraRules = let
+      mxc4005 = pkgs.writeShellScriptBin "mxc4005" ''
+        device_path=$(dirname $(grep Synopsys /sys/bus/i2c/devices/i2c-*/name 2>/dev/null | head -n1) | head -n1)/new_device
+        echo mxc4005 0x15 > "$device_path"
+      '';
+    in ''
+      SUBSYSTEM=="iio", KERNEL=="iio*", SUBSYSTEMS=="i2c", \
+              DEVPATH=="*/i2c-*/i2c-MDA6655:00/iio:device0", \
+              ENV{ACCEL_LOCATION}="display", \
+              ENV{ACCEL_MOUNT_MATRIX}="1,0,0;0,1,0;0,0,1", \
+              RUN+="${lib.getExe mxc4005}", \
+              ENV{SYSTEMD_WANTS}="angle-sensor.service"
 
       SUBSYSTEM=="iio", KERNEL=="iio*", SUBSYSTEMS=="i2c", \
-          DEVPATH=="*/i2c-1/i2c-MDA6655:00/iio:device0", \
-          ENV{ACCEL_LOCATION}="display", \
-          ENV{ACCEL_MOUNT_MATRIX}="0,-1,0;1,0,0;0,0,1", \
-          RUN+="/bin/sh -c 'echo mxc4005 0x15 > /sys/bus/i2c/devices/i2c-0/new_device'", \
-          ENV{SYSTEMD_WANTS}="angle-sensor.service"
-
-      SUBSYSTEM=="iio", KERNEL=="iio*", SUBSYSTEMS=="i2c", \
-          DEVPATH=="*/i2c-0/0-0015/iio:device1", \
-          ENV{ACCEL_LOCATION}="base", \
-          ENV{ACCEL_MOUNT_MATRIX}="0,-1,0;1,0,0;0,0,1", \
-          RUN{builtin}+="kmod load chuwi-ltsm-hack", \
-          ENV{SYSTEMD_WANTS}="angle-sensor.service"
+              DEVPATH=="*/i2c-*/*-0015/iio:device1", \
+              ENV{ACCEL_LOCATION}="base", \
+              ENV{ACCEL_MOUNT_MATRIX}="1,0,0;0,1,0;0,0,1", \
+              RUN{builtin}+="kmod load chuwi-ltsm-hack", \
+              ENV{SYSTEMD_WANTS}="angle-sensor.service"
     '';
 
     # systemd service for angle sensor
@@ -106,46 +106,11 @@ in {
         ExecStart = "${cfg.package}/bin/angle-sensor --interval $INTERVAL --threshold $THRESHOLD --hysteresis $HYSTERESIS --tilt-threshold $TILT_THRESHOLD --jerk-threshold $JERK_THRESHOLD $COMMAND ${concatStringsSep " " cfg.extraArguments}";
         Restart = "on-failure";
         RestartSec = "5s";
-
-        # Security settings
-        NoNewPrivileges = true;
-        PrivateTmp = true;
-        ProtectSystem = "strict";
-        ProtectHome = true;
-        ProtectKernelTunables = false; # Need access to sysfs
-        ProtectKernelModules = true;
-        ProtectControlGroups = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-
-        # Allow access to sysfs for tablet mode control
-        ReadWritePaths = [
-          "/sys/devices/platform/MDA6655:00"
-          "/sys/bus/acpi/devices/MDA6655:00"
-        ];
-
-        # Allow access to IIO devices
-        SupplementaryGroups = ["input"];
-
-        # Resource limits
-        MemoryMax = "50M";
-        TasksMax = "10";
       };
     };
 
-    # Ensure required groups exist
     users.groups.input = {};
 
-    # Hardware detection warning
-    warnings = mkIf (!config.services.minibook-dual-accelerometer.enable) [
-      ''
-        The minibook-dual-accelerometer service is designed specifically for the Chuwi MiniBook X.
-        It may not work correctly on other hardware and could potentially cause issues.
-        Make sure you're running this on a Chuwi MiniBook X before enabling.
-      ''
-    ];
-
-    # Add firmware support for some common MiniBook X issues
     hardware.firmware = [pkgs.linux-firmware];
   };
 }

@@ -59,9 +59,6 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    chuwi-grub-rotation.url = "github:iggyZiggy/chuwi-grub-rotation-nix-patch";
-    chuwi-grub-rotation.flake = false;
-
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     vscode.url = "https://update.code.visualstudio.com/latest/linux-x64/stable";
@@ -226,9 +223,7 @@
           (mkNixosModules ./hosts/minibookx)
           ++ [
             nixos-hardware.nixosModules.chuwi-minibook-x
-            {nixpkgs.overlays = [(import (inputs.chuwi-grub-rotation + "/overlays/grub2"))];}
           ];
-        # Register the chuwi-grub-rotation overlay for this host
       };
     };
     # homeConfigurations = {

@@ -1,4 +1,8 @@
-{...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   services.thermald.enable = true;
   services.auto-cpufreq.enable = true;
   services.auto-cpufreq.settings = {
@@ -10,6 +14,11 @@
       governor = "powersave";
       turbo = "never";
     };
+  };
+
+  systemd.services.iio-sensor-proxy = {
+    wantedBy = ["multi-user.target"];
+    after = ["graphical.target"];
   };
 
   # Enable dual accelerometer tablet-mode detection for MiniBook X
