@@ -108,5 +108,6 @@
     strip-python-comments
     wl-clipboard
     yt-dlp
+    drum-practice
   ];
 }
