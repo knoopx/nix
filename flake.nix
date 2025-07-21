@@ -205,7 +205,6 @@
       nfoview = pkgsWithOverlays.nfoview;
       strip-python-comments = pkgsWithOverlays.strip-python-comments;
       minibook-dual-accelerometer = pkgsWithOverlays.minibook-dual-accelerometer;
-      gnome-mcp-server = pkgsWithOverlays.gnome-mcp-server;
     };
 
     nixosConfigurations = {

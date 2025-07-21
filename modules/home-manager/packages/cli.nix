@@ -87,7 +87,6 @@
     fclones
     ffmpeg
     gcalcli
-    gnome-mcp-server
     gum
     imagemagick
     inotify-tools

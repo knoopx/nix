@@ -1,11 +1,6 @@
 {pkgs, ...}: {
   ai = {
     mcp = {
-      gnome = {
-        command = "${pkgs.gnome-mcp-server}/bin/gnome-mcp-server";
-        args = [];
-      };
-
       sequential-thinking = {
         command = "bunx";
         args = ["@modelcontextprotocol/server-sequential-thinking"];
