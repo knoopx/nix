@@ -17,13 +17,6 @@
         ${lib.concatStringsSep " " args}
     '';
   };
-
-  vllm = arguments: ''
-    ${pkgs.podman}/bin/podman run --rm --name vllm --device=nvidia.com/gpu=all --ipc=host -p ''${PORT}:8080 \
-      -v /var/cache/huggingface:/root/.cache/huggingface \
-      vllm/vllm-openai:latest \
-      ${lib.concatStringsSep " " arguments}
-  '';
 in {
   ai = {
     models = {
