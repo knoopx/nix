@@ -11,9 +11,6 @@
   };
 
   config = lib.mkIf config.services.autoScrcpy.enable {
-    users.users.${config.services.autoScrcpy.user} = {
-      extraGroups = ["adbusers"];
-    };
     environment.systemPackages = with pkgs; [scrcpy android-tools];
 
     services.udev.extraRules = ''
