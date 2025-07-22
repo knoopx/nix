@@ -69,11 +69,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752573534,
-        "narHash": "sha256-g6vWp5RItlgKxW1TbJghpYIS9UVrXpZWHW+Rq9Cqlj8=",
+        "lastModified": 1753228310,
+        "narHash": "sha256-h0uirA2O3TwvB14u/gu7mAM2h8PpyWjkOAgBLpFGnqc=",
         "owner": "knoopx",
         "repo": "astal-shell",
-        "rev": "8d3ec7a18a19eb9b60227586670f3f7595115db7",
+        "rev": "07e3538b2f09ec1d1f5959d059904302f61103d8",
         "type": "github"
       },
       "original": {
