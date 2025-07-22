@@ -20,7 +20,7 @@ in {
   networking.hostName = "minibookx";
 
   hardware.chuwi-minibook-x = {
-    tabletMode.enable = true;
+    tabletMode.enable = false;
     autoDisplayRotation.enable = true;
   };
 
