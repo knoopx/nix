@@ -17,11 +17,11 @@
       };
 
       android-otg = {
-        name = "Android OTG";
+        name = "Android Phone";
         settings = {
           StartupWMClass = ".scrcpy-wrapped";
         };
-        exec = ''${lib.getExe pkgs.scrcpy} --otg'';
+        exec = ''${lib.getExe pkgs.scrcpy} --power-off-on-close --turn-screen-off --stay-awake'';
         icon =
           (pkgs.fetchurl {
             url = "https://raw.githubusercontent.com/LingmoOS/LingmoOS/2f593c74987037c7d98b9c680f43ebb4a1231a20/shell/bc/Icons/Crule/devices/scalable/tablet.svg";

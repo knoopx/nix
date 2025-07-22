@@ -193,9 +193,10 @@
     window-rule {
         match
         draw-border-with-background false
-        geometry-corner-radius 8.0 8.0 8.0 8.0
+        geometry-corner-radius 18.0 18.0 18.0 18.0
         clip-to-geometry true
     }
+
     window-rule {
         match is-active=false
         opacity 0.9
@@ -210,6 +211,12 @@
         slowdown 0.6
         window-open { off; }
         window-close { off; }
+    }
+
+    window-rule {
+        match app-id="scrcpy"
+        open-floating false;
+        default-column-width { fixed 472; }
     }
 
     ${lib.concatStringsSep "\n" (
