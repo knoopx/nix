@@ -4,6 +4,9 @@
   ...
 }: {
   services = {
+    autoScrcpy = {
+      enable = true;
+    };
     timesyncd.enable = lib.mkDefault true;
     fwupd.enable = true;
     printing.enable = false;
