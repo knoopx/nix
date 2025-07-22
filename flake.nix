@@ -57,7 +57,7 @@
     autofirma-nix.inputs.nixpkgs.follows = "nixpkgs";
     autofirma-nix.inputs.home-manager.follows = "home-manager";
 
-    nix-chuwi-minibook-x.url = "./flakes/nix-chuwi-minibook-x";
+    nix-chuwi-minibook-x.url = "github:knoopx/nix-chuwi-minibook-x";
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
