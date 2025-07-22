@@ -35,7 +35,6 @@ in {
     imports = [
       ../../home/${config.defaults.username}.nix
     ];
-    home.packages = with pkgs; [niri-rotate-display-desktop-items];
     services.autoDisplayRotation.enable = true;
   };
 }
