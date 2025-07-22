@@ -177,7 +177,6 @@
           sharedModules = [
             vibeapps.homeManagerModules.default
             autofirma-nix.homeManagerModules.default
-            nix-chuwi-minibook-x.homeManagerModules.default
           ];
         };
       }

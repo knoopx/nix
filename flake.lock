@@ -575,11 +575,11 @@
         "nixos-hardware": "nixos-hardware"
       },
       "locked": {
-        "lastModified": 1753200809,
-        "narHash": "sha256-PN6tXedALANMqgiYVlLfwPh4lOeD7IDnTSCjapRxtxY=",
+        "lastModified": 1753202056,
+        "narHash": "sha256-tdWPIBShy5tpJGemTywXNc2HqzE7Pkd5h1XP+omw9Nk=",
         "owner": "knoopx",
         "repo": "nix-chuwi-minibook-x",
-        "rev": "96ecefe5abaae6f8c12140f4e5b032439eb3acff",
+        "rev": "5b3e10a9f494fb05195b708983a3dcafe41058d4",
         "type": "github"
       },
       "original": {
