@@ -19,6 +19,8 @@
       "audio"
       "docker"
       "input"
+      "iio"
+      "sensor"
       "kvm"
       "libvirtd"
       "lxd"
