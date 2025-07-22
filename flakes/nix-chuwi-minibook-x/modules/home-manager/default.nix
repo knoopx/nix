@@ -100,7 +100,7 @@ in {
       systemd.user.services.auto-display-rotation = {
         Unit = {
           Description = "Auto Display Rotation";
-          After = ["graphical-session.target"];
+          After = ["graphical-session.target" "iio-sensor-proxy.service"];
         };
         Service = {
           Type = "simple";
