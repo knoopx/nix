@@ -36,6 +36,4 @@
     powertop.enable = true;
     # cpuFreqGovernor = "performance";
   };
-
-  hardware.sensor.iio.enable = true;
 }

@@ -6,12 +6,6 @@
   };
 
   boot = {
-    kernelParams = [
-      "915.enable_fbc=0"
-      "video=efifb:mode=0"
-      "fbcon=rotate:1"
-      "video=DSI-1:panel_orientation=right_side_up"
-    ];
     kernelModules = ["kvm-intel"];
     extraModulePackages = [];
     kernelPackages = pkgs.linuxPackages_zen;
@@ -35,10 +29,7 @@
         enable = true;
         device = "nodev";
         efiSupport = true;
-        gfxmodeEfi = "1920x1200x32";
-        gfxpayloadEfi = "keep";
       };
-
       efi.canTouchEfiVariables = true;
     };
   };

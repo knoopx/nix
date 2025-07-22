@@ -1,6 +1,6 @@
 {
   pkgs,
-  lib ? pkgs.lib,
+  lib,
   ...
 }:
 # This package provides the userspace tools and module source.

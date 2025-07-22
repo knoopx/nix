@@ -516,6 +516,27 @@
         "type": "github"
       }
     },
+    "home-manager_2": {
+      "inputs": {
+        "nixpkgs": [
+          "nix-chuwi-minibook-x",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1753180535,
+        "narHash": "sha256-KEtlzMs2O7FDvciFtjk9W4hyau013Pj9qZNK9a0PxEc=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "847711c7ffa9944b0c5c39a8342ac8eb6a9f9abc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "jmulticard-src": {
       "flake": false,
       "locked": {
@@ -569,6 +590,22 @@
         "repo": "niri",
         "type": "github"
       }
+    },
+    "nix-chuwi-minibook-x": {
+      "inputs": {
+        "home-manager": "home-manager_2",
+        "nixos-hardware": "nixos-hardware",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "path": "./flakes/nix-chuwi-minibook-x",
+        "type": "path"
+      },
+      "original": {
+        "path": "./flakes/nix-chuwi-minibook-x",
+        "type": "path"
+      },
+      "parent": []
     },
     "nix-colors": {
       "inputs": {
@@ -643,7 +680,7 @@
     "nix-vscode-extensions": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1753064291,
@@ -676,6 +713,21 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1753091883,
+        "narHash": "sha256-oVZt8VRJkO2Gytc7D2Pfqqy7wTnSECzdKPnoL9z8iFA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "2baf8e1658cba84a032c3a8befb1e7b06629242a",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixpkgs-unstable",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
         "lastModified": 1744868846,
         "narHash": "sha256-5RJTdUHDmj12Qsv7XOhuospjAjATNiTMElplWnJE9Hs=",
         "owner": "NixOS",
@@ -690,7 +742,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1752997324,
         "narHash": "sha256-vtTM4oDke3SeDj+1ey6DjmzXdq8ZZSCLWSaApADDvIE=",
@@ -764,10 +816,10 @@
         "home-manager": "home-manager",
         "neuwaita": "neuwaita",
         "niri": "niri",
+        "nix-chuwi-minibook-x": "nix-chuwi-minibook-x",
         "nix-colors": "nix-colors",
         "nix-vscode-extensions": "nix-vscode-extensions",
-        "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "ollamark": "ollamark",
         "stylix": "stylix",
         "vibeapps": "vibeapps",

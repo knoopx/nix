@@ -23,7 +23,6 @@ pkgs.stdenv.mkDerivation {
 
   preBuild = ''
     cd hack-driver
-    # The Makefile is already correctly structured, we just need to override KDIR
   '';
 
   installPhase = ''

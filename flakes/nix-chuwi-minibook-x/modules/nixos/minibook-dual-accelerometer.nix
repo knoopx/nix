@@ -10,7 +10,11 @@ in {
   options.services.minibook-dual-accelerometer = {
     enable = mkEnableOption "Chuwi MiniBook X dual accelerometer tablet-mode detection";
 
-    package = mkPackageOption pkgs "minibook-dual-accelerometer" {};
+    package = mkOption {
+      type = types.package;
+      default = pkgs.callPackage ../../pkgs/minibook-dual-accelerometer.nix {};
+      description = "The minibook dual accelerometer package.";
+    };
 
     interval = mkOption {
       type = types.str;
@@ -54,7 +58,7 @@ in {
     environment.systemPackages = [cfg.package];
 
     # Add the kernel module to boot.extraModulePackages
-    boot.extraModulePackages = [(pkgs.callPackage ../../../pkgs/chuwi-ltsm-hack-module.nix {kernel = config.boot.kernelPackages.kernel;})];
+    boot.extraModulePackages = [(pkgs.callPackage ../../pkgs/chuwi-ltsm-hack-module.nix {kernel = config.boot.kernelPackages.kernel;})];
 
     # Load the kernel modules
     boot.kernelModules = ["chuwi-ltsm-hack" "mxc4005" "intel-hid"];
@@ -88,7 +92,7 @@ in {
 
     # systemd service for angle sensor
     systemd.services.angle-sensor = {
-      description = "Chuwi MiniBook rotation daemon";
+      description = "Chuwi MiniBook angle sensor daemon";
       after = ["graphical-session.target"];
       wantedBy = ["graphical-session.target"];
 
@@ -108,9 +112,5 @@ in {
         RestartSec = "5s";
       };
     };
-
-    users.groups.input = {};
-
-    hardware.firmware = [pkgs.linux-firmware];
   };
 }

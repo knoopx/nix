@@ -57,7 +57,7 @@
     autofirma-nix.inputs.nixpkgs.follows = "nixpkgs";
     autofirma-nix.inputs.home-manager.follows = "home-manager";
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nix-chuwi-minibook-x.url = "./flakes/nix-chuwi-minibook-x";
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
@@ -73,7 +73,7 @@
     home-manager,
     niri,
     nix-vscode-extensions,
-    nixos-hardware,
+    nix-chuwi-minibook-x,
     nixpkgs,
     ollamark,
     stylix,
@@ -177,6 +177,7 @@
           sharedModules = [
             vibeapps.homeManagerModules.default
             autofirma-nix.homeManagerModules.default
+            nix-chuwi-minibook-x.homeManagerModules.default
           ];
         };
       }
@@ -195,13 +196,9 @@
   in {
     packages.${system} = {
       # default = vmConfiguration.config.system.build.vm;
-
-      # Repository packages
-      importantize = pkgsWithOverlays.importantize;
       neuwaita-icon-theme = pkgsWithOverlays.neuwaita-icon-theme;
       nfoview = pkgsWithOverlays.nfoview;
       strip-python-comments = pkgsWithOverlays.strip-python-comments;
-      minibook-dual-accelerometer = pkgsWithOverlays.minibook-dual-accelerometer;
     };
 
     nixosConfigurations = {
@@ -222,19 +219,9 @@
         modules =
           (mkNixosModules ./hosts/minibookx)
           ++ [
-            nixos-hardware.nixosModules.chuwi-minibook-x
+            nix-chuwi-minibook-x.nixosModules.default
           ];
       };
     };
-    # homeConfigurations = {
-    #   "${username}" = home-manager.lib.homeManagerConfiguration {
-    #     inherit pkgs;
-    #     extraSpecialArgs = specialArgs;
-    #     modules = [
-    #       vibeapps.homeManagerModules.default
-    #       ./home/knoopx
-    #     ];
-    #   };
-    # };
   };
 }

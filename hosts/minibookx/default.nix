@@ -19,6 +19,8 @@ in {
 
   networking.hostName = "minibookx";
 
+  hardware.chuwi-minibook-x.enable = true;
+
   nixpkgs = {
     hostPlatform = {
       inherit system;
@@ -35,6 +37,5 @@ in {
     imports = [
       ../../home/${config.defaults.username}.nix
     ];
-    services.autoDisplayRotation.enable = true;
   };
 }
