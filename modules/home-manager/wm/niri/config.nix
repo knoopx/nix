@@ -193,7 +193,7 @@
     window-rule {
         match
         draw-border-with-background false
-        geometry-corner-radius 18.0 18.0 18.0 18.0
+        geometry-corner-radius 8.0 8.0 8.0 8.0
         clip-to-geometry true
     }
 
@@ -217,6 +217,7 @@
         match app-id="scrcpy"
         open-floating false;
         default-column-width { fixed 472; }
+        geometry-corner-radius 18.0 18.0 18.0 18.0
     }
 
     ${lib.concatStringsSep "\n" (
