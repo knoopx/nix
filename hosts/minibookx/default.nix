@@ -19,7 +19,10 @@ in {
 
   networking.hostName = "minibookx";
 
-  hardware.chuwi-minibook-x.enable = true;
+  hardware.chuwi-minibook-x = {
+    tabletMode.enable = true;
+    autoDisplayRotation.enable = true;
+  };
 
   nixpkgs = {
     hostPlatform = {
