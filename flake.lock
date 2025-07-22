@@ -576,11 +576,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1753205699,
-        "narHash": "sha256-wg0JC3PJED6VUuBTtuI/mINmQm/6nHx+XHeI7e7IEzU=",
+        "lastModified": 1753207424,
+        "narHash": "sha256-GxtzY/101zHfJ43chvh5jnAaSizRgtGneSnfBd2nR70=",
         "owner": "knoopx",
         "repo": "nix-chuwi-minibook-x",
-        "rev": "666c14028f79ac79e5f905c324fbfd740a2f9141",
+        "rev": "cb71084251348a618f08a6719345871958289d3e",
         "type": "github"
       },
       "original": {
