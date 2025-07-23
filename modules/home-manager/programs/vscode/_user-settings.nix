@@ -81,7 +81,7 @@
   "redhat.telemetry.enabled" = false;
   "solargraph.commandPath" = "${pkgs.solargraph}/bin/solargraph";
 
-  "python.analysis.typeCheckingMode" = "basic";
+  "python.analysis.typeCheckingMode" = "strict";
   "python.analysis.autoImportCompletions" = true;
   "python.analysis.autoImportUserSymbols" = true;
 
@@ -144,9 +144,4 @@
   "terminal.integrated.stickyScroll.enabled" = false;
   "chat.editing.confirmEditRequestRemoval" = false;
   "github.copilot.nextEditSuggestions.enabled" = true;
-  "github.copilot.chat.commitMessageGeneration.instructions" = [
-    {
-      text = lib.readFile ../../ai/instructions/commit.md;
-    }
-  ];
 }

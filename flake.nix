@@ -3,7 +3,8 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    # nixpkgs.url = "github:nixos/nixpkgs?rev=5395fb3ab3f97b9b7abca147249fa2e8ed27b192";
+
+    nix-ai.url = "github:knoopx/nix-ai";
 
     ollamark.url = "github:knoopx/ollamark";
     ollamark.inputs.nixpkgs.follows = "nixpkgs";
@@ -81,6 +82,7 @@
     vibescripts,
     xwayland-satellite,
     vscode,
+    nix-ai,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -168,6 +170,7 @@
       }
       stylix.nixosModules.stylix
       home-manager.nixosModules.home-manager
+      nix-ai.nixosModules.default
       {
         home-manager = {
           useGlobalPkgs = true;
