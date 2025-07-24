@@ -100,6 +100,9 @@
     ollamark
     p7zip
     python313Packages.markitdown
+    # rich-cli
+    csvkit
+    csvlens
     rclone
     rsync
     say
