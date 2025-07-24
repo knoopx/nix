@@ -164,11 +164,11 @@
     "base16-helix": {
       "flake": false,
       "locked": {
-        "lastModified": 1748408240,
-        "narHash": "sha256-9M2b1rMyMzJK0eusea0x3lyh3mu5nMeEDSc4RZkGm+g=",
+        "lastModified": 1752979451,
+        "narHash": "sha256-0CQM+FkYy0fOO/sMGhOoNL80ftsAzYCg9VhIrodqusM=",
         "owner": "tinted-theming",
         "repo": "base16-helix",
-        "rev": "6c711ab1a9db6f51e2f6887cc3345530b33e152e",
+        "rev": "27cf1e66e50abc622fb76a3019012dc07c678fac",
         "type": "github"
       },
       "original": {
@@ -267,11 +267,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1753243420,
-        "narHash": "sha256-mcMoAW40bqNFPA96Y0mYriPwFb6QzGn00FS/JUpl0Uo=",
+        "lastModified": 1753329806,
+        "narHash": "sha256-PxQVUrK1rJEQoUSp6vO7OUfvkoZZUtY98HoWUIYW69M=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "80459cc810983d818196d6ed858b5c1951bc5446",
+        "rev": "87fd18a0002b8d63a8520dd569a99de509fc43c5",
         "type": "gitlab"
       },
       "original": {
@@ -503,11 +503,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1753282444,
-        "narHash": "sha256-QGeWgozKiGBTJrLYnXd9xwOY9HKsm4cFHsU8fopGVnU=",
+        "lastModified": 1753373145,
+        "narHash": "sha256-UhuUj46dobD/POOdVNxKvAvP3luI2T0MZPm2IXl266Y=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "62975b8e23c4e39599b3303f6e76faa280a02c63",
+        "rev": "64796151f79e6f3834bfc55f07c5487708bb5b3f",
         "type": "github"
       },
       "original": {
@@ -572,11 +572,11 @@
     },
     "nix-ai": {
       "locked": {
-        "lastModified": 1753283101,
-        "narHash": "sha256-PYsGF+ZGvdDbQdpRSoxslvpglJmbaqEASFWpb0XyzLs=",
+        "lastModified": 1753376331,
+        "narHash": "sha256-JY6zFnsPnWEScnVTFdY1MvOa+JWACBRjyd3keMXnX64=",
         "owner": "knoopx",
         "repo": "nix-ai",
-        "rev": "b37251672df954537adf22eb9b1312fdb67bebd1",
+        "rev": "134062614c73da9d239fc90900c7e389c5e5cba1",
         "type": "github"
       },
       "original": {
@@ -680,11 +680,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1753236846,
-        "narHash": "sha256-sjemI+A9yzGqWqX+BfT8B4/QKlBoXwr3ymHR3XftIDg=",
+        "lastModified": 1753323218,
+        "narHash": "sha256-U4fomCfnCPhQo2R/XWXdHQ9VATFlqVpPEG52Ve6ukm4=",
         "owner": "nix-community",
         "repo": "nix-vscode-extensions",
-        "rev": "97b52380d4534f7928d796201fcb306f7f9db245",
+        "rev": "66e002729c889c5b881c3128dc3fa31a8418d95a",
         "type": "github"
       },
       "original": {
@@ -890,11 +890,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1753237059,
-        "narHash": "sha256-4ZmwEYiS0vdhJSkNCLyoYRZuxRYT/8JGpL4WDRvrX14=",
+        "lastModified": 1753372006,
+        "narHash": "sha256-eyIYqerHPYHl2Eq802wJSOwMwZ3tdvJ4D+vckDe2mD8=",
         "owner": "nix-community",
         "repo": "stylix",
-        "rev": "37673b1de0703a637f3a8abe8da8a097d076a377",
+        "rev": "ceda12a6da2181e424d8ed7e68ed291745f06f49",
         "type": "github"
       },
       "original": {
@@ -1125,7 +1125,7 @@
     "vscode": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-cgOJ7Em3ZIlkTbi+HfavavBLKcgP5reGPOtAjWf5j6Y=",
+        "narHash": "sha256-Fu66fls/lA815jn3L/M2CUCI8pgW0sihkfp8GcHpC4E=",
         "type": "file",
         "url": "https://update.code.visualstudio.com/latest/linux-x64/stable"
       },
