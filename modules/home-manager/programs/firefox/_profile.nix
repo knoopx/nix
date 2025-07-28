@@ -2,6 +2,7 @@
   pkgs,
   nixosConfig,
   betterfox,
+  nix-userstyles,
   ...
 }: let
   theme = pkgs.theming.mkStylixFirefoxGnomeTheme nixosConfig.defaults.colorScheme.palette;
@@ -59,7 +60,33 @@ in {
 
   userContent = ''
     @import "${theme}/theme/userContent.css";
-    ${builtins.readFile "${pkgs.theming.mkUserStyles nixosConfig.defaults.colorScheme.palette}"}
+    ${builtins.readFile "${nix-userstyles.packages.${pkgs.system}.mkUserStyles nixosConfig.defaults.colorScheme.palette [
+      "brave-search"
+      "bsky"
+      "chatgpt"
+      "cinny"
+      "claude"
+      "devdocs"
+      "discord"
+      "duckduckgo"
+      "github"
+      "google"
+      "hacker-news"
+      "lobste.rs"
+      "nixos-*"
+      "npm"
+      "ollama"
+      "perplexity"
+      "qwant"
+      "reddit"
+      "spotify-web"
+      "stack-overflow"
+      "telegram"
+      "wikipedia"
+      "whatsapp-web"
+      "wikipedia"
+      "youtube"
+    ]}"}
   '';
 
   search = {
