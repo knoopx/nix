@@ -4,6 +4,9 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
 
+    nix-userstyles.url = "github:knoopx/nix-userstyles";
+    nix-userstyles.inputs.nix-colors.follows = "nix-colors";
+
     nix-ai.url = "github:knoopx/nix-ai";
 
     ollamark.url = "github:knoopx/ollamark";
@@ -83,6 +86,7 @@
     xwayland-satellite,
     vscode,
     nix-ai,
+    nix-userstyles,
     ...
   } @ inputs: let
     system = "x86_64-linux";
