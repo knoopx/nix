@@ -43,5 +43,31 @@
     sushi
     transmission_4-gtk
     vial
+
+    # cool apps
+    cartridges
+    gnome-feeds
+    errands
+    wildcard
+    sly
+    newsflash
+    parlatype
+    varia
+    impression
+    dissent
+    delineate
+    emblem
+    d-spy
+    recordbox
+    wike
+    gapless
+    pipeline
+    exhibit
+    eloquent
+    planify
+    pods
+    gnome-mahjongg
+    gnome-sudoku
+    ascii-draw
   ];
 }
