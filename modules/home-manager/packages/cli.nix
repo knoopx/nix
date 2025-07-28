@@ -92,7 +92,6 @@
     inotify-tools
     jq
     llama-cpp
-    llm
     mpv
     navi
     nh
@@ -111,5 +110,20 @@
     wl-clipboard
     yt-dlp
     drum-practice
+    todos
+    repl
+    ruff
+
+    dasel
+    fx # jq alternative
+    # posting # broken, installed as uv tool
+    up # repl
+    visidata
+    ox
+    binsider
+    circumflex # hackernews client
+    # smassh # monkeytype clone
+    # harlequin # db client, broken, installed as uv tool
+    # taskwarrior3
   ];
 }
