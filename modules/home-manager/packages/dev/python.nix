@@ -23,6 +23,9 @@
 in {
   home.packages = with pkgs; [
     uv
+    black
+    isort
+    pyright
     pythonEnv
   ];
 }
