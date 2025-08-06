@@ -113,8 +113,9 @@
     todos
     repl
     ruff
-
     dasel
+    # yq-go
+    # xq-xml
     fx # jq alternative
     # posting # broken, installed as uv tool
     up # repl

@@ -17,8 +17,15 @@
     ps.sentencepiece
     ps.torchvision
     ps.transformers
+    ps.openai
+    ps.aiohttp
+    ps.pydantic
+    ps.uvicorn
+    ps.fastapi
+    ps.starlette
+    ps.rich
     ps.xformers
-    ps.pysoundfile
+    ps.triton
   ]);
 in {
   home.packages = with pkgs; [

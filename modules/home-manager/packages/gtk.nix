@@ -62,7 +62,7 @@
     wike
     gapless
     pipeline
-    exhibit
+    # exhibit # preview 3d models
     eloquent
     planify
     pods

@@ -74,7 +74,7 @@ in
     # naumovs.color-highlight
     # nortakales.vs-qalc
 
-    # pythong
+    # python
     ms-python.black-formatter
     ms-python.debugpy
     ms-python.python
