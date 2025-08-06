@@ -1,17 +1,17 @@
 {pkgs, ...}: let
-  version = "fff572a8da24bebd2f59ee7ef97d10f8796ca6dc";
+  version = "13f3a731405f6ab0dd231ca0d2f11fc896e0eadc";
 
   src = pkgs.fetchFromGitHub {
     owner = "kooshi";
     repo = "llama-swappo";
     rev = version;
-    hash = "sha256-SDcUGkm5PEplBlCIYASj9jon5uWYOw2rfzjbFkT2bwc=";
+    hash = "sha256-emoXDoVSUtghjgN0h+HlgV6xLKDem3R+iSz2GZx39Tw=";
   };
 
   ui = pkgs.stdenv.mkDerivation {
     inherit version src;
     pname = "llama-swap-ui";
-    outputHash = "sha256-yb4W+qak1WlOXw9Jm47eD1inPNEHwZC2oZxajCaLgZ0=";
+    outputHash = "sha256-IgA4Pu+0eZbBxMkPWFUN4fUQqTUu76opowMyFCN1s1M=";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
 
@@ -28,7 +28,7 @@ in
   pkgs.buildGoModule {
     inherit version src;
     pname = "llama-swap";
-    vendorHash = "sha256-nSdvqYVBBVIdoa991bLVwfHPGAO4OHzW8lEQPQ6cuMs=";
+    vendorHash = "sha256-5mmciFAGe8ZEIQvXejhYN+ocJL3wOVwevIieDuokhGU=";
     doCheck = false;
     postPatch = ''
       mkdir -p proxy/ui_dist
