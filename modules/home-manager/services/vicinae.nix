@@ -10,11 +10,11 @@ with lib; let
 
   vicinae = pkgs.stdenv.mkDerivation rec {
     pname = "vicinae";
-    version = "0.0.7";
+    version = "0.0.8";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vicinaehq/vicinae/releases/download/v${version}/vicinae-linux-x86_64-v${version}.tar.gz";
-      sha256 = "sha256-1mRd8sJDbNseCnxBbND8EV17NB12l8Ud+nkOzw2UkRY=";
+      sha256 = "sha256-eLwQmncNOjDhMc49+RXin78OU6QiNahZzUx577vZEW0=";
     };
 
     nativeBuildInputs = with pkgs; [autoPatchelfHook qt6.wrapQtAppsHook];
@@ -34,6 +34,7 @@ with lib; let
       stdenv.cc.cc.lib
       abseil-cpp
       protobuf
+      nodejs
     ];
 
     unpackPhase = ''
@@ -43,6 +44,8 @@ with lib; let
     installPhase = ''
       mkdir -p $out/bin $out/share/applications
       cp bin/vicinae $out/bin/
+      # replace in binary "/bin/node" -> "node"
+      # sed -i 's|/bin/node|node\x00\x00\x00\x00\x00|g' $out/bin/vicinae
       cp share/applications/vicinae.desktop $out/share/applications/
       chmod +x $out/bin/vicinae
     '';
@@ -111,9 +114,6 @@ in {
         ExecStart = "${cfg.package}/bin/vicinae server";
         Restart = "on-failure";
         RestartSec = 3;
-        Environment = [
-          "PATH=${config.home.profileDirectory}/bin"
-        ];
       };
 
       Install = mkIf cfg.autoStart {
