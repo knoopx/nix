@@ -121,6 +121,9 @@
                   ln -s $src $out
                 '';
               };
+              postInstall = (oldAttrs.postInstall or "") + ''
+                wrapProgram $out/bin/code --add-flags "--disable-gpu"
+              '';
             });
           }
         )
@@ -200,7 +203,7 @@
       overlays = globalOverlays;
     };
   in {
-    packages.${system} = {
+      packages.${system} = {
       # default = vmConfiguration.config.system.build.vm;
       neuwaita-icon-theme = pkgsWithOverlays.neuwaita-icon-theme;
       nfoview = pkgsWithOverlays.nfoview;
