@@ -161,7 +161,7 @@
         Mod+Shift+Left { move-column-left; }
         Mod+Shift+Right { move-column-right; }
         Mod+Shift+Up { move-column-to-workspace-up; }
-        Mod+Space { spawn "${lib.getExe pkgs.launcher}"; }
+        Mod+Space { spawn "vicinae"; }
         Mod+Tab { spawn "${lib.getExe pkgs.windows}"; }
         Mod+P { spawn "${lib.getExe pkgs.process-manager}"; }
         Mod+M { spawn "${lib.getExe pkgs.music}"; }
