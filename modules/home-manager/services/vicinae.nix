@@ -35,6 +35,7 @@ with lib; let
       abseil-cpp
       protobuf
       nodejs
+      wayland
     ];
 
     unpackPhase = ''
@@ -44,10 +45,14 @@ with lib; let
     installPhase = ''
       mkdir -p $out/bin $out/share/applications
       cp bin/vicinae $out/bin/
-      # replace in binary "/bin/node" -> "node"
-      # sed -i 's|/bin/node|node\x00\x00\x00\x00\x00|g' $out/bin/vicinae
       cp share/applications/vicinae.desktop $out/share/applications/
       chmod +x $out/bin/vicinae
+    '';
+
+    dontWrapQtApps = true;
+
+    preFixup = ''
+      wrapQtApp "$out/bin/vicinae" --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath buildInputs}
     '';
 
     meta = {
