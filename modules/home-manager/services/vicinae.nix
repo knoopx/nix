@@ -10,11 +10,11 @@ with lib; let
 
   vicinae = pkgs.stdenv.mkDerivation rec {
     pname = "vicinae";
-    version = "0.0.8";
+    version = "0.1.0";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vicinaehq/vicinae/releases/download/v${version}/vicinae-linux-x86_64-v${version}.tar.gz";
-      sha256 = "sha256-eLwQmncNOjDhMc49+RXin78OU6QiNahZzUx577vZEW0=";
+      sha256 = "sha256-HYynXER3KUtMbhHJMMtzAICPsWfQXC3ck2gqQX2AQD0=";
     };
 
     nativeBuildInputs = with pkgs; [autoPatchelfHook qt6.wrapQtAppsHook];
