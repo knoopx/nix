@@ -5,7 +5,7 @@
   nix-colors,
   ...
 }: {
-  home.packages = [pkgs.niri pkgs.launcher pkgs.playerctl pkgs.wireplumber pkgs.xwayland-satellite];
+  home.packages = [pkgs.niri pkgs.playerctl pkgs.wireplumber pkgs.xwayland-satellite];
   services.gnome-keyring.enable = true;
 
   xdg.portal = {
@@ -139,7 +139,6 @@
         Alt+Down { focus-workspace-down; }
         Alt+Up { focus-workspace-up; }
         Mod+C { center-window; }
-        Mod+Delete { spawn "${lib.getExe pkgs.mission-center}"; }
         Mod+Down { focus-workspace-down; }
         Mod+F { maximize-column; }
         Mod+J { spawn "firefox"; }
@@ -162,12 +161,6 @@
         Mod+Shift+Right { move-column-right; }
         Mod+Shift+Up { move-column-to-workspace-up; }
         Mod+Space { spawn "vicinae"; }
-        Mod+Tab { spawn "${lib.getExe pkgs.windows}"; }
-        Mod+P { spawn "${lib.getExe pkgs.process-manager}"; }
-        Mod+M { spawn "${lib.getExe pkgs.music}"; }
-        Mod+B { spawn "${lib.getExe pkgs.bookmarks}"; }
-        Mod+N { spawn "${lib.getExe pkgs.notes}"; }
-        Mod+S { spawn "${lib.getExe pkgs.scratchpad}"; }
         Mod+Up { focus-workspace-up; }
         Mod+V { spawn "nautilus"; }
         Mod+W { close-window; }

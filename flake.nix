@@ -12,8 +12,7 @@
     ollamark.url = "github:knoopx/ollamark";
     ollamark.inputs.nixpkgs.follows = "nixpkgs";
 
-    vibeapps.url = "github:knoopx/vibeapps";
-    vibeapps.inputs.nixpkgs.follows = "nixpkgs";
+
 
     vibescripts.url = "github:knoopx/vibescripts";
     vibescripts.inputs.nixpkgs.follows = "nixpkgs";
@@ -81,7 +80,6 @@
     nixpkgs,
     ollamark,
     stylix,
-    vibeapps,
     vibescripts,
     xwayland-satellite,
     vscode,
@@ -127,7 +125,6 @@
             });
           }
         )
-        (self: super: vibeapps.packages.${system})
         (self: super: vibescripts.packages.${system})
         (self: super: {niri = niri.packages.${system}.default;})
         (self: super: {xwayland-satellite = xwayland-satellite.packages.${system}.default;})
@@ -185,7 +182,6 @@
           extraSpecialArgs = specialArgs;
           backupFileExtension = "bak";
           sharedModules = [
-            vibeapps.homeManagerModules.default
             autofirma-nix.homeManagerModules.default
           ];
         };

@@ -28,14 +28,6 @@ This configuration prioritizes:
 - **Kitty**: GPU-accelerated terminal with Fish shell and intelligent completions
 - **Nautilus**: File manager with quick preview capabilities
 - **Glance**: Self-hosted dashboard for weather, calendar, news feeds, and monitoring
-- [**Vibeapps**](https://github.com/knoopx/vibeapps/): A collection of keyboard-centric, minimalist GTK4/Adwaita micro-applications built with Python, including:
-  - **Launcher**: Minimalist application launcher with search functionality and launch history tracking
-  - **Notes**: Markdown note-taking application with wiki-links support and live preview
-  - **Chat**: OpenAI API chat interface with markdown rendering support and streaming responses
-  - **Bookmarks**: Fast Firefox bookmarks browser with search functionality and keyboard navigation
-  - **Music**: Minimalist music player with library management and queue functionality
-  - **Scratchpad**: Interactive calculator similar to Soulver for mathematical computations
-  - **Nix Packages**: Simple interface to query and browse Nix packages
 
 ## Configuration Structure
 

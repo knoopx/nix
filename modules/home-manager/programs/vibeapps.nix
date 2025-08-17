@@ -1,5 +1,0 @@
-{
-  programs.vibeapps = {
-    enableAll = true;
-  };
-}

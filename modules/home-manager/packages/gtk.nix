@@ -34,7 +34,6 @@
     authenticator
     baobab
     czkawka
-    dataset-viewer
     dconf-editor
     drawing
     eog
@@ -45,6 +44,7 @@
     gitg
     gnome-calendar
     gnome-disk-utility
+    gnome-secrets
     gnome-text-editor
     gnome-weather
     lmstudio
