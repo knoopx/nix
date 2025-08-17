@@ -5,7 +5,6 @@
   ...
 }: {
   home.packages = with pkgs; [
-    kooha
     libnotify
     polkit_gnome
     raise-or-open-url

@@ -25,8 +25,9 @@ in {
         models =
           builtins.mapAttrs
           (name: model: {
+            id = model.id;
             reasoning = model.reasoning;
-            tools = model.tools;
+            tool_call = model.tool_call;
             limit = {
               context = model.context;
               output = 0;

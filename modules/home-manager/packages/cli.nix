@@ -98,7 +98,7 @@
     nixos-changelog
     ollamark
     p7zip
-    python313Packages.markitdown
+    # python313Packages.markitdown
     # rich-cli
     csvkit
     csvlens
@@ -126,5 +126,6 @@
     # smassh # monkeytype clone
     # harlequin # db client, broken, installed as uv tool
     # taskwarrior3
+    wf-recorder
   ];
 }

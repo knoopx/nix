@@ -222,6 +222,10 @@
             cache = "1h";
             feeds = [
               {
+                title = "Vicinae";
+                url = "https://github.com/vicinaehq/vicinae/releases.atom";
+              }
+              {
                 title = "Visual Studio Code";
                 url = "https://github.com/microsoft/vscode/releases.atom";
               }

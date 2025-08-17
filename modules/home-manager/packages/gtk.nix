@@ -1,22 +1,45 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    # apostrophe
+    # ascii-draw
+    # balatro
+    # cartridges
+    # commit
+    # d-spy
+    # decibels
+    # delineate
+    # dissent
+    # eloquent
+    # emblem
+    # errands
+    # exhibit # preview 3d models
+    # fclones-gui
+    # foliate
+    # gapless
+    # gnome-feeds
+    # gnome-mahjongg
+    # gnome-sudoku
+    # google-chrome
+    # impression
+    # parlatype
+    # pipeline
+    # planify
+    # pods
+    # recordbox
+    # sly
+    # varia
+    # wike
+    # wildcard
     amberol
-    apostrophe
     authenticator
-    balatro
     baobab
-    commit
     czkawka
     dataset-viewer
     dconf-editor
-    decibels
     drawing
     eog
-    errands
     evince
-    fclones-gui
     file-roller
-    foliate
     gearlever
     geary
     gitg
@@ -24,16 +47,16 @@
     gnome-disk-utility
     gnome-text-editor
     gnome-weather
-    google-chrome
+    lmstudio
     loupe
     mission-center
     nautilus
+    newsflash
     nfoview
     nicotine-plus
     onlyoffice-bin
     picard
     pinta
-    planify
     plexamp
     prusa-slicer
     rnote
@@ -43,31 +66,5 @@
     sushi
     transmission_4-gtk
     vial
-
-    # cool apps
-    cartridges
-    gnome-feeds
-    errands
-    wildcard
-    sly
-    newsflash
-    parlatype
-    varia
-    impression
-    dissent
-    delineate
-    emblem
-    d-spy
-    recordbox
-    wike
-    gapless
-    pipeline
-    # exhibit # preview 3d models
-    eloquent
-    planify
-    pods
-    gnome-mahjongg
-    gnome-sudoku
-    ascii-draw
   ];
 }
