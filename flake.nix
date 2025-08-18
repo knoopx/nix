@@ -78,7 +78,6 @@
     nix-vscode-extensions,
     nix-chuwi-minibook-x,
     nixpkgs,
-    ollamark,
     stylix,
     vibescripts,
     xwayland-satellite,
@@ -106,7 +105,6 @@
       [
         astal-shell.overlays.default
         nix-vscode-extensions.overlays.default
-        ollamark.overlays.default
         (
           final: prev: {
             vscode = prev.vscode.overrideAttrs (oldAttrs: {

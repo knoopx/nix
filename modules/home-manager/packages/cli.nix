@@ -96,7 +96,6 @@
     navi
     nh
     nixos-changelog
-    ollamark
     p7zip
     # python313Packages.markitdown
     # rich-cli
