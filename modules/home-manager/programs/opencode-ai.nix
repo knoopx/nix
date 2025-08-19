@@ -15,6 +15,26 @@ in {
         command = ["bunx" "@modelcontextprotocol/server-sequential-thinking"];
         enabled = true;
       };
+      deepwiki = {
+        type = "local";
+        command = ["bunx" "mcp-deepwiki"];
+        enabled = true;
+      };
+      context7 = {
+        type = "remote";
+        url = "https://mcp.context7.com/mcp";
+        enabled = true;
+      };
+      github = {
+        type = "local";
+        command = ["podman" "run" "-i" "--rm" "-e" "GITHUB_PERSONAL_ACCESS_TOKEN" "ghcr.io/github/github-mcp-server"];
+        enabled = true;
+      };
+      markitdown = {
+        type = "local";
+        command = ["uvx" "markitdown-mcp"];
+        enabled = true;
+      };
     };
     provider = {
       local = {

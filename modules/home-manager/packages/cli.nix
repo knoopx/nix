@@ -27,6 +27,7 @@
     # glibc.dev
     # glow
     # goose-cli
+    # harlequin # db client, broken, installed as uv tool
     # hdparm
     # iftop
     # iperf
@@ -56,75 +57,75 @@
     # pcre
     # pcre2
     # perl
+    # posting # broken, installed as uv tool
+    # python313Packages.markitdown
     # rage
     # ranger
     # readline
+    # rich-cli
     # sd
     # shfmt
     # skate
     # smartmontools
+    # smassh # monkeytype clone
     # speedtest-cli
     # sqlite
     # sysz
     # tab
+    # taskwarrior3
     # tree
     # usbutils
     # util-linux
     # vllm
     # w3m
     # walk
+    # xq-xml
     # xz
     # yq
+    # yq-go
     # zlib
     # zstd
     aria2
     ast-grep
+    binsider
     brotab
     caligula
+    circumflex # hackernews client
+    csvkit
+    csvlens
+    dasel
     dconf
+    drum-practice
     duckdb
     exiftool
     fclones
     ffmpeg
+    fx # jq alternative
     gcalcli
     gum
     imagemagick
     inotify-tools
     jq
     llama-cpp
+    lsof
     mpv
     navi
     nh
     nixos-changelog
+    ox
     p7zip
-    # python313Packages.markitdown
-    # rich-cli
-    csvkit
-    csvlens
     rclone
+    repl
     rsync
+    ruff
     say
     shfmt
     strip-python-comments
-    wl-clipboard
-    yt-dlp
-    drum-practice
     todos
-    repl
-    ruff
-    dasel
-    # yq-go
-    # xq-xml
-    fx # jq alternative
-    # posting # broken, installed as uv tool
     up # repl
     visidata
-    ox
-    binsider
-    circumflex # hackernews client
-    # smassh # monkeytype clone
-    # harlequin # db client, broken, installed as uv tool
-    # taskwarrior3
     wf-recorder
+    wl-clipboard
+    yt-dlp
   ];
 }
