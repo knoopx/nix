@@ -59,7 +59,7 @@
         finegrained = false;
       };
 
-      open = false;
+      open = true;
       nvidiaSettings = false;
       forceFullCompositionPipeline = false;
 
