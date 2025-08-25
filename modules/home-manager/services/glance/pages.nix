@@ -222,6 +222,10 @@
             cache = "1h";
             feeds = [
               {
+                title = "FreshTomato";
+                url = "https://github.com/FreshTomato-Project/freshtomato-arm/releases.atom";
+              }
+              {
                 title = "Vicinae";
                 url = "https://github.com/vicinaehq/vicinae/releases.atom";
               }
