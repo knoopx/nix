@@ -8,7 +8,6 @@ final: prev: let
     });
 in {
   htop = withoutDesktopIcon prev.htop;
-  btop = withoutDesktopIcon prev.btop;
   micro = withoutDesktopIcon prev.micro;
   fish = withoutDesktopIcon prev.fish;
   ranger = withoutDesktopIcon prev.ranger;
