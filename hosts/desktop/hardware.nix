@@ -13,7 +13,6 @@
       enable32Bit = true; # for 32-bit wine games
     };
 
-    # MediaTek WiFi/Bluetooth firmware for ROG Strix X870-F
     firmware = [
       pkgs.linux-firmware
     ];

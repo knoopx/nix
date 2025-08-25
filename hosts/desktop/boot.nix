@@ -3,12 +3,11 @@
   # chaotic.scx.scheduler = "scx_simple";
 
   boot = {
-    kernelModules = ["kvm-intel" "vfio-pci"];
-    blacklistedKernelModules = ["snd_hda_intel"];
+    kernelModules = ["kvm-amd" "vfio-pci" "mt7927e" "mt7927_bt"];
     extraModulePackages = [];
     extraModprobeConfig = ''
-      options kvm_intel nested=1
-      options kvm_intel emulate_invalid_guest_state=0
+      options kvm_amd nested=1
+      options kvm_amd emulate_invalid_guest_state=0
       options kvm ignore_msrs=1
     '';
 

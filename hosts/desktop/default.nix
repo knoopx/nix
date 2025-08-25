@@ -18,7 +18,7 @@ in {
   nix.settings.system-features = [
     "kvm"
     "big-parallel"
-    "gccarch-rocketlake"
+    "gccarch-zen5"
     "gccarch-x86-64-v3"
     "gccarch-x86-64-v4"
   ];
