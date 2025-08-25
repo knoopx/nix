@@ -25,6 +25,7 @@
     nix-colors.inputs.nixpkgs-lib.follows = "nixpkgs";
 
     stylix.url = "github:nix-community/stylix";
+    # stylix.url = "github:danth/stylix?ref=refs/pull/1860/head";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
 
     niri.url = "github:YaLTeR/niri";
