@@ -1,27 +1,35 @@
 {pkgs, ...}: let
-  version = "13f3a731405f6ab0dd231ca0d2f11fc896e0eadc";
+  version = "f63b6925e1713efb914ca12c7e011f39ccb137e1";
 
   src = pkgs.fetchFromGitHub {
     owner = "kooshi";
     repo = "llama-swappo";
     rev = version;
-    hash = "sha256-emoXDoVSUtghjgN0h+HlgV6xLKDem3R+iSz2GZx39Tw=";
+    hash = "sha256-JvyjxZ65+zvFLDXuNUC/r82i/hmvJL2mQDYkhOAo6pE=";
+  };
+
+  uiDeps = pkgs.fetchNpmDeps {
+    src = src + /ui;
+    hash = "sha256-Sbvz3oudMVf+PxOJ6s7LsDaxFwvftNc8ZW5KPpbI/cA=";
   };
 
   ui = pkgs.stdenv.mkDerivation {
     inherit version src;
     pname = "llama-swap-ui";
-    outputHash = "sha256-IgA4Pu+0eZbBxMkPWFUN4fUQqTUu76opowMyFCN1s1M=";
-    outputHashAlgo = "sha256";
-    outputHashMode = "recursive";
 
-    buildInputs = [pkgs.bun];
+    nativeBuildInputs = with pkgs; [
+      nodejs
+      uiDeps
+    ];
+
     buildPhase = ''
-      mkdir -p $out
+      export npm_config_cache=${uiDeps}
       cd ui
-      bun install
+      npm ci --ignore-scripts
+      patchShebangs .
+      npm rebuild --foreground-scripts
       substituteInPlace vite.config.ts --replace-fail "../proxy/ui_dist" "$out"
-      bun node_modules/vite/bin/vite.js build
+      npm run build
     '';
   };
 in
