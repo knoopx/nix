@@ -13,8 +13,6 @@
     # clang-tools
     # dasel
     # debugedit
-    # dmidecode
-    # duckdb
     # duperemove
     # efibootmgr
     # elfutils
@@ -44,8 +42,6 @@
     # libxml2
     # lm_sensors
     # logrotate
-    # lshw
-    # lsof
     # lz4
     # lzo
     # m4
@@ -53,8 +49,6 @@
     # nap
     # nethogs
     # patchelf
-    # pciutils
-    # pcre
     # pcre2
     # perl
     # posting # broken, installed as uv tool
@@ -74,8 +68,6 @@
     # tab
     # taskwarrior3
     # tree
-    # usbutils
-    # util-linux
     # vllm
     # w3m
     # walk
@@ -88,6 +80,7 @@
     aria2
     ast-grep
     binsider
+    bluez-tools
     brotab
     caligula
     circumflex # hackernews client
@@ -95,6 +88,7 @@
     csvlens
     dasel
     dconf
+    dmidecode
     drum-practice
     duckdb
     exiftool
@@ -107,6 +101,7 @@
     inotify-tools
     jq
     llama-cpp
+    lshw
     lsof
     mpv
     navi
@@ -114,6 +109,8 @@
     nixos-changelog
     ox
     p7zip
+    pciutils
+    pcre
     rclone
     repl
     rsync
@@ -123,8 +120,11 @@
     strip-python-comments
     todos
     up # repl
+    usbutils
+    util-linux
     visidata
     wf-recorder
+    wirelesstools
     wl-clipboard
     yt-dlp
   ];
