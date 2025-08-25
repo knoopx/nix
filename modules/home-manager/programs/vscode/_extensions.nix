@@ -77,6 +77,6 @@ in
     # python
     ms-python.black-formatter
     ms-python.debugpy
-    ms-python.python
+    # ms-python.python
     ms-python.vscode-pylance
   ]
