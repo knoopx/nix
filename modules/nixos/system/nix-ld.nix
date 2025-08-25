@@ -150,7 +150,7 @@
   ];
 in {
   programs.nix-ld = {
-    enable = false;
-    libraries = electron-deps ++ gtk-dev ++ other;
+    enable = true;
+    # libraries = electron-deps ++ gtk-dev ++ other;
   };
 }
