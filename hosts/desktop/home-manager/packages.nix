@@ -1,6 +1,10 @@
 {pkgs, ...}: let
   pythonWithPackageOverrides = pkgs.python313.override {
-    packageOverrides = self: super: {};
+    packageOverrides = self: super: {
+      bitsandbytes = super.bitsandbytes.overridePythonAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [self.scikit-build-core];
+      });
+    };
   };
   pythonEnv = pythonWithPackageOverrides.withPackages (ps: [
     ps.accelerate
@@ -29,42 +33,7 @@
   ]);
 in {
   home.packages = with pkgs; [
-    # apostrophe
-    # ascii-draw
-    # authenticator
-    # balatro
-    # cartridges
-    # commit
-    # d-spy
-    # decibels
-    # delineate
-    # dissent
-    # eloquent
-    # emblem
-    # errands
-    # exhibit # preview 3d models
-    # fclones-gui
-    # foliate
-    # gapless
-    # gnome-feeds
-    # gnome-mahjongg
-    # gnome-sudoku
-    # google-chrome
-    # impression
-    # parlatype
-    # pipeline
-    # planify
-    # pods
-    # recordbox
-    # rnote
-    # showtime
-    # sly
-    # snapshot
-    # varia
-    # wike
-    # wildcard
     llama-cpp
-    gearlever
     lmstudio
     newsflash
     nfoview
