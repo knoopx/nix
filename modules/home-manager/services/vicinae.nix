@@ -8,61 +8,115 @@
 with lib; let
   cfg = config.services.vicinae;
 
-  vicinae = pkgs.stdenv.mkDerivation rec {
-    pname = "vicinae";
-    version = "0.2.1";
-
-    src = pkgs.fetchurl {
-      url = "https://github.com/vicinaehq/vicinae/releases/download/v${version}/vicinae-linux-x86_64-v${version}.tar.gz";
-      sha256 = "sha256-c2YC/i2yul3IKasUexKrW0o87HE8X60aBzkS+I7nnQI=";
+  vicinae = let
+    src = pkgs.fetchFromGitHub {
+      owner = "vicinaehq";
+      repo = "vicinae";
+      rev = "v0.6.2";
+      hash = "sha256-hMDUrs5XkQ0FyIYZ1mp8DwMVHnxl/GWmRjs0CZ6eAh0=";
     };
 
-    nativeBuildInputs = with pkgs; [autoPatchelfHook qt6.wrapQtAppsHook];
-    buildInputs = with pkgs; [
-      qt6.qtbase
-      qt6.qtsvg
-      qt6.qttools
-      qt6.qtwayland
-      qt6.qtdeclarative
-      qt6.qt5compat
-      kdePackages.qtkeychain
-      kdePackages.layer-shell-qt
-      openssl
-      cmark-gfm
-      libqalculate
-      minizip
-      stdenv.cc.cc.lib
-      abseil-cpp
-      protobuf
-      nodejs
-      wayland
-    ];
-
-    unpackPhase = ''
-      tar -xzf $src
-    '';
-
-    installPhase = ''
-      mkdir -p $out/bin $out/share/applications
-      cp bin/vicinae $out/bin/
-      cp share/applications/vicinae.desktop $out/share/applications/
-      chmod +x $out/bin/vicinae
-    '';
-
-    dontWrapQtApps = true;
-
-    preFixup = ''
-      wrapQtApp "$out/bin/vicinae" --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath buildInputs}
-    '';
-
-    meta = {
-      description = "A focused launcher for your desktop — native, fast, extensible";
-      homepage = "https://github.com/vicinaehq/vicinae";
-      license = pkgs.lib.licenses.gpl3;
-      maintainers = [];
-      platforms = pkgs.lib.platforms.linux;
+    # Prepare node_modules for api folder
+    apiDeps = pkgs.fetchNpmDeps {
+      src = src + /api;
+      hash = "sha256-7rsaGjs1wMe0zx+/BD1Mx7DQj3IAEZQvdS768jVLl3E=";
     };
-  };
+    ts-protoc-gen-wrapper = pkgs.writeShellScriptBin "protoc-gen-ts_proto" ''
+      exec node /build/source/vicinae-upstream/api/node_modules/.bin/protoc-gen-ts_proto
+    '';
+
+    # Prepare node_modules for extension-manager folder
+    extensionManagerDeps = pkgs.fetchNpmDeps {
+      src = src + /extension-manager;
+      hash = "sha256-7kScWi1ySUBTDsGQqgpt2wYmujP9Mlwq3x2FKOlGwgo=";
+    };
+  in
+    pkgs.stdenv.mkDerivation rec {
+      pname = "vicinae";
+      version = src.rev;
+
+      inherit src;
+
+      cmakeFlags = [
+        "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}"
+        "-DCMAKE_INSTALL_DATAROOTDIR=share"
+        "-DCMAKE_INSTALL_BINDIR=bin"
+        "-DCMAKE_INSTALL_LIBDIR=lib"
+      ];
+
+      nativeBuildInputs = with pkgs; [
+        ts-protoc-gen-wrapper
+        extensionManagerDeps
+        autoPatchelfHook
+        cmake
+        ninja
+        nodejs
+        pkg-config
+        qt6.wrapQtAppsHook
+        rapidfuzz-cpp
+        protoc-gen-js
+        protobuf
+        grpc-tools
+        which
+        rsync
+        breakpointHook
+        typescript
+      ];
+
+      buildInputs = with pkgs; [
+        qt6.qtbase
+        qt6.qtsvg
+        qt6.qttools
+        qt6.qtwayland
+        qt6.qtdeclarative
+        qt6.qt5compat
+        wayland
+        kdePackages.qtkeychain
+        kdePackages.layer-shell-qt
+        minizip
+        grpc-tools
+        protobuf
+        nodejs
+        minizip-ng
+        cmark-gfm
+        libqalculate
+      ];
+
+      configurePhase = ''
+        cmake -G Ninja -B build $cmakeFlags
+      '';
+
+      buildPhase = ''
+        export npm_config_cache=${apiDeps}
+        cd /build/source/api
+        npm i --ignore-scripts
+        patchShebangs /build/source/api
+        npm rebuild --foreground-scripts
+        export npm_config_cache=${extensionManagerDeps}
+        cd /build/source/extension-manager
+        npm i --ignore-scripts
+        patchShebangs /build/source/extension-manager
+        npm rebuild --foreground-scripts
+        cd /build/source
+        substituteInPlace cmake/ExtensionApi.cmake cmake/ExtensionManager.cmake --replace "COMMAND npm install" ""
+        cmake --build build
+        cd /build/source
+      '';
+
+      postFixup = ''
+        wrapProgram $out/bin/vicinae \
+        --prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath buildInputs} \
+        --prefix PATH : ${pkgs.lib.makeBinPath (with pkgs; [
+          nodejs
+          qt6.qtwayland
+          wayland
+        ])}
+      '';
+
+      installPhase = ''
+        cmake --install build
+      '';
+    };
 in {
   options.services.vicinae = {
     enable = mkEnableOption "vicinae launcher daemon" // {default = true;};
