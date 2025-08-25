@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   hardware = {
     ksm.enable = true;
-    cpu.intel.updateMicrocode = true;
+    cpu.amd.updateMicrocode = true;
 
     bluetooth = {
       enable = false;
@@ -11,17 +11,14 @@
     graphics = {
       enable = true;
       enable32Bit = true; # for 32-bit wine games
-      extraPackages = with pkgs; [
-        intel-compute-runtime
-        intel-media-driver
-        vaapiIntel
-      ];
     };
   };
 
+  services.thermald.enable = true;
+
   powerManagement = {
     enable = true;
-    powertop.enable = false;
+    powertop.enable = true;
     cpuFreqGovernor = "performance";
   };
 }
