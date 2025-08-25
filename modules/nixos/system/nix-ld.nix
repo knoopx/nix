@@ -63,7 +63,7 @@
     # glibc_multi
     # gnome2.GConf
     # gnome2.pango
-    # gobject-introspection
+    gobject-introspection
     # gsettings-desktop-schemas
     # gtk2
     # gtk4
@@ -150,7 +150,7 @@
   ];
 in {
   programs.nix-ld = {
-    enable = true;
+    enable = false;
     libraries = electron-deps ++ gtk-dev ++ other;
   };
 }
