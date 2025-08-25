@@ -63,8 +63,8 @@
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
-    vscode.url = "https://update.code.visualstudio.com/latest/linux-x64/stable";
-    vscode.flake = false;
+    # vscode.url = "https://update.code.visualstudio.com/latest/linux-x64/stable";
+    # vscode.flake = false;
   };
 
   outputs = {
@@ -80,7 +80,7 @@
     stylix,
     vibescripts,
     xwayland-satellite,
-    vscode,
+    # vscode,
     nix-ai,
     nix-userstyles,
     ...
@@ -104,24 +104,24 @@
       [
         astal-shell.overlays.default
         nix-vscode-extensions.overlays.default
-        (
-          final: prev: {
-            vscode = prev.vscode.overrideAttrs (oldAttrs: {
-              version = "latest";
-              src = prev.stdenv.mkDerivation {
-                name = "vscode-latest.tar.gz";
-                src = vscode;
-                phases = ["installPhase"];
-                installPhase = ''
-                  ln -s $src $out
-                '';
-              };
-              # postInstall = (oldAttrs.postInstall or "") + ''
-              #   wrapProgram $out/bin/code --add-flags "--disable-gpu"
-              # '';
-            });
-          }
-        )
+        # (
+        #   final: prev: {
+        #     vscode = prev.vscode.overrideAttrs (oldAttrs: {
+        #       version = "latest";
+        #       src = prev.stdenv.mkDerivation {
+        #         name = "vscode-latest.tar.gz";
+        #         src = vscode;
+        #         phases = ["installPhase"];
+        #         installPhase = ''
+        #           ln -s $src $out
+        #         '';
+        #       };
+        #       # postInstall = (oldAttrs.postInstall or "") + ''
+        #       #   wrapProgram $out/bin/code --add-flags "--disable-gpu"
+        #       # '';
+        #     });
+        #   }
+        # )
         (self: super: vibescripts.packages.${system})
         (self: super: {niri = niri.packages.${system}.default;})
         (self: super: {xwayland-satellite = xwayland-satellite.packages.${system}.default;})
