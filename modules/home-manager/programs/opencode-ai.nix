@@ -9,6 +9,9 @@ in {
   xdg.configFile."opencode/config.json".source = settingsFormat.generate "config.json" {
     "$schema" = "https://opencode.ai/config.json";
     theme = "system";
+    keybinds = {
+      model_list = "ctrl+m";
+    };
     mcp = {
       sequential-thinking = {
         type = "local";
