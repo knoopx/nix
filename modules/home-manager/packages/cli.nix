@@ -80,6 +80,7 @@
     aria2
     ast-grep
     binsider
+    bluez
     bluez-tools
     brotab
     caligula
