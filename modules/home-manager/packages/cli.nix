@@ -89,7 +89,6 @@
     dasel
     dconf
     dmidecode
-    drum-practice
     duckdb
     exiftool
     fclones
@@ -100,25 +99,19 @@
     imagemagick
     inotify-tools
     jq
-    llama-cpp
     lshw
     lsof
     mpv
     navi
     nh
-    nixos-changelog
     ox
     p7zip
     pciutils
     pcre
     rclone
-    repl
     rsync
     ruff
-    say
     shfmt
-    strip-python-comments
-    todos
     up # repl
     usbutils
     util-linux

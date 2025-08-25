@@ -7,7 +7,6 @@
   home.packages = with pkgs; [
     libnotify
     polkit_gnome
-    raise-or-open-url
     squeekboard
   ];
 

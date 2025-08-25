@@ -7,7 +7,7 @@
     desktopEntries = {
       home-assistant = {
         name = "Home Assistant";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://home.knoopx.net/lovelace"'';
+        exec = ''${lib.getExe pkgs.firefox} "https://home.knoopx.net/lovelace"'';
         icon =
           (pkgs.fetchurl {
             url = "https://www.svgrepo.com/show/331429/home-assistant.svg";
@@ -32,7 +32,7 @@
 
       gmail = {
         name = "Gmail";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://mail.google.com/"'';
+        exec = ''${lib.getExe pkgs.firefox} "https://mail.google.com/"'';
         icon =
           (pkgs.fetchurl {
             url = "https://www.svgrepo.com/download/452213/gmail.svg";
@@ -43,19 +43,19 @@
 
       telegram = {
         name = "Telegram";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://web.telegram.org/k/"'';
+        exec = ''${lib.getExe pkgs.firefox} "https://web.telegram.org/k/"'';
         icon = "telegram";
       };
 
       discord = {
         name = "Discord";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://discord.com/channels/"'';
+        exec = ''${lib.getExe pkgs.firefox} "https://discord.com/channels/"'';
         icon = "discord";
       };
 
       youtube = {
         name = "Youtube";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://www.youtube.com/"'';
+        exec = ''${lib.getExe pkgs.firefox} "https://www.youtube.com/"'';
         icon =
           (pkgs.fetchurl {
             url = "https://www.svgrepo.com/show/134513/youtube.svg";
@@ -66,7 +66,7 @@
 
       reddit = {
         name = "Reddit";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://www.reddit.com/"'';
+        exec = ''${lib.getExe pkgs.firefox} "https://www.reddit.com/"'';
         icon =
           (pkgs.fetchurl {
             url = "https://www.svgrepo.com/show/271111/reddit.svg";
@@ -77,13 +77,13 @@
 
       whatsapp = {
         name = "WhatsApp";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://web.whatsapp.com/"'';
+        exec = ''${lib.getExe pkgs.firefox} "https://web.whatsapp.com/"'';
         icon = "whatsapp";
       };
 
       spotify = {
         name = "Spotify";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://open.spotify.com/"'';
+        exec = ''${lib.getExe pkgs.firefox} "https://open.spotify.com/"'';
         icon = "spotify";
       };
 
@@ -95,7 +95,7 @@
 
       # devdocs = {
       #   name = "DevDocs";
-      #   exec = ''${lib.getExe pkgs.raise-or-open-url} "https://devdocs.io/"'';
+      #   exec = ''${lib.getExe pkgs.firefox} "https://devdocs.io/"'';
       #   icon = "x-office-document";
       # };
 
@@ -113,14 +113,14 @@
 
       mailto-gmail = {
         name = "Send Email";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://mail.google.com/mail/?view=cm&fs=1&to=%u"'';
+        exec = ''${lib.getExe pkgs.firefox} "https://mail.google.com/mail/?view=cm&fs=1&to=%u"'';
         mimeType = ["x-scheme-handler/mailto"];
         noDisplay = true;
       };
 
       webull = {
         name = "Webull";
-        exec = ''${lib.getExe pkgs.raise-or-open-url} "https://app.webull.com/stocks"'';
+        exec = ''${lib.getExe pkgs.firefox} "https://app.webull.com/stocks"'';
         icon =
           (pkgs.fetchurl {
             url = "https://app.webull.com/static/logo.png";

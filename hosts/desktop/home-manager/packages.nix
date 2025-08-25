@@ -34,6 +34,7 @@
     # varia
     # wike
     # wildcard
+    llama-cpp
     gearlever
     lmstudio
     newsflash
