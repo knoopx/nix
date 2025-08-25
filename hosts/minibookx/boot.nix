@@ -1,8 +1,8 @@
 {pkgs, ...}: {
   services = {
-    scx.enable = true;
+    # scx.enable = true;
     # scx.package = pkgs.scx_git.full;
-    scx.scheduler = "scx_lavd";
+    # scx.scheduler = "scx_lavd";
   };
 
   boot = {
