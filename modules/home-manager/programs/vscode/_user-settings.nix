@@ -58,6 +58,7 @@
   "workbench.editor.revealIfOpen" = false;
   "workbench.iconTheme" = "file-icons";
   "workbench.startupEditor" = "newUntitledFile";
+  "workbench.externalBrowser" = "firefox";
 
   "console-ninja.featureSet" = "Community";
 
