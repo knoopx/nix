@@ -20,14 +20,6 @@
         }
       ];
 
-      shellAliases = {
-        weather = "curl wttr.in";
-        gemini = "bunx @google/gemini-cli";
-        claude = "bunx @anthropic-ai/claude-code";
-        codex = "bunx @openai/codex";
-        opencode-ai = "bunx opencode-ai";
-      };
-
       shellAbbrs = {
         nix-shell = "nix-shell --command fish";
         nixos-upgrade = "nh os switch path:~/.dotfiles";
