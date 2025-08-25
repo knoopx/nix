@@ -12,6 +12,28 @@
     autoUpgrade.enable = true;
   };
 
+  services = {
+    systembus-notify = {
+      enable = true;
+    };
+
+    smartd = {
+      enable = true;
+      autodetect = true;
+      notifications = {
+        systembus-notify.enable = true;
+      };
+    };
+
+    earlyoom = {
+      enable = true;
+      enableNotifications = true;
+    };
+    pulseaudio.enable = false;
+    fstrim.enable = true;
+    btrfs.autoScrub.enable = true;
+  };
+
   security = {
     rtkit.enable = true;
     polkit.enable = true;

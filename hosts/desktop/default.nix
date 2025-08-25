@@ -37,7 +37,7 @@ in {
   };
 
   home-manager.users.${config.defaults.username} = {
-    imports = [../../home/${config.defaults.username}.nix] ++ (listNixModulesRecusive ./programs);
+    imports = [../../home/${config.defaults.username}.nix] ++ (listNixModulesRecusive ./home-manager);
   };
 
   defaults.display.appWidths = {
