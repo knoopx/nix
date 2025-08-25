@@ -1,12 +1,11 @@
 final: prev: {
   geary = prev.geary.overrideAttrs (old: {
     version = "git";
-    src = prev.fetchFromGitHub {
-      owner = "GNOME";
-      repo = "geary";
-      rev = "e1a5e4503a4ad8e93da22eca6db54dac6b47f8d3";
-      hash = "sha256-G3VEs3cU7ifGYYclW+dtAuDDgKrcNphR766jM08csnE=";
-    };
+     src = prev.fetchgit {
+       url = "https://gitlab.gnome.org/GNOME/geary.git";
+       rev = "a43a1a0275d5fdf7da0005427feb6614ca0de438";
+       sha256 = "sha256-4x4moUu+MtkBy+agXlLtclW6QCciMh0Y9H0pdUW+G68=";
+     };
 
     postPatch = ''
       chmod +x build-aux/git_version.py

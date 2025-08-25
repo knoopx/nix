@@ -1,12 +1,11 @@
 {pkgs, ...}: let
   version = "f63b6925e1713efb914ca12c7e011f39ccb137e1";
 
-  src = pkgs.fetchFromGitHub {
-    owner = "kooshi";
-    repo = "llama-swappo";
-    rev = version;
-    hash = "sha256-JvyjxZ65+zvFLDXuNUC/r82i/hmvJL2mQDYkhOAo6pE=";
-  };
+   src = pkgs.fetchgit {
+     url = "https://github.com/kooshi/llama-swappo.git";
+     rev = version;
+     hash = "sha256-JvyjxZ65+zvFLDXuNUC/r82i/hmvJL2mQDYkhOAo6pE=";
+   };
 
   uiDeps = pkgs.fetchNpmDeps {
     src = src + /ui;
