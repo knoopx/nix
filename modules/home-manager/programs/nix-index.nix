@@ -1,4 +1,4 @@
 {...}: {
-  programs.nix-index.enable = true;
-  # programs.nix-index.enableFishIntegration = true;
+  # programs.nix-index.enable = true;
+  programs.command-not-found.enable = true;
 }
