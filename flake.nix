@@ -202,6 +202,7 @@
       nfoview = pkgsWithOverlays.nfoview;
       llama-swap = pkgsWithOverlays.llama-swap;
       strip-python-comments = pkgsWithOverlays.strip-python-comments;
+      geary = pkgsWithOverlays.geary;
     };
 
     nixosConfigurations = {
