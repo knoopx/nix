@@ -163,6 +163,7 @@
         Mod+Space { spawn "vicinae"; }
         Mod+Up { focus-workspace-up; }
         Mod+V { spawn "nautilus"; }
+        Mod+P { spawn "kitty" "btop"; }
         Mod+W { close-window; }
         Print { screenshot; }
         Shift+Print { screenshot-window; }
