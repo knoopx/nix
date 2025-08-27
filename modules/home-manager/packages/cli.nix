@@ -121,5 +121,6 @@
     wirelesstools
     wl-clipboard
     yt-dlp
+    clang-tools
   ];
 }
