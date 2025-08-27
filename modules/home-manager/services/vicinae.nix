@@ -10,10 +10,10 @@ with lib; let
 
   vicinae = let
     src = pkgs.fetchFromGitHub {
-      owner = "vicinaehq";
+      owner = "knoopx";
       repo = "vicinae";
-      rev = "v0.7.0";
-      hash = "sha256-tXyP7KJxiLzmm1XrhPnCemg+TEBB8tuTlGyCKiTIdYQ=";
+      rev = "5cd32987fca634a8a4505edeea8420f4bbde9769";
+      hash = "sha256-6tgUvmc5a7XF9XtSd2qIYZcADq1/fGBht8b6MWKPTOc=";
     };
 
     # Prepare node_modules for api folder
@@ -21,15 +21,16 @@ with lib; let
       src = src + /api;
       hash = "sha256-7rsaGjs1wMe0zx+/BD1Mx7DQj3IAEZQvdS768jVLl3E=";
     };
-    ts-protoc-gen-wrapper = pkgs.writeShellScriptBin "protoc-gen-ts_proto" ''
-      exec node /build/source/vicinae-upstream/api/node_modules/.bin/protoc-gen-ts_proto
-    '';
 
     # Prepare node_modules for extension-manager folder
     extensionManagerDeps = pkgs.fetchNpmDeps {
       src = src + /extension-manager;
       hash = "sha256-7kScWi1ySUBTDsGQqgpt2wYmujP9Mlwq3x2FKOlGwgo=";
     };
+
+    ts-protoc-gen-wrapper = pkgs.writeShellScriptBin "protoc-gen-ts_proto" ''
+      exec node /build/source/vicinae-upstream/api/node_modules/.bin/protoc-gen-ts_proto
+    '';
   in
     pkgs.stdenv.mkDerivation rec {
       pname = "vicinae";
@@ -98,7 +99,7 @@ with lib; let
         patchShebangs /build/source/extension-manager
         npm rebuild --foreground-scripts
         cd /build/source
-        substituteInPlace cmake/ExtensionApi.cmake cmake/ExtensionManager.cmake --replace "COMMAND npm install" ""
+        substituteInPlace cmake/ExtensionApi.cmake cmake/ExtensionManager.cmake --replace-fail "COMMAND npm install" ""
         cmake --build build
         cd /build/source
       '';
@@ -147,8 +148,6 @@ in {
         name = "Custom Theme";
         description = "Theme generated from NixOS defaults colorScheme";
         palette = {
-          background = "#${nixosConfig.defaults.colorScheme.palette.base01}";
-          foreground = "#${nixosConfig.defaults.colorScheme.palette.base05}";
           blue = "#${nixosConfig.defaults.colorScheme.palette.base0D}";
           green = "#${nixosConfig.defaults.colorScheme.palette.base0B}";
           magenta = "#${nixosConfig.defaults.colorScheme.palette.base0E}";
@@ -157,6 +156,76 @@ in {
           red = "#${nixosConfig.defaults.colorScheme.palette.base08}";
           yellow = "#${nixosConfig.defaults.colorScheme.palette.base0A}";
           cyan = "#${nixosConfig.defaults.colorScheme.palette.base0C}";
+
+          background = "#${nixosConfig.defaults.colorScheme.palette.base01}";
+          foreground = "#${nixosConfig.defaults.colorScheme.palette.base05}";
+
+          # Text colors
+          text = "#${nixosConfig.defaults.colorScheme.palette.base05}";
+          subtext = "#${nixosConfig.defaults.colorScheme.palette.base04}";
+          textTertiary = "#${nixosConfig.defaults.colorScheme.palette.base03}";
+          textDisabled = "#${nixosConfig.defaults.colorScheme.palette.base03}";
+          textOnAccent = "#${nixosConfig.defaults.colorScheme.palette.base00}";
+          textError = "#${nixosConfig.defaults.colorScheme.palette.base08}";
+          textSuccess = "#${nixosConfig.defaults.colorScheme.palette.base0B}";
+          textWarning = "#${nixosConfig.defaults.colorScheme.palette.base0A}";
+
+          # Background colors
+          mainBackground = "#${nixosConfig.defaults.colorScheme.palette.base01}";
+          mainSelectedBackground = "#${nixosConfig.defaults.colorScheme.palette.base02}";
+          mainHoveredBackground = "#${nixosConfig.defaults.colorScheme.palette.base02}";
+          secondaryBackground = "#${nixosConfig.defaults.colorScheme.palette.base00}";
+          tertiaryBackground = "#${nixosConfig.defaults.colorScheme.palette.base00}";
+          statusBackground = "#${nixosConfig.defaults.colorScheme.palette.base01}";
+          statusBackgroundBorder = "#${nixosConfig.defaults.colorScheme.palette.base02}";
+          statusBackgroundHover = "#${nixosConfig.defaults.colorScheme.palette.base02}";
+          statusBackgroundLighter = "#${nixosConfig.defaults.colorScheme.palette.base00}";
+
+          # Button colors
+          buttonPrimary = "#${nixosConfig.defaults.colorScheme.palette.base0D}";
+          buttonPrimaryHover = "#${nixosConfig.defaults.colorScheme.palette.base0D}";
+          buttonPrimaryPressed = "#${nixosConfig.defaults.colorScheme.palette.base0E}";
+          buttonPrimaryDisabled = "#${nixosConfig.defaults.colorScheme.palette.base03}";
+          buttonSecondary = "#${nixosConfig.defaults.colorScheme.palette.base02}";
+          buttonSecondaryHover = "#${nixosConfig.defaults.colorScheme.palette.base01}";
+          buttonSecondaryPressed = "#${nixosConfig.defaults.colorScheme.palette.base00}";
+          buttonSecondaryDisabled = "#${nixosConfig.defaults.colorScheme.palette.base03}";
+          buttonDestructive = "#${nixosConfig.defaults.colorScheme.palette.base08}";
+          buttonDestructiveHover = "#${nixosConfig.defaults.colorScheme.palette.base08}";
+          buttonDestructivePressed = "#${nixosConfig.defaults.colorScheme.palette.base09}";
+
+          # Input colors
+          inputBackground = "#${nixosConfig.defaults.colorScheme.palette.base00}";
+          inputBorder = "#${nixosConfig.defaults.colorScheme.palette.base02}";
+          inputBorderFocus = "#${nixosConfig.defaults.colorScheme.palette.base0D}";
+          inputBorderError = "#${nixosConfig.defaults.colorScheme.palette.base08}";
+          inputPlaceholder = "#${nixosConfig.defaults.colorScheme.palette.base03}";
+
+          # Border colors
+          border = "#${nixosConfig.defaults.colorScheme.palette.base02}";
+          borderSubtle = "#${nixosConfig.defaults.colorScheme.palette.base01}";
+          borderStrong = "#${nixosConfig.defaults.colorScheme.palette.base02}";
+          separator = "#${nixosConfig.defaults.colorScheme.palette.base02}";
+          shadow = "#${nixosConfig.defaults.colorScheme.palette.base00}";
+
+          # State colors
+          errorBackground = "#${nixosConfig.defaults.colorScheme.palette.base08}";
+          errorBorder = "#${nixosConfig.defaults.colorScheme.palette.base08}";
+          successBackground = "#${nixosConfig.defaults.colorScheme.palette.base0B}";
+          successBorder = "#${nixosConfig.defaults.colorScheme.palette.base0B}";
+          warningBackground = "#${nixosConfig.defaults.colorScheme.palette.base0A}";
+          warningBorder = "#${nixosConfig.defaults.colorScheme.palette.base0A}";
+
+          # Link colors
+          linkDefault = "#${nixosConfig.defaults.colorScheme.palette.base0D}";
+          linkHover = "#${nixosConfig.defaults.colorScheme.palette.base0C}";
+          linkVisited = "#${nixosConfig.defaults.colorScheme.palette.base0F}";
+
+          # Focus and overlay colors
+          focus = "#${nixosConfig.defaults.colorScheme.palette.base0D}";
+          overlay = "#${nixosConfig.defaults.colorScheme.palette.base00}";
+          tooltip = "#${nixosConfig.defaults.colorScheme.palette.base01}";
+          tooltipText = "#${nixosConfig.defaults.colorScheme.palette.base05}";
         };
       };
     };
