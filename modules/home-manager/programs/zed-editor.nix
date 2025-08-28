@@ -1,7 +1,10 @@
-{ pkgs, nixosConfig, lib, ... }: {
+{
+  nixosConfig,
+  lib,
+  ...
+}: {
   programs.zed-editor = {
     enable = true;
-    package = pkgs.zed-editor;
     extensions = []; # VSCode: extensions.ignoreRecommendations = true
     extraPackages = [];
     userSettings = {
