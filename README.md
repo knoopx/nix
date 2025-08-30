@@ -1,8 +1,8 @@
-https://github.com/user-attachments/assets/d45f3687-cfda-47a7-b2e9-3c0dbdb562bf
-
 # My NixOS Setup
 
 This is my personal NixOS configuration for a clean, keyboard-focused development machine. I built it to keep things simple, consistent, and distraction-free while coding.
+
+https://github.com/user-attachments/assets/d45f3687-cfda-47a7-b2e9-3c0dbdb562bf
 
 ## What I Focus On
 
@@ -21,12 +21,11 @@ This is my personal NixOS configuration for a clean, keyboard-focused developmen
 ### Main Components
 
 - **Niri**: A modern, Wayland-native tiling window manager that provides efficient keyboard-driven window management. It supports custom layouts, workspaces, and seamless integration with the desktop environment for a distraction-free coding experience.
-- **[Astal Shell](https://github.com/knoopx/astal-shell)**: A custom desktop shell built on Astal framework, featuring theme-aware widgets for system monitoring, notifications, and quick access to applications. It maintains a minimal overlay design that appears on `Super` key press.
-- **Firefox**: Web browser optimized for privacy with uBlock Origin for ad-blocking, custom search engines, and userstyles for consistent theming. Includes policies for enhanced security and performance.
+- **[Astal Shell](https://github.com/knoopx/astal-shell)**: A custom desktop shell built on Astal framework, featuring theme-aware widgets for system monitoring, notifications, and quick access to applications.
+- **Firefox**: Web browser optimized for privacy with uBlock Origin for ad-blocking, custom search engines, and userstyles for consistent theming. Includes policies for enhanced security and performance thanks to [BetterFox](https://github.com/yokoffing/BetterFox)
 - **Kitty**: GPU-accelerated terminal emulator running Fish shell with smart autocompletions, syntax highlighting, and custom themes. Provides fast rendering and extensive customization for command-line work.
 - **Fish**: Interactive shell with advanced autocompletions, syntax highlighting, and custom functions for efficient command-line usage.
 - **Hyprlock**: Screen locker with custom themes and animations for secure session management.
-- **Nautilus**: GNOME's file manager with enhanced preview capabilities, custom desktop integration, and keyboard shortcuts for efficient file navigation and management.
 - **VSCode**: Primary code editor with extensive language support, debugging capabilities, and AI-assisted coding through extensions. Configured with custom keybindings, themes, and productivity tools for development workflows.
 
 ### Development Environments
