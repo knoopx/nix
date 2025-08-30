@@ -20,7 +20,6 @@
     nix-colors.inputs.nixpkgs-lib.follows = "nixpkgs";
 
     stylix.url = "github:nix-community/stylix";
-    # stylix.url = "github:danth/stylix?ref=refs/pull/1860/head";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
 
     niri.url = "github:YaLTeR/niri";
@@ -54,9 +53,6 @@
     nix-chuwi-minibook-x.url = "github:knoopx/nix-chuwi-minibook-x";
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-
-    # vscode.url = "https://update.code.visualstudio.com/latest/linux-x64/stable";
-    # vscode.flake = false;
   };
 
   outputs = {
@@ -71,7 +67,6 @@
     nixpkgs,
     stylix,
     xwayland-satellite,
-    # vscode,
     nix-userstyles,
     ...
   } @ inputs: let
@@ -94,24 +89,6 @@
       [
         astal-shell.overlays.default
         nix-vscode-extensions.overlays.default
-        # (
-        #   final: prev: {
-        #     vscode = prev.vscode.overrideAttrs (oldAttrs: {
-        #       version = "latest";
-        #       src = prev.stdenv.mkDerivation {
-        #         name = "vscode-latest.tar.gz";
-        #         src = vscode;
-        #         phases = ["installPhase"];
-        #         installPhase = ''
-        #           ln -s $src $out
-        #         '';
-        #       };
-        #       # postInstall = (oldAttrs.postInstall or "") + ''
-        #       #   wrapProgram $out/bin/code --add-flags "--disable-gpu"
-        #       # '';
-        #     });
-        #   }
-        # )
         (self: super: {niri = niri.packages.${system}.default;})
         (self: super: {xwayland-satellite = xwayland-satellite.packages.${system}.default;})
         (self: super: {firefox-addons = firefox-addons.packages.${system};})
