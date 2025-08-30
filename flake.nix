@@ -153,19 +153,19 @@
         }
         hostPath
       ];
-    # vmConfiguration = nixpkgs.lib.nixosSystem {
-    #   inherit specialArgs;
-    #   modules = mkNixosModules ./hosts/vm;
-    # };
 
-    # Create pkgs with overlays for package exports
+    vmConfiguration = nixpkgs.lib.nixosSystem {
+      inherit specialArgs;
+      modules = mkNixosModules ./hosts/vm;
+    };
+
     pkgsWithOverlays = import nixpkgs {
       inherit system;
       overlays = globalOverlays;
     };
   in {
     packages.${system} = {
-      # default = vmConfiguration.config.system.build.vm;
+      default = vmConfiguration.config.system.build.vm;
       neuwaita-icon-theme = pkgsWithOverlays.neuwaita-icon-theme;
       nfoview = pkgsWithOverlays.nfoview;
       llama-swap = pkgsWithOverlays.llama-swap;
@@ -173,7 +173,7 @@
     };
 
     nixosConfigurations = {
-      # vm = vmConfiguration;
+      vm = vmConfiguration;
 
       live-usb = nixpkgs.lib.nixosSystem {
         inherit specialArgs;

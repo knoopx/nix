@@ -51,12 +51,15 @@ in {
   services.displayManager.autoLogin.user = config.defaults.username;
   services.displayManager.gdm.enable = lib.mkForce false;
 
+  # Disable Btrfs auto scrub since VM doesn't use Btrfs
+  services.btrfs.autoScrub.enable = lib.mkForce false;
+
   # Configure proper display manager for niri
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd niri-session";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri-session";
         user = "greeter";
       };
       initial_session = {
