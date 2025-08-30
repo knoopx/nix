@@ -5,7 +5,8 @@
   ...
 }: let
   colorMap =
-    lib.mapAttrs' (
+    lib.mapAttrs'
+    (
       k: v: (lib.nameValuePair v "#${nixosConfig.defaults.colorScheme.palette.${k}}")
     )
     inputs.nix-colors.colorSchemes.catppuccin-mocha.palette;

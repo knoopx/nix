@@ -9,7 +9,8 @@
   providers = (pkgs.formats.yaml {}).generate "traefik-providers.yaml" {
     http = {
       routers =
-        lib.mapAttrs (
+        lib.mapAttrs
+        (
           k: v: {
             service = k;
             rule = "Host(`${k}.${cfg.domain}`)";
@@ -19,7 +20,8 @@
         cfg.hostServices;
 
       services =
-        lib.mapAttrs (
+        lib.mapAttrs
+        (
           k: v: {
             loadBalancer = {
               servers = [

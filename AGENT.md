@@ -5,6 +5,7 @@
 When asked to remove a feature, option, or code path, **delete the code entirely** instead of commenting it out or leaving dead code. Do not leave commented-out code or references to removed features. The codebase should remain clean and free of unused logic or options.
 
 This applies to:
+
 - Command-line options
 - Default values
 - Help messages
@@ -15,6 +16,7 @@ This applies to:
 If asked to remove an `output_file` option, delete all code, help text, and logic related to it. Do not leave comments like `# output_file removed` or `# output_file option ignored`.
 
 ---
+
 # NixOS Dotfiles Repository Structure & Usage Guide
 
 This is a comprehensive NixOS configuration repository (kOS) that manages both system-level and user-level configurations using Nix flakes. The repository follows a modular structure for maintainability and reusability.
@@ -22,6 +24,7 @@ This is a comprehensive NixOS configuration repository (kOS) that manages both s
 ## Repository Overview
 
 This is a **NixOS + Home Manager** configuration system that provides:
+
 - Complete system configuration for multiple hosts (desktop, macbook, vm)
 - User environment configuration via Home Manager
 - Custom theming with Stylix integration
@@ -31,6 +34,7 @@ This is a **NixOS + Home Manager** configuration system that provides:
 ## Directory Structure
 
 ### Core Configuration Files
+
 ```
 ├── flake.nix           # Main flake configuration and inputs
 ├── defaults.nix        # Global defaults and shared settings
@@ -38,6 +42,7 @@ This is a **NixOS + Home Manager** configuration system that provides:
 ```
 
 ### NixOS Host Configurations
+
 ```
 hosts/
 ├── desktop/           # Desktop machine configuration
@@ -46,12 +51,14 @@ hosts/
 ```
 
 ### Home-Manager Users Configuration
+
 ```
 home/
 └── knoopx.nix        # User-specific Home Manager configuration
 ```
 
 ### Nix Modules
+
 ```
 modules/
 ├── home-manager/     # Home-Manager Modules
@@ -67,6 +74,7 @@ modules/
 ```
 
 ### Other Modules
+
 ```
 builders/           # Custom builders (functions that return new derivations)
 overlays/          # Package overlays, used for fixing quirks/annoyances
@@ -81,6 +89,7 @@ lib/              # Utility functions
 **Important Note**: Always prefix flake path with `path:`, otherwise nix won't pick up uncommited changes.
 
 #### Local system rebuild
+
 ```bash
 # Build and switch system configuration
 nh os switch path:.
@@ -90,6 +99,7 @@ sudo nixos-rebuild build --flake path:.
 ```
 
 #### Update flake dependencies
+
 ```bash
 nix flake update
 ```
@@ -97,6 +107,7 @@ nix flake update
 ### 2. Package Management
 
 #### Add packages to user environment
+
 ```nix
 # Edit modules/home-manager/packages.nix
 {
@@ -110,6 +121,7 @@ nix flake update
 ```
 
 #### Create custom package
+
 ```nix
 # Create pkgs/mypackage.nix
 { pkgs, ... }:
@@ -129,6 +141,7 @@ pkgs.stdenv.mkDerivation rec {
 ```
 
 #### Add package overlay
+
 ```nix
 # Create overlays/myoverlay.nix
 final: prev: {
@@ -141,38 +154,37 @@ final: prev: {
 ### 3. Testing & Debugging
 
 #### Test in VM
+
 ```bash
 # Build and run VM for testing
 nix run path:.#vm
 ```
 
 #### Check configuration syntax
+
 ```bash
 # Validate flake
 nix flake check
 
-# Show flake outputs
-nix flake show
+# Lint/Format nix files
+alejandra [--check] <file>
 ```
 
+# Show flake outputs
+
+nix flake show
+
+````
+
 #### Evaluate expressions
+
 ```bash
 # Evaluate flake attributes
 nix eval path:.#nixosConfigurations.desktop.config.system.stateVersion
 
 # Pretty print with --json
 nix eval --json path:.#nixosConfigurations.desktop.config.environment.systemPackages | jq
-```
-
-## Key Features
-
-- **Modular Architecture**: Easily enable/disable features per host or user
-- **Automatic Module Discovery**: Uses `listNixModulesRecusive` for auto-importing
-- **Unified Theming**: Stylix provides consistent theming across applications
-- **Multiple Host Support**: Desktop, laptop, and VM configurations
-- **Container Integration**: Organized container service definitions
-- **Development Ready**: Pre-configured development tools and environments
-- **Custom Packages**: Easy addition of custom or modified packages
+````
 
 ## File Naming Conventions
 
