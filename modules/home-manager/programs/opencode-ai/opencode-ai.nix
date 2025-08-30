@@ -6,6 +6,8 @@
 }: let
   settingsFormat = pkgs.formats.json {};
 in {
+  xdg.configFile."opencode/agents".source = ./agents;
+
   xdg.configFile."opencode/config.json".source = settingsFormat.generate "config.json" {
     "$schema" = "https://opencode.ai/config.json";
     theme = "system";
