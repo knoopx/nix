@@ -12,8 +12,8 @@ with lib; let
     src = pkgs.fetchFromGitHub {
       owner = "knoopx";
       repo = "vicinae";
-      rev = "5cd32987fca634a8a4505edeea8420f4bbde9769";
-      hash = "sha256-6tgUvmc5a7XF9XtSd2qIYZcADq1/fGBht8b6MWKPTOc=";
+      rev = "8d9c13627c4528351efd57a4635deeab69b1addb";
+      hash = "sha256-HlNorGRnYr+dmEQkn0AAOyhoma+0X3m6S9Jev7MwvSU=";
     };
 
     # Prepare node_modules for api folder
