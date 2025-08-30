@@ -70,12 +70,16 @@
     output "DP-1" {
         background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         scale 2.0
-        transform "normal"
     }
 
     output "DSI-1" {
         background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         transform "270"
+        scale 1.5
+    }
+
+    output "Virtual-1" {
+        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         scale 1.5
     }
 
