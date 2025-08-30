@@ -5,7 +5,6 @@
     # authenticator
     # balatro
     # cartridges
-    # commit
     # d-spy
     # decibels
     # delineate
@@ -36,6 +35,7 @@
     # wildcard
     amberol
     baobab
+    commit
     czkawka
     dconf-editor
     drawing
