@@ -7,8 +7,6 @@
     nix-userstyles.url = "github:knoopx/nix-userstyles";
     nix-userstyles.inputs.nix-colors.follows = "nix-colors";
 
-    nix-ai.url = "github:knoopx/nix-ai";
-
     ollamark.url = "github:knoopx/ollamark";
     ollamark.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -74,7 +72,6 @@
     stylix,
     xwayland-satellite,
     # vscode,
-    nix-ai,
     nix-userstyles,
     ...
   } @ inputs: let
@@ -156,27 +153,29 @@
         if builtins.pathExists hostOverlaysPath
         then [(import hostOverlaysPath)]
         else [];
-    in [
-      ./modules/nixos/defaults.nix
-      {
-        nixpkgs.overlays = globalOverlays ++ hostOverlays;
-      }
-      stylix.nixosModules.stylix
-      home-manager.nixosModules.home-manager
-      nix-ai.nixosModules.default
-      {
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          extraSpecialArgs = specialArgs;
-          backupFileExtension = "bak";
-          sharedModules = [
-            autofirma-nix.homeManagerModules.default
-          ];
-        };
-      }
-      hostPath
-    ];
+
+      listNixModulesRecusive = import ./lib/listNixModulesRecusive.nix {inherit (nixpkgs) lib;};
+    in
+      (listNixModulesRecusive ./modules/nixos/defaults)
+      ++ [
+        {
+          nixpkgs.overlays = globalOverlays ++ hostOverlays;
+        }
+        stylix.nixosModules.stylix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = specialArgs;
+            backupFileExtension = "bak";
+            sharedModules = [
+              autofirma-nix.homeManagerModules.default
+            ];
+          };
+        }
+        hostPath
+      ];
     # vmConfiguration = nixpkgs.lib.nixosSystem {
     #   inherit specialArgs;
     #   modules = mkNixosModules ./hosts/vm;

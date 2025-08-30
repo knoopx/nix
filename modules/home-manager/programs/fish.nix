@@ -33,7 +33,6 @@
 
         set -gx DEEPSEEK_API_KEY (secret-tool lookup deepseek-api key | head | tr -d "\n")
         set -gx GITHUB_PERSONAL_ACCESS_TOKEN (secret-tool lookup github token | head | tr -d "\n")
-        set -gx OPENAI_API_BASE "${nixosConfig.ai.baseURL}/v1"
 
         fish_add_path -g "$HOME/.bun/bin"
         fish_add_path -g "$HOME/.cargo/bin:"

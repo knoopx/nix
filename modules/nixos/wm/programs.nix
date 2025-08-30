@@ -8,6 +8,4 @@ _: {
     enable = true;
     terminal = "kitty";
   };
-
-  ai.vscode.profileNames = ["default"];
 }

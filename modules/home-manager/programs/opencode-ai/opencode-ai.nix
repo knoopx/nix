@@ -25,11 +25,11 @@ in {
         command = ["bunx" "mcp-deepwiki"];
         enabled = true;
       };
-      context7 = {
-        type = "remote";
-        url = "https://mcp.context7.com/mcp";
-        enabled = true;
-      };
+      # context7 = {
+      #   type = "remote";
+      #   url = "https://mcp.context7.com/mcp";
+      #   enabled = true;
+      # };
       github = {
         type = "local";
         command = ["podman" "run" "-i" "--rm" "-e" "GITHUB_PERSONAL_ACCESS_TOKEN" "ghcr.io/github/github-mcp-server"];
@@ -41,25 +41,25 @@ in {
         enabled = true;
       };
     };
-    provider = {
-      local = {
-        npm = "@ai-sdk/openai-compatible";
-        options = {
-          baseURL = "${nixosConfig.ai.baseURL}/v1";
-        };
-        models =
-          builtins.mapAttrs
-          (name: model: {
-            id = model.id;
-            reasoning = model.reasoning;
-            tool_call = model.tool_call;
-            limit = {
-              context = model.context;
-              output = 0;
-            };
-          })
-          (lib.filterAttrs (name: model: model.unlisted != true) nixosConfig.ai.models);
-      };
-    };
+    # provider = {
+    #   local = {
+    #     npm = "@ai-sdk/openai-compatible";
+    #     options = {
+    #       baseURL = "${nixosConfig.defaults.ai.baseURL}/v1";
+    #     };
+    #     models =
+    #       builtins.mapAttrs
+    #       (name: model: {
+    #         id = model.id;
+    #         reasoning = model.reasoning;
+    #         tool_call = model.tool_call;
+    #         limit = {
+    #           context = model.context;
+    #           output = 0;
+    #         };
+    #       })
+    #       (lib.filterAttrs (name: model: model.unlisted != true) nixosConfig.defaults.ai.models);
+    #   };
+    # };
   };
 }

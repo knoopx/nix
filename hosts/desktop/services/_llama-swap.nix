@@ -3,7 +3,7 @@
     enable = true;
     # https://github.com/mostlygeek/llama-swap/wiki/Configuration
     settings = {
-      models = config.ai.models;
+      models = config.defaults.ai.models;
       groups = {
         forever = {
           persistent = true;
