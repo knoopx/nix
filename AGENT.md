@@ -25,7 +25,7 @@ This is a comprehensive NixOS configuration repository (kOS) that manages both s
 
 This is a **NixOS + Home Manager** configuration system that provides:
 
-- Complete system configuration for multiple hosts (desktop, macbook, vm)
+- Complete system configuration for multiple hosts (desktop, live-usb, minibookx, vm)
 - User environment configuration via Home Manager
 - Custom theming with Stylix integration
 - Modular and extensible architecture
@@ -37,7 +37,6 @@ This is a **NixOS + Home Manager** configuration system that provides:
 
 ```
 ├── flake.nix           # Main flake configuration and inputs
-├── defaults.nix        # Global defaults and shared settings
 └── README.md          # Basic usage instructions
 ```
 
@@ -46,7 +45,8 @@ This is a **NixOS + Home Manager** configuration system that provides:
 ```
 hosts/
 ├── desktop/           # Desktop machine configuration
-├── macbook/           # MacBook configuration
+├── live-usb/          # Live USB configuration
+├── minibookx/         # MacBook configuration
 └── vm/               # Virtual machine configuration
 ```
 
@@ -62,11 +62,16 @@ home/
 ```
 modules/
 ├── home-manager/     # Home-Manager Modules
-│   ├── packages.nix  # User packages
+│   ├── environment.nix
+│   ├── misc.nix
+│   ├── navi/
+│   ├── packages/     # User packages
 │   ├── programs/     # Program configurations
 │   ├── services/     # User services
-│   └── wm/           # Window manager configurations
+│   ├── wm/           # Window manager configurations
+│   └── zed/
 └── nixos/           # NixOS Modules
+    ├── defaults/    # Default configurations
     ├── services/    # Core System services
     ├── system/      # Core system settings
     ├── theming/     # System theming
@@ -109,7 +114,7 @@ nix flake update
 #### Add packages to user environment
 
 ```nix
-# Edit modules/home-manager/packages.nix
+# Edit modules/home-manager/packages/ files (e.g., cli.nix)
 {
   home.packages = with pkgs; [
     # Add new packages here
@@ -170,11 +175,11 @@ nix flake check
 alejandra [--check] <file>
 ```
 
-# Show flake outputs
+#### Show flake outputs
 
+```bash
 nix flake show
-
-````
+```
 
 #### Evaluate expressions
 
@@ -184,7 +189,7 @@ nix eval path:.#nixosConfigurations.desktop.config.system.stateVersion
 
 # Pretty print with --json
 nix eval --json path:.#nixosConfigurations.desktop.config.environment.systemPackages | jq
-````
+```
 
 ## File Naming Conventions
 
