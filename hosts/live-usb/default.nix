@@ -21,6 +21,8 @@ in {
     stateVersion = "25.05";
   };
 
+  services.btrfs.autoScrub.enable = lib.mkForce false;
+
   environment.systemPackages = with pkgs; [
     gparted
   ];
