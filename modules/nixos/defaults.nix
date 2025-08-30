@@ -57,16 +57,9 @@ with lib; {
     fonts = mkOption {
       type = types.submodule {
         options = {
-          sizes = mkOption {
-            type = types.submodule {
-              options = {
-                applications = mkOption {
-                  type = types.int;
-                  description = "Font size for applications";
-                };
-              };
-            };
-            description = "Font size configuration";
+          baseSize = mkOption {
+            type = types.int;
+            description = "Base font size for applications";
           };
           sansSerif = mkOption {
             type = types.submodule {
@@ -281,9 +274,7 @@ with lib; {
         sha256 = "sha256-385krE9Aoea23aQ3FJo2kpPtRrIOwxxXCCt43gHEo0Q=";
       };
       fonts = {
-        sizes = {
-          applications = 11;
-        };
+        baseSize = 11;
         sansSerif = {
           name = "Inter";
           package = pkgs.inter;

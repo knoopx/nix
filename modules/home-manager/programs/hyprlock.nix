@@ -22,7 +22,7 @@
           monitor = "";
           size = "250, 50";
           outline_thickness = 3;
-          outer_color = "rgba(${nixosConfig.defaults.colorScheme.palette.base0E}ff)";
+          outer_color = "rgba(${nixosConfig.defaults.colorScheme.palette.base0D}ff)";
           inner_color = "rgba(${nixosConfig.defaults.colorScheme.palette.base00}ff)";
           font_color = "rgba(${nixosConfig.defaults.colorScheme.palette.base05}ff)";
           fail_color = "rgba(${nixosConfig.defaults.colorScheme.palette.base08}ff)";
@@ -43,8 +43,8 @@
         {
           monitor = "";
           text = "$TIME";
-          font_size = nixosConfig.defaults.fonts.sizes.applications * 6;
-          font_family = "${nixosConfig.defaults.fonts.monospace.name} ${toString nixosConfig.defaults.fonts.sizes.applications}";
+          font_size = nixosConfig.defaults.fonts.baseSize * 6;
+          font_family = "${nixosConfig.defaults.fonts.sansSerif.name} ${toString nixosConfig.defaults.fonts.baseSize}";
           color = "rgba(${nixosConfig.defaults.colorScheme.palette.base05}ff)";
           position = "0, 16";
           valign = "center";
@@ -52,10 +52,10 @@
         }
         {
           monitor = "";
-          text = "Hello <span text_transform=\"capitalize\" size=\"larger\">$USER!</span>";
+          text = "$USER";
           color = "rgba(${nixosConfig.defaults.colorScheme.palette.base05}ff)";
-          font_size = nixosConfig.defaults.fonts.sizes.applications * 2;
-          font_family = "${nixosConfig.defaults.fonts.monospace.name} ${toString nixosConfig.defaults.fonts.sizes.applications}";
+          font_size = nixosConfig.defaults.fonts.baseSize * 2;
+          font_family = "${nixosConfig.defaults.fonts.sansSerif.name} ${toString nixosConfig.defaults.fonts.baseSize}";
           position = "0, 100";
           halign = "center";
           valign = "center";
@@ -64,8 +64,8 @@
           monitor = "";
           text = "Current Layout : $LAYOUT";
           color = "rgba(${nixosConfig.defaults.colorScheme.palette.base05}ff)";
-          font_size = nixosConfig.defaults.fonts.sizes.applications;
-          font_family = "${nixosConfig.defaults.fonts.monospace.name} ${toString nixosConfig.defaults.fonts.sizes.applications}";
+          font_size = nixosConfig.defaults.fonts.baseSize;
+          font_family = "${nixosConfig.defaults.fonts.sansSerif.name} ${toString nixosConfig.defaults.fonts.baseSize}";
           position = "0, 20";
           halign = "center";
           valign = "bottom";

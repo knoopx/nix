@@ -98,7 +98,7 @@
   home.file.".config/vicinae/vicinae.json".text = builtins.toJSON {
     faviconService = "google";
     font = {
-      size = nixosConfig.defaults.fonts.sizes.applications;
+      size = 10;
     };
     popToRootOnClose = true;
     rootSearch = {
