@@ -1,8 +1,4 @@
-{
-  pkgs,
-  nixosConfig,
-  ...
-}: {
+{pkgs, ...}: {
   home.shell.enableFishIntegration = true;
 
   programs = {
@@ -21,8 +17,6 @@
       ];
 
       shellAbbrs = {
-        nix-shell = "nix-shell --command fish";
-        nixos-upgrade = "nh os switch path:~/.dotfiles";
         ls = "eza -lah";
         pbpaste = "fish_clipboard_paste";
         pbcopy = "fish_clipboard_copy";
@@ -37,7 +31,6 @@
         fish_add_path -g "$HOME/.bun/bin"
         fish_add_path -g "$HOME/.cargo/bin:"
         fish_add_path -g "$HOME/.local/bin/"
-        fish_add_path -g "$HOME/.local/share/gem/ruby/3.1.0/bin/"
         fish_add_path -g "$HOME/bin/"
         fish_add_path -g "$HOME/go/bin"
         fish_add_path -g "$HOME/.opencode/bin"
