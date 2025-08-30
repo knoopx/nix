@@ -164,6 +164,7 @@
         Mod+Up { focus-workspace-up; }
         Mod+V { spawn "nautilus"; }
         Mod+P { spawn "kitty" "btop"; }
+        Mod+Semicolon { spawn "kitty" "${lib.getExe pkgs.opencode}" "--model" "github-copilot/gpt-4.1"; }
         Mod+W { close-window; }
         Print { screenshot; }
         Shift+Print { screenshot-window; }

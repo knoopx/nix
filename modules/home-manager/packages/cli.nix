@@ -122,5 +122,7 @@
     wl-clipboard
     yt-dlp
     clang-tools
+    opencode
+    websearch
   ];
 }
