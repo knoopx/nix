@@ -4,6 +4,12 @@ This is my personal NixOS configuration for a clean, keyboard-focused developmen
 
 https://github.com/user-attachments/assets/d45f3687-cfda-47a7-b2e9-3c0dbdb562bf
 
+## Try Out
+
+```
+nix run github:knoopx/nix
+```
+
 ## What I Focus On
 
 - **Minimal clutter**: Shell has no widgets and apps take the whole vertical space. Pressing `Super` reveals the overlay with the widgets.
