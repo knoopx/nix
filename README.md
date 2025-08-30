@@ -67,7 +67,7 @@ The `modules/home-manager/packages/dev/` directory contains language-specific de
 
 - **modules/nixos/**: System-level configurations including:
   - **defaults/**: Global settings for AI, colors, display, fonts, system, and user
-  - **services/**: System services ([Plex Media Server](https://www.plex.tv/), [Traefik](https://github.com/traefik/traefik), Android backup, [auto-scrcpy](https://github.com/robinmordasiewicz/auto-scrcpy), etc.)
+  - **services/**: System services ([Plex Media Server](https://www.plex.tv/), [Traefik](https://github.com/traefik/traefik), Android backup, auto-scrcpy, etc.)
   - **system/**: Core system settings (boot, networking, hardware, packages)
   - **theming/**: [Stylix](https://github.com/danth/stylix) theming configuration
   - **wm/**: Window manager and desktop environment settings
