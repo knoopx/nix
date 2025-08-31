@@ -3,7 +3,11 @@ final: prev: {
     exec bunx opencode-ai@latest "$@"
   '';
 
-  websearch = prev.writeShellScriptBin "websearch" ''
-    exec kitty bunx opencode-ai@latest --model github-copilot/gpt-4.1 --agent websearch -p "$@"
+  oc-websearch = prev.writeShellScriptBin "oc-websearch" ''
+    exec bunx opencode-ai@latest --model github-copilot/gpt-4.1 --agent websearch -p "$@"
+  '';
+
+  oc-notes = prev.writeShellScriptBin "oc-notes" ''
+    exec bunx opencode-ai@latest --model github-copilot/gpt-4.1 ~/Documents/Notes
   '';
 }
