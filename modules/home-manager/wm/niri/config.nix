@@ -72,6 +72,12 @@
         scale 2.0
     }
 
+    output "VTV089QF" {
+        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
+        scale 1.5
+    }
+
+
     output "DSI-1" {
         background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         transform "270"
