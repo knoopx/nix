@@ -1,4 +1,4 @@
-_: {
+{pkgs, ...}: {
   # fix for podman + nvidia-container-toolkit
   environment.etc."cdi/nvidia-container-toolkit.json".source = "/run/cdi/nvidia-container-toolkit.json";
 
@@ -28,10 +28,15 @@ _: {
 
     podman = {
       enable = true;
-      # dockerCompat = true;
+
+      dockerCompat = true;
       defaultNetwork.settings = {
         dns_enabled = true;
       };
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    podman-compose
+  ];
 }
