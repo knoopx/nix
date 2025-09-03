@@ -7,9 +7,6 @@
     nix-userstyles.url = "github:knoopx/nix-userstyles";
     nix-userstyles.inputs.nix-colors.follows = "nix-colors";
 
-    ollamark.url = "github:knoopx/ollamark";
-    ollamark.inputs.nixpkgs.follows = "nixpkgs";
-
     haumea.url = "github:nix-community/haumea";
     haumea.inputs.nixpkgs.follows = "nixpkgs";
 
