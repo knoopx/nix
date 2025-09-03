@@ -33,8 +33,8 @@
   ]);
 in {
   home.packages = with pkgs; [
-    llama-cpp
-    lmstudio
+    # llama-cpp
+    # lmstudio
     newsflash
     nfoview
     nicotine-plus
@@ -43,5 +43,6 @@ in {
     transmission_4-gtk
     vial
     pythonEnv
+    ollama-cuda
   ];
 }
