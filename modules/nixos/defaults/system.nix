@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}:
+{lib, ...}:
 with lib; {
   options.defaults = {
     keyMap = mkOption {
