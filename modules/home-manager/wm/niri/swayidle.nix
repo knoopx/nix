@@ -6,6 +6,8 @@
 }: {
   services.swayidle = {
     enable = true;
+
+    # pgrep -x hyprlock > /dev/null || hyprlock &";
     events = [
       {
         event = "after-resume";
@@ -15,6 +17,10 @@
     timeouts = [
       {
         timeout = nixosConfig.defaults.display.idleTimeout;
+        command = "${lib.getExe pkgs.hyprlock}";
+      }
+      {
+        timeout = nixosConfig.defaults.display.idleTimeout + 5;
         command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
       }
     ];
