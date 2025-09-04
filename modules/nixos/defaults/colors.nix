@@ -1,5 +1,5 @@
 {
-  config,
+  pkgs,
   lib,
   ...
 }:
@@ -91,25 +91,38 @@ with lib; {
 
   config = {
     defaults = {
+      # danqing
+      # da-one-sea
+      # earthsong
+      # eighties
+      # eris
+      # heetch
+      # paraiso
+      # rose-pine
+      # stella
+      # rose-pine-moon
+      # hopscotch
+      # moonlight
+
       colorScheme = {
         name = "custom";
         palette = {
-          base00 = "131327";
-          base01 = "191935";
-          base02 = "25254b";
-          base03 = "2d2b55";
-          base04 = "494685";
-          base05 = "e1efff";
-          base06 = "e5e4fb";
-          base07 = "fad000";
-          base08 = "ff628c";
-          base09 = "ffb454";
-          base0A = "ffee80";
-          base0B = "a5ff90";
-          base0C = "80fcff";
-          base0D = "fad000";
-          base0E = "faefa5";
-          base0F = "fb94ff";
+          base00 = "232136";
+          base01 = "2a273f";
+          base02 = "393552";
+          base03 = "6e6a86";
+          base04 = "908caa";
+          base05 = "e0def4";
+          base06 = "e0def4";
+          base07 = "56526e";
+          base08 = "eb6f92";
+          base09 = "f6c177";
+          base0A = "ea9a97";
+          base0B = "3e8fb0";
+          base0C = "9ccfd8";
+          base0D = "c4a7e7";
+          base0E = "f6c177";
+          base0F = "56526e";
         };
       };
     };
