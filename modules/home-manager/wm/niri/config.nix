@@ -68,24 +68,24 @@
     }
 
     output "DP-1" {
-        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
+        background-color "transparent"
         scale 2.0
     }
 
     output "VTV089QF" {
-        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
+        background-color "transparent"
         scale 1.0
     }
 
 
     output "DSI-1" {
-        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
+        background-color "transparent"
         transform "270"
         scale 1.5
     }
 
     output "Virtual-1" {
-        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
+        background-color "transparent"
         scale 1.5
     }
 
@@ -94,7 +94,7 @@
     prefer-no-csd
 
     overview {
-        backdrop-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
+        backdrop-color "transparent"
         workspace-shadow {
             off
         }
