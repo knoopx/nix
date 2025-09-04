@@ -59,7 +59,7 @@ with lib; {
         windowSize = [1240 900];
         sidebarWidth = 200;
         defaultColumnWidthPercent = 0.75;
-        columnWidthPercentPresets = [0.25 0.5 0.75];
+        columnWidthPercentPresets = [0.75 0.5 0.25];
         appWidths = {};
         floatingApps = [
           "^floating."
