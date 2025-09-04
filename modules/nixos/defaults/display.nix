@@ -63,13 +63,6 @@ with lib; {
         appWidths = {};
         floatingApps = [
           "^floating."
-          "net.knoopx.bookmarks"
-          "net.knoopx.launcher"
-          "net.knoopx.nix-packages"
-          "net.knoopx.process-manager"
-          "net.knoopx.scratchpad"
-          "net.knoopx.windows"
-          "net.knoopx.wireless-networks"
           "org.gnome.NautilusPreviewer"
           "re.sonny.Commit"
         ];
