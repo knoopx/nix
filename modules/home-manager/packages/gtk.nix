@@ -58,5 +58,6 @@
     plexamp
     seahorse
     sushi
+    google-chrome
   ];
 }
