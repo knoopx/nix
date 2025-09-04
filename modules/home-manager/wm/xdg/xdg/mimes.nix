@@ -46,6 +46,8 @@ in {
           "video/x-matroska" = video-player;
           "x-scheme-handler/http" = browser;
           "x-scheme-handler/https" = browser;
+          "x-scheme-handler/about" = browser;
+          "x-scheme-handler/unknown" = browser;
           "x-scheme-handler/mailto" = "mailto-gmail.desktop";
           "x-scheme-handler/magnet" = "userapp-transmission-gtk-FROFT2.desktop";
         };
