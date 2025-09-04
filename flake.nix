@@ -50,6 +50,8 @@
     nix-chuwi-minibook-x.url = "github:knoopx/nix-chuwi-minibook-x";
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
+    endpoint-verification.url = "github:zuplo/endpoint-verification-nixos";
   };
 
   outputs = {
@@ -65,6 +67,7 @@
     stylix,
     xwayland-satellite,
     nix-userstyles,
+    endpoint-verification,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -137,6 +140,7 @@
         }
         stylix.nixosModules.stylix
         home-manager.nixosModules.home-manager
+        endpoint-verification.nixosModules.default
         {
           home-manager = {
             useGlobalPkgs = true;
