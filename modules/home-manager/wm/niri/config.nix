@@ -97,15 +97,13 @@
         backdrop-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         workspace-shadow {
             off
-            softness 40.0
-            spread 10.0
-            color "#00000050"
         }
         zoom 0.700000
     }
 
     layout {
         gaps 12
+        background-color "transparent"
         struts {
             left 0
             right 0
@@ -210,6 +208,13 @@
     layer-rule {
         match namespace="notifications"
         block-out-from "screen-capture"
+    }
+
+    layer-rule {
+        // This is for swaybg; change for other wallpaper tools.
+        // Find the right namespace by running niri msg layers.
+        match namespace="^wallpaper$"
+        place-within-backdrop true
     }
 
     animations {

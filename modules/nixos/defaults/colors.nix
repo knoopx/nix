@@ -91,16 +91,6 @@ with lib; {
 
   config = {
     defaults = {
-      # rose-pine-moon
-      # danqing
-      # da-one-sea
-      # earthsong
-      # eighties
-      # eris
-      # heetch
-      # paraiso
-      # rose-pine
-
       # https://github.com/tinted-theming/schemes
       colorScheme = {
         name = "custom";
