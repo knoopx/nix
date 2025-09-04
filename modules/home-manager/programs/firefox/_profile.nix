@@ -79,11 +79,12 @@ in {
       "perplexity"
       "qwant"
       "reddit"
+      "slack"
       "spotify-web"
       "stack-overflow"
       "telegram"
-      "wikipedia"
       "whatsapp-web"
+      "wikipedia"
       "wikipedia"
       "youtube"
     ]}"}
