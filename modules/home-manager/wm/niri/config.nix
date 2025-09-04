@@ -74,7 +74,7 @@
 
     output "VTV089QF" {
         background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
-        scale 1.5
+        scale 1.0
     }
 
 
