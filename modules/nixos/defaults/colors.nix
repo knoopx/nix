@@ -91,6 +91,7 @@ with lib; {
 
   config = {
     defaults = {
+      # rose-pine-moon
       # danqing
       # da-one-sea
       # earthsong
@@ -99,30 +100,27 @@ with lib; {
       # heetch
       # paraiso
       # rose-pine
-      # stella
-      # rose-pine-moon
-      # hopscotch
-      # moonlight
 
+      # https://github.com/tinted-theming/schemes
       colorScheme = {
         name = "custom";
         palette = {
-          base00 = "232136";
-          base01 = "2a273f";
-          base02 = "393552";
-          base03 = "6e6a86";
-          base04 = "908caa";
-          base05 = "e0def4";
-          base06 = "e0def4";
-          base07 = "56526e";
-          base08 = "eb6f92";
-          base09 = "f6c177";
-          base0A = "ea9a97";
-          base0B = "3e8fb0";
-          base0C = "9ccfd8";
-          base0D = "c4a7e7";
-          base0E = "f6c177";
-          base0F = "56526e";
+          base00 = "2B213C";
+          base01 = "362B48";
+          base02 = "4D4160";
+          base03 = "655978";
+          base04 = "7F7192";
+          base05 = "998BAD";
+          base06 = "B4A5C8";
+          base07 = "EBDCFF";
+          base08 = "C79987";
+          base09 = "8865C6";
+          base0A = "C7C691";
+          base0B = "ACC79B";
+          base0C = "9BC7BF";
+          base0D = "A5AAD4";
+          base0E = "C594FF";
+          base0F = "C7AB87";
         };
       };
     };
