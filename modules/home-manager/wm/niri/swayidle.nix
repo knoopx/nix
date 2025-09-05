@@ -17,11 +17,11 @@
     timeouts = [
       {
         timeout = nixosConfig.defaults.display.idleTimeout;
-        command = "${lib.getExe pkgs.hyprlock}";
+        command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
       }
       {
         timeout = nixosConfig.defaults.display.idleTimeout + 5;
-        command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
+        command = "${lib.getExe pkgs.hyprlock}";
       }
     ];
   };
