@@ -4,5 +4,6 @@
     black
     isort
     pyright
+    python313
   ];
 }
