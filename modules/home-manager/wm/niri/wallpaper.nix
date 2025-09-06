@@ -27,7 +27,7 @@ in {
         WantedBy = ["graphical-session.target"];
       };
       Unit = {
-        BindTo = ["niri.service"];
+        After = ["niri.service"];
         PartOf = ["graphical-session.target"];
       };
       Service = {
