@@ -4,7 +4,7 @@
   ...
 }: {
   programs.zed-editor = {
-    enable = true;
+    enable = false;
     extensions = []; # VSCode: extensions.ignoreRecommendations = true
     extraPackages = [];
     userSettings = {
