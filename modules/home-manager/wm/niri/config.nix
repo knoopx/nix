@@ -114,7 +114,11 @@
             width 3
             active-color "#${nixosConfig.defaults.colorScheme.palette.base0D}"
         }
-        border { off; }
+        border {
+            width 3
+            active-color "#${nixosConfig.defaults.colorScheme.palette.base03}"
+            inactive-color "#${nixosConfig.defaults.colorScheme.palette.base03}"
+        }
         insert-hint { color "rgb(${nix-colors.lib-core.conversions.hexToRGBString " " nixosConfig.defaults.colorScheme.palette.base0D} / 50%)"; }
 
         default-column-width { proportion ${toString nixosConfig.defaults.display.defaultColumnWidthPercent}; }
