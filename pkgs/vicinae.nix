@@ -2,8 +2,8 @@
   src = pkgs.fetchFromGitHub {
     owner = "knoopx";
     repo = "vicinae";
-    rev = "e4e61156ea0f4cf84614591270e2b6193975c4fa";
-    hash = "sha256-7jHv9mkj+AWH6RFKIQV1sTH5i5gk0nfuC6t4gVU60qM=";
+    rev = "1687ca9501300b6a82e34f89fd445c6373bc7d72";
+    hash = "sha256-syhvGrhq/H8E6HWkZABucZum1Tt8G6PDeMmv1uo8oGI=";
   };
 
   # Prepare node_modules for api folder
@@ -15,7 +15,7 @@
   # Prepare node_modules for extension-manager folder
   extensionManagerDeps = pkgs.fetchNpmDeps {
     src = src + /extension-manager;
-    hash = "sha256-7kScWi1ySUBTDsGQqgpt2wYmujP9Mlwq3x2FKOlGwgo=";
+    hash = "sha256-zoTe/n7PmC7h3bEYFX8OtLKr6T8WA7ijNhAekIhsgLc=";
   };
 
   ts-protoc-gen-wrapper = pkgs.writeShellScriptBin "protoc-gen-ts_proto" ''
@@ -29,6 +29,7 @@ in
     inherit src;
 
     cmakeFlags = [
+      "-DVICINAE_GIT_TAG=${src.rev}"
       "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}"
       "-DCMAKE_INSTALL_DATAROOTDIR=share"
       "-DCMAKE_INSTALL_BINDIR=bin"
@@ -50,7 +51,6 @@ in
       grpc-tools
       which
       rsync
-      breakpointHook
       typescript
     ];
 
@@ -78,29 +78,34 @@ in
     '';
 
     buildPhase = ''
+      buildDir=$PWD
       export npm_config_cache=${apiDeps}
-      cd /build/source/api
+      cd $buildDir/api
       npm i --ignore-scripts
-      patchShebangs /build/source/api
+      patchShebangs $buildDir/api
       npm rebuild --foreground-scripts
       export npm_config_cache=${extensionManagerDeps}
-      cd /build/source/extension-manager
+      cd $buildDir/extension-manager
       npm i --ignore-scripts
-      patchShebangs /build/source/extension-manager
+      patchShebangs $buildDir/extension-manager
       npm rebuild --foreground-scripts
-      cd /build/source
+      cd $buildDir
       substituteInPlace cmake/ExtensionApi.cmake cmake/ExtensionManager.cmake --replace-fail "COMMAND npm install" ""
       cmake --build build
-      cd /build/source
+      cd $buildDir
     '';
 
+    dontWrapQtApps = true;
+    preFixup = ''
+      wrapQtApp "$out/bin/vicinae" --prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath buildInputs}
+    '';
     postFixup = ''
       wrapProgram $out/bin/vicinae \
-      --prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath buildInputs} \
       --prefix PATH : ${pkgs.lib.makeBinPath (with pkgs; [
         nodejs
         qt6.qtwayland
         wayland
+        (placeholder "out")
       ])}
     '';
 
