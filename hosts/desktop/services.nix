@@ -25,6 +25,7 @@
       domain = "knoopx.net";
       hostServices = {
         glance = 9000;
+        webdav = 5006;
       };
     };
   };
