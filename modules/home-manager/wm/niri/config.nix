@@ -69,7 +69,7 @@
 
     output "DP-1" {
         background-color "transparent"
-        scale 2.0
+        scale 1.75
     }
 
     output "VTV089QF" {
