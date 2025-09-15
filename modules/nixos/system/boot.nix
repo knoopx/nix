@@ -19,4 +19,6 @@ in {
   boot.initrd.preLVMCommands = ''
     cat "${msg}"
   '';
+
+  boot.kernelParams = ["usbcore.autosuspend=-1"];
 }
