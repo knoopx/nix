@@ -18,6 +18,7 @@ _: {
         "https://niri.cachix.org"
         "https://cuda-maintainers.cachix.org"
         "https://llama-cpp.cachix.org"
+        "https://cache.flox.dev"
         # "https://nyx.chaotic.cx"
         # "https://hyprland.cachix.org"
         # "https://nixpkgs-wayland.cachix.org"
@@ -25,6 +26,7 @@ _: {
       ];
 
       trusted-public-keys = [
+        "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
         "ags.cachix.org-1:naAvMrz0CuYqeyGNyLgE010iUiuf/qx6kYrUv3NwAJ8="
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
         "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
