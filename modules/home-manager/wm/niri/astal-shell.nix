@@ -21,7 +21,7 @@ in {
 
   xdg.configFile."astal-shell/displays.json".text = ''
     {
-      "LG HDR 4K": [300, 100],
+      "LG HDR 4K": [330, 120],
       "Unknown": [200, 70],
       "T27hv-30": [390, 145]
     }
