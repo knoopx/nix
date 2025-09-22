@@ -67,21 +67,22 @@
         }
     }
 
-    output "DP-1" {
-        background-color "transparent"
-        scale 1.75
-    }
-
-    output "VTV089QF" {
-        background-color "transparent"
-        scale 1.0
-    }
-
+    // From left to right.
 
     output "DSI-1" {
         background-color "transparent"
         transform "270"
         scale 1.5
+    }
+
+    output "T27hv-30" {
+        background-color "transparent"
+        scale 1.0
+    }
+
+    output "LG HDR 4K" {
+        background-color "transparent"
+        scale 1.75
     }
 
     output "Virtual-1" {
