@@ -219,7 +219,7 @@ in {
   virtualisation.oci-containers.containers = {
     "${name}" = {
       autoStart = true;
-      image = "zefhemel/silverbullet:v2";
+      image = "zefhemel/silverbullet:latest";
       environmentFiles = ["${root}/.env"];
       volumes = [
         "${root}:/space"
