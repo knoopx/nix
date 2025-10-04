@@ -186,6 +186,11 @@
         modules = mkNixosModules ./hosts/desktop;
       };
 
+      zbook = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+        modules = mkNixosModules ./hosts/zbook;
+      };
+
       minibookx = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
         modules =
