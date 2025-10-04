@@ -10,7 +10,7 @@ in {
     ]
     ++ (listNixModulesRecusive ../../modules/nixos);
 
-  networking.hostName = "desktop";
+  networking.hostName = "zbook";
   nix.settings.system-features = [
     "kvm"
     "big-parallel"
@@ -20,7 +20,7 @@ in {
   ];
 
   system = {
-    stateVersion = "24.05";
+    stateVersion = "25.05";
   };
 
   nixpkgs = {
