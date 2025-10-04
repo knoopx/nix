@@ -67,26 +67,25 @@
         }
     }
 
-    // From left to right.
 
     output "DSI-1" {
-        background-color "transparent"
+        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         transform "270"
         scale 1.5
     }
 
     output "T27hv-30" {
-        background-color "transparent"
+        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         scale 1.0
     }
 
     output "LG HDR 4K" {
-        background-color "transparent"
+        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         scale 1.75
     }
 
     output "Virtual-1" {
-        background-color "transparent"
+        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         scale 1.5
     }
 
@@ -95,7 +94,7 @@
     prefer-no-csd
 
     overview {
-        backdrop-color "transparent"
+        backdrop-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         workspace-shadow {
             off
         }
