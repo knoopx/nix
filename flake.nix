@@ -5,6 +5,7 @@
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
 
     nix-userstyles.url = "github:knoopx/nix-userstyles";
+    nix-userstyles.inputs.nixpkgs.follows = "nixpkgs";
     nix-userstyles.inputs.nix-colors.follows = "nix-colors";
 
     haumea.url = "github:nix-community/haumea";
@@ -48,10 +49,9 @@
     autofirma-nix.inputs.home-manager.follows = "home-manager";
 
     nix-chuwi-minibook-x.url = "github:knoopx/nix-chuwi-minibook-x";
+    nix-chuwi-minibook-x.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-
-    endpoint-verification.url = "github:zuplo/endpoint-verification-nixos";
   };
 
   outputs = {
@@ -67,7 +67,6 @@
     stylix,
     xwayland-satellite,
     nix-userstyles,
-    endpoint-verification,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -140,7 +139,6 @@
         }
         stylix.nixosModules.stylix
         home-manager.nixosModules.home-manager
-        endpoint-verification.nixosModules.default
         {
           home-manager = {
             useGlobalPkgs = true;

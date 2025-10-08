@@ -63,11 +63,11 @@ in
     # nix
     bbenoist.nix
     jnoortheen.nix-ide
-    kamadorueda.alejandra
+    # kamadorueda.alejandra
 
     # misc
     britesnow.vscode-toggle-quotes
-    ast-grep.ast-grep-vscode
+    # ast-grep.ast-grep-vscode
     file-icons.file-icons
     esbenp.prettier-vscode
     tamasfe.even-better-toml
