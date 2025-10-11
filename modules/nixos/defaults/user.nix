@@ -49,7 +49,7 @@ with lib; {
       };
       pubKeys = pkgs.fetchurl {
         url = "https://github.com/${config.defaults.username}.keys";
-        sha256 = "sha256-385krE9Aoea23aQ3FJo2kpPtRrIOwxxXCCt43gHEo0Q=";
+        sha256 = "sha256-+NTzRTwtXfCJvO+YJdIByVowK9uof/MvHpoYyqwIHiA=";
       };
     };
   };
