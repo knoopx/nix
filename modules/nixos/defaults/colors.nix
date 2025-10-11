@@ -95,12 +95,12 @@ with lib; {
       colorScheme = {
         name = "custom";
         palette = {
-          base00 = "15152a";
-          base01 = "1a1134";
-          base02 = "2b2154";
-          base03 = "3c3c73";
-          base04 = "606093";
-          base05 = "f2f3f3";
+          base00 = "191033";
+          base01 = "1e133c";
+          base02 = "2f235c";
+          base03 = "404079";
+          base04 = "646499";
+          base05 = "f8f8f8";
           base06 = "e5e4fb";
           base07 = "fad000";
           base08 = "ff628c";
@@ -111,6 +111,8 @@ with lib; {
           base0D = "fad000";
           base0E = "faefa5";
           base0F = "fb94ff";
+          # 191033
+          # 191930
         };
       };
     };
