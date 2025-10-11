@@ -144,15 +144,14 @@
       qt6.qtwayland
     ];
 in
-  stdenv.mkDerivation (finalAttrs: {
+  stdenv.mkDerivation (finalAttrs: rec {
     pname = "cromite";
-    version = "v139.0.7258.143";
-    commit = "8b0ce0bcfdca08fb2ebb937d31c80d68488343f8";
+    version = "141.0.7390.70";
+    rev = "fb75694894a4d87f4651d41f25377be6db03ce12";
 
-    # https://github.com/uazo/cromite/releases/download/v139.0.7258.143-8b0ce0bcfdca08fb2ebb937d31c80d68488343f8/chrome-lin64.tar.gz
     src = fetchurl {
-      url = "https://github.com/uazo/cromite/releases/download/v${finalAttrs.version}-${finalAttrs.commit}/chrome-lin64.tar.gz";
-      hash = "sha256-WqOQaoboRqgYXW2tzyW3LMo5WRA8l5UWjUnfBIq6r9k=";
+      url = "https://github.com/uazo/cromite/releases/download/v${version}-${rev}/chrome-lin64.tar.gz";
+      hash = "sha256-IQjol6AoJ9h+IQl4T0xc+1tb/OPSqZkSAicVgF9XYdk=";
     };
 
     # With strictDeps on, some shebangs were not being patched correctly
