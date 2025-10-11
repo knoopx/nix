@@ -96,10 +96,10 @@ with lib; {
         name = "custom";
         palette = {
           base00 = "131327";
-          base01 = "191935";
-          base02 = "25254b";
-          base03 = "2d2b55";
-          base04 = "494685";
+          base01 = "181030";
+          base02 = "292050";
+          base03 = "3a3a70";
+          base04 = "5e5e90";
           base05 = "e1efff";
           base06 = "e5e4fb";
           base07 = "fad000";
