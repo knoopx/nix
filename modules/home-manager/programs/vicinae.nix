@@ -4,31 +4,24 @@
   ...
 }: {
   services.vicinae.enable = true;
+
   # https://docs.vicinae.com/theming#creating-a-custom-theme
   home.file.".config/vicinae/themes/custom.json" = {
     text = builtins.toJSON {
       version = "1.0.0";
       appearance = "dark";
-      icon = "";
-      name = "Custom Theme";
-      description = "Theme generated from NixOS defaults colorScheme";
+      name = "Custom";
       palette = {
-        base00 = "#${nixosConfig.defaults.colorScheme.palette.base00}";
-        base01 = "#${nixosConfig.defaults.colorScheme.palette.base01}";
-        base02 = "#${nixosConfig.defaults.colorScheme.palette.base02}";
-        base03 = "#${nixosConfig.defaults.colorScheme.palette.base03}";
-        base04 = "#${nixosConfig.defaults.colorScheme.palette.base04}";
-        base05 = "#${nixosConfig.defaults.colorScheme.palette.base05}";
-        base06 = "#${nixosConfig.defaults.colorScheme.palette.base06}";
-        base07 = "#${nixosConfig.defaults.colorScheme.palette.base07}";
-        base08 = "#${nixosConfig.defaults.colorScheme.palette.base08}";
-        base09 = "#${nixosConfig.defaults.colorScheme.palette.base09}";
-        base0A = "#${nixosConfig.defaults.colorScheme.palette.base0A}";
-        base0B = "#${nixosConfig.defaults.colorScheme.palette.base0B}";
-        base0C = "#${nixosConfig.defaults.colorScheme.palette.base0C}";
-        base0D = "#${nixosConfig.defaults.colorScheme.palette.base0D}";
-        base0E = "#${nixosConfig.defaults.colorScheme.palette.base0E}";
-        base0F = "#${nixosConfig.defaults.colorScheme.palette.base0F}";
+        background = "#${nixosConfig.defaults.colorScheme.palette.base00}";
+        foreground = "#${nixosConfig.defaults.colorScheme.palette.base05}";
+        blue = "#${nixosConfig.defaults.colorScheme.palette.base0D}";
+        green = "#${nixosConfig.defaults.colorScheme.palette.base0B}";
+        magenta = "#${nixosConfig.defaults.colorScheme.palette.base0F}";
+        orange = "#${nixosConfig.defaults.colorScheme.palette.base09}";
+        purple = "#${nixosConfig.defaults.colorScheme.palette.base0E}";
+        red = "#${nixosConfig.defaults.colorScheme.palette.base08}";
+        yellow = "#${nixosConfig.defaults.colorScheme.palette.base0A}";
+        cyan = "#${nixosConfig.defaults.colorScheme.palette.base0C}";
       };
     };
   };

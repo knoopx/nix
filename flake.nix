@@ -8,6 +8,9 @@
     nix-userstyles.inputs.nixpkgs.follows = "nixpkgs";
     nix-userstyles.inputs.nix-colors.follows = "nix-colors";
 
+    vicinae.url = "github:vicinaehq/vicinae";
+    vicinae.inputs.nixpkgs.follows = "nixpkgs";
+
     haumea.url = "github:nix-community/haumea";
     haumea.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -67,6 +70,7 @@
     stylix,
     xwayland-satellite,
     nix-userstyles,
+    vicinae,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -146,6 +150,7 @@
             extraSpecialArgs = specialArgs;
             backupFileExtension = "bak";
             sharedModules = [
+              vicinae.homeManagerModules.default
               autofirma-nix.homeManagerModules.default
             ];
           };

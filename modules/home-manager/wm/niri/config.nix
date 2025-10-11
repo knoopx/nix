@@ -172,7 +172,7 @@
         Mod+Shift+Left { move-column-left; }
         Mod+Shift+Right { move-column-right; }
         Mod+Shift+Up { move-column-to-workspace-up; }
-        Mod+Space { spawn "vicinae"; }
+        Mod+Space { spawn "vicinae" "toggle"; }
         Mod+Up { focus-workspace-up; }
         Mod+V { spawn "nautilus"; }
         Mod+P { spawn "kitty" "btop"; }
