@@ -666,14 +666,16 @@
     "nix-vscode-extensions": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1760147334,
-        "narHash": "sha256-3gZICA1JohJbRrpvUjERaC0mk7utX017tu5SbuEXsEI=",
+        "lastModified": 1760195473,
+        "narHash": "sha256-gm4NHx6RyWAoxip2FGdicddPQtgBO6i5bSe91DiJ8u0=",
         "owner": "nix-community",
         "repo": "nix-vscode-extensions",
-        "rev": "f04493b7f53b4a1d9131830d63d951f60f2fee7f",
+        "rev": "8b572083ef8259d679a1169d8af537ac992aa465",
         "type": "github"
       },
       "original": {
@@ -698,22 +700,6 @@
       }
     },
     "nixpkgs": {
-      "locked": {
-        "lastModified": 1759770925,
-        "narHash": "sha256-CZwkCtzTNclqlhuwDsVtGoRumTpqCUK0xSnFIMgd8ls=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "674c2b09c59a220204350ced584cadaacee30038",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "674c2b09c59a220204350ced584cadaacee30038",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
       "locked": {
         "lastModified": 1760103332,
         "narHash": "sha256-BMsGVfKl4Q80Pr9T1AkCRljO1bpwCmY8rTBVj8XGuhA=",
@@ -769,7 +755,7 @@
         "nix-colors": "nix-colors",
         "nix-userstyles": "nix-userstyles",
         "nix-vscode-extensions": "nix-vscode-extensions",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "stylix": "stylix",
         "vicinae": "vicinae",
         "xwayland-satellite": "xwayland-satellite"
