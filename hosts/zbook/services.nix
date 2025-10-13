@@ -1,31 +1,23 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   services = {
-    androidPhotoBackup = {
-      enable = true;
-      backupDir = "/mnt/storage/Photos/input/Android";
-      serialShort = "31051JEHN09244";
-    };
+    # services.thermald.enable = true;
 
-    udev.packages = with pkgs; [
-      via
-    ];
-
-    plex = {
+    tlp = {
       enable = true;
-      group = "wheel";
-      user = config.defaults.username;
-    };
+      settings = {
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-    traefik-proxy = {
-      enable = true;
-      domain = "knoopx.net";
-      hostServices = {
-        glance = 9000;
-        webdav = 5006;
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+
+        CPU_MIN_PERF_ON_AC = 0;
+        CPU_MAX_PERF_ON_AC = 100;
+        CPU_MIN_PERF_ON_BAT = 0;
+        CPU_MAX_PERF_ON_BAT = 20;
+
+        START_CHARGE_THRESH_BAT0 = 40;
+        STOP_CHARGE_THRESH_BAT0 = 80;
       };
     };
   };

@@ -1,4 +1,8 @@
-{config, lib, ...} @ inputs: let
+{
+  config,
+  lib,
+  ...
+} @ inputs: let
   system = "x86_64-linux";
   listNixModulesRecusive = import ../../lib/listNixModulesRecusive.nix inputs;
 in {
@@ -33,7 +37,7 @@ in {
   };
 
   home-manager.users.${config.defaults.username} = {
-    imports = [../../home/${config.defaults.username}.nix] ++ (listNixModulesRecusive ./home-manager);
+    imports = [../../home/${config.defaults.username}.nix];
   };
 
   defaults.display.appWidths = {

@@ -3,6 +3,12 @@
     ksm.enable = true;
     cpu.amd.updateMicrocode = true;
 
+    # powerManagement = {
+    #   enable = true;
+    #   # powertop.enable = true;
+    #   cpuFreqGovernor = "performance";
+    # };
+
     bluetooth = {
       enable = true;
       powerOnBoot = true;
@@ -17,11 +23,4 @@
       pkgs.linux-firmware
     ];
   };
-
-  # services.thermald.enable = true;
-  # powerManagement = {
-  #   enable = true;
-  #   # powertop.enable = true;
-  #   cpuFreqGovernor = "performance";
-  # };
 }
