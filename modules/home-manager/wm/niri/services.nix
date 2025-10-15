@@ -32,22 +32,6 @@
   };
 
   systemd.user.services = {
-    squeekboard = {
-      Unit = {
-        Description = "On-Screen Keyboard";
-        After = ["graphical-session.target"];
-        PartOf = ["graphical-session.target"];
-      };
-      Service = {
-        Type = "simple";
-        ExecStart = "${pkgs.squeekboard}/bin/.squeekboard-wrapped";
-        Restart = "on-failure";
-      };
-      Install = {
-        WantedBy = ["niri.service"];
-      };
-    };
-
     polkit-gnome-authentication-agent-1 = {
       Unit = {
         Description = "GNOME Polkit Authentication Agent";
