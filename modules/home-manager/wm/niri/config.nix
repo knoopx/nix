@@ -63,7 +63,7 @@
         }
 
         hot-corners {
-            // off
+            off
         }
     }
 
