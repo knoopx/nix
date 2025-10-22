@@ -1,11 +1,11 @@
 {
   config,
   nixosConfig,
-  lib,
-  pkgs,
   ...
-}: let
-  customTheme = pkgs.writeText "custom-theme.toml" ''
+}: {
+  services.vicinae.enable = true;
+
+  home.file.".local/share/flatpak/exports/share/vicinae/themes/custom.toml".text = ''
     [meta]
     version = 1
     name = "Custom Theme"
@@ -17,7 +17,7 @@
     accent = "#${nixosConfig.defaults.colorScheme.palette.base0D}"
     background = "#${nixosConfig.defaults.colorScheme.palette.base00}"
     foreground = "#${nixosConfig.defaults.colorScheme.palette.base05}"
-    secondary_background = "#${nixosConfig.defaults.colorScheme.palette.base0D}"
+    secondary_background = "#${nixosConfig.defaults.colorScheme.palette.base01}"
     border = "#${nixosConfig.defaults.colorScheme.palette.base02}"
 
     [colors.accents]
@@ -29,16 +29,52 @@
     red = "#${nixosConfig.defaults.colorScheme.palette.base08}"
     yellow = "#${nixosConfig.defaults.colorScheme.palette.base0A}"
     cyan = "#${nixosConfig.defaults.colorScheme.palette.base0C}"
-  '';
-in {
-  services.vicinae.enable = true;
 
-  home.activation.createVicinaeTheme = config.lib.dag.entryAfter ["writeBoundary"] ''
-    mkdir -p ${config.home.homeDirectory}/.local/share/flatpak/exports/share/vicinae/themes
-    cp ${customTheme} ${config.home.homeDirectory}/.local/share/flatpak/exports/share/vicinae/themes/custom.toml
-  '';
+    [colors.text]
+    default = "#${nixosConfig.defaults.colorScheme.palette.base05}"
+    muted = "#${nixosConfig.defaults.colorScheme.palette.base04}"
+    danger = "#${nixosConfig.defaults.colorScheme.palette.base08}"
+    success = "#${nixosConfig.defaults.colorScheme.palette.base0B}"
+    placeholder = "#${nixosConfig.defaults.colorScheme.palette.base03}"
+    selection = { background = "#${nixosConfig.defaults.colorScheme.palette.base0D}", foreground = "#${nixosConfig.defaults.colorScheme.palette.base00}" }
 
-  # https://docs.vicinae.com/theming#creating-a-custom-theme
+    [colors.text.links]
+    default = "#${nixosConfig.defaults.colorScheme.palette.base0D}"
+    visited = "#${nixosConfig.defaults.colorScheme.palette.base0F}"
+
+    [colors.input]
+    border = "#${nixosConfig.defaults.colorScheme.palette.base02}"
+    border_focus = "#${nixosConfig.defaults.colorScheme.palette.base0D}"
+    border_error = "#${nixosConfig.defaults.colorScheme.palette.base08}"
+
+    [colors.button.primary]
+    background = "#${nixosConfig.defaults.colorScheme.palette.base02}"
+    foreground = "#${nixosConfig.defaults.colorScheme.palette.base05}"
+    hover = { background = "#${nixosConfig.defaults.colorScheme.palette.base03}" }
+    focus = { outline = "#${nixosConfig.defaults.colorScheme.palette.base0D}" }
+
+    [colors.list.item.hover]
+    background = "#${nixosConfig.defaults.colorScheme.palette.base02}"
+    foreground = "#${nixosConfig.defaults.colorScheme.palette.base05}"
+
+    [colors.list.item.selection]
+    background = "#${nixosConfig.defaults.colorScheme.palette.base0D}"
+    foreground = "#${nixosConfig.defaults.colorScheme.palette.base00}"
+    secondary_background = "#${nixosConfig.defaults.colorScheme.palette.base02}"
+    secondary_foreground = "#${nixosConfig.defaults.colorScheme.palette.base05}"
+
+    [colors.grid.item]
+    background = "#${nixosConfig.defaults.colorScheme.palette.base01}"
+    hover = { outline = "#${nixosConfig.defaults.colorScheme.palette.base05}" }
+    selection = { outline = "#${nixosConfig.defaults.colorScheme.palette.base0D}" }
+
+    [colors.scrollbars]
+    background = "#${nixosConfig.defaults.colorScheme.palette.base02}"
+
+    [colors.loading]
+    bar = "#${nixosConfig.defaults.colorScheme.palette.base05}"
+    spinner = "#${nixosConfig.defaults.colorScheme.palette.base05}"
+  '';
 
   home.file.".config/vicinae/vicinae.json".text = builtins.toJSON {
     faviconService = "google";
@@ -51,7 +87,7 @@ in {
     };
     theme = {
       iconTheme = config.gtk.iconTheme.name;
-      name = "Custom Theme";
+      name = "custom";
     };
     window = {
       csd = true;
