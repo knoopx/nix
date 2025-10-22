@@ -74,10 +74,6 @@
         scale 1.5
     }
 
-    output "T27hv-30" {
-        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
-        scale 1.0
-    }
 
     output "LG HDR 4K" {
         background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
