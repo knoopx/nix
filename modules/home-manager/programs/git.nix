@@ -2,27 +2,25 @@
   programs = {
     git = {
       enable = true;
-      userName = nixosConfig.defaults.fullName;
-      userEmail = nixosConfig.defaults.primaryEmail;
+      settings = {
+        user = {
+          name = nixosConfig.defaults.fullName;
+          email = nixosConfig.defaults.primaryEmail;
+        };
 
-      aliases = {
-        d = "diff";
-        co = "checkout";
-        cp = "cherry-pick";
-        l = "log --pretty=format:'%C(black)%h%Creset%C(red)%d%Creset %s %Cgreen(%cr) %C(black)%an%Creset' --abbrev-commit";
-        b = "branch";
-        bb = "branch -v";
-        s = "status";
-        g = "log --graph --pretty=format:'%Cgreen%h%Creset -%C(yellow)%d%Creset %s %C(black)(%cr)%Creset' --abbrev-commit --date=relative";
-        unstage = "reset HEAD";
-        reset-permissions = "git push origin devel help nixosConfig  diff -p | grep -E '^(diff|old mode|new mode)' | sed -e 's/^old/NEW/;s/^new/old/;s/^NEW/new/' | git apply";
-      };
+        alias = {
+          d = "diff";
+          co = "checkout";
+          cp = "cherry-pick";
+          l = "log --pretty=format:'%C(black)%h%Creset%C(red)%d%Creset %s %Cgreen(%cr) %C(black)%an%Creset' --abbrev-commit";
+          b = "branch";
+          bb = "branch -v";
+          s = "status";
+          g = "log --graph --pretty=format:'%Cgreen%h%Creset -%C(yellow)%d%Creset %s %C(black)(%cr)%Creset' --abbrev-commit --date=relative";
+          unstage = "reset HEAD";
+          reset-permissions = "git push origin devel help nixosConfig  diff -p | grep -E '^(diff|old mode|new mode)' | sed -e 's/^old/NEW/;s/^new/old/;s/^NEW/new/' | git apply";
+        };
 
-      attributes = [
-        "*.lockb binary diff=lockb"
-      ];
-
-      extraConfig = {
         color = {
           ui = true;
           diff = "auto";
@@ -80,7 +78,14 @@
         };
       };
 
-      diff-so-fancy.enable = true;
+      attributes = [
+        "*.lockb binary diff=lockb"
+      ];
+    };
+
+    diff-so-fancy = {
+      enable = true;
+      enableGitIntegration = true;
     };
   };
 }
