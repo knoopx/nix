@@ -1,6 +1,11 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     # gnumake
+    # Sound system packages
+    libcanberra
+    libcanberra-gtk3
+    sound-theme-freedesktop
+    # System utilities
     astal-shell
     bat
     binutils

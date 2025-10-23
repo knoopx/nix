@@ -45,9 +45,27 @@ This is a **NixOS + Home Manager** configuration system that provides:
 ```
 hosts/
 ├── desktop/           # Desktop machine configuration
+│   ├── containers/    # Container configurations (silverbullet, watchtower)
+│   ├── home-manager/  # Host-specific home-manager modules
+│   │   ├── easy-effects/
+│   │   ├── glance/
+│   │   └── programs/
+│   ├── services/      # Host-specific services
+│   ├── boot.nix
+│   ├── default.nix
+│   ├── filesystems.nix
+│   ├── hardware.nix
+│   ├── nvidia.nix
+│   └── services.nix
 ├── live-usb/          # Live USB configuration
-├── minibookx/         # MacBook configuration
+├── minibookx/         # Chuwi Minibook X configuration
+│   ├── boot.nix
+│   ├── default.nix
+│   ├── hardware.nix
+│   └── services.nix
 └── vm/               # Virtual machine configuration
+    ├── default.nix
+    └── demo.sh
 ```
 
 ### Home-Manager Users Configuration
@@ -64,27 +82,72 @@ modules/
 ├── home-manager/     # Home-Manager Modules
 │   ├── environment.nix
 │   ├── misc.nix
-│   ├── navi/
+│   ├── navi/         # Navi cheat sheets
+│   │   ├── cheats/   # Individual cheat files
+│   │   └── default.nix
 │   ├── packages/     # User packages
+│   │   ├── cli.nix
+│   │   ├── gtk.nix
+│   │   └── dev/      # Development language packages
+│   │       ├── crystal.nix, go.nix, javascript.nix, nix.nix
+│   │       ├── python.nix, ruby.nix, rust.nix, system.nix
 │   ├── programs/     # Program configurations
+│   │   ├── btop.nix, cromite.nix, fish.nix, fzf.nix, git.nix
+│   │   ├── helix.nix, hyprlock.nix, kitty.nix, nh.nix
+│   │   ├── nix-index.nix, shell2http.nix, skim.nix
+│   │   ├── television.nix, vicinae.nix, yazi.nix
+│   │   ├── firefox/   # Firefox configuration
+│   │   ├── opencode-ai/  # OpenCode AI configuration
+│   │   └── vscode/    # VSCode configuration
 │   ├── services/     # User services
-│   ├── wm/           # Window manager configurations
-│   └── zed/
+│   │   ├── clipman.nix
+│   │   └── webdav.nix
+│   └── wm/           # Window manager configurations
+│       ├── niri/      # Niri window manager
+│       │   ├── astal-shell.nix, config.nix, services.nix, swayidle.nix
+│       └── xdg/       # XDG desktop integration
+│           ├── dconf/ # GNOME dconf settings
+│           ├── xdg/   # XDG specifications
+│           └── gtk.nix
 └── nixos/           # NixOS Modules
     ├── defaults/    # Default configurations
+    │   ├── ai.nix, colors.nix, display.nix, fonts.nix
+    │   ├── system.nix, user.nix
     ├── services/    # Core System services
+    │   ├── android-photo-backup.nix, auto-scrcpy.nix
+    │   ├── flatpak.nix, keyd.nix, plex.nix
+    │   ├── services.nix, shell2http.nix, traefik.nix
     ├── system/      # Core system settings
+    │   ├── boot.nix, documentation.nix, environment.nix
+    │   ├── hardware.nix, networking.nix, nix-ld.nix
+    │   ├── nix.nix, nixpkgs.nix, packages.nix, programs.nix
+    │   ├── system.nix, users.nix, virtualisation.nix
     ├── theming/     # System theming
+    │   └── stylix.nix
     └── wm/          # Graphical desktop related configuration
+        ├── niri.nix, packages.nix, programs.nix
+        ├── services.nix, xdg.nix
 ```
 
 ### Other Modules
 
 ```
 builders/           # Custom builders (functions that return new derivations)
+└── theming/       # Theme-related builders
+    ├── mkMoreWaitaIconTheme.nix
+    └── mkStylixFirefoxGnomeTheme.nix
 overlays/          # Package overlays, used for fixing quirks/annoyances
+├── balatro.nix, fish.nix, geary.nix, glance.nix
+├── gnome-control-center.nix, kitty.nix, niri.nix
+├── opencode.nix, pegasus-frontend.nix, retroarch.nix
+├── useless-desktop-items.nix, useless-files.nix
 pkgs/             # Custom packages
+├── cromite.nix, llama-swap.nix, neuwaita-icon-theme.nix, nfoview.nix
 lib/              # Utility functions
+├── theming/       # Theme-related utilities
+│   ├── colorVariations.nix, hexToHSL.nix, hexToRGB.nix
+│   ├── matchThemeColors.nix, rgbToHex.nix
+└── listNixModulesRecusive.nix  # Module listing utility
 ```
 
 ## Common Tasks & Examples
@@ -101,6 +164,9 @@ nh os switch path:.
 
 # Build without switching (for testing)
 sudo nixos-rebuild build --flake path:.
+
+# Build home configuration only
+nh home switch path:.
 ```
 
 #### Update flake dependencies
@@ -163,6 +229,9 @@ final: prev: {
 ```bash
 # Build and run VM for testing
 nix run path:.#vm
+
+# Build VM without running
+nix build path:.#packages.default
 ```
 
 #### Check configuration syntax
@@ -172,13 +241,19 @@ nix run path:.#vm
 nix flake check
 
 # Lint/Format nix files
-alejandra [--check] <file>
+alejandra [--check] <file or directory>
+
+# Format entire repository
+alejandra .
 ```
 
 #### Show flake outputs
 
 ```bash
 nix flake show
+
+# Show available packages
+nix flake show path:.#packages.x86_64-linux
 ```
 
 #### Evaluate expressions
@@ -189,11 +264,71 @@ nix eval path:.#nixosConfigurations.desktop.config.system.stateVersion
 
 # Pretty print with --json
 nix eval --json path:.#nixosConfigurations.desktop.config.environment.systemPackages | jq
+
+# Check specific package availability
+nix eval path:.#packages.x86_64-linux.neuwaita-icon-theme
 ```
+
+## Module Loading System
+
+The repository uses a hybrid module loading approach:
+
+### Haumea Loading
+Most modules use **haumea** for automatic module discovery and loading:
+- `modules/nixos/` (except defaults/)
+- `modules/home-manager/` (except top-level files)
+- `overlays/` (verbatim loader)
+- `pkgs/`, `lib/`, `builders/`
+
+### listNixModulesRecursive Loading
+Custom recursive loader used for:
+- `modules/nixos/defaults/` - Auto-imported into all NixOS configurations
+- Host configurations (`hosts/*/`) - All `.nix` files auto-imported
+- Home Manager configurations - All `.nix` files auto-imported
 
 ## File Naming Conventions
 
-The repository uses **haumea** for most module loading (see flake.nix), but `listNixModulesRecusive` is used in specific cases (hosts, home configurations). For modules handled by `listNixModulesRecusive`:
-
+For modules handled by `listNixModulesRecursive`:
 - `modulename.nix`: Standalone modules (auto-imported)
-- `_filename.nix`: Private/helper modules (excluded from auto-import, manually imported by other modules)
+- `_filename.nix`: Private/helper modules (excluded from auto-import, manually imported)
+
+## Flake Inputs
+
+The configuration uses numerous external inputs:
+- **Core**: nixpkgs-unstable, home-manager, haumea
+- **Theming**: stylix, nix-colors, nix-userstyles, neuwaita, adwaita-colors
+- **Window Management**: niri, xwayland-satellite, astal-shell
+- **Applications**: firefox-addons, firefox-gnome-theme, betterfox
+- **Hardware**: nix-chuwi-minibook-x
+- **Development**: nix-vscode-extensions, autofirma-nix
+- **Social**: vicinae
+
+## Available Packages
+
+The repository provides several custom packages:
+- `neuwaita-icon-theme` - Custom icon theme
+- `nfoview` - NFO file viewer
+- `llama-swap` - LLM swap management
+- `geary` - Email client (with fixes)
+
+## Host-Specific Configurations
+
+### Desktop
+- NVIDIA graphics support
+- Container services (SilverBullet, Watchtower)
+- EasyEffects audio configuration
+- Glance dashboard
+- Autofirma integration
+
+### MinibookX
+- Chuwi Minibook X hardware support
+- Custom kernel modules
+- Power management
+
+### Live USB
+- Portable system configuration
+- Minimal footprint
+
+### VM
+- Testing environment
+- Demo scripts

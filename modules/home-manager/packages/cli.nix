@@ -123,7 +123,6 @@
     yt-dlp
     clang-tools
     opencode
-    oc-websearch
     inetutils
   ];
 }

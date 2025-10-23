@@ -172,7 +172,6 @@
         Mod+Up { focus-workspace-up; }
         Mod+V { spawn "nautilus"; }
         Mod+P { spawn "kitty" "btop"; }
-        Mod+Semicolon { spawn "kitty" "${lib.getExe pkgs.oc-notes}"; }
         Mod+W { close-window; }
         Print { screenshot; }
         Shift+Print { screenshot-window; }

@@ -6,8 +6,14 @@ https://github.com/user-attachments/assets/d45f3687-cfda-47a7-b2e9-3c0dbdb562bf
 
 ## Try Out
 
-```
+```bash
+# Run the VM demo
 nix run github:knoopx/nix
+
+# Or clone and run locally
+git clone https://github.com/knoopx/nix
+cd nix
+nix run .#vm
 ```
 
 ## What I Focus On
@@ -15,11 +21,12 @@ nix run github:knoopx/nix
 - **Minimal clutter**: Shell has no widgets and apps take the whole vertical space. Pressing `Super` reveals the overlay with the widgets.
 - **Unified styling**: Consistent colors, fonts, and styles across:
   - System GTK/Qt themes and custom Neuwaita icon theme (merged with MoreWaita)
-  - Terminal emulators (Kitty, Alacritty)
-  - Text editors (VSCode, Helix, Zed)
-  - Web browsers (Firefox with custom userstyles)
+  - Terminal emulators (Kitty)
+  - Text editors (VSCode, Helix)
+  - Web browsers (Firefox with custom userstyles and GNOME theme)
   - Window manager (Niri with custom color schemes)
   - Desktop shell (Astal with theme-aware widgets)
+  - All applications via Stylix theming system
 - **Reproducible**: Everything's declarative, so I can set it up the same way anywhere
 
 ## Software
@@ -27,13 +34,19 @@ nix run github:knoopx/nix
 ### Main Components
 
 - **[Niri](https://github.com/YaLTeR/niri)**: A modern, Wayland-native tiling window manager that provides efficient keyboard-driven window management. It supports custom layouts, workspaces, and seamless integration with the desktop environment for a distraction-free coding experience.
-- **[Astal Shell](https://github.com/knoopx/astal-shell)**: A custom desktop shell built on Astal framework, featuring theme-aware widgets for system monitoring, notifications, and quick access to applications.
+- **[Astal Shell](https://github.com/knoopx/astal-shell)**: A custom desktop shell built on Astal framework, featuring theme-aware widgets for system monitoring, notifications, and quick access to applications. Includes swayidle integration for power management.
 - **[Vicinae](https://github.com/vicinaehq/vicinae/)**: Application launcher inspired by Raycast
-- **[Firefox](https://www.mozilla.org/firefox/)**: Web browser optimized for privacy with [uBlock Origin](https://github.com/gorhill/uBlock) for ad-blocking, custom search engines, and userstyles for consistent theming. Includes policies for enhanced security and performance thanks to [BetterFox](https://github.com/yokoffing/BetterFox)
-- **[Kitty](https://github.com/kovidgoyal/kitty)**: GPU-accelerated terminal emulator
-- **[Fish](https://github.com/fish-shell/fish-shell)**: The user-friendly command line shell.
+- **[Firefox](https://www.mozilla.org/firefox/)**: Web browser optimized for privacy with [uBlock Origin](https://github.com/gorhill/uBlock) for ad-blocking, custom search engines, and userstyles for consistent theming. Includes policies for enhanced security and performance thanks to [BetterFox](https://github.com/yokoffing/BetterFox) and GNOME theme integration
+- **[Kitty](https://github.com/kovidgoyal/kitty)**: GPU-accelerated terminal emulator with theme integration
+- **[Fish](https://github.com/fish-shell/fish-shell)**: The user-friendly command line shell with custom completions
 - **[Hyprlock](https://github.com/hyprwm/Hyprlock)**: Screen locker with custom theme
+- **[Navi](https://github.com/denisidoro/navi)**: Interactive cheatsheets for command-line tools
+- **[FZF](https://github.com/junegunn/fzf)**: Command-line fuzzy finder
+- **[Skim](https://github.com/lotabout/skim)**: Fuzzy finder with Vim integration
 - **[VSCode](https://github.com/microsoft/vscode)**: Primary code editor. Configured with custom keybindings, themes, and productivity tools for development
+- **[Helix](https://github.com/helix-editor/helix)**: Modal text editor inspired by Vim
+- **[Yazi](https://github.com/sxyazi/yazi)**: Modern terminal file manager
+- **[Television](https://github.com/alexpasmant/television)**: Fuzzy finder with preview
 
 ### Development Environments
 
@@ -55,36 +68,51 @@ The `modules/home-manager/packages/dev/` directory contains language-specific de
 - **desktop/**: Main workstation featuring:
   - NVIDIA graphics with CUDA support
   - [BTRFS](https://btrfs.readthedocs.io/en/latest/) filesystem with advanced features
-  - Container services ([Watchtower](https://github.com/containrrr/watchtower) for updates)
+  - Container services ([Watchtower](https://github.com/containrrr/watchtower) for updates, [SilverBullet](https://silverbullet.md/))
   - Hardware acceleration for AI models
-- **minibook/**: Chuwi Minibook X N150 laptop configuration:
+  - EasyEffects audio configuration
+  - Glance dashboard
+  - Autofirma integration
+- **minibookx/**: Chuwi Minibook X N150 laptop configuration:
   - Hardware-specific drivers and optimizations
   - Power management and battery optimizations
-- **vm/**: Virtual machine setup for testing
+- **vm/**: Virtual machine setup for testing with demo scripts
 - **live-usb/**: Bootable USB configuration for system recovery and installation
 
 ### Modules
 
 - **modules/nixos/**: System-level configurations including:
   - **defaults/**: Global settings for AI, colors, display, fonts, system, and user
-  - **services/**: System services ([Plex Media Server](https://www.plex.tv/), [Traefik](https://github.com/traefik/traefik), Android backup, auto-scrcpy, etc.)
-  - **system/**: Core system settings (boot, networking, hardware, packages)
+  - **services/**: System services ([Plex Media Server](https://www.plex.tv/), [Traefik](https://github.com/traefik/traefik), Android backup, auto-scrcpy, Flatpak, Keyd, etc.)
+  - **system/**: Core system settings (boot, documentation, environment, hardware, networking, Nix configuration, packages, programs, users, virtualisation)
   - **theming/**: [Stylix](https://github.com/danth/stylix) theming configuration
-  - **wm/**: Window manager and desktop environment settings
+  - **wm/**: Window manager and desktop environment settings (Niri, packages, programs, services, XDG)
 - **modules/home-manager/**: User environment configurations:
   - **packages/**: User packages and development tools
-    - **dev/**: Language-specific development environments
+    - **dev/**: Language-specific development environments (Crystal, Go, JavaScript, Nix, Python, Ruby, Rust, System)
     - **cli.nix**: Command-line interface utilities
     - **gtk.nix**: GTK-related packages
-  - **programs/**: Application configurations (VSCode, Firefox, Kitty, etc.)
-  - **services/**: User services and daemons
+- **programs/**: Application configurations (VSCode, Firefox, Kitty, Fish, Helix, Hyprlock, etc.)
+    - **firefox/**: Firefox with custom policies, profiles, and uBlock rules
+    - **opencode-ai/**: OpenCode AI integration
+    - **vscode/**: VSCode with extensions, keybindings, and user settings
+  - **services/**: User services and daemons (Clipman, WebDAV)
   - **wm/**: Window manager user settings
+    - **niri/**: Niri window manager with Astal shell integration
+    - **xdg/**: XDG desktop integration, GTK themes, dconf settings
+  - **navi/**: Navi cheat sheets for various tools
   - **environment/**: User environment variables and session settings
+  - **misc.nix**: Miscellaneous user configurations
 - **overlays/**: Package customizations and fixes:
-  - Custom builds for [Glance](https://github.com/glanceapp/glance), [Geary](https://gitlab.gnome.org/GNOME/geary), [Zed Editor](https://github.com/zed-industries/zed), [RetroArch](https://github.com/libretro/RetroArch), etc.
-  - Theme and UI modifications
+  - Custom builds for [Glance](https://github.com/glanceapp/glance), [Geary](https://gitlab.gnome.org/GNOME/geary), [RetroArch](https://github.com/libretro/RetroArch), etc.
+  - Theme and UI modifications (Balatro, Cromite, Kitty, Niri, etc.)
+  - OpenCode AI CLI wrapper (oc)
 - **builders/**: Helper functions for creating package derivations
+  - **theming/**: Theme builders (MoreWaita icons, Stylix Firefox/Gnome themes)
 - **lib/**: Utility functions for theming, color manipulation, and module loading
-- **pkgs/**: Custom package definitions ([Neuwaita Icon Theme](https://github.com/knoopx/neuwaita-icon-theme), [MoreWaita Icon Theme](https://github.com/somepaulo/MoreWaita), [Llama Swap](https://github.com/knoopx/llama-swap), [Vicinae](https://github.com/vicinaehq/vicinae), etc.)
+  - **theming/**: Color conversion utilities (hexToRGB, rgbToHex, etc.)
+  - **listNixModulesRecursive.nix**: Custom module loading utility
+- **pkgs/**: Custom package definitions ([Neuwaita Icon Theme](https://github.com/knoopx/neuwaita-icon-theme), [Llama Swap](https://github.com/knoopx/llama-swap), [NFO Viewer](https://github.com/nfoview/nfoview), etc.)
+- **home/**: User-specific Home Manager configurations
 - **flake.nix**: Main flake with inputs, outputs, and system configurations
 - **flake.lock**: Dependency lock file for reproducible builds

@@ -1,12 +1,8 @@
-{
-  pkgs,
-  lib,
-  nixosConfig,
-  ...
-}: let
+{pkgs, ...}: let
   settingsFormat = pkgs.formats.json {};
 in {
-  xdg.configFile."opencode/agents".source = ./agents;
+  xdg.configFile."opencode/agent".source = ./agent;
+  xdg.configFile."opencode/command".source = ./command;
 
   xdg.configFile."opencode/config.json".source = settingsFormat.generate "config.json" {
     "$schema" = "https://opencode.ai/config.json";
@@ -40,10 +36,13 @@ in {
         command = ["uvx" "markitdown-mcp"];
         enabled = true;
       };
-      duckduckgo = {
+      open-websearch = {
         type = "local";
-        command = ["uvx" "duckduckgo-mcp-server"];
+        command = ["bunx" "github:evanlouie/open-websearch"];
         enabled = true;
+        environment = {
+          MODE = "stdio";
+        };
       };
     };
     # provider = {
