@@ -5,15 +5,11 @@
   ...
 }: let
   palette = nixosConfig.defaults.colorScheme.palette;
-  bgPrimaryRgb = nix-colors.lib.conversions.hexToRGB palette.base02;
-  bgSecondaryRgb = nix-colors.lib.conversions.hexToRGB palette.base03;
-  textPrimaryRgb = nix-colors.lib.conversions.hexToRGB palette.base05;
-  textSecondaryRgb = nix-colors.lib.conversions.hexToRGB palette.base04;
-  accentPrimaryRgb = nix-colors.lib.conversions.hexToRGB palette.base0D;
-  accentSecondaryRgb = nix-colors.lib.conversions.hexToRGB palette.base02;
-  successRgb = nix-colors.lib.conversions.hexToRGB palette.base0B;
-  warningRgb = nix-colors.lib.conversions.hexToRGB palette.base09;
-  errorRgb = nix-colors.lib.conversions.hexToRGB palette.base08;
+
+  # Helper function to create rgba strings from hex colors
+  rgba = hex: alpha: let
+    rgb = nix-colors.lib.conversions.hexToRGB hex;
+  in "rgba(${toString (builtins.elemAt rgb 0)}, ${toString (builtins.elemAt rgb 1)}, ${toString (builtins.elemAt rgb 2)}, ${toString alpha})";
 in {
   home.packages = with pkgs; [
     astal-shell
@@ -24,29 +20,29 @@ in {
     "Unknown" = [200 70];
   };
 
-  xdg.configFile."astal-shell/theme.json".text = ''
-    {
-      "background": {
-        "primary": "rgba(${toString (builtins.elemAt bgPrimaryRgb 0)}, ${toString (builtins.elemAt bgPrimaryRgb 1)}, ${toString (builtins.elemAt bgPrimaryRgb 2)}, 0.8)",
-        "secondary": "rgba(${toString (builtins.elemAt bgSecondaryRgb 0)}, ${toString (builtins.elemAt bgSecondaryRgb 1)}, ${toString (builtins.elemAt bgSecondaryRgb 2)}, 0.12)"
-      },
-      "text": {
-        "primary": "rgba(${toString (builtins.elemAt textPrimaryRgb 0)}, ${toString (builtins.elemAt textPrimaryRgb 1)}, ${toString (builtins.elemAt textPrimaryRgb 2)}, 1.0)",
-        "secondary": "rgba(${toString (builtins.elemAt textSecondaryRgb 0)}, ${toString (builtins.elemAt textSecondaryRgb 1)}, ${toString (builtins.elemAt textSecondaryRgb 2)}, 0.7)",
-        "focused": "rgba(${toString (builtins.elemAt textPrimaryRgb 0)}, ${toString (builtins.elemAt textPrimaryRgb 1)}, ${toString (builtins.elemAt textPrimaryRgb 2)}, 1.0)",
-        "unfocused": "rgba(${toString (builtins.elemAt textSecondaryRgb 0)}, ${toString (builtins.elemAt textSecondaryRgb 1)}, ${toString (builtins.elemAt textSecondaryRgb 2)}, 0.7)"
-      },
-      "accent": {
-        "primary": "rgba(${toString (builtins.elemAt accentPrimaryRgb 0)}, ${toString (builtins.elemAt accentPrimaryRgb 1)}, ${toString (builtins.elemAt accentPrimaryRgb 2)}, 0.9)",
-        "secondary": "rgba(${toString (builtins.elemAt accentSecondaryRgb 0)}, ${toString (builtins.elemAt accentSecondaryRgb 1)}, ${toString (builtins.elemAt accentSecondaryRgb 2)}, 1.0)"
-      },
-      "status": {
-        "success": "rgba(${toString (builtins.elemAt successRgb 0)}, ${toString (builtins.elemAt successRgb 1)}, ${toString (builtins.elemAt successRgb 2)}, 1.0)",
-        "warning": "rgba(${toString (builtins.elemAt warningRgb 0)}, ${toString (builtins.elemAt warningRgb 1)}, ${toString (builtins.elemAt warningRgb 2)}, 1.0)",
-        "error": "rgba(${toString (builtins.elemAt errorRgb 0)}, ${toString (builtins.elemAt errorRgb 1)}, ${toString (builtins.elemAt errorRgb 2)}, 1.0)"
-      }
-    }
-  '';
+  xdg.configFile."astal-shell/theme.json".text = builtins.toJSON {
+    background = {
+      primary = rgba palette.base02 1.0;
+      secondary = rgba palette.base03 1.0;
+    };
+    text = {
+      primary = rgba palette.base05 1.0;
+      secondary = rgba palette.base04 0.7;
+      focused = rgba palette.base05 1.0;
+      unfocused = rgba palette.base04 0.7;
+    };
+    accent = {
+      primary = rgba palette.base0D 1.0;
+      secondary = rgba palette.base02 1.0;
+      border = rgba palette.base04 1.0;
+      overlay = rgba palette.base00 0.7;
+    };
+    status = {
+      success = rgba palette.base0B 1.0;
+      warning = rgba palette.base0A 1.0;
+      error = rgba palette.base08 1.0;
+    };
+  };
 
   systemd.user.services.astal-shell = {
     Unit = {
