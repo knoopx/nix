@@ -15,21 +15,21 @@ in {
       model_list = "ctrl+m";
     };
     mcp = {
-      sequential-thinking = {
-        type = "local";
-        command = ["bunx" "@modelcontextprotocol/server-sequential-thinking"];
-        enabled = true;
-      };
+      # sequential-thinking = {
+      #   type = "local";
+      #   command = ["bunx" "@modelcontextprotocol/server-sequential-thinking"];
+      #   enabled = true;
+      # };
       deepwiki = {
         type = "local";
         command = ["bunx" "mcp-deepwiki"];
         enabled = true;
       };
-      # context7 = {
-      #   type = "remote";
-      #   url = "https://mcp.context7.com/mcp";
-      #   enabled = true;
-      # };
+      context7 = {
+        type = "remote";
+        url = "https://mcp.context7.com/mcp";
+        enabled = true;
+      };
       github = {
         type = "local";
         command = ["podman" "run" "-i" "--rm" "-e" "GITHUB_PERSONAL_ACCESS_TOKEN" "ghcr.io/github/github-mcp-server"];
@@ -38,6 +38,11 @@ in {
       markitdown = {
         type = "local";
         command = ["uvx" "markitdown-mcp"];
+        enabled = true;
+      };
+      duckduckgo = {
+        type = "local";
+        command = ["uvx" "duckduckgo-mcp-server"];
         enabled = true;
       };
     };
