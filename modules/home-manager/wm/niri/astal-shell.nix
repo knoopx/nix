@@ -19,12 +19,10 @@ in {
     astal-shell
   ];
 
-  xdg.configFile."astal-shell/displays.json".text = ''
-    {
-      "LG HDR 4K": [390, 145],
-      "Unknown": [200, 70],
-    }
-  '';
+  xdg.configFile."astal-shell/displays.json".text = builtins.toJSON {
+    "LG HDR 4K" = [390 145];
+    "Unknown" = [200 70];
+  };
 
   xdg.configFile."astal-shell/theme.json".text = ''
     {
