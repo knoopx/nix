@@ -153,6 +153,7 @@
             sharedModules = [
               vicinae.homeManagerModules.default
               autofirma-nix.homeManagerModules.default
+              astal-shell.homeManagerModules.default
             ];
           };
         }
