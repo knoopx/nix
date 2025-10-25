@@ -30,6 +30,8 @@ in {
     };
   };
 
+  defaults.wifi = lib.mkForce true;
+  defaults.bluetooth = lib.mkForce true;
   defaults.display.width = lib.mkForce 1920;
   defaults.display.height = lib.mkForce 1200;
   defaults.display.idleTimeout = lib.mkForce 60; # 1 minute for battery conservation

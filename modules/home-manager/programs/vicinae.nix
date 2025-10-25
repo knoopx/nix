@@ -1,9 +1,23 @@
 {
+  lib,
   config,
   nixosConfig,
+  pkgs,
   ...
-}: {
+}: let
+  j-vicinae-extensions = pkgs.fetchFromGitHub {
+    owner = "dagimg-dot";
+    repo = "j-vicinae-extensions";
+    rev = "main";
+    sha256 = "sha256-yirdUhHEJ9tNQoPubMJHUBwOpXFOevjqyaJlcW3+d5I=";
+  };
+  wifi = pkgs.runCommand "vicinae-extensions" {} ''
+    cp -r ${j-vicinae-extensions}/extensions/wifi-commander $out/
+  '';
+in {
   services.vicinae.enable = true;
+
+  home.file.".local/share/vicinae/extensions/wifi" = lib.mkIf nixosConfig.defaults.wifi {source = wifi;};
 
   home.file.".local/share/flatpak/exports/share/vicinae/themes/custom.toml".text = ''
     [meta]

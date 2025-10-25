@@ -21,6 +21,21 @@ with lib; {
       type = types.str;
       description = "Default text editor";
     };
+    sound = mkOption {
+      type = types.bool;
+      description = "Enable or disable system sound";
+      default = true;
+    };
+    bluetooth = mkOption {
+      type = types.bool;
+      description = "Enable or disable Bluetooth support";
+      default = false;
+    };
+    wifi = mkOption {
+      type = types.bool;
+      description = "Enable or disable WiFi support";
+      default = false;
+    };
   };
 
   config = {

@@ -3,11 +3,6 @@
     ksm.enable = true;
     cpu.amd.updateMicrocode = true;
 
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-    };
-
     graphics = {
       enable = true;
       enable32Bit = true; # for 32-bit wine games

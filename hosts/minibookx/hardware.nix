@@ -1,5 +1,6 @@
 {
   lib,
+  config,
   modulesPath,
   ...
 }: {
@@ -37,8 +38,8 @@
 
   hardware = {
     bluetooth = {
-      enable = true;
-      powerOnBoot = true;
+      enable = config.defaults.bluetooth;
+      powerOnBoot = config.defaults.bluetooth;
     };
   };
 }
