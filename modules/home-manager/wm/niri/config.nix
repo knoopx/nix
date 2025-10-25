@@ -16,7 +16,27 @@
 
   # https://github.com/YaLTeR/niri/blob/main/resources/default-config.kdl
 
-  xdg.configFile."niri/config.kdl".text = ''
+  xdg.configFile."niri/config.kdl".text = let
+    change-volume = pkgs.writeShellScript "volume-feedback.sh" ''
+      case "$1" in
+          up)
+              ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+              ;;
+          down)
+              ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+              ;;
+          mute)
+              ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+              ;;
+          *)
+              echo "Usage: $0 up|down|mute"
+              exit 1
+              ;;
+      esac
+
+      ${pkgs.pipewire}/bin/pw-play ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
+    '';
+  in ''
     input {
         keyboard {
             xkb {
@@ -175,11 +195,12 @@
         Mod+W { close-window; }
         Print { screenshot; }
         Shift+Print { screenshot-window; }
-        XF86AudioLowerVolume { spawn "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+        XF86AudioLowerVolume { spawn "${change-volume}" "down"; }
+        XF86AudioMute { spawn "${change-volume}" "mute"; }
         XF86AudioNext { spawn "${lib.getExe pkgs.playerctl}" "next"; }
         XF86AudioPlay { spawn "${lib.getExe pkgs.playerctl}" "play-pause"; }
         XF86AudioPrev { spawn "${lib.getExe pkgs.playerctl}" "previous"; }
-        XF86AudioRaiseVolume { spawn "${pkgs.wireplumber}/bin/wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+        XF86AudioRaiseVolume { spawn "${change-volume}" "up"; }
         XF86AudioStop { spawn "${lib.getExe pkgs.playerctl}" "pause"; }
         XF86MonBrightnessDown { spawn "${lib.getExe pkgs.brightnessctl}" "set" "5%-"; }
         XF86MonBrightnessUp { spawn "${lib.getExe pkgs.brightnessctl}" "set" "5%+"; }

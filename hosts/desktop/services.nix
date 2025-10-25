@@ -30,28 +30,5 @@
     };
   };
 
-  systemd.user.services.login-sound = {
-    description = "Play login sound";
-    wantedBy = ["graphical-session.target"];
-    after = ["graphical-session.target" "pipewire.service"];
-    partOf = ["graphical-session.target"];
 
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.pipewire}/bin/pw-play ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/service-login.oga";
-      RemainAfterExit = "no";
-    };
-  };
-
-  systemd.user.services.logout-sound = {
-    description = "Play logout sound";
-    wantedBy = ["graphical-session-pre.target"];
-    before = ["graphical-session-pre.target"];
-
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.pipewire}/bin/pw-play ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/service-logout.oga";
-      RemainAfterExit = "no";
-    };
-  };
 }
