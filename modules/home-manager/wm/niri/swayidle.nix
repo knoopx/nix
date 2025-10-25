@@ -11,17 +11,17 @@
     events = [
       {
         event = "after-resume";
-        command = "${lib.getExe pkgs.niri} msg action power-on-monitors";
+        command = "display-control power-on-monitors";
       }
     ];
     timeouts = [
       {
         timeout = nixosConfig.defaults.display.idleTimeout;
-        command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
+        command = "display-control power-off-monitors";
       }
       {
         timeout = nixosConfig.defaults.display.idleTimeout + 5;
-        command = "${lib.getExe pkgs.hyprlock}";
+        command = "session-control lock";
       }
     ];
   };

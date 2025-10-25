@@ -12,9 +12,9 @@
       };
 
       bind = [
-        "XF86AudioRaiseVolume,exec,${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-        "XF86AudioLowerVolume,exec,${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        "XF86AudioMute,exec,${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        "XF86AudioRaiseVolume,exec,volume-control up"
+        "XF86AudioLowerVolume,exec,volume-control down"
+        "XF86AudioMute,exec,volume-control mute"
       ];
 
       background = lib.mkForce [

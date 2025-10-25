@@ -17,25 +17,6 @@
   # https://github.com/YaLTeR/niri/blob/main/resources/default-config.kdl
 
   xdg.configFile."niri/config.kdl".text = let
-    change-volume = pkgs.writeShellScript "volume-feedback.sh" ''
-      case "$1" in
-          up)
-              ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-              ;;
-          down)
-              ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-              ;;
-          mute)
-              ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-              ;;
-          *)
-              echo "Usage: $0 up|down|mute"
-              exit 1
-              ;;
-      esac
-
-      ${pkgs.pipewire}/bin/pw-play ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
-    '';
   in ''
     input {
         keyboard {
@@ -195,19 +176,19 @@
         Mod+W { close-window; }
         Print { screenshot; }
         Shift+Print { screenshot-window; }
-        XF86AudioLowerVolume { spawn "${change-volume}" "down"; }
-        XF86AudioMute { spawn "${change-volume}" "mute"; }
-        XF86AudioNext { spawn "${lib.getExe pkgs.playerctl}" "next"; }
-        XF86AudioPlay { spawn "${lib.getExe pkgs.playerctl}" "play-pause"; }
-        XF86AudioPrev { spawn "${lib.getExe pkgs.playerctl}" "previous"; }
-        XF86AudioRaiseVolume { spawn "${change-volume}" "up"; }
-        XF86AudioStop { spawn "${lib.getExe pkgs.playerctl}" "pause"; }
-        XF86MonBrightnessDown { spawn "${lib.getExe pkgs.brightnessctl}" "set" "5%-"; }
-        XF86MonBrightnessUp { spawn "${lib.getExe pkgs.brightnessctl}" "set" "5%+"; }
+        XF86AudioLowerVolume { spawn "volume-control" "down"; }
+        XF86AudioMute { spawn "volume-control" "mute"; }
+        XF86AudioNext { spawn "media-control" "next"; }
+        XF86AudioPlay { spawn "media-control" "play-pause"; }
+        XF86AudioPrev { spawn "media-control" "previous"; }
+        XF86AudioRaiseVolume { spawn "volume-control" "up"; }
+        XF86AudioStop { spawn "media-control" "stop"; }
+        XF86MonBrightnessDown { spawn "brightness-control" "down"; }
+        XF86MonBrightnessUp { spawn "brightness-control" "up"; }
     }
 
     switch-events {
-        lid-close { spawn "${lib.getExe pkgs.niri}" "msg" "action" "power-off-monitors"; }
+        lid-close { spawn "display-control" "power-off-monitors"; }
         //"loginctl" "lock-session"
         tablet-mode-on { spawn "bash" "-c" "gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true"; }
         tablet-mode-off { spawn "bash" "-c" "gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false"; }
