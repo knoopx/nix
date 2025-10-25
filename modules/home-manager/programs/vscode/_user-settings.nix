@@ -90,7 +90,7 @@
   "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
   "nix.serverSettings" = {
     nixd = let
-      flake = "${config.home.homeDirectory}/.dotfiles";
+      flake = config.programs.nh.flake;
     in {
       formatting = {
         command = [
