@@ -28,7 +28,7 @@
       max-icon-size = 32;
       text-color = lib.mkForce "#${nixosConfig.defaults.colorScheme.palette.base00}";
       background-color = lib.mkForce "#${nixosConfig.defaults.colorScheme.palette.base0D}";
-      on-notify = "exec ${pkgs.pipewire}/bin/pw-play ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/message-new-instant.oga";
+      on-notify = "exec ${pkgs.pipewire}/bin/pw-play ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/message.oga";
     };
   };
 

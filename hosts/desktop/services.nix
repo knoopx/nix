@@ -38,7 +38,7 @@
 
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.pipewire}/bin/pw-play ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/desktop-login.oga";
+      ExecStart = "${pkgs.pipewire}/bin/pw-play ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/service-login.oga";
       RemainAfterExit = "no";
     };
   };
@@ -50,7 +50,7 @@
 
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.pipewire}/bin/pw-play ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/desktop-logout.oga";
+      ExecStart = "${pkgs.pipewire}/bin/pw-play ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/service-logout.oga";
       RemainAfterExit = "no";
     };
   };
