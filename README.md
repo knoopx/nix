@@ -13,7 +13,7 @@ nix run github:knoopx/nix
 # Or clone and run locally
 git clone https://github.com/knoopx/nix
 cd nix
-nix run .#vm
+nix run path:.
 ```
 
 ## What I Focus On
