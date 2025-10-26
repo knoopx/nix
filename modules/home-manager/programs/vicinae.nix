@@ -6,23 +6,31 @@
   pkgs,
   ...
 }: let
-  # https://github.com/schromp/vicinae-extensions/
-  j-vicinae-extensions = pkgs.fetchFromGitHub {
-    owner = "dagimg-dot";
-    repo = "j-vicinae-extensions";
+  extensions = pkgs.fetchFromGitHub {
+    owner = "knoopx";
+    repo = "vicinae-extensions";
     rev = "main";
-    sha256 = "14kpzrnp2rd2r7mghyjff6jhw72h8z16rvl3896xn9y4259dsana";
+    sha256 = "sha256-0TiBKRFAinIa+uDZDSmrtcO1jk/Wf56qm0QB6MA16H8=";
   };
 in {
   services.vicinae = {
     enable = true;
     extensions = [
-      # TODO
-      # (lib.mkIf nixosConfig.defaults.wifi (inputs.vicinae.mkVicinaeExtension.${pkgs.system} {
-      #   inherit pkgs;
-      #   name = "wifi-commander";
-      #   src = "${j-vicinae-extensions}/extensions/wifi-commander";
-      # }))
+      (inputs.vicinae.mkVicinaeExtension.${pkgs.system} {
+        inherit pkgs;
+        name = "firefox-bookmarks";
+        src = "${extensions}/firefox-bookmarks";
+      })
+      (inputs.vicinae.mkVicinaeExtension.${pkgs.system} {
+        inherit pkgs;
+        name = "processes";
+        src = "${extensions}/processes";
+      })
+      (lib.mkIf nixosConfig.defaults.wifi (inputs.vicinae.mkVicinaeExtension.${pkgs.system} {
+        inherit pkgs;
+        name = "wireless-networks";
+        src = "${extensions}/wireless-networks";
+      }))
       (lib.mkIf nixosConfig.defaults.bluetooth (inputs.vicinae.mkVicinaeExtension.${pkgs.system} {
         inherit pkgs;
         name = "bluetooth";
