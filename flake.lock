@@ -975,11 +975,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761368116,
-        "narHash": "sha256-JEn6qP4iS6f22nvhwTKmxo7TWFswRNFPJRnpLT+Ltns=",
+        "lastModified": 1761415000,
+        "narHash": "sha256-T8e+DeFV3h2LHqmWE5GusWLRzSq20eDJQh+w3ibnJ2Q=",
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "rev": "a47d508dba98e3521654e6080653acd52ef3d8bd",
+        "rev": "182fe960e380c81438a2359d90f03fbda749a2f8",
         "type": "github"
       },
       "original": {
@@ -997,11 +997,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1761345612,
-        "narHash": "sha256-ph61jGpaonY04jdfQxkBYRgw7ptlNHo7K0W+5kCV/+0=",
+        "lastModified": 1761407446,
+        "narHash": "sha256-Z2IB6ni6iPtv2Bon/bkru9R96UzBR3s8HY+tcDuCH74=",
         "owner": "Supreeeme",
         "repo": "xwayland-satellite",
-        "rev": "04816e2a3634087db3de39043fcc9db2afcb0c44",
+        "rev": "52cc06e6c63674fc997fd61d27aaccfce2da5b5d",
         "type": "github"
       },
       "original": {

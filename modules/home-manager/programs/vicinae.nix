@@ -1,23 +1,39 @@
 {
   lib,
+  inputs,
   config,
   nixosConfig,
   pkgs,
   ...
 }: let
+  # https://github.com/schromp/vicinae-extensions/
   j-vicinae-extensions = pkgs.fetchFromGitHub {
     owner = "dagimg-dot";
     repo = "j-vicinae-extensions";
     rev = "main";
-    sha256 = "sha256-yirdUhHEJ9tNQoPubMJHUBwOpXFOevjqyaJlcW3+d5I=";
+    sha256 = "14kpzrnp2rd2r7mghyjff6jhw72h8z16rvl3896xn9y4259dsana";
   };
-  wifi = pkgs.runCommand "vicinae-extensions" {} ''
-    cp -r ${j-vicinae-extensions}/extensions/wifi-commander $out/
-  '';
 in {
-  services.vicinae.enable = true;
-
-  home.file.".local/share/vicinae/extensions/wifi" = lib.mkIf nixosConfig.defaults.wifi {source = wifi;};
+  services.vicinae = {
+    enable = true;
+    extensions = [
+      # TODO
+      # (lib.mkIf nixosConfig.defaults.wifi (inputs.vicinae.mkVicinaeExtension.${pkgs.system} {
+      #   inherit pkgs;
+      #   name = "wifi-commander";
+      #   src = "${j-vicinae-extensions}/extensions/wifi-commander";
+      # }))
+      (lib.mkIf nixosConfig.defaults.bluetooth (inputs.vicinae.mkVicinaeExtension.${pkgs.system} {
+        inherit pkgs;
+        name = "bluetooth";
+        src = pkgs.fetchgit {
+          url = "https://codeberg.org/gelei/vicinae-bluetooth.git";
+          rev = "16204787e0ac3925e7e466df38f3a959294b440f";
+          sha256 = "sha256-xOemsBLnXKfcCVOZew2vm0mlylfFvcX4s/AnpjF3kBo=";
+        };
+      }))
+    ];
+  };
 
   home.file.".local/share/flatpak/exports/share/vicinae/themes/custom.toml".text = ''
     [meta]
