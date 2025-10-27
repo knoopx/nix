@@ -1,4 +1,8 @@
-{config, ...} @ inputs: let
+{
+  lib,
+  config,
+  ...
+} @ inputs: let
   system = "x86_64-linux";
   listNixModulesRecusive = import ../../lib/listNixModulesRecusive.nix inputs;
 in {
@@ -58,4 +62,6 @@ in {
     "Plexamp" = 0.25;
     "transmission-gtk" = 0.5;
   };
+
+  defaults.display.idleTimeout = lib.mkForce (15 * 60);
 }
