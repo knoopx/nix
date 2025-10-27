@@ -225,22 +225,12 @@
         draw-border-with-background false
         geometry-corner-radius 8.0 8.0 8.0 8.0
         clip-to-geometry true
-        default-floating-position x=12 y=12 relative-to="bottom-right"
     }
 
 
     window-rule {
         match is-floating=true
         geometry-corner-radius 16.0 16.0 16.0 16.0
-    }
-
-    window-rule {
-        match app-id=r#"firefox$"# title="^Picture-in-Picture$"
-        open-floating true
-        open-focused false
-        default-floating-position x=32 y=32 relative-to="bottom-right"
-        default-column-width { proportion 0.3; }
-        default-window-height { proportion 0.3; }
     }
 
     window-rule {
