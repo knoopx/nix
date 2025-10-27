@@ -39,6 +39,9 @@ in {
   # Ensure proper input kernel modules are loaded
   boot.kernelModules = ["uinput" "evdev"];
 
+  # Enable early KMS for Plymouth in VM
+  boot.initrd.kernelModules = ["virtio_gpu"];
+
   virtualisation.forwardPorts = [
     {
       from = "host";

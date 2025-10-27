@@ -10,10 +10,6 @@
     extraModulePackages = [];
     kernelPackages = pkgs.linuxPackages_zen;
 
-    plymouth.enable = false;
-    crashDump.enable = false;
-    tmp.cleanOnBoot = true;
-
     initrd = {
       availableKernelModules = [
         "xhci_pci"

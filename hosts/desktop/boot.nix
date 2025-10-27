@@ -42,10 +42,6 @@
       #   "net.ipv4.tcp_fin_timeout" = 5;
     };
 
-    plymouth.enable = false;
-    crashDump.enable = false;
-    tmp.cleanOnBoot = true;
-
     initrd.availableKernelModules = [
       "ahci"
       "nvme"
@@ -56,12 +52,13 @@
     ];
 
     loader = {
+      efi.canTouchEfiVariables = true;
+
       grub = {
         enable = true;
         device = "nodev";
         # useOSProber = true;
         efiSupport = true;
-        efiInstallAsRemovable = true;
       };
     };
   };
