@@ -144,6 +144,7 @@
   "qalc.output.lowerExponentBound" = -4;
   "terminal.integrated.stickyScroll.enabled" = false;
   "chat.editing.confirmEditRequestRemoval" = false;
+  "git-blame.config.showBlameInline" = false;
   "github.copilot.nextEditSuggestions.enabled" = true;
   "github.copilot.chat.commitMessageGeneration.instructions" = [
     {
