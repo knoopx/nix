@@ -1,8 +1,4 @@
-{
-  pkgs,
-  nix-update-script,
-  ...
-}: let
+{pkgs, ...}: let
   pname = "nfoview";
   version = "117bb91e15d1b602e3760412937a45dc4fd86706";
 in
@@ -19,7 +15,7 @@ in
 
     nativeBuildInputs = with pkgs; [
       gettext
-      wrapGAppsHook4
+      wrapGAppsHook3
     ];
 
     buildInputs = with pkgs; [

@@ -53,7 +53,7 @@
     loupe
     mission-center
     nautilus
-    onlyoffice-bin
+    onlyoffice-desktopeditors
     pinta
     plexamp
     seahorse

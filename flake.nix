@@ -30,7 +30,7 @@
     xwayland-satellite.inputs.nixpkgs.follows = "nixpkgs";
 
     astal-shell.url = "github:knoopx/astal-shell";
-    astal-shell.inputs.nixpkgs.follows = "nixpkgs";
+    # astal-shell.inputs.nixpkgs.follows = "nixpkgs";
 
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
