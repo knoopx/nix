@@ -1,46 +1,45 @@
 {
   lib,
-  inputs,
   config,
   nixosConfig,
   pkgs,
   ...
 }: let
-  extensions = pkgs.fetchFromGitHub {
-    owner = "knoopx";
-    repo = "vicinae-extensions";
-    rev = "main";
-    sha256 = "sha256-0TiBKRFAinIa+uDZDSmrtcO1jk/Wf56qm0QB6MA16H8=";
-  };
+  package = pkgs.vicinae.overrideAttrs (oldAttrs: rec {
+    version = "0.16.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "vicinaehq";
+      repo = "vicinae";
+      rev = "v${version}";
+      sha256 = "sha256-kZAef+/eQWHKiFvYw8fNxAFRgpX8Ms/+G0JFg5qP1sQ=";
+    };
+  });
 in {
-  services.vicinae = {
-    enable = true;
-    extensions = [
-      (inputs.vicinae.mkVicinaeExtension.${pkgs.system} {
-        inherit pkgs;
-        name = "firefox-bookmarks";
-        src = "${extensions}/firefox-bookmarks";
-      })
-      (inputs.vicinae.mkVicinaeExtension.${pkgs.system} {
-        inherit pkgs;
-        name = "processes";
-        src = "${extensions}/processes";
-      })
-      (lib.mkIf nixosConfig.defaults.wifi (inputs.vicinae.mkVicinaeExtension.${pkgs.system} {
-        inherit pkgs;
-        name = "wireless-networks";
-        src = "${extensions}/wireless-networks";
-      }))
-      (lib.mkIf nixosConfig.defaults.bluetooth (inputs.vicinae.mkVicinaeExtension.${pkgs.system} {
-        inherit pkgs;
-        name = "bluetooth";
-        src = pkgs.fetchgit {
-          url = "https://codeberg.org/gelei/vicinae-bluetooth.git";
-          rev = "16204787e0ac3925e7e466df38f3a959294b440f";
-          sha256 = "sha256-xOemsBLnXKfcCVOZew2vm0mlylfFvcX4s/AnpjF3kBo=";
-        };
-      }))
-    ];
+  home.packages = [
+    package
+  ];
+
+  systemd.user.services.vicinae = {
+    Unit = {
+      Description = "Vicinae server daemon";
+      Documentation = ["https://docs.vicinae.com"];
+      After = ["graphical-session.target"];
+      PartOf = ["graphical-session.target"];
+      BindsTo = ["graphical-session.target"];
+    };
+    Service = {
+      EnvironmentFile = pkgs.writeText "vicinae-env" ''
+        USE_LAYER_SHELL=1
+      '';
+      Type = "simple";
+      ExecStart = "${lib.getExe package} server";
+      Restart = "always";
+      RestartSec = 5;
+      KillMode = "process";
+    };
+    Install = {
+      WantedBy = ["graphical-session.target"];
+    };
   };
 
   home.file.".local/share/flatpak/exports/share/vicinae/themes/custom.toml".text = ''
