@@ -20,6 +20,13 @@ in {
     crashDump.enable = false;
     tmp.cleanOnBoot = true;
 
+    kernel.sysctl = {
+      "kernel.core_pattern" = "|/bin/false";
+      "fs.suid_dumpable" = 0;
+    };
+
+    kernelPackages = pkgs.linuxPackages_zen;
+
     plymouth = {
       enable = true;
       extraConfig = ''
