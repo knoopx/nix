@@ -27,8 +27,6 @@
         ids = ["0001:0001"];
         settings = {
           main = {
-            leftmeta = "leftalt";
-            leftalt = "overload(meta, M-.)";
           };
         };
       };

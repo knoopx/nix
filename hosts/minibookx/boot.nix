@@ -8,7 +8,6 @@
   boot = {
     kernelModules = ["kvm-intel"];
     extraModulePackages = [];
-    kernelPackages = pkgs.linuxPackages_zen;
 
     initrd = {
       availableKernelModules = [
