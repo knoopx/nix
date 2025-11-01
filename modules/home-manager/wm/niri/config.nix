@@ -240,12 +240,23 @@
         geometry-corner-radius 18.0 18.0 18.0 18.0
     }
 
+
+    window-rule {
+        match app-id="org.gnome.NautilusPreviewer"
+        open-floating true;
+        default-column-width { proportion 0.75; }
+        default-window-height { proportion 0.75; }
+    }
+
     window-rule {
         match is-active=false
         opacity 0.9
     }
 
-
+    window-rule {
+        match is-floating=true
+        opacity 1.0
+    }
 
     layer-rule {
         match namespace="notifications"
@@ -264,39 +275,5 @@
         window-open { off; }
         window-close { off; }
     }
-
-    ${lib.concatStringsSep "\n" (
-      let
-        appWidths = nixosConfig.defaults.display.appWidths or {};
-        floatingApps = nixosConfig.defaults.display.floatingApps or [];
-        isFloating = appId: lib.elem appId floatingApps;
-        rules = lib.map (
-          appId: let
-            width = appWidths.${appId};
-            floating = isFloating appId;
-            matchLine = "match app-id=\"${appId}\"";
-            widthLine =
-              if width != null
-              then "default-column-width { proportion ${toString width}; }"
-              else null;
-            floatingLine =
-              if floating
-              then "open-floating true"
-              else null;
-            body = lib.concatStringsSep "\n" (lib.filter (x: x != null) [matchLine widthLine floatingLine]);
-          in
-            if body != ""
-            then "window-rule {\n${body}\n}"
-            else null
-        ) (lib.attrNames appWidths);
-        floatingOnly = lib.filter (appId: !(appWidths ? appId)) floatingApps;
-        floatingRules =
-          lib.map (
-            appId: "window-rule {\nmatch app-id=\"${appId}\"\nopen-floating true\n}"
-          )
-          floatingOnly;
-      in
-        rules ++ floatingRules
-    )}
   '';
 }

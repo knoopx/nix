@@ -40,10 +40,6 @@ with lib; {
             type = types.attrsOf types.float;
             description = "Mapping of app-id to default column width proportion (0.0-1.0)";
           };
-          floatingApps = mkOption {
-            type = types.listOf types.str;
-            description = "List of app-ids that should open as floating windows.";
-          };
         };
       };
       description = "Display configuration settings";
@@ -60,12 +56,6 @@ with lib; {
         sidebarWidth = 200;
         defaultColumnWidthPercent = 0.75;
         columnWidthPercentPresets = [0.75 0.5 0.25];
-        appWidths = {};
-        floatingApps = [
-          "^floating."
-          "org.gnome.NautilusPreviewer"
-          "re.sonny.Commit"
-        ];
       };
     };
   };
