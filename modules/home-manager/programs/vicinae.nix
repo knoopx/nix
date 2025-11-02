@@ -114,9 +114,31 @@ in {
   '';
 
   home.file.".config/vicinae/vicinae.json".text = builtins.toJSON {
+    closeOnFocusLoss = true;
     faviconService = "google";
     font = {
       size = 10;
+    };
+    keybinding = "default";
+    keybinds = {
+      "action.copy" = "control+shift+C";
+      "action.copy-name" = "control+shift+.";
+      "action.copy-path" = "control+shift+,";
+      "action.dangerous-remove" = "control+shift+X";
+      "action.duplicate" = "control+D";
+      "action.edit" = "control+E";
+      "action.edit-secondary" = "control+shift+E";
+      "action.move-down" = "control+shift+ARROWDOWN";
+      "action.move-up" = "control+shift+ARROWUP";
+      "action.new" = "control+N";
+      "action.open" = "control+O";
+      "action.pin" = "control+shift+P";
+      "action.refresh" = "control+R";
+      "action.remove" = "control+X";
+      "action.save" = "control+S";
+      "open-search-filter" = "control+P";
+      "open-settings" = "control+,";
+      "toggle-action-panel" = "control+J";
     };
     popToRootOnClose = true;
     rootSearch = {
