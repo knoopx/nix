@@ -235,7 +235,9 @@ in {
 
   xdg.configFile."opencode/config.json".source = (pkgs.formats.json {}).generate "config.json" {
     "$schema" = "https://opencode.ai/config.json";
-    theme = "custom";
+    theme = "tokyonight";
+    autoupdate = false;
+    share = "disabled";
     keybinds = {
       model_list = "ctrl+m";
     };
