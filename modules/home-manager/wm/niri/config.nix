@@ -96,20 +96,29 @@
 
 
     output "DSI-1" {
-        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         transform "270"
         scale 1.5
+
+        layout {
+            background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
+        }
     }
 
 
     output "LG HDR 4K" {
-        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         scale 1.75
+
+        layout {
+            background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
+        }
     }
 
     output "Virtual-1" {
-        background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
         scale 1.5
+
+        layout {
+            background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
+        }
     }
 
     screenshot-path "~/Pictures/Screenshots/%Y-%m-%d %H-%M-%S.png"
