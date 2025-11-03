@@ -5,15 +5,7 @@
   pkgs,
   ...
 }: let
-  package = pkgs.vicinae.overrideAttrs (oldAttrs: rec {
-    version = "0.16.0";
-    src = pkgs.fetchFromGitHub {
-      owner = "vicinaehq";
-      repo = "vicinae";
-      rev = "v${version}";
-      sha256 = "sha256-kZAef+/eQWHKiFvYw8fNxAFRgpX8Ms/+G0JFg5qP1sQ=";
-    };
-  });
+  package = pkgs.vicinae;
 in {
   home.packages = [
     package
