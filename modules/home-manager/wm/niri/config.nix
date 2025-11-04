@@ -113,6 +113,14 @@
         }
     }
 
+    output "BOE NE135A1M-NY1 Unknown" {
+        scale 1.75
+
+        layout {
+            background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
+        }
+    }
+
     output "Virtual-1" {
         scale 1.5
 
