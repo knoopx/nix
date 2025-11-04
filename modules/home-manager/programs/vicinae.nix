@@ -20,9 +20,8 @@ in {
       BindsTo = ["graphical-session.target"];
     };
     Service = {
-      EnvironmentFile = pkgs.writeText "vicinae-env" ''
-        USE_LAYER_SHELL=1
-      '';
+      Environment = lib.mkForce [ "USE_LAYER_SHELL=0" ];
+      EnvironmentFile = lib.mkForce [];
       Type = "simple";
       ExecStart = "${lib.getExe package} server";
       Restart = "always";
