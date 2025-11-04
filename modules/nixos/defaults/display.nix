@@ -56,6 +56,25 @@ with lib; {
         sidebarWidth = 200;
         defaultColumnWidthPercent = 0.75;
         columnWidthPercentPresets = [0.75 0.5 0.25];
+
+        appWidths = {
+          "code" = 1.0;
+          "io.bassi.Amberol" = 0.25;
+          "kitty" = 0.75;
+          "net.knoopx.bookmarks" = 0.25;
+          "net.knoopx.chat" = 0.5;
+          "net.knoopx.launcher" = 0.25;
+          "net.knoopx.music" = 0.33;
+          "net.knoopx.nix-packages" = 0.25;
+          "net.knoopx.notes" = 0.75;
+          "net.knoopx.process-manager" = 0.25;
+          "net.knoopx.scratchpad" = 0.25;
+          "net.knoopx.windows" = 0.25;
+          "org.gnome.Calendar" = 0.75;
+          "org.gnome.Weather" = 0.75;
+          "Plexamp" = 0.25;
+          "transmission-gtk" = 0.5;
+        };
       };
     };
   };
