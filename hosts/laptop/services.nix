@@ -23,7 +23,7 @@
   services.keyd = {
     enable = true;
     keyboards = {
-      default = {
+      laptop = {
         ids = ["0001:0001"];
         settings = {
           main = {
