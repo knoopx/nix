@@ -237,7 +237,7 @@ in {
     "$schema" = "https://opencode.ai/config.json";
     theme = "tokyonight";
     autoupdate = false;
-    share = "disabled";
+    # share = "disabled"; # required for vibe-kanban
     keybinds = {
       model_list = "ctrl+m";
     };
@@ -276,25 +276,37 @@ in {
         };
       };
     };
-    # provider = {
-    #   local = {
-    #     npm = "@ai-sdk/openai-compatible";
-    #     options = {
-    #       baseURL = "${nixosConfig.defaults.ai.baseURL}/v1";
-    #     };
-    #     models =
-    #       builtins.mapAttrs
-    #       (name: model: {
-    #         id = model.id;
-    #         reasoning = model.reasoning;
-    #         tool_call = model.tool_call;
-    #         limit = {
-    #           context = model.context;
-    #           output = 0;
-    #         };
-    #       })
-    #       (lib.filterAttrs (name: model: model.unlisted != true) nixosConfig.defaults.ai.models);
-    #   };
-    # };
+    provider = {
+      ollama-cloud = {
+        npm = "ollama-ai-provider-v2";
+        #   options = {
+        #     baseURL = "https://ollama.com/v1";
+        #   };
+
+        #   models = {
+        #     "deepseek-v3.1:671b-cloud" = {
+        #       name = "deepseek-v3.1:671b-cloud";
+        #     };
+        #     "gpt-oss:20b-cloud" = {
+        #       name = "gpt-oss:20b-cloud";
+        #     };
+        #     "gpt-oss:120b-cloud" = {
+        #       name = "gpt-oss:120b-cloud";
+        #     };
+        #     "kimi-k2:1t-cloud" = {
+        #       name = "kimi-k2:1t-cloud";
+        #     };
+        #     "qwen3-coder:480b-cloud" = {
+        #       name = "qwen3-coder:480b-cloud";
+        #     };
+        #     "glm-4.6:cloud" = {
+        #       name = "glm-4.6:cloud";
+        #     };
+        #     "minimax-m2:cloud" = {
+        #       name = "minimax-m2:cloud";
+        #     };
+        #   };
+      };
+    };
   };
 }
