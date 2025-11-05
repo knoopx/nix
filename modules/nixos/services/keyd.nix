@@ -7,8 +7,7 @@
         ids = ["*"];
         settings = {
           main = {
-            leftalt = "overload(meta, M-.)";
-            leftmeta = "leftalt";
+            leftmeta = "overload(meta, M-.)";
           };
         };
       };
