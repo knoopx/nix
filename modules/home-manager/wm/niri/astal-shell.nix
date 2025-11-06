@@ -18,6 +18,7 @@ in {
       "Unknown" = [200 70];
       "LG HDR 4K" = [390 145];
       "BOE NE135A1M-NY1 Unknown" = [200 70];
+      "MO27U2" = [390 145];
     };
 
     # Configure theme

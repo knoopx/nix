@@ -129,6 +129,15 @@
         }
     }
 
+    output "GIGA-BYTE TECHNOLOGY CO., LTD. MO27U2 25130B000565" {
+        mode "3840x2160@240"
+        scale 1.5
+
+        layout {
+            background-color "#${nixosConfig.defaults.colorScheme.palette.base02}"
+        }
+    }
+
     screenshot-path "~/Pictures/Screenshots/%Y-%m-%d %H-%M-%S.png"
 
     prefer-no-csd
