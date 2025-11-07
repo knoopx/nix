@@ -51,7 +51,7 @@
     };
   };
 
-  home.file.".local/share/flatpak/exports/share/vicinae/themes/custom.toml".text = ''
+  home.file.".local/share/vicinae/themes/custom.toml".text = ''
     [meta]
     version = 1
     name = "Custom Theme"
@@ -82,8 +82,7 @@
     danger = "#${nixosConfig.defaults.colorScheme.palette.base08}"
     success = "#${nixosConfig.defaults.colorScheme.palette.base0B}"
     placeholder = "#${nixosConfig.defaults.colorScheme.palette.base03}"
-    selection = { background = "#${nixosConfig.defaults.colorScheme.palette.base0D}",
-    foreground = "#${nixosConfig.defaults.colorScheme.palette.base00}" }
+    selection = { background = "#${nixosConfig.defaults.colorScheme.palette.base0D}", foreground = "#${nixosConfig.defaults.colorScheme.palette.base00}" }
 
     [colors.text.links]
     default = "#${nixosConfig.defaults.colorScheme.palette.base0D}"
