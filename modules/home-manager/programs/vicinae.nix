@@ -1,35 +1,53 @@
 {
-  lib,
   config,
   nixosConfig,
-  pkgs,
   ...
-}: let
-  package = pkgs.vicinae;
-in {
-  home.packages = [
-    package
-  ];
+}: {
+  programs.vicinae = {
+    enable = true;
+    systemd.enable = true;
+    useLayerShell = false;
 
-  systemd.user.services.vicinae = {
-    Unit = {
-      Description = "Vicinae server daemon";
-      Documentation = ["https://docs.vicinae.com"];
-      After = ["graphical-session.target"];
-      PartOf = ["graphical-session.target"];
-      BindsTo = ["graphical-session.target"];
-    };
-    Service = {
-      Environment = lib.mkForce [ "USE_LAYER_SHELL=0" ];
-      EnvironmentFile = lib.mkForce [];
-      Type = "simple";
-      ExecStart = "${lib.getExe package} server";
-      Restart = "always";
-      RestartSec = 5;
-      KillMode = "process";
-    };
-    Install = {
-      WantedBy = ["graphical-session.target"];
+    settings = {
+      closeOnFocusLoss = true;
+      faviconService = "google";
+      font = {
+        size = 10;
+      };
+      keybinding = "default";
+      keybinds = {
+        "action.copy" = "control+shift+C";
+        "action.copy-name" = "control+shift+.";
+        "action.copy-path" = "control+shift+,";
+        "action.dangerous-remove" = "control+shift+X";
+        "action.duplicate" = "control+D";
+        "action.edit" = "control+E";
+        "action.edit-secondary" = "control+shift+E";
+        "action.move-down" = "control+shift+ARROWDOWN";
+        "action.move-up" = "control+shift+ARROWUP";
+        "action.new" = "control+N";
+        "action.open" = "control+O";
+        "action.pin" = "control+shift+P";
+        "action.refresh" = "control+R";
+        "action.remove" = "control+X";
+        "action.save" = "control+S";
+        "open-search-filter" = "control+P";
+        "open-settings" = "control+,";
+        "toggle-action-panel" = "control+J";
+      };
+      popToRootOnClose = true;
+      rootSearch = {
+        searchFiles = false;
+      };
+      theme = {
+        iconTheme = config.gtk.iconTheme.name;
+        name = "custom";
+      };
+      window = {
+        csd = true;
+        opacity = 1;
+        rounding = 8;
+      };
     };
   };
 
@@ -64,7 +82,8 @@ in {
     danger = "#${nixosConfig.defaults.colorScheme.palette.base08}"
     success = "#${nixosConfig.defaults.colorScheme.palette.base0B}"
     placeholder = "#${nixosConfig.defaults.colorScheme.palette.base03}"
-    selection = { background = "#${nixosConfig.defaults.colorScheme.palette.base0D}", foreground = "#${nixosConfig.defaults.colorScheme.palette.base00}" }
+    selection = { background = "#${nixosConfig.defaults.colorScheme.palette.base0D}",
+    foreground = "#${nixosConfig.defaults.colorScheme.palette.base00}" }
 
     [colors.text.links]
     default = "#${nixosConfig.defaults.colorScheme.palette.base0D}"
@@ -103,46 +122,4 @@ in {
     bar = "#${nixosConfig.defaults.colorScheme.palette.base05}"
     spinner = "#${nixosConfig.defaults.colorScheme.palette.base05}"
   '';
-
-  home.file.".config/vicinae/vicinae.json".text = builtins.toJSON {
-    closeOnFocusLoss = true;
-    faviconService = "google";
-    font = {
-      size = 10;
-    };
-    keybinding = "default";
-    keybinds = {
-      "action.copy" = "control+shift+C";
-      "action.copy-name" = "control+shift+.";
-      "action.copy-path" = "control+shift+,";
-      "action.dangerous-remove" = "control+shift+X";
-      "action.duplicate" = "control+D";
-      "action.edit" = "control+E";
-      "action.edit-secondary" = "control+shift+E";
-      "action.move-down" = "control+shift+ARROWDOWN";
-      "action.move-up" = "control+shift+ARROWUP";
-      "action.new" = "control+N";
-      "action.open" = "control+O";
-      "action.pin" = "control+shift+P";
-      "action.refresh" = "control+R";
-      "action.remove" = "control+X";
-      "action.save" = "control+S";
-      "open-search-filter" = "control+P";
-      "open-settings" = "control+,";
-      "toggle-action-panel" = "control+J";
-    };
-    popToRootOnClose = true;
-    rootSearch = {
-      searchFiles = false;
-    };
-    theme = {
-      iconTheme = config.gtk.iconTheme.name;
-      name = "custom";
-    };
-    window = {
-      csd = true;
-      opacity = 1;
-      rounding = 8;
-    };
-  };
 }
