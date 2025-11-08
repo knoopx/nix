@@ -13,9 +13,24 @@
             type = "weather";
             location = nixosConfig.defaults.location;
           }
-          {type = "calendar";}
-          {
-            type = "markets";
+           {type = "calendar";}
+           {
+             type = "custom-api";
+             title = "Vilassar de Mar Departures";
+             url = "https://serveisgrs.rodalies.gencat.cat/api/departures?stationId=79410&minute=60&fullResponse=true&lang=en";
+             cache = "5m";
+              template = ''
+                <ul class="list list-gap-14">
+                  {{ range $index, $train := .JSON.Array "trains" }}{{ if lt $index 5 }}
+                  <li>
+                    <div class="size-h4">{{ $train.String "line.name" }} to {{ $train.String "destinationStation.name" }} at {{ $train.String "departureDateHourSelectedStation" | parseTime "rfc3339" | formatTime "15:04" }} Platform {{ $train.String "platformSelectedStation" }}{{ if gt ($train.Int "delay") 0 }} • {{ $train.Int "delay" }}min delay{{ end }}</div>
+                  </li>
+                  {{ end }}{{ end }}
+                </ul>
+              '';
+           }
+           {
+             type = "markets";
             cache = "1h";
             markets = [
               {
@@ -69,9 +84,12 @@
           }
 
           {
-            type = "extension";
-            allow-potentially-dangerous-html = true;
-            url = "http://localhost:${toString config.glance-extensions.port}/xkcd";
+            type = "custom-api";
+            title = "XKCD";
+            url = "https://xkcd.com/info.0.json";
+            template = ''
+              <img src="{{ .JSON.String "img" }}" alt="{{ .JSON.String "alt" }}" title="{{ .JSON.String "title" }}" loading="lazy" />
+            '';
           }
         ];
       }
@@ -211,9 +229,23 @@
         size = "small";
         widgets = [
           {
-            type = "extension";
-            allow-potentially-dangerous-html = true;
-            url = "http://localhost:${toString config.glance-extensions.port}/github-trending";
+            type = "custom-api";
+            title = "GitHub Trending";
+            url = "https://githubtrending.lessx.xyz/trending?since=daily";
+            cache = "1h";
+            template = ''
+              <ul class="list list-gap-14 collapsible-container" data-collapse-after="5">
+                {{ range .JSON.Array "" }}
+                <li>
+                  <a class="size-h3 color-primary-if-not-visited" href="{{ .String "repository" }}">{{ .String "name" }}</a>
+                  <ul class="list-horizontal-text">
+                    <li>{{ .String "description" }}</li>
+                    <li>{{ .String "language" }} • {{ .String "stars" }} stars • {{ .String "increased" }}</li>
+                  </ul>
+                </li>
+                {{ end }}
+              </ul>
+            '';
           }
 
           {
