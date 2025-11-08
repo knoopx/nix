@@ -66,7 +66,7 @@
     # sqlite
     # sysz
     # tab
-    # taskwarrior3
+    taskwarrior3
     # tree
     # vllm
     # w3m
