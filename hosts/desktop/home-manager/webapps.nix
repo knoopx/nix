@@ -1,0 +1,3 @@
+{...}: {
+  home.webapps.enable = true;
+}
