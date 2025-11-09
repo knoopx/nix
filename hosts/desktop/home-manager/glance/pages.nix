@@ -268,14 +268,6 @@
                 url = "https://github.com/microsoft/vscode/releases.atom";
               }
               {
-                title = "Gemini CLI";
-                url = "https://github.com/google-gemini/gemini-cli/releases.atom";
-              }
-              {
-                title = "Ollama";
-                url = "https://github.com/ollama/ollama/releases.atom";
-              }
-              {
                 title = "Niri";
                 url = "https://github.com/YaLTeR/niri/releases.atom";
               }
@@ -287,11 +279,6 @@
                 title = "Ollama";
                 url = "https://github.com/YaLTeR/niri/releases.atom";
               }
-
-              {
-                title = "Open WebUI";
-                url = "https://github.com/open-webui/open-webui/releases.atom";
-              }
               {
                 title = "Home Assistant";
                 url = "https://github.com/home-assistant/core/releases.atom";
@@ -299,10 +286,6 @@
               {
                 title = "Zigbee2MQTT";
                 url = "https://github.com/Koenkk/zigbee2mqtt/releases.atom";
-              }
-              {
-                title = "ES-DE";
-                url = "https://gitlab.com/es-de/emulationstation-de/-/releases.atom";
               }
               {
                 title = "SilverBullet";
