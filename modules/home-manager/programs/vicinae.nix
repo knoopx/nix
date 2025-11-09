@@ -61,6 +61,7 @@
 
     [colors.core]
     accent = "#${nixosConfig.defaults.colorScheme.palette.base0D}"
+    accent_foreground = "#${nixosConfig.defaults.colorScheme.palette.base00}"
     background = "#${nixosConfig.defaults.colorScheme.palette.base00}"
     foreground = "#${nixosConfig.defaults.colorScheme.palette.base05}"
     secondary_background = "#${nixosConfig.defaults.colorScheme.palette.base01}"
@@ -95,7 +96,7 @@
 
     [colors.button.primary]
     background = "#${nixosConfig.defaults.colorScheme.palette.base02}"
-    foreground = "#${nixosConfig.defaults.colorScheme.palette.base05}"
+    foreground = "#${nixosConfig.defaults.colorScheme.palette.base00}"
     hover = { background = "#${nixosConfig.defaults.colorScheme.palette.base03}" }
     focus = { outline = "#${nixosConfig.defaults.colorScheme.palette.base0D}" }
 
@@ -116,6 +117,12 @@
 
     [colors.scrollbars]
     background = "#${nixosConfig.defaults.colorScheme.palette.base02}"
+
+    [colors.main_window]
+    border = "#${nixosConfig.defaults.colorScheme.palette.base02}"
+
+    [colors.settings_window]
+    border = "#${nixosConfig.defaults.colorScheme.palette.base02}"
 
     [colors.loading]
     bar = "#${nixosConfig.defaults.colorScheme.palette.base05}"
