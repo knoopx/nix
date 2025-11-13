@@ -60,7 +60,7 @@ in {
 
   userContent = ''
     @import "${theme}/theme/userContent.css";
-    ${builtins.readFile "${nix-userstyles.packages.${pkgs.system}.mkUserStyles nixosConfig.defaults.colorScheme.palette [
+    ${builtins.readFile "${nix-userstyles.packages.${pkgs.stdenv.hostPlatform.system}.mkUserStyles nixosConfig.defaults.colorScheme.palette [
       "brave-search"
       "bsky"
       "chatgpt"
