@@ -1,7 +1,4 @@
 {pkgs, ...}: {
-  # fix for podman + nvidia-container-toolkit
-  environment.etc."cdi/nvidia-container-toolkit.json".source = "/run/cdi/nvidia-container-toolkit.json";
-
   virtualisation = {
     # lxd.enable = true;
     # virtualbox.host.enable = true;
