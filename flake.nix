@@ -48,8 +48,7 @@
     autofirma-nix.inputs.nixpkgs.follows = "nixpkgs";
     autofirma-nix.inputs.home-manager.follows = "home-manager";
 
-    nix-chuwi-minibook-x.url = "github:knoopx/nix-chuwi-minibook-x";
-    nix-chuwi-minibook-x.inputs.nixpkgs.follows = "nixpkgs";
+
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
@@ -63,7 +62,6 @@
     home-manager,
     niri,
     nix-vscode-extensions,
-    nix-chuwi-minibook-x,
     nixpkgs,
     stylix,
     xwayland-satellite,
@@ -193,11 +191,7 @@
 
       minibookx = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
-        modules =
-          (mkNixosModules ./hosts/minibookx)
-          ++ [
-            nix-chuwi-minibook-x.nixosModules.default
-          ];
+        modules = mkNixosModules ./hosts/minibookx;
       };
     };
   };
