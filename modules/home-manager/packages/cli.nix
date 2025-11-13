@@ -8,6 +8,7 @@
     # bandwhich
     # bash
     # bison
+    # black
     # btrfs-snap
     # ccache
     # clang-tools
@@ -29,6 +30,8 @@
     # hdparm
     # iftop
     # iperf
+    # isort
+    # just
     # less
     # libarchive
     # libelf
@@ -66,7 +69,7 @@
     # sqlite
     # sysz
     # tab
-    taskwarrior3
+    # taskwarrior3
     # tree
     # vllm
     # w3m
@@ -85,6 +88,7 @@
     brotab
     caligula
     circumflex # hackernews client
+    clang-tools
     csvkit
     csvlens
     dasel
@@ -98,6 +102,7 @@
     gcalcli
     gum
     imagemagick
+    inetutils
     inotify-tools
     jq
     lshw
@@ -105,6 +110,7 @@
     mpv
     navi
     nh
+    opencode
     ox
     p7zip
     pciutils
@@ -121,8 +127,5 @@
     wirelesstools
     wl-clipboard
     yt-dlp
-    clang-tools
-    opencode
-    inetutils
   ];
 }
