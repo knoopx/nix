@@ -1,11 +1,11 @@
 final: prev: {
-  vicinae = prev.vicinae.overrideAttrs (oldAttrs: {
-    version = "0.16.2-fix-label-color";
+  vicinae = prev.vicinae.overrideAttrs (oldAttrs: rec {
+    version = "v0.16.5";
     src = prev.fetchFromGitHub {
-      owner = "knoopx";
+      owner = "vicinaehq";
       repo = "vicinae";
-      rev = "fix-label-color";
-      hash = "sha256-wsOYkvnB3pPLTJz2Usc+aB5sXGssnz5KPMdwJ4bRrdM=";
+      rev = version;
+      hash = "sha256-smhbchRZmp7DwRLGA3QoI12kQuMVaxiNkhzfC+n19+4=";
     };
   });
 }
