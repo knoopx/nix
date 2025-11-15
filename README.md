@@ -40,7 +40,6 @@ nix run path:.
 - **[Kitty](https://github.com/kovidgoyal/kitty)**: GPU-accelerated terminal emulator with theme integration
 - **[Fish](https://github.com/fish-shell/fish-shell)**: The user-friendly command line shell with custom completions
 - **[Hyprlock](https://github.com/hyprwm/Hyprlock)**: Screen locker with custom theme
-- **[Navi](https://github.com/denisidoro/navi)**: Interactive cheatsheets for command-line tools
 - **[FZF](https://github.com/junegunn/fzf)**: Command-line fuzzy finder
 - **[Skim](https://github.com/lotabout/skim)**: Fuzzy finder with Vim integration
 - **[VSCode](https://github.com/microsoft/vscode)**: Primary code editor. Configured with custom keybindings, themes, and productivity tools for development
@@ -100,7 +99,6 @@ The `modules/home-manager/packages/dev/` directory contains language-specific de
   - **wm/**: Window manager user settings
     - **niri/**: Niri window manager with Astal shell integration
     - **xdg/**: XDG desktop integration, GTK themes, dconf settings
-  - **navi/**: Navi cheat sheets for various tools
   - **environment/**: User environment variables and session settings
   - **misc.nix**: Miscellaneous user configurations
 - **overlays/**: Package customizations and fixes:

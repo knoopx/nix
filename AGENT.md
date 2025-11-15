@@ -82,9 +82,6 @@ modules/
 ├── home-manager/     # Home-Manager Modules
 │   ├── environment.nix
 │   ├── misc.nix
-│   ├── navi/         # Navi cheat sheets
-│   │   ├── cheats/   # Individual cheat files
-│   │   └── default.nix
 │   ├── packages/     # User packages
 │   │   ├── cli.nix
 │   │   ├── gtk.nix

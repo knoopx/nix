@@ -108,7 +108,6 @@
     lshw
     lsof
     mpv
-    navi
     nh
     opencode
     ox

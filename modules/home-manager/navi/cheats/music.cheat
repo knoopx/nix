@@ -1,4 +1,0 @@
-% music
-
-# music
-amberol "(find "$(find /mnt/junk/Music -iname "*.mp3" -print0 | xargs -0 dirname | uniq | gum filter)" -iname "*.mp3")"
