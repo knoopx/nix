@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{config, ...}: {
   programs.gamemode.enable = true;
 
   environment = {
@@ -14,9 +10,6 @@
       NVIDIA_DRIVER_CAPABILITIES = "all";
       NVIDIA_VISIBLE_DEVICES = "all";
     };
-
-    systemPackages = with pkgs; [
-    ];
   };
 
   boot = {

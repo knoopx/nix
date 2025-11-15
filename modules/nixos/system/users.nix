@@ -30,6 +30,7 @@
       "video"
       "wheel"
       "ydotool"
+      "podman"
     ];
 
     openssh.authorizedKeys.keys = let
