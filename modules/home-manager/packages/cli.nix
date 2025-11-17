@@ -80,6 +80,7 @@
     # yq-go
     # zlib
     # zstd
+    xxd
     aria2
     ast-grep
     binsider
