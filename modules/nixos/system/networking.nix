@@ -7,12 +7,8 @@
     networkmanager.enable = true;
 
     firewall = {
-      enable = false;
-      trustedInterfaces = lib.mkIf config.services.tailscale.enable ["tailscale0"];
+      enable = true;
+      allowedTCPPorts = [22 80];
     };
-
-    # extraHosts = ''
-    #   127.0.0.1 search.knoopx.net
-    # '';
   };
 }

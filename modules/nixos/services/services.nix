@@ -43,5 +43,17 @@
         workstation = true;
       };
     };
+
+    fail2ban = {
+      enable = true;
+      maxretry = 3;
+      bantime = "1h";
+      jails = {
+        sshd.settings = {
+          backend = "systemd";
+          mode = "aggressive";
+        };
+      };
+    };
   };
 }
