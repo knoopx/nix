@@ -20,12 +20,12 @@
     name = "plymouth-theme-custom";
     src = pkgs.adi1090x-plymouth-themes;
     buildInputs = [pkgs.plymouth pkgs.lutgen];
+    # https://lut.sh/app/
     installPhase = ''
-      mkdir -p $out/share/plymouth/themes/custom
-      cp -r $src/share/plymouth/themes/cuts/* $out/share/plymouth/themes/custom/
-      lutgen apply -n 0 -l 4 -L 0.5 -s 512 $out/share/plymouth/themes/custom/*.png -- ${builtins.concatStringsSep " " (builtins.attrValues config.defaults.colorScheme.palette)};
-      mv $out/share/plymouth/themes/custom/cuts.script $out/share/plymouth/themes/custom/custom.script
-      mv $out/share/plymouth/themes/custom/cuts.plymouth $out/share/plymouth/themes/custom/custom.plymouth
+      lutgen apply $src/share/plymouth/themes/cuts/*.png -o $out/share/plymouth/themes/custom/ -- ${builtins.concatStringsSep " " (builtins.attrValues config.defaults.colorScheme.palette)};
+      cp $src/share/plymouth/themes/cuts/cuts.script $out/share/plymouth/themes/custom/custom.script
+      cp $src/share/plymouth/themes/cuts/cuts.plymouth $out/share/plymouth/themes/custom/custom.plymouth
+      substituteInPlace $out/share/plymouth/themes/custom/custom.plymouth --replace-fail "Name=cuts" "Name=custom"
     '';
   };
 in {
