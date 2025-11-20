@@ -15,6 +15,19 @@
         'If found please contact ${primaryEmail}' > $out
     '';
   };
+
+  theme = pkgs.stdenv.mkDerivation {
+    name = "plymouth-theme-custom";
+    src = pkgs.adi1090x-plymouth-themes;
+    buildInputs = [pkgs.plymouth pkgs.lutgen];
+    installPhase = ''
+      mkdir -p $out/share/plymouth/themes/custom
+      cp -r $src/share/plymouth/themes/cuts/* $out/share/plymouth/themes/custom/
+      lutgen apply -n 0 -l 4 -L 0.5 -s 512 $out/share/plymouth/themes/custom/*.png -- ${builtins.concatStringsSep " " (builtins.attrValues config.defaults.colorScheme.palette)};
+      mv $out/share/plymouth/themes/custom/cuts.script $out/share/plymouth/themes/custom/custom.script
+      mv $out/share/plymouth/themes/custom/cuts.plymouth $out/share/plymouth/themes/custom/custom.plymouth
+    '';
+  };
 in {
   boot = {
     crashDump.enable = false;
@@ -32,12 +45,8 @@ in {
       extraConfig = ''
         ShowDelay=0
       '';
-      theme = lib.mkForce "cuts";
-      themePackages = with pkgs; [
-        (adi1090x-plymouth-themes.override {
-          selected_themes = ["cuts"];
-        })
-      ];
+      theme = lib.mkForce "custom";
+      themePackages = [theme];
     };
 
     initrd = {
