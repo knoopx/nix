@@ -91,7 +91,7 @@ modules/
 │   ├── programs/     # Program configurations
 │   │   ├── btop.nix, cromite.nix, fish.nix, fzf.nix, git.nix
 │   │   ├── helix.nix, hyprlock.nix, kitty.nix, nh.nix
-│   │   ├── nix-index.nix, shell2http.nix, skim.nix
+│   │   ├── nix-index.nix, skim.nix
 │   │   ├── television.nix, vicinae.nix, yazi.nix
 │   │   ├── firefox/   # Firefox configuration
 │   │   ├── opencode-ai/  # OpenCode AI configuration
@@ -113,7 +113,7 @@ modules/
     ├── services/    # Core System services
     │   ├── android-photo-backup.nix, auto-scrcpy.nix
     │   ├── flatpak.nix, keyd.nix, plex.nix
-    │   ├── services.nix, shell2http.nix, traefik.nix
+    │   ├── services.nix, traefik.nix
     ├── system/      # Core system settings
     │   ├── boot.nix, documentation.nix, environment.nix
     │   ├── hardware.nix, networking.nix, nix-ld.nix

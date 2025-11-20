@@ -1,4 +1,4 @@
-# My NixOS Setup
+# kOS
 
 This is my personal NixOS configuration for a clean, keyboard-focused development machine. I built it to keep things simple, consistent, and distraction-free while coding.
 
@@ -40,12 +40,9 @@ nix run path:.
 - **[Kitty](https://github.com/kovidgoyal/kitty)**: GPU-accelerated terminal emulator with theme integration
 - **[Fish](https://github.com/fish-shell/fish-shell)**: The user-friendly command line shell with custom completions
 - **[Hyprlock](https://github.com/hyprwm/Hyprlock)**: Screen locker with custom theme
-- **[FZF](https://github.com/junegunn/fzf)**: Command-line fuzzy finder
-- **[Skim](https://github.com/lotabout/skim)**: Fuzzy finder with Vim integration
 - **[VSCode](https://github.com/microsoft/vscode)**: Primary code editor. Configured with custom keybindings, themes, and productivity tools for development
 - **[Helix](https://github.com/helix-editor/helix)**: Modal text editor inspired by Vim
 - **[Yazi](https://github.com/sxyazi/yazi)**: Modern terminal file manager
-- **[Television](https://github.com/alexpasmant/television)**: Fuzzy finder with preview
 
 ### Development Environments
 
@@ -67,11 +64,10 @@ The `modules/home-manager/packages/dev/` directory contains language-specific de
 - **desktop/**: Main workstation featuring:
   - NVIDIA graphics with CUDA support
   - [BTRFS](https://btrfs.readthedocs.io/en/latest/) filesystem with advanced features
-  - Container services ([Watchtower](https://github.com/containrrr/watchtower) for updates, [SilverBullet](https://silverbullet.md/))
-  - Hardware acceleration for AI models
-  - EasyEffects audio configuration
-  - Glance dashboard
-  - Autofirma integration
+- Container services ([Watchtower](https://github.com/containrrr/watchtower) for updates, [SilverBullet](https://silverbullet.md/), [Ollama](https://github.com/ollama/ollama) for AI models)
+- Hardware acceleration for AI models
+- EasyEffects audio configuration
+- Glance dashboard
 - **minibookx/**: Chuwi Minibook X N150 laptop configuration:
   - Hardware-specific drivers and optimizations
   - Power management and battery optimizations
@@ -82,7 +78,7 @@ The `modules/home-manager/packages/dev/` directory contains language-specific de
 
 - **modules/nixos/**: System-level configurations including:
   - **defaults/**: Global settings for AI, colors, display, fonts, system, and user
-  - **services/**: System services ([Plex Media Server](https://www.plex.tv/), [Traefik](https://github.com/traefik/traefik), Android backup, auto-scrcpy, Flatpak, Keyd, etc.)
+  - **services/**: System services ([Plex Media Server](https://www.plex.tv/), [Traefik](https://github.com/traefik/traefik), Android photo backup, auto-scrcpy, Flatpak, Keyd, etc.)
   - **system/**: Core system settings (boot, documentation, environment, hardware, networking, Nix configuration, packages, programs, users, virtualisation)
   - **theming/**: [Stylix](https://github.com/danth/stylix) theming configuration
   - **wm/**: Window manager and desktop environment settings (Niri, packages, programs, services, XDG)
@@ -92,9 +88,9 @@ The `modules/home-manager/packages/dev/` directory contains language-specific de
     - **cli.nix**: Command-line interface utilities
     - **gtk.nix**: GTK-related packages
 - **programs/**: Application configurations (VSCode, Firefox, Kitty, Fish, Helix, Hyprlock, etc.)
-    - **firefox/**: Firefox with custom policies, profiles, and uBlock rules
-    - **opencode-ai/**: OpenCode AI integration
-    - **vscode/**: VSCode with extensions, keybindings, and user settings
+  - **firefox/**: Firefox with custom policies, profiles, and uBlock rules
+  - **opencode-ai/**: OpenCode AI integration with custom themes, MCP servers (GitHub, Context7, DeepWiki, Markitdown, Open Web Search), and Ollama cloud provider
+  - **vscode/**: VSCode with extensions, keybindings, and user settings
   - **services/**: User services and daemons (Clipman, WebDAV)
   - **wm/**: Window manager user settings
     - **niri/**: Niri window manager with Astal shell integration
@@ -102,15 +98,15 @@ The `modules/home-manager/packages/dev/` directory contains language-specific de
   - **environment/**: User environment variables and session settings
   - **misc.nix**: Miscellaneous user configurations
 - **overlays/**: Package customizations and fixes:
-  - Custom builds for [Glance](https://github.com/glanceapp/glance), [Geary](https://gitlab.gnome.org/GNOME/geary), [RetroArch](https://github.com/libretro/RetroArch), etc.
-  - Theme and UI modifications (Balatro, Cromite, Kitty, Niri, etc.)
+  - Custom builds for [Glance](https://github.com/glanceapp/glance), [RetroArch](https://github.com/libretro/RetroArch), etc.
+  - Theme and UI modifications (Balatro, Kitty, Niri, Vicinae, VSCode, etc.)
   - OpenCode AI CLI wrapper (oc)
 - **builders/**: Helper functions for creating package derivations
   - **theming/**: Theme builders (MoreWaita icons, Stylix Firefox/Gnome themes)
 - **lib/**: Utility functions for theming, color manipulation, and module loading
   - **theming/**: Color conversion utilities (hexToRGB, rgbToHex, etc.)
   - **listNixModulesRecursive.nix**: Custom module loading utility
-- **pkgs/**: Custom package definitions ([Neuwaita Icon Theme](https://github.com/knoopx/neuwaita-icon-theme), [Llama Swap](https://github.com/knoopx/llama-swap), [NFO Viewer](https://github.com/nfoview/nfoview), etc.)
+- **pkgs/**: Custom package definitions ([Neuwaita Icon Theme](https://github.com/knoopx/neuwaita-icon-theme), [Llama Swap](https://github.com/knoopx/llama-swap), [NFO Viewer](https://github.com/nfoview/nfoview), [Cromite](https://github.com/uazo/cromite), etc.)
 - **home/**: User-specific Home Manager configurations
 - **flake.nix**: Main flake with inputs, outputs, and system configurations
 - **flake.lock**: Dependency lock file for reproducible builds
