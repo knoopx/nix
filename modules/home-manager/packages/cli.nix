@@ -80,7 +80,6 @@
     # yq-go
     # zlib
     # zstd
-    xxd
     aria2
     ast-grep
     binsider
@@ -110,6 +109,7 @@
     lsof
     mpv
     nh
+    nvd
     opencode
     ox
     p7zip
@@ -126,6 +126,7 @@
     wf-recorder
     wirelesstools
     wl-clipboard
+    xxd
     yt-dlp
   ];
 }

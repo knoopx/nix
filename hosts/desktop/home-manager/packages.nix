@@ -3,12 +3,12 @@ in {
   home.packages = with pkgs; [
     # llama-cpp
     # lmstudio
-    newsflash
+    # newsflash
+    # picard
+    # vial
     nfoview
     nicotine-plus
-    picard
     prusa-slicer
     transmission_4-gtk
-    vial
   ];
 }

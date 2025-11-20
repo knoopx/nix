@@ -16,6 +16,7 @@
     # fclones-gui
     # foliate
     # gapless
+    # ghidra
     # gnome-feeds
     # gnome-mahjongg
     # gnome-sudoku
