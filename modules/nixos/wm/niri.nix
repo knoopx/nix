@@ -1,5 +1,6 @@
 {pkgs, ...}: {
-  environment.systemPackages = [pkgs.xdg-utils pkgs.niri];
+  programs.niri.enable = true;
+  environment.systemPackages = [pkgs.xdg-utils];
   xdg = {
     autostart.enable = true;
     menus.enable = true;
@@ -9,14 +10,7 @@
 
   hardware.graphics.enable = true;
 
-  services.displayManager.sessionPackages = [pkgs.niri];
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gnome];
-    configPackages = [pkgs.niri];
-  };
-
+  services.displayManager.sessionPackages = [pkgs.niri-unstable];
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
 
