@@ -62,9 +62,6 @@
 
   "console-ninja.featureSet" = "Community";
 
-  "commitollama.custom.model" = "deepseek-coder-v2:16b-lite-instruct-q8_0";
-  "commitollama.model" = "Custom";
-
   "[css]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
   "[html]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
   "[javascript]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
