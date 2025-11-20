@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs?rev=b26b855658cae69587124c3fb65f805e4b88b540"; # works
+    # nixpkgs.url = "github:nixos/nixpkgs?rev=a2e92afc50a795dfe756e9d3a9e0bdaa82a645ff"; # broken
 
     nix-userstyles.url = "github:knoopx/nix-userstyles";
     nix-userstyles.inputs.nixpkgs.follows = "nixpkgs";
@@ -20,14 +22,11 @@
     stylix.url = "github:nix-community/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
 
-    niri.url = "github:YaLTeR/niri";
+    niri.url = "github:sodiboo/niri-flake";
     niri.inputs.nixpkgs.follows = "nixpkgs";
 
-    xwayland-satellite.url = "github:Supreeeme/xwayland-satellite";
-    xwayland-satellite.inputs.nixpkgs.follows = "nixpkgs";
-
     astal-shell.url = "github:knoopx/astal-shell";
-    # astal-shell.inputs.nixpkgs.follows = "nixpkgs";
+    astal-shell.inputs.nixpkgs.follows = "nixpkgs";
 
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
@@ -44,19 +43,12 @@
     neuwaita.url = "github:RusticBard/Neuwaita";
     neuwaita.flake = false;
 
-    autofirma-nix.url = "github:nix-community/autofirma-nix";
-    autofirma-nix.inputs.nixpkgs.follows = "nixpkgs";
-    autofirma-nix.inputs.home-manager.follows = "home-manager";
-
-
-
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
     astal-shell,
-    autofirma-nix,
     firefox-addons,
     haumea,
     home-manager,
@@ -64,7 +56,6 @@
     nix-vscode-extensions,
     nixpkgs,
     stylix,
-    xwayland-satellite,
     nix-userstyles,
     ...
   } @ inputs: let
@@ -87,8 +78,7 @@
       [
         astal-shell.overlays.default
         nix-vscode-extensions.overlays.default
-        (self: super: {niri = niri.packages.${system}.default;})
-        (self: super: {xwayland-satellite = xwayland-satellite.packages.${system}.default;})
+        niri.overlays.niri
         (self: super: {firefox-addons = firefox-addons.packages.${system};})
         (
           final: prev:
@@ -137,6 +127,7 @@
           nixpkgs.overlays = globalOverlays ++ hostOverlays;
         }
         stylix.nixosModules.stylix
+        niri.nixosModules.niri
         home-manager.nixosModules.home-manager
         {
           home-manager = {
@@ -145,7 +136,6 @@
             extraSpecialArgs = specialArgs;
             backupFileExtension = "bak";
             sharedModules = [
-              autofirma-nix.homeManagerModules.default
               astal-shell.homeManagerModules.default
             ];
           };
