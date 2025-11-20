@@ -235,7 +235,7 @@ in {
 
   xdg.configFile."opencode/config.json".source = (pkgs.formats.json {}).generate "config.json" {
     "$schema" = "https://opencode.ai/config.json";
-    theme = "tokyonight";
+    theme = "custom";
     autoupdate = false;
     # share = "disabled"; # required for vibe-kanban
     keybinds = {
