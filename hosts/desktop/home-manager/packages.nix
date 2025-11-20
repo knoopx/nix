@@ -10,6 +10,5 @@ in {
     prusa-slicer
     transmission_4-gtk
     vial
-    ollama-cuda
   ];
 }
