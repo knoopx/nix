@@ -21,11 +21,6 @@ _: {
       options = ["nosuid" "compress=zstd" "nodev" "nofail" "x-gvfs-show"];
       fsType = "btrfs";
     };
-    "/mnt/junk" = {
-      device = "/dev/disk/by-label/Junk";
-      options = ["nosuid" "compress=zstd" "nodev" "nofail" "x-gvfs-show"];
-      fsType = "btrfs";
-    };
     "/mnt/music" = {
       device = "/dev/disk/by-label/Music";
       options = ["nosuid" "compress=zstd" "nodev" "nofail" "x-gvfs-show"];
