@@ -1,9 +1,4 @@
-{
-  nixosConfig,
-  pkgs,
-  lib,
-  ...
-}: {
+{nixosConfig, ...}: {
   services.swayidle = {
     enable = true;
 
@@ -12,6 +7,18 @@
       {
         event = "after-resume";
         command = "display-control power-on-monitors";
+      }
+      {
+        event = "lock";
+        command = "display-control power-off-monitors";
+      }
+      {
+        event = "unlock";
+        command = "display-control power-on-monitors";
+      }
+      {
+        event = "before-sleep";
+        command = "session-control lock";
       }
     ];
     timeouts = [
