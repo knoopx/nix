@@ -273,6 +273,7 @@ in {
             {title = "Meet";}
             {title = "Notion";}
             {title = "Slack";}
+            {title = "Reddit";}
             {title = "Telegram";}
             {title = "Discord";}
             {title = "WhatsApp";}

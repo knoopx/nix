@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }: let
   msg = pkgs.stdenvNoCC.mkDerivation {
@@ -16,17 +17,9 @@
     '';
   };
 
-  theme = pkgs.stdenv.mkDerivation {
-    name = "plymouth-theme-custom";
-    src = pkgs.adi1090x-plymouth-themes;
-    buildInputs = [pkgs.plymouth pkgs.lutgen];
-    # https://lut.sh/app/
-    installPhase = ''
-      lutgen apply $src/share/plymouth/themes/cuts/*.png -o $out/share/plymouth/themes/custom/ -- ${builtins.concatStringsSep " " (builtins.attrValues config.defaults.colorScheme.palette)};
-      cp $src/share/plymouth/themes/cuts/cuts.script $out/share/plymouth/themes/custom/custom.script
-      cp $src/share/plymouth/themes/cuts/cuts.plymouth $out/share/plymouth/themes/custom/custom.plymouth
-      substituteInPlace $out/share/plymouth/themes/custom/custom.plymouth --replace-fail "Name=cuts" "Name=custom"
-    '';
+  theme = import ../../../builders/theming/mkPlymouthTheme {
+    inherit pkgs lib inputs;
+    colorScheme = config.defaults.colorScheme;
   };
 in {
   boot = {
