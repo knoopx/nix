@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   nixosConfig,
   nix-colors,
   ...
@@ -254,6 +253,34 @@ in {
           open-floating = true;
           default-column-width.proportion = 0.75;
           default-window-height.proportion = 0.75;
+        }
+        {
+          matches = [{app-id = "code";}];
+          default-column-width.proportion = 1.0;
+        }
+        {
+          matches = [{app-id = "Plexamp";}];
+          default-column-width.proportion = 0.25;
+        }
+        {
+          matches = [
+            {app-id = "scrcpy";}
+            {title = "Login";}
+            {title = "Photos";}
+            {title = "[Ss]ign-?in";}
+            {title = "[Pp]assword";}
+            {title = "Calendar";}
+            {title = "Meet";}
+            {title = "Notion";}
+            {title = "Slack";}
+            {title = "Telegram";}
+            {title = "Discord";}
+            {title = "WhatsApp";}
+            {title = "Vicinae Launcher";}
+            {title = "Gmail";}
+            {app-id = "org.gnome.Nautilus";}
+          ];
+          block-out-from = "screen-capture";
         }
         {
           matches = [{is-active = false;}];
