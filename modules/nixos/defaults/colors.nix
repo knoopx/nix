@@ -111,8 +111,6 @@ with lib; {
           base0D = "fad000";
           base0E = "faefa5";
           base0F = "fb94ff";
-          # 191033
-          # 191930
         };
       };
     };

@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}:
+{lib, ...}:
 with lib; {
   options.defaults = {
     display = mkOption {
@@ -34,11 +30,15 @@ with lib; {
           };
           columnWidthPercentPresets = mkOption {
             type = types.listOf types.float;
-            description = "List of column width presets as percentages";
+            description = "List of column width percentage presets";
           };
-          appWidths = mkOption {
-            type = types.attrsOf types.float;
-            description = "Mapping of app-id to default column width proportion (0.0-1.0)";
+          windowRules = mkOption {
+            type = types.listOf types.attrs;
+            description = "List of window rules for the window manager";
+          };
+          layerRules = mkOption {
+            type = types.listOf types.attrs;
+            description = "List of layer rules for the window manager";
           };
         };
       };
@@ -57,24 +57,98 @@ with lib; {
         defaultColumnWidthPercent = 0.75;
         columnWidthPercentPresets = [0.75 0.5 0.25];
 
-        appWidths = {
-          "code" = 1.0;
-          "io.bassi.Amberol" = 0.25;
-          "kitty" = 0.75;
-          "net.knoopx.bookmarks" = 0.25;
-          "net.knoopx.chat" = 0.5;
-          "net.knoopx.launcher" = 0.25;
-          "net.knoopx.music" = 0.33;
-          "net.knoopx.nix-packages" = 0.25;
-          "net.knoopx.notes" = 0.75;
-          "net.knoopx.process-manager" = 0.25;
-          "net.knoopx.scratchpad" = 0.25;
-          "net.knoopx.windows" = 0.25;
-          "org.gnome.Calendar" = 0.75;
-          "org.gnome.Weather" = 0.75;
-          "Plexamp" = 0.25;
-          "transmission-gtk" = 0.5;
-        };
+        windowRules = [
+          {
+            draw-border-with-background = false;
+            geometry-corner-radius = {
+              top-left = 8.0;
+              top-right = 8.0;
+              bottom-left = 8.0;
+              bottom-right = 8.0;
+            };
+            clip-to-geometry = true;
+          }
+          {
+            matches = [{is-floating = true;}];
+            geometry-corner-radius = {
+              top-left = 16.0;
+              top-right = 16.0;
+              bottom-left = 16.0;
+              bottom-right = 16.0;
+            };
+          }
+          {
+            matches = [{app-id = "scrcpy";}];
+            open-floating = false;
+            default-column-width.fixed = 472;
+            geometry-corner-radius = {
+              top-left = 18.0;
+              top-right = 18.0;
+              bottom-left = 18.0;
+              bottom-right = 18.0;
+            };
+          }
+          {
+            matches = [{app-id = "org.gnome.NautilusPreviewer";}];
+            open-floating = true;
+            default-window-height.proportion = 0.75;
+          }
+          {
+            matches = [{app-id = "code";}];
+            default-column-width.proportion = 1.0;
+          }
+          {
+            matches = [{app-id = "transmission-gtk";}];
+            default-column-width.proportion = 0.5;
+          }
+          {
+            matches = [
+              {app-id = "io.bassi.Amberol";}
+              {app-id = "Plexamp";}
+            ];
+            default-column-width.proportion = 0.25;
+          }
+          {
+            matches = [
+              {app-id = "scrcpy";}
+              {title = "[Ll]ogin";}
+              {title = "Photos";}
+              {title = "[Ss]ign-?in";}
+              {title = "[Pp]assword";}
+              {title = "Calendar";}
+              {title = "Meet";}
+              {title = "Notion";}
+              {title = "Slack";}
+              {title = "Reddit";}
+              {title = "Telegram";}
+              {title = "Discord";}
+              {title = "WhatsApp";}
+              {title = "Vicinae Launcher";}
+              {title = "Gmail";}
+              {app-id = "org.gnome.Nautilus";}
+            ];
+            block-out-from = "screen-capture";
+          }
+          {
+            matches = [{is-active = false;}];
+            opacity = 0.9;
+          }
+          {
+            matches = [{is-floating = true;}];
+            opacity = 1.0;
+          }
+        ];
+
+        layerRules = [
+          {
+            matches = [{namespace = "notifications";}];
+            block-out-from = "screen-capture";
+          }
+          {
+            matches = [{namespace = "^wallpaper$";}];
+            place-within-backdrop = true;
+          }
+        ];
       };
     };
   };

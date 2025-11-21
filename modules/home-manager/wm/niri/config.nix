@@ -217,92 +217,9 @@ in {
         tablet-mode-off.action = {spawn = ["bash" "-c" "gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false"];};
       };
 
-      window-rules = [
-        {
-          draw-border-with-background = false;
-          geometry-corner-radius = {
-            top-left = 8.0;
-            top-right = 8.0;
-            bottom-left = 8.0;
-            bottom-right = 8.0;
-          };
-          clip-to-geometry = true;
-        }
-        {
-          matches = [{is-floating = true;}];
-          geometry-corner-radius = {
-            top-left = 16.0;
-            top-right = 16.0;
-            bottom-left = 16.0;
-            bottom-right = 16.0;
-          };
-        }
-        {
-          matches = [{app-id = "scrcpy";}];
-          open-floating = false;
-          default-column-width.fixed = 472;
-          geometry-corner-radius = {
-            top-left = 18.0;
-            top-right = 18.0;
-            bottom-left = 18.0;
-            bottom-right = 18.0;
-          };
-        }
-        {
-          matches = [{app-id = "org.gnome.NautilusPreviewer";}];
-          open-floating = true;
-          default-column-width.proportion = 0.75;
-          default-window-height.proportion = 0.75;
-        }
-        {
-          matches = [{app-id = "code";}];
-          default-column-width.proportion = 1.0;
-        }
-        {
-          matches = [{app-id = "Plexamp";}];
-          default-column-width.proportion = 0.25;
-        }
-        {
-          matches = [
-            {app-id = "scrcpy";}
-            {title = "Login";}
-            {title = "Photos";}
-            {title = "[Ss]ign-?in";}
-            {title = "[Pp]assword";}
-            {title = "Calendar";}
-            {title = "Meet";}
-            {title = "Notion";}
-            {title = "Slack";}
-            {title = "Reddit";}
-            {title = "Telegram";}
-            {title = "Discord";}
-            {title = "WhatsApp";}
-            {title = "Vicinae Launcher";}
-            {title = "Gmail";}
-            {app-id = "org.gnome.Nautilus";}
-          ];
-          block-out-from = "screen-capture";
-        }
-        {
-          matches = [{is-active = false;}];
-          opacity = 0.9;
-        }
-        {
-          matches = [{is-floating = true;}];
-          opacity = 1.0;
-        }
-      ];
+       window-rules = nixosConfig.defaults.display.windowRules;
 
-      layer-rules = [
-        {
-          matches = [{namespace = "notifications";}];
-          block-out-from = "screen-capture";
-        }
-        {
-          matches = [{namespace = "^wallpaper$";}];
-          place-within-backdrop = true;
-        }
-      ];
+       layer-rules = nixosConfig.defaults.display.layerRules;
 
       animations = {
         slowdown = 0.6;
