@@ -31,22 +31,4 @@
       on-notify = "exec ${pkgs.pipewire}/bin/pw-play ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/message.oga";
     };
   };
-
-  systemd.user.services = {
-    polkit-gnome-authentication-agent-1 = {
-      Unit = {
-        Description = "GNOME Polkit Authentication Agent";
-        After = ["graphical-session.target"];
-        PartOf = ["graphical-session.target"];
-      };
-      Service = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-      };
-      Install = {
-        WantedBy = ["niri.service"];
-      };
-    };
-  };
 }
