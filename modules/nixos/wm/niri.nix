@@ -4,9 +4,11 @@
     pkgs.xdg-utils
     pkgs.xdg-desktop-portal-wlr
     pkgs.xdg-desktop-portal-gnome
+    pkgs.xdg-desktop-portal-gtk
   ];
 
   xdg = {
+    portal.enable = true;
     autostart.enable = true;
     menus.enable = true;
     mime.enable = true;
@@ -15,6 +17,7 @@
       config.niri = {
         "org.freedesktop.impl.portal.ScreenCast" = ["gnome"];
         "org.freedesktop.impl.portal.Screenshot" = ["gnome"];
+        "org.freedesktop.impl.portal.OpenURI" = ["gtk"];
       };
     };
   };
