@@ -1,16 +1,25 @@
 {pkgs, ...}: {
   programs.niri.enable = true;
-  environment.systemPackages = [pkgs.xdg-utils];
+  environment.systemPackages = [
+    pkgs.xdg-utils
+    pkgs.xdg-desktop-portal-wlr
+    pkgs.xdg-desktop-portal-gnome
+  ];
+
   xdg = {
     autostart.enable = true;
     menus.enable = true;
     mime.enable = true;
     icons.enable = true;
+    portal = {
+      config.niri = {
+        "org.freedesktop.impl.portal.ScreenCast" = ["gnome"];
+        "org.freedesktop.impl.portal.Screenshot" = ["gnome"];
+      };
+    };
   };
 
-  hardware.graphics.enable = true;
-
-  services.displayManager.sessionPackages = [pkgs.niri-unstable];
+  services.displayManager.sessionPackages = [pkgs.niri];
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
 
