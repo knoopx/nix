@@ -19,7 +19,7 @@ in {
 
   services = {
     easyeffects = {
-      enable = true;
+      enable = false;
     };
   };
 }
