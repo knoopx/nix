@@ -1,4 +1,10 @@
-{nixosConfig, ...}: {
+{
+  lib,
+  pkgs,
+  nixosConfig,
+  ...
+}: let
+in {
   services.swayidle = {
     enable = true;
 
@@ -6,29 +12,29 @@
     events = [
       {
         event = "after-resume";
-        command = "display-control power-on-monitors";
+        command = "${lib.getExe pkgs.display-control} power-on-monitors";
       }
       {
         event = "lock";
-        command = "display-control power-off-monitors";
+        command = "${lib.getExe pkgs.display-control} power-off-monitors";
       }
       {
         event = "unlock";
-        command = "display-control power-on-monitors";
+        command = "${lib.getExe pkgs.display-control} power-on-monitors";
       }
       {
         event = "before-sleep";
-        command = "session-control lock";
+        command = "${lib.getExe pkgs.session-control} lock";
       }
     ];
     timeouts = [
       {
         timeout = nixosConfig.defaults.display.idleTimeout;
-        command = "display-control power-off-monitors";
+        command = "${lib.getExe pkgs.display-control} power-off-monitors";
       }
       {
         timeout = nixosConfig.defaults.display.idleTimeout + 5;
-        command = "session-control lock";
+        command = "${lib.getExe pkgs.session-control} lock";
       }
     ];
   };
