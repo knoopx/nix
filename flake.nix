@@ -21,6 +21,7 @@
 
     stylix.url = "github:nix-community/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.inputs.firefox-gnome-theme.follows = "firefox-gnome-theme";
 
     niri.url = "github:sodiboo/niri-flake";
     niri.inputs.nixpkgs.follows = "nixpkgs";
