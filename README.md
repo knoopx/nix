@@ -43,6 +43,7 @@ nix run path:.
 - **[VSCode](https://github.com/microsoft/vscode)**: Primary code editor. Configured with custom keybindings, themes, and productivity tools for development
 - **[Helix](https://github.com/helix-editor/helix)**: Modal text editor inspired by Vim
 - **[Yazi](https://github.com/sxyazi/yazi)**: Modern terminal file manager
+- **[nix-ld](https://github.com/nix-community/nix-ld)**: I don't have the time or energy to re-package every single binary the "Nix way". This enables the experience (and caveats) of conventional Linux distros into NixOS.
 
 ### Development Environments
 
