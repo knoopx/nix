@@ -44,9 +44,6 @@ in {
           track-layout = "global";
         };
 
-        tablet.map-to-output = "DSI-1";
-        touch.map-to-output = "DSI-1";
-
         touchpad = {
           tap = true;
           natural-scroll = true;
@@ -80,24 +77,8 @@ in {
       };
 
       outputs = {
-        "DSI-1" = {
-          transform.rotation = 270;
-          scale = 1.5;
-          background-color = "#${nixosConfig.defaults.colorScheme.palette.base02}";
-        };
-
         "LG HDR 4K" = {
           scale = 1.75;
-          background-color = "#${nixosConfig.defaults.colorScheme.palette.base02}";
-        };
-
-        "BOE NE135A1M-NY1 Unknown" = {
-          scale = 1.75;
-          background-color = "#${nixosConfig.defaults.colorScheme.palette.base02}";
-        };
-
-        "Virtual-1" = {
-          scale = 1.5;
           background-color = "#${nixosConfig.defaults.colorScheme.palette.base02}";
         };
 

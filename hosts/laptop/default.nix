@@ -1,5 +1,5 @@
 {
-  pkgs,
+  nixosConfig,
   lib,
   config,
   ...
@@ -31,5 +31,16 @@ in {
     imports = [
       ../../home/${config.defaults.username}.nix
     ];
+  };
+
+  programs.niri = {
+    settings = {
+      outputs = {
+        "BOE NE135A1M-NY1 Unknown" = {
+          scale = 1.75;
+          background-color = "#${nixosConfig.defaults.colorScheme.palette.base02}";
+        };
+      };
+    };
   };
 }

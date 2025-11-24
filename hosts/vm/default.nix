@@ -1,5 +1,6 @@
 {
   config,
+  nixosConfig,
   lib,
   pkgs,
   modulesPath,
@@ -75,6 +76,17 @@ in {
   nixpkgs = {
     hostPlatform = {
       inherit system;
+    };
+  };
+
+  programs.niri = {
+    settings = {
+      outputs = {
+        "Virtual-1" = {
+          scale = 1.5;
+          background-color = "#${nixosConfig.defaults.colorScheme.palette.base02}";
+        };
+      };
     };
   };
 
