@@ -16,9 +16,9 @@ in {
     # Configure display margins
     displays = {
       "Unknown" = [200 70];
-      "LG HDR 4K" = [390 145];
+      "LG HDR 4K" = [390 146];
       "BOE NE135A1M-NY1 Unknown" = [200 70];
-      "MO27U2" = [390 145];
+      "MO27U2" = [390 146];
     };
 
     # Configure theme
