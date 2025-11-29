@@ -61,18 +61,6 @@ in {
       };
 
       gestures = {
-        dnd-edge-view-scroll = {
-          trigger-width = 30;
-          delay-ms = 100;
-          max-speed = 1500;
-        };
-
-        dnd-edge-workspace-switch = {
-          trigger-height = 50;
-          delay-ms = 100;
-          max-speed = 1500;
-        };
-
         hot-corners.enable = false;
       };
 
@@ -199,7 +187,6 @@ in {
       };
 
        window-rules = nixosConfig.defaults.display.windowRules;
-
        layer-rules = nixosConfig.defaults.display.layerRules;
 
       animations = {
