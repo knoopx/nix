@@ -3,8 +3,6 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    # nixpkgs.url = "github:nixos/nixpkgs?rev=b26b855658cae69587124c3fb65f805e4b88b540"; # works
-    # nixpkgs.url = "github:nixos/nixpkgs?rev=a2e92afc50a795dfe756e9d3a9e0bdaa82a645ff"; # broken
 
     nix-userstyles.url = "github:knoopx/nix-userstyles";
     nix-userstyles.inputs.nixpkgs.follows = "nixpkgs";
@@ -79,7 +77,6 @@
       [
         astal-shell.overlays.default
         nix-vscode-extensions.overlays.default
-        niri.overlays.niri
         (self: super: {firefox-addons = firefox-addons.packages.${system};})
         (
           final: prev:

@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   programs.niri.enable = true;
+  programs.niri.package = pkgs.niri;
   environment.systemPackages = [
     pkgs.xdg-utils
     pkgs.xdg-desktop-portal-wlr

@@ -128,7 +128,7 @@ in {
 
       xwayland-satellite = {
         enable = true;
-        path = "${pkgs.xwayland-satellite-unstable}/bin/xwayland-satellite";
+        path = "${pkgs.xwayland-satellite}/bin/xwayland-satellite";
       };
 
       environment = {
@@ -186,8 +186,8 @@ in {
         tablet-mode-off.action = {spawn = ["bash" "-c" "gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false"];};
       };
 
-       window-rules = nixosConfig.defaults.display.windowRules;
-       layer-rules = nixosConfig.defaults.display.layerRules;
+      window-rules = nixosConfig.defaults.display.windowRules;
+      layer-rules = nixosConfig.defaults.display.layerRules;
 
       animations = {
         slowdown = 0.6;
