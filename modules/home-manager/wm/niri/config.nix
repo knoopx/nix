@@ -157,7 +157,7 @@ in {
         "Mod+Shift+Ctrl+L".action = {quit = {"skip-confirmation" = true;};};
         "Mod+Shift+Down".action = {"move-column-to-workspace-down" = [];};
         "Mod+Shift+End".action = {"move-workspace-down" = [];};
-        "Mod+Shift+F".action = {"fullscreen-window" = [];};
+        "Mod+Shift+F".action = {"maximize-window-to-edges" = [];};
         "Mod+Shift+Home".action = {"move-workspace-up" = [];};
         "Mod+Shift+Left".action = {"move-column-left" = [];};
         "Mod+Shift+Right".action = {"move-column-right" = [];};
