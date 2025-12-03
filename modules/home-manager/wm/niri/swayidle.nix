@@ -9,24 +9,12 @@ in {
     enable = true;
 
     # pgrep -x hyprlock > /dev/null || hyprlock &";
-    events = [
-      {
-        event = "after-resume";
-        command = "${lib.getExe pkgs.display-control} power-on-monitors";
-      }
-      {
-        event = "lock";
-        command = "${lib.getExe pkgs.display-control} power-off-monitors";
-      }
-      {
-        event = "unlock";
-        command = "${lib.getExe pkgs.display-control} power-on-monitors";
-      }
-      {
-        event = "before-sleep";
-        command = "${lib.getExe pkgs.session-control} lock";
-      }
-    ];
+    events = {
+      after-resume = "${lib.getExe pkgs.display-control} power-on-monitors";
+      lock = "${lib.getExe pkgs.display-control} power-off-monitors";
+      unlock = "${lib.getExe pkgs.display-control} power-on-monitors";
+      before-sleep = "${lib.getExe pkgs.session-control} lock";
+    };
     timeouts = [
       {
         timeout = nixosConfig.defaults.display.idleTimeout;
