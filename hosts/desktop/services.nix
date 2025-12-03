@@ -10,9 +10,10 @@
       serialShort = "31051JEHN09244";
     };
 
-    udev.packages = with pkgs; [
-      via
-    ];
+    udev.extraRules = ''
+      # Disable ASUS USB Audio
+      SUBSYSTEM=="usb", ATTR{idVendor}=="0b05", ATTR{idProduct}=="1b9b", ATTR{authorized}="0"
+    '';
 
     plex = {
       enable = true;
@@ -29,6 +30,4 @@
       };
     };
   };
-
-
 }

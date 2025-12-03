@@ -1,5 +1,9 @@
 {...}: {
   boot = {
+    extraModprobeConfig = ''
+      options snd_hda_intel enable=0
+    '';
+
     initrd.availableKernelModules = [
       "ahci"
       "nvme"
