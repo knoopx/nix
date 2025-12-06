@@ -44,20 +44,20 @@ in {
     imports = [
       ../../home/${config.defaults.username}.nix
     ];
-  };
 
-  programs.niri = {
-    settings = {
-      input = {
-        tablet.map-to-output = "DSI-1";
-        touch.map-to-output = "DSI-1";
-      };
+    programs.niri = {
+      settings = {
+        input = {
+          tablet.map-to-output = "DSI-1";
+          touch.map-to-output = "DSI-1";
+        };
 
-      outputs = {
-        "DSI-1" = {
-          transform.rotation = 270;
-          scale = 1.5;
-          background-color = "#${config.defaults.colorScheme.palette.base02}";
+        outputs = {
+          "DSI-1" = {
+            transform.rotation = 270;
+            scale = 1.5;
+            background-color = "#${config.defaults.colorScheme.palette.base02}";
+          };
         };
       };
     };
