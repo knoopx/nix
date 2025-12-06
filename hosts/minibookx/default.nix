@@ -57,7 +57,7 @@ in {
         "DSI-1" = {
           transform.rotation = 270;
           scale = 1.5;
-          background-color = "#${nixosConfig.defaults.colorScheme.palette.base02}";
+          background-color = "#${config.defaults.colorScheme.palette.base02}";
         };
       };
     };
