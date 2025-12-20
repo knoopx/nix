@@ -3,6 +3,7 @@
 in
   # https://raw.githubusercontent.com/nix-community/nix-vscode-extensions/0770828946622d7066584d64cfd9ac38d8ac7086/data/cache/vscode-marketplace-latest.json
   with extensions; [
+    astral-sh.ty
     ast-grep.ast-grep-vscode
     bbenoist.nix
     britesnow.vscode-toggle-quotes

@@ -6,7 +6,9 @@
   ...
 } @ inputs: {
   "update.mode" = "none";
-  "python.languageServer" = "Pylance";
+  # "python.languageServer" = "Pylance";
+  "python.languageServer" = "None"; # use astral ty
+
   "extensions.ignoreRecommendations" = true;
   "terminal.integrated.enableImages" = true;
   "terminal.integrated.enableMultiLinePasteWarning" = "never";
@@ -148,4 +150,19 @@
       text = lib.readFile ./instructions/commit.md;
     }
   ];
+  "terminal.integrated.suggest.enabled" = false;
+  "terminal.integrated.shellIntegration.enabled" = false;
+  "terminal.integrated.suggest.quickSuggestions" = {
+    "commands" = "off";
+    "arguments" = "off";
+    "unknown" = "off";
+  };
+  "chat.mcp.gallery.enabled" = true;
+
+  "chat.tools.terminal.autoApprove" = {
+    "/^python/" = {
+      "approve" = true;
+      "matchCommandLine" = true;
+    };
+  };
 }
