@@ -1,11 +1,11 @@
 final: prev: {
   vicinae = prev.vicinae.overrideAttrs (oldAttrs: rec {
-    version = "0.16.11";
+    version = "0.16.14";
     src = prev.fetchFromGitHub {
       owner = "vicinaehq";
       repo = "vicinae";
       tag = "v${version}";
-      hash = "sha256-gX7bUoIP4PU0wUOW3ciyjYAInX/6VLVcEBKdQIQyzDk=";
+      hash = "sha256-G9zuw0IuzOxCeAcLE+IXcsdp0vAGMXBBdlfjBISnL90=";
     };
     apiDeps = prev.fetchNpmDeps {
       src = "${src}/typescript/api";
