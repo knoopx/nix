@@ -1,6 +1,6 @@
 final: prev: {
   vicinae = prev.vicinae.overrideAttrs (oldAttrs: rec {
-    version = "0.16.14";
+    version = "0.17.1";
     src = prev.fetchFromGitHub {
       owner = "vicinaehq";
       repo = "vicinae";
