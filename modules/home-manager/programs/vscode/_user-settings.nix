@@ -165,4 +165,8 @@
       "matchCommandLine" = true;
     };
   };
+
+  "ty.inlayHints.variableTypes" = false;
+  "ty.importStrategy" = "useBundled";
+  "ty.diagnosticMode" = "workspace";
 }
