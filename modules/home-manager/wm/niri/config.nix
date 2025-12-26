@@ -138,9 +138,10 @@ in {
         "Mod+O".action = {"consume-or-expel-window-right" = [];};
         "Mod+Q".action = {"close-window" = [];};
         "Mod+R".action = {"switch-preset-column-width" = [];};
-        "Mod+Tab".action = {"switch-focus-between-floating-and-tiling" = [];};
+        "Mod+Shift+Tab".action = {"switch-focus-between-floating-and-tiling" = [];};
         "Mod+Return".action = {spawn = "${toggle-float-script}";};
         "Mod+Right".action = {"focus-column-right" = [];};
+        "Mod+Tab".action = {"focus-monitor-next" = [];};
         "Mod+Shift+Ctrl+L".action = {quit = {"skip-confirmation" = true;};};
         "Mod+Shift+Down".action = {"move-column-to-workspace-down" = [];};
         "Mod+Shift+End".action = {"move-workspace-down" = [];};
