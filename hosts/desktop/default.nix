@@ -42,7 +42,23 @@ in {
 
   home-manager.users.${config.defaults.username} = {
     imports = [../../home/${config.defaults.username}.nix] ++ (listNixModulesRecusive ./home-manager);
-  };
 
-  defaults.display.idleTimeout = lib.mkForce (15 * 60);
+    programs.niri = {
+      settings = {
+        outputs = {
+          "GIGA-BYTE TECHNOLOGY CO., LTD. MO27U2 25130B000565" = {
+            mode = {
+              width = 3840;
+              height = 2160;
+              refresh = 240.0;
+            };
+            scale = 1.5;
+            background-color = "#${config.defaults.colorScheme.palette.base02}";
+          };
+        };
+      };
+    };
+
+    defaults.display.idleTimeout = lib.mkForce (15 * 60);
+  };
 }

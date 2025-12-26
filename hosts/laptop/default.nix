@@ -36,9 +36,24 @@ in {
   programs.niri = {
     settings = {
       outputs = {
+          # internal display
         "BOE NE135A1M-NY1 Unknown" = {
           scale = 1.75;
-          background-color = "#${nixosConfig.defaults.colorScheme.palette.base02}";
+            background-color = "#${config.defaults.colorScheme.palette.base02}";
+          };
+
+          "GIGA-BYTE TECHNOLOGY CO., LTD. M27UA 0x01010101" = {
+            focus-at-startup = true;
+            # 2560x1440@119.998
+            mode = {
+              # custom = true;
+              width = 2560;
+              height = 1440;
+              refresh = 119.998;
+            };
+            scale = 1;
+            background-color = "#${config.defaults.colorScheme.palette.base02}";
+          };
         };
       };
     };

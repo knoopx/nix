@@ -64,23 +64,6 @@ in {
         hot-corners.enable = false;
       };
 
-      outputs = {
-        "LG HDR 4K" = {
-          scale = 1.75;
-          background-color = "#${nixosConfig.defaults.colorScheme.palette.base02}";
-        };
-
-        "GIGA-BYTE TECHNOLOGY CO., LTD. MO27U2 25130B000565" = {
-          mode = {
-            width = 3840;
-            height = 2160;
-            refresh = 240.0;
-          };
-          scale = 1.5;
-          background-color = "#${nixosConfig.defaults.colorScheme.palette.base02}";
-        };
-      };
-
       screenshot-path = "~/Pictures/Screenshots/%Y-%m-%d %H-%M-%S.png";
 
       prefer-no-csd = true;
