@@ -1,6 +1,6 @@
 {pkgs, ...}: let
   pname = "nfoview";
-  version = "117bb91e15d1b602e3760412937a45dc4fd86706";
+  version = "2.1";
 in
   pkgs.stdenv.mkDerivation {
     inherit pname version;
