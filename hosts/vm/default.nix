@@ -79,16 +79,17 @@ in {
     };
   };
 
-  programs.niri = {
-    settings = {
-      outputs = {
-        "Virtual-1" = {
-          scale = 1.5;
-          background-color = "#${nixosConfig.defaults.colorScheme.palette.base02}";
+  home-manager.users.${config.defaults.username} = {
+    imports = [../../home/${config.defaults.username}.nix];
+    programs.niri = {
+      settings = {
+        outputs = {
+          "Virtual-1" = {
+            scale = 1.5;
+            background-color = "#${config.defaults.colorScheme.palette.base02}";
+          };
         };
       };
     };
   };
-
-  home-manager.users.${config.defaults.username} = import ../../home/${config.defaults.username}.nix;
 }

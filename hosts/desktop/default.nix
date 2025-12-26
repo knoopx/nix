@@ -40,6 +40,8 @@ in {
     };
   };
 
+  defaults.display.idleTimeout = lib.mkForce (15 * 60);
+
   home-manager.users.${config.defaults.username} = {
     imports = [../../home/${config.defaults.username}.nix] ++ (listNixModulesRecusive ./home-manager);
 
@@ -58,7 +60,5 @@ in {
         };
       };
     };
-
-    defaults.display.idleTimeout = lib.mkForce (15 * 60);
   };
 }

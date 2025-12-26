@@ -31,14 +31,13 @@ in {
     imports = [
       ../../home/${config.defaults.username}.nix
     ];
-  };
 
-  programs.niri = {
-    settings = {
-      outputs = {
+    programs.niri = {
+      settings = {
+        outputs = {
           # internal display
-        "BOE NE135A1M-NY1 Unknown" = {
-          scale = 1.75;
+          "BOE NE135A1M-NY1 Unknown" = {
+            scale = 1.75;
             background-color = "#${config.defaults.colorScheme.palette.base02}";
           };
 
