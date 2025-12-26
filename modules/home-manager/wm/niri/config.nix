@@ -74,6 +74,10 @@ in {
         zoom = 0.7;
       };
 
+      recent-windows = {
+        enable = false;
+      };
+
       layout = {
         gaps = 12;
         background-color = "transparent";
