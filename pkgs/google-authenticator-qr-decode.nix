@@ -14,8 +14,8 @@ pkgs.writeShellApplication {
 
     uri="''${line#QR-Code:}"
 
-    if [[ "$uri" != otpauth://* ]]; then
-      echo "Error: Detected QR code does not appear to be an otpauth URI." >&2
+    if [[ "$uri" != otpauth-migration://* ]]; then
+      echo "Error: Detected QR code does not appear to be an otpauth-migration URI." >&2
       exit 1
     fi
 
