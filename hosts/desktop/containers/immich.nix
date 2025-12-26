@@ -28,6 +28,10 @@ in {
         "${root}/config:/config"
       ];
 
+      ports = [
+        "5050:8080"
+      ];
+
       environment = {
         PUID = "1000";
         PGID = "1000";
