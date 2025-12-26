@@ -4,9 +4,12 @@
   ...
 }: {
   services = {
-    androidPhotoBackup = {
+    androidBackup = {
       enable = true;
-      backupDir = "/mnt/storage/Photos/input/Android";
+      # backupDir = "/mnt/storage/Photos/input/Android";
+      backupDir = "/home/${config.defaults.username}/Pictures/Camera";
+      screenshotsDir = "/home/${config.defaults.username}/Pictures/Screenshots";
+      downloadsDir = "/home/${config.defaults.username}/Downloads";
       serialShort = "31051JEHN09244";
     };
 

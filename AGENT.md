@@ -111,7 +111,7 @@ modules/
     │   ├── ai.nix, colors.nix, display.nix, fonts.nix
     │   ├── system.nix, user.nix
     ├── services/    # Core System services
-    │   ├── android-photo-backup.nix, auto-scrcpy.nix
+    │   ├── android-backup.nix, auto-scrcpy.nix
     │   ├── flatpak.nix, keyd.nix, plex.nix
     │   ├── services.nix, traefik.nix
     ├── system/      # Core system settings
