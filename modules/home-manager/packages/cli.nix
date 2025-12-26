@@ -128,5 +128,6 @@
     wl-clipboard
     xxd
     yt-dlp
+    google-authenticator-qr-decode
   ];
 }
