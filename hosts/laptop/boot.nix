@@ -14,11 +14,7 @@
     };
 
     loader = {
-      grub = {
-        enable = true;
-        device = "nodev";
-        efiSupport = true;
-      };
+      systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
   };
