@@ -1,6 +1,7 @@
 {pkgs, ...}: let
   electron-deps = with pkgs; [
     alsa-lib
+    asar
     at-spi2-atk
     atk
     cairo
@@ -28,6 +29,7 @@
 
   gtk-dev = with pkgs; [
     glib-networking
+    gobject-introspection
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-good
@@ -63,7 +65,6 @@
     # glibc_multi
     # gnome2.GConf
     # gnome2.pango
-    gobject-introspection
     # gsettings-desktop-schemas
     # gtk2
     # gtk4
@@ -129,7 +130,7 @@
     # tbb
     # util-linux
     # wayland
-    # webkitgtk_4_1
+    webkitgtk_4_1
     # xorg.libICE
     # xorg.libSM
     # xorg.libX11
@@ -151,6 +152,6 @@
 in {
   programs.nix-ld = {
     enable = true;
-    # libraries = electron-deps ++ gtk-dev ++ other;
+    libraries = electron-deps ++ gtk-dev ++ other;
   };
 }
