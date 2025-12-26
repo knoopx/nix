@@ -166,7 +166,8 @@
     };
   };
 
-  "ty.inlayHints.variableTypes" = false;
+  "ty.inlayHints.variableTypes" = true;
+  "ty.inlayHints.callArgumentNames" = false;
   "ty.importStrategy" = "useBundled";
   "ty.diagnosticMode" = "workspace";
 }
