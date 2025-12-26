@@ -1,5 +1,5 @@
 {...}: {
-  service.power-profiles-daemon.enable = true;
+  services.power-profiles-daemon.enable = true;
 
   services.keyd = {
     enable = true;
