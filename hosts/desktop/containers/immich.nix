@@ -22,7 +22,7 @@ in {
   virtualisation.oci-containers.containers = {
     "${name}" = {
       autoStart = true;
-      image = "ghcr.io/imagegenius/immich:latest";
+      image = "ghcr.io/imagegenius/immich:cuda";
       volumes = [
         "${root}/photos:/photos"
         "${root}/config:/config"
@@ -54,7 +54,8 @@ in {
 
     "${name}-redis" = {
       autoStart = true;
-      image = "redis";
+      # image = "redis";
+      image = "valkey/valkey:8-bookworm";
       extraOptions = [
         "--network=${name}"
       ];
@@ -65,7 +66,7 @@ in {
 
     "${name}-postgres" = {
       autoStart = true;
-      image = "tensorchord/pgvecto-rs:pg14-v0.2.0";
+      image = "ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0";
       volumes = [
         "${root}/pgdata:/var/lib/postgresql/data"
       ];
@@ -73,6 +74,13 @@ in {
         POSTGRES_USER = name;
         POSTGRES_PASSWORD = name;
         POSTGRES_DB = name;
+
+        POSTGRES_SHARED_BUFFERS = "256MB";
+        POSTGRES_EFFECTIVE_CACHE_SIZE = "1GB";
+        POSTGRES_MAINTENANCE_WORK_MEM = "64MB";
+        POSTGRES_CHECKPOINT_COMPLETION_TARGET = "0.9";
+        POSTGRES_WAL_BUFFERS = "16MB";
+        POSTGRES_DEFAULT_STATISTICS_TARGET = "100";
       };
       extraOptions = [
         "--network=${name}"
