@@ -51,6 +51,11 @@
     };
   };
 
+  # config file was renamed in 0.17.0: https://github.com/vicinaehq/vicinae/releases/tag/v0.17.0
+  home.file.".config/vicinae/settings.json" = {
+    text = builtins.toJSON config.programs.vicinae.settings;
+  };
+
   home.file.".local/share/vicinae/themes/custom.toml".text = ''
     [meta]
     version = 1
