@@ -58,6 +58,10 @@ in {
             background-color = "#${config.defaults.colorScheme.palette.base02}";
           };
         };
+        binds = {
+          "Mod+Tab".action = lib.mkForce {"switch-focus-between-floating-and-tiling" = [];};
+          "Mod+Shift+Tab".action = lib.mkForce {"focus-monitor-next" = [];};
+        };
       };
     };
   };
