@@ -110,6 +110,28 @@ with lib; {
           }
           {
             matches = [
+              {title = "/dev/video0";}
+            ];
+            default-column-width.fixed = 400;
+            default-window-height.fixed = 300;
+            open-floating = true;
+            open-focused = false;
+            default-floating-position = {
+              x = 16;
+              y = 16;
+              relative-to = "bottom-right";
+            };
+          }
+          {
+            matches = [
+              {title = "mpv";}
+            ];
+            open-floating = true;
+            # default-column-width.fixed = 2880;
+            # default-window-height.fixed = 1620;
+          }
+          {
+            matches = [
               {app-id = "scrcpy";}
               {title = "[Ll]ogin";}
               {title = "Photos";}

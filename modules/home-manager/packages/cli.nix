@@ -129,5 +129,6 @@
     xxd
     yt-dlp
     google-authenticator-qr-decode
+    nushell
   ];
 }

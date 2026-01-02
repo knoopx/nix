@@ -12,8 +12,12 @@ in {
       ];
       ports = ["11434:11434"];
       environment = {
+        OLLAMA_CUDA = "1";
         OLLAMA_FLASH_ATTENTION = "1";
         OLLAMA_CONTEXT_LENGTH = toString (1024 * 32);
+        OLLAMA_NUM_PARALLEL = "8";
+        OLLAMA_MAX_LOADED_MODELS = "2";
+        OLLAMA_MAX_QUEUE = "512";
       };
     };
   };

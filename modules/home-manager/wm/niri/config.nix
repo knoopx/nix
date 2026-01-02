@@ -5,9 +5,10 @@
   ...
 }: let
   toggle-float-script = pkgs.writeShellScript "toggle-float" ''
-    window_width=800
-    window_height=600
-    margin=15
+    # video aspect ratio 16:9
+    window_width=600
+    window_height=340
+    margin=30
 
     is_floating=$(niri msg --json windows | jq -r '.[] | select(.is_focused == true) | .is_floating')
 
@@ -127,17 +128,18 @@ in {
         "Mod+F".action = {"maximize-column" = [];};
         "Mod+J".action = {spawn = "firefox";};
         "Mod+K".action = {spawn = "code";};
-        "Mod+L".action = {spawn = "kitty";};
+        "Mod+L".action = {spawn = "wezterm";};
         "Mod+I".action = {"consume-or-expel-window-left" = [];};
         "Mod+Period".action = {"toggle-overview" = [];};
         "Mod+Left".action = {"focus-column-left" = [];};
         "Mod+O".action = {"consume-or-expel-window-right" = [];};
         "Mod+Q".action = {"close-window" = [];};
         "Mod+R".action = {"switch-preset-column-width" = [];};
-        "Mod+Shift+Tab".action = {"switch-focus-between-floating-and-tiling" = [];};
-        "Mod+Return".action = {spawn = "${toggle-float-script}";};
+        "Mod+Return".action = {"toggle-window-floating" = [];};
+        "Mod+Shift+Return".action = {spawn = "${toggle-float-script}";};
         "Mod+Right".action = {"focus-column-right" = [];};
         "Mod+Tab".action = {"focus-monitor-next" = [];};
+        "Mod+Shift+Tab".action = {"switch-focus-between-floating-and-tiling" = [];};
         "Mod+Shift+Ctrl+L".action = {quit = {"skip-confirmation" = true;};};
         "Mod+Shift+Down".action = {"move-column-to-workspace-down" = [];};
         "Mod+Shift+End".action = {"move-workspace-down" = [];};
@@ -149,10 +151,12 @@ in {
         "Mod+Space".action = {spawn = ["vicinae" "toggle"];};
         "Mod+Up".action = {"focus-workspace-up" = [];};
         "Mod+V".action = {spawn = "nautilus";};
-        "Mod+P".action = {spawn = ["kitty" "btop"];};
+        "Mod+P".action = {spawn = ["wezterm" "-e" "btop"];};
         "Mod+W".action = {"close-window" = [];};
         "Print".action = {screenshot = [];};
         "Shift+Print".action = {"screenshot-window" = [];};
+        "Mod+Shift+P".action = {spawn = ["ffplay" "-fflags" "nobuffer" "-analyzeduration" "0" "-video_size" "640x480" "/dev/video0"];};
+
         "XF86AudioLowerVolume".action = {spawn = ["volume-control" "down"];};
         "XF86AudioMute".action = {spawn = ["volume-control" "mute"];};
         "XF86AudioNext".action = {spawn = ["media-control" "next"];};
