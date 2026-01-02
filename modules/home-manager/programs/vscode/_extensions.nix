@@ -20,4 +20,5 @@ in
     tamasfe.even-better-toml
     wallabyjs.console-ninja
     solomonkinard.git-blame
+    thenuprojectcontributors.vscode-nushell-lang
   ]
