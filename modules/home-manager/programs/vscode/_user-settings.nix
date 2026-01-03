@@ -6,8 +6,7 @@
   ...
 } @ inputs: {
   "update.mode" = "none";
-  # "python.languageServer" = "Pylance";
-  "python.languageServer" = "None"; # use astral ty
+  "python.languageServer" = "Pylance";
 
   "extensions.ignoreRecommendations" = true;
   "terminal.integrated.enableImages" = true;
