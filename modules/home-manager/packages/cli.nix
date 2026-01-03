@@ -130,5 +130,6 @@
     yt-dlp
     google-authenticator-qr-decode
     nushell
+    guitar
   ];
 }
