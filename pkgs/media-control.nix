@@ -1,22 +1,12 @@
 { pkgs }:
 
-pkgs.writeShellScriptBin "media-control" ''
-  case "$1" in
-      play-pause)
-          ${pkgs.playerctl}/bin/playerctl play-pause
-          ;;
-      next)
-          ${pkgs.playerctl}/bin/playerctl next
-          ;;
-      previous)
-          ${pkgs.playerctl}/bin/playerctl previous
-          ;;
-      stop)
-          ${pkgs.playerctl}/bin/playerctl pause
-          ;;
-      *)
-          echo "Usage: $0 play-pause|next|previous|stop"
-          exit 1
-          ;;
-  esac
+pkgs.runCommand "media-control" {
+  nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  meta.mainProgram = "media-control";
+} ''
+  mkdir -p $out/bin
+  cp ${./media-control.nu} $out/bin/media-control.nu
+  chmod +x $out/bin/media-control.nu
+  makeWrapper $out/bin/media-control.nu $out/bin/media-control \
+    --suffix PATH : ${pkgs.playerctl}/bin:${pkgs.nushell}/bin
 ''

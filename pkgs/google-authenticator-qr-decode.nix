@@ -1,24 +1,12 @@
 {pkgs}:
-pkgs.writeShellApplication {
-  name = "google-authenticator-qr-decode";
+pkgs.runCommand "google-authenticator-qr-decode" {
+  nativeBuildInputs = [pkgs.makeBinaryWrapper];
   runtimeInputs = [pkgs.zbar pkgs.otpauth];
-  text = ''
-    set -euo pipefail
-
-    line=$(zbarcam -1 --quiet)
-
-    if [[ -z "$line" ]]; then
-      echo "Error: No QR code detected." >&2
-      exit 1
-    fi
-
-    uri="''${line#QR-Code:}"
-
-    if [[ "$uri" != otpauth-migration://* ]]; then
-      echo "Error: Detected QR code does not appear to be an otpauth-migration URI." >&2
-      exit 1
-    fi
-
-    otpauth -link "$uri"
-  '';
-}
+  meta.mainProgram = "google-authenticator-qr-decode";
+} ''
+  mkdir -p $out/bin
+  cp ${./google-authenticator-qr-decode.nu} $out/bin/google-authenticator-qr-decode.nu
+  chmod +x $out/bin/google-authenticator-qr-decode.nu
+  makeWrapper $out/bin/google-authenticator-qr-decode.nu $out/bin/google-authenticator-qr-decode \
+    --suffix PATH : ${pkgs.zbar}/bin:${pkgs.otpauth}/bin
+''

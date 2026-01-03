@@ -12,9 +12,9 @@
       };
 
       bind = [
-        "XF86AudioRaiseVolume,exec,volume-control up"
-        "XF86AudioLowerVolume,exec,volume-control down"
-        "XF86AudioMute,exec,volume-control mute"
+        "XF86AudioRaiseVolume,exec,${lib.getExe' pkgs.volume-control "volume-control"} up"
+        "XF86AudioLowerVolume,exec,${lib.getExe' pkgs.volume-control "volume-control"} down"
+        "XF86AudioMute,exec,${lib.getExe' pkgs.volume-control "volume-control"} mute"
       ];
 
       background = lib.mkForce [

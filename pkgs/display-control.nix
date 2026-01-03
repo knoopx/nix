@@ -1,16 +1,12 @@
 { pkgs }:
 
-pkgs.writeShellScriptBin "display-control" ''
-  case "$1" in
-      power-off-monitors)
-          ${pkgs.niri}/bin/niri msg action power-off-monitors
-          ;;
-      power-on-monitors)
-          ${pkgs.niri}/bin/niri msg action power-on-monitors
-          ;;
-      *)
-          echo "Usage: $0 power-off-monitors|power-on-monitors"
-          exit 1
-          ;;
-  esac
+pkgs.runCommand "display-control" {
+  nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  meta.mainProgram = "display-control";
+} ''
+  mkdir -p $out/bin
+  cp ${./display-control.nu} $out/bin/display-control.nu
+  chmod +x $out/bin/display-control.nu
+  makeWrapper $out/bin/display-control.nu $out/bin/display-control \
+    --suffix PATH : ${pkgs.niri}/bin:${pkgs.nushell}/bin
 ''

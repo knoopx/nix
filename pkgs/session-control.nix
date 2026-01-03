@@ -1,28 +1,12 @@
 { pkgs }:
 
-pkgs.writeShellScriptBin "session-control" ''
-  case "$1" in
-      lock)
-          ${pkgs.hyprlock}/bin/hyprlock
-          ;;
-      logout)
-           ${pkgs.niri}/bin/niri msg action quit
-          ;;
-      suspend)
-          systemctl suspend
-          ;;
-      hibernate)
-          systemctl hibernate
-          ;;
-      reboot)
-          systemctl reboot
-          ;;
-      poweroff)
-          systemctl poweroff
-          ;;
-      *)
-          echo "Usage: $0 lock|logout|suspend|hibernate|reboot|poweroff"
-          exit 1
-          ;;
-  esac
+pkgs.runCommand "session-control" {
+  nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  meta.mainProgram = "session-control";
+} ''
+  mkdir -p $out/bin
+  cp ${./session-control.nu} $out/bin/session-control.nu
+  chmod +x $out/bin/session-control.nu
+  makeWrapper $out/bin/session-control.nu $out/bin/session-control \
+    --suffix PATH : ${pkgs.hyprlock}/bin:${pkgs.niri}/bin:${pkgs.nushell}/bin
 ''

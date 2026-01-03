@@ -1,21 +1,13 @@
-{ pkgs }:
+{ pkgs, lib }:
 
-pkgs.writeShellScriptBin "volume-control" ''
-  case "$1" in
-      up)
-          ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-          ;;
-      down)
-          ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-          ;;
-      mute)
-          ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-          ;;
-      *)
-          echo "Usage: $0 up|down|mute"
-          exit 1
-          ;;
-  esac
-
-  ${pkgs.pipewire}/bin/pw-play ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
+pkgs.runCommand "volume-control" {
+  nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  meta.mainProgram = "volume-control";
+} ''
+  mkdir -p $out/bin
+  cp ${./volume-control.nu} $out/bin/volume-control.nu
+  chmod +x $out/bin/volume-control.nu
+  makeWrapper $out/bin/volume-control.nu $out/bin/volume-control \
+    --suffix PATH : ${lib.getExe' pkgs.wireplumber "wireplumber"}:${lib.getExe' pkgs.pipewire "pipewire"}:${pkgs.nushell}/bin \
+    --set SOUND_THEME_PATH ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop
 ''

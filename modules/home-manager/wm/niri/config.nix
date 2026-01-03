@@ -1,37 +1,10 @@
 {
+  lib,
   pkgs,
   nixosConfig,
   nix-colors,
   ...
-}: let
-  toggle-float-script = pkgs.writeShellScript "toggle-float" ''
-    # video aspect ratio 16:9
-    window_width=600
-    window_height=340
-    margin=30
-
-    is_floating=$(niri msg --json windows | jq -r '.[] | select(.is_focused == true) | .is_floating')
-
-    if [ "$is_floating" = "true" ]; then
-      niri msg action toggle-window-floating
-      niri msg action set-column-width ${toString (nixosConfig.defaults.display.defaultColumnWidthPercent * 100)}%
-      niri msg action reset-window-height
-    else
-      focused_output=$(niri msg --json workspaces | jq -r '.[] | select(.is_focused == true) | .output')
-      scale=$(niri msg --json outputs | jq -r ".[\"$focused_output\"].logical.scale")
-      width=$(niri msg --json outputs | jq -r ".[\"$focused_output\"].logical.width")
-      height=$(niri msg --json outputs | jq -r ".[\"$focused_output\"].logical.height")
-
-      x=$((width - window_width - margin))
-      y=$((height - window_height - margin))
-
-      niri msg action toggle-window-floating
-      niri msg action set-window-width $window_width
-      niri msg action set-window-height $window_height
-      niri msg action move-floating-window --x $x --y $y
-    fi
-  '';
-in {
+}: {
   services.gnome-keyring.enable = true;
   home.packages = [pkgs.playerctl pkgs.wireplumber pkgs.xwayland-satellite];
 
@@ -112,7 +85,7 @@ in {
 
       xwayland-satellite = {
         enable = true;
-        path = "${pkgs.xwayland-satellite}/bin/xwayland-satellite";
+        path = lib.getExe pkgs.xwayland-satellite;
       };
 
       environment = {
@@ -136,7 +109,7 @@ in {
         "Mod+Q".action = {"close-window" = [];};
         "Mod+R".action = {"switch-preset-column-width" = [];};
         "Mod+Return".action = {"toggle-window-floating" = [];};
-        "Mod+Shift+Return".action = {spawn = "${toggle-float-script}";};
+        "Mod+Shift+Return".action = {spawn = ["window-control" "float-to-corner"];};
         "Mod+Right".action = {"focus-column-right" = [];};
         "Mod+Tab".action = {"focus-monitor-next" = [];};
         "Mod+Shift+Tab".action = {"switch-focus-between-floating-and-tiling" = [];};
@@ -150,13 +123,12 @@ in {
         "Mod+Shift+Up".action = {"move-column-to-workspace-up" = [];};
         "Mod+Space".action = {spawn = ["vicinae" "toggle"];};
         "Mod+Up".action = {"focus-workspace-up" = [];};
-        "Mod+V".action = {spawn = "nautilus";};
+        "Mod+V".action = {spawn = ["nautilus"];};
         "Mod+P".action = {spawn = ["wezterm" "-e" "btop"];};
         "Mod+W".action = {"close-window" = [];};
         "Print".action = {screenshot = [];};
         "Shift+Print".action = {"screenshot-window" = [];};
         "Mod+Shift+P".action = {spawn = ["ffplay" "-fflags" "nobuffer" "-analyzeduration" "0" "-video_size" "640x480" "/dev/video0"];};
-
         "XF86AudioLowerVolume".action = {spawn = ["volume-control" "down"];};
         "XF86AudioMute".action = {spawn = ["volume-control" "mute"];};
         "XF86AudioNext".action = {spawn = ["media-control" "next"];};
@@ -170,8 +142,8 @@ in {
 
       switch-events = {
         lid-close.action = {spawn = ["display-control" "power-off-monitors"];};
-        tablet-mode-on.action = {spawn = ["bash" "-c" "gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true"];};
-        tablet-mode-off.action = {spawn = ["bash" "-c" "gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false"];};
+        tablet-mode-on.action = {spawn = ["tablet-mode-control" "on"];};
+        tablet-mode-off.action = {spawn = ["tablet-mode-control" "off"];};
       };
 
       window-rules = nixosConfig.defaults.display.windowRules;

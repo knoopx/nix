@@ -1,17 +1,13 @@
-{ pkgs }:
+{ pkgs, lib }:
 
-pkgs.writeShellScriptBin "brightness-control" ''
-  case "$1" in
-      up)
-          ${pkgs.brightnessctl}/bin/brightnessctl set 5%+
-          ;;
-      down)
-          ${pkgs.brightnessctl}/bin/brightnessctl set 5%-
-          ;;
-      *)
-          echo "Usage: $0 up|down"
-          exit 1
-          ;;
-  esac
-  ${pkgs.pipewire}/bin/pw-play ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
+pkgs.runCommand "brightness-control" {
+  nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  meta.mainProgram = "brightness-control";
+} ''
+  mkdir -p $out/bin
+  cp ${./brightness-control.nu} $out/bin/brightness-control.nu
+  chmod +x $out/bin/brightness-control.nu
+  makeWrapper $out/bin/brightness-control.nu $out/bin/brightness-control \
+    --suffix PATH : ${lib.getExe pkgs.brightnessctl}:${lib.getExe' pkgs.pipewire "pipewire"}:${pkgs.nushell}/bin \
+    --set SOUND_THEME_PATH ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop
 ''
