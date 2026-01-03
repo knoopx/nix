@@ -8,13 +8,77 @@
     systemd.enable = true;
 
     settings = {
-      closeOnFocusLoss = true;
-      faviconService = "google";
-      font = {
-        size = 10;
-      };
+      imports = [];
+
+      search_files_in_root = false;
+
+      escape_key_behavior = "navigate_back";
+
+      close_on_focus_loss = true;
+
+      consider_preedit = false;
+
+      pop_to_root_on_close = true;
+
+      favicon_service = "google";
+
       keybinding = "default";
+
+      font = {
+        normal = {
+          family = "auto";
+          size = 10;
+        };
+      };
+
+      theme = {
+        light = {
+          name = "custom";
+          icon_theme = config.gtk.iconTheme.name;
+        };
+        dark = {
+          name = "custom";
+          icon_theme = config.gtk.iconTheme.name;
+        };
+      };
+
+      launcher_window = {
+        opacity = 1;
+
+        blur = {
+          enabled = true;
+        };
+
+        dim_around = true;
+
+        client_side_decorations = {
+          enabled = true;
+          rounding = 8;
+          border_width = 3;
+        };
+
+        compact_mode = {
+          enabled = false;
+        };
+
+        size = {
+          width = 800;
+          height = 600;
+        };
+
+        screen = "auto";
+
+        layer_shell = {
+          enabled = false;
+          keyboard_interactivity = "exclusive";
+          layer = "top";
+        };
+      };
+
       keybinds = {
+        "open-search-filter" = "control+P";
+        "open-settings" = "control+,";
+        "toggle-action-panel" = "control+J";
         "action.copy" = "control+shift+C";
         "action.copy-name" = "control+shift+.";
         "action.copy-path" = "control+shift+,";
@@ -30,24 +94,11 @@
         "action.refresh" = "control+R";
         "action.remove" = "control+X";
         "action.save" = "control+S";
-        "open-search-filter" = "control+P";
-        "open-settings" = "control+,";
-        "toggle-action-panel" = "control+J";
       };
-      popToRootOnClose = true;
-      rootSearch = {
-        searchFiles = false;
-      };
-      theme = {
-        iconTheme = config.gtk.iconTheme.name;
-        name = "custom";
-      };
-      window = {
-        csd = true;
-        opacity = 1;
-        rounding = 8;
-      };
-      launcher_window.layer_shell.enabled = false;
+
+      fallbacks = [
+        "files:search"
+      ];
     };
   };
 
