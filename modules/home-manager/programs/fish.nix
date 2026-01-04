@@ -17,7 +17,7 @@
       ];
 
       shellAbbrs = {
-        ls = "eza -lah";
+        ls = "eza --icons -lah";
         pbpaste = "fish_clipboard_paste";
         pbcopy = "fish_clipboard_copy";
       };
