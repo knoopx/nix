@@ -131,5 +131,8 @@
     google-authenticator-qr-decode
     nushell
     guitar
+    reader
+    jc
+    skate
   ];
 }
