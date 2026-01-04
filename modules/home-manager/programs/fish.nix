@@ -29,7 +29,7 @@
         set -gx GITHUB_PERSONAL_ACCESS_TOKEN (secret-tool lookup github token | head | tr -d "\n")
 
         fish_add_path -g "$HOME/.cache/.bun/bin"
-        fish_add_path -g "$HOME/.cargo/bin:"
+        fish_add_path -g "$HOME/.cargo/bin"
         fish_add_path -g "$HOME/.local/bin/"
         fish_add_path -g "$HOME/bin/"
         fish_add_path -g "$HOME/go/bin"
