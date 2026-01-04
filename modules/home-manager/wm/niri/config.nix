@@ -102,6 +102,7 @@
         "Mod+J".action = {spawn = "firefox";};
         "Mod+K".action = {spawn = "code";};
         "Mod+L".action = {spawn = "wezterm";};
+        "Mod+Shift+L".action = {spawn = ["wezterm" "-e" "nu"];};
         "Mod+I".action = {"consume-or-expel-window-left" = [];};
         "Mod+Period".action = {"toggle-overview" = [];};
         "Mod+Left".action = {"focus-column-left" = [];};
