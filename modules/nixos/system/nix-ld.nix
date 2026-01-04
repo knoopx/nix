@@ -129,7 +129,7 @@
     # systemd
     # tbb
     # util-linux
-    # wayland
+    wayland
     webkitgtk_4_1
     # xorg.libICE
     # xorg.libSM
