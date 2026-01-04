@@ -8,6 +8,7 @@ in {
     envFile = {
       text = ''
         source ${carapace_nu}
+        $env.INTELLI_VARIABLE_HOTKEY = "control char_k"
       '';
     };
   };
