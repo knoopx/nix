@@ -12,6 +12,7 @@ in {
     enable = true;
     configFile = {
       text = ''
+        $env.config.show_banner = false
         $env.config = {
           color_config: {
             separator: "#${colors.base03}"
