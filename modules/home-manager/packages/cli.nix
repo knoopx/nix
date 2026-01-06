@@ -134,5 +134,6 @@
     reader
     jc
     skate
+    distrobox
   ];
 }
