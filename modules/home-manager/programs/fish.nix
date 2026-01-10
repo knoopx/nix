@@ -39,7 +39,6 @@
         set -gx TRITON_LIBCUDA_PATH /run/opengl-driver/lib/
 
         set -x INTELLI_VARIABLE_HOTKEY "ctrl-k"
-        intelli-shell init fish | source
       '';
     };
   };
