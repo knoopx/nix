@@ -1,17 +1,24 @@
-{
-  pkgs,
-  nixosConfig,
-  ...
-}: let
+{nixosConfig, ...}: let
   colors = nixosConfig.defaults.colorScheme.palette;
-  carapace_nu = pkgs.runCommandLocal "carapace.nu" {buildInputs = [pkgs.carapace];} ''
-    carapace _carapace nushell >$out
-  '';
 in {
   programs.nushell = {
     enable = true;
     configFile = {
       text = ''
+        let fish_completer = {|spans|
+            fish --command $"complete '--do-complete=($spans | str replace --all "'" "\\'" | str join ' ')'"
+            | from tsv --flexible --noheaders --no-infer
+            | rename value description
+            | update value {|row|
+              let value = $row.value
+              let need_quote = ['\' ',' '[' ']' '(' ')' ' ' '\t' "'" '"' "`"] | any {$in in $value}
+              if ($need_quote and ($value | path exists)) {
+                let expanded_path = if ($value starts-with ~) {$value | path expand --no-symlink} else {$value}
+                $'"($expanded_path | str replace --all "\"" "\\\"")"'
+              } else {$value}
+            }
+        }
+
         $env.config.show_banner = false
         $env.config = {
           color_config: {
@@ -49,14 +56,17 @@ in {
             shape_flag: { fg: "#${colors.base0D}" attr: "b" }
             shape_custom: { attr: "b" }
           }
+          completions: {
+            external: {
+              enable: true
+              completer: $fish_completer
+            }
+          }
         }
       '';
     };
     envFile = {
       text = ''
-        source ${carapace_nu}
-        $env.INTELLI_VARIABLE_HOTKEY = "control char_k"
-
         export def git-branches []: nothing -> list<record<ref: string, obj: string, upstream: string, subject: string>> {
           ^git for-each-ref --format '%(refname:lstrip=2)%09%(objectname:short)%09%(upstream:remotename)%(upstream:track)%09%(contents:subject)' refs/heads | lines | parse "{ref}\t{obj}\t{upstream}\t{subject}"
         }
