@@ -16,11 +16,11 @@
 
       escape_key_behavior = "navigate_back";
 
-      close_on_focus_loss = true;
+      close_on_focus_loss = false;
 
       consider_preedit = false;
 
-      pop_to_root_on_close = true;
+      pop_to_root_on_close = false;
 
       favicon_service = "google";
 
@@ -41,6 +41,19 @@
         dark = {
           name = "custom";
           icon_theme = config.gtk.iconTheme.name;
+        };
+      };
+
+      providers = {
+        "@knoopx/store.vicinae.supergenpass" = {
+          preferences = {
+            length = "20";
+          };
+        };
+        "@tonka3000/store.raycast.homeassistant" = {
+          preferences = {
+            instance = "https://home.knoopx.net";
+          };
         };
       };
 
@@ -95,10 +108,6 @@
         "action.remove" = "control+X";
         "action.save" = "control+S";
       };
-
-      fallbacks = [
-        "files:search"
-      ];
     };
   };
 
