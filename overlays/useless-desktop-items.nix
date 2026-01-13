@@ -11,5 +11,4 @@ in {
   micro = withoutDesktopIcon prev.micro;
   fish = withoutDesktopIcon prev.fish;
   ranger = withoutDesktopIcon prev.ranger;
-  visidata = withoutDesktopIcon prev.visidata;
 }

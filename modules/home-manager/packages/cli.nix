@@ -122,7 +122,6 @@
     up # repl
     usbutils
     util-linux
-    visidata
     wf-recorder
     wirelesstools
     wl-clipboard
