@@ -239,7 +239,7 @@ in {
     autoupdate = false;
     # share = "disabled"; # required for vibe-kanban
     keybinds = {
-      model_list = "ctrl+m";
+      command_list = "ctrl+space";
     };
     mcp = {
       # sequential-thinking = {
