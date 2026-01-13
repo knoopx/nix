@@ -3,6 +3,8 @@
   nixosConfig,
   ...
 }: {
+  stylix.targets.vicinae.enable = false;
+
   programs.vicinae = {
     enable = true;
     systemd.enable = true;
@@ -43,8 +45,6 @@
       };
 
       launcher_window = {
-        opacity = 1;
-
         blur = {
           enabled = true;
         };
