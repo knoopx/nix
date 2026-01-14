@@ -6,7 +6,7 @@
   ...
 }: {
   services.gnome-keyring.enable = true;
-  home.packages = [pkgs.playerctl pkgs.wireplumber pkgs.xwayland-satellite];
+  home.packages = [pkgs.playerctl pkgs.wireplumber pkgs.xwayland-satellite pkgs.whispy];
 
   programs.niri = {
     settings = {
@@ -125,6 +125,7 @@
         "Mod+Space".action = {spawn = ["vicinae" "toggle"];};
         "Mod+Up".action = {"focus-workspace-up" = [];};
         "Mod+V".action = {spawn = ["nautilus"];};
+        "Mod+Y".action = {spawn = ["sh" "-c" "whispy alsa_input.usb-046d_081b_78B9CE90-02.mono-fallback | ydotool type -d 0 -f -"];};
         "Mod+P".action = {spawn = ["wezterm" "-e" "btop"];};
         "Mod+W".action = {"close-window" = [];};
         "Print".action = {screenshot = [];};

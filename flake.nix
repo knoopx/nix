@@ -42,6 +42,9 @@
     neuwaita.url = "github:RusticBard/Neuwaita";
     neuwaita.flake = false;
 
+    whispy.url = "github:knoopx/whispy";
+    whispy.inputs.nixpkgs.follows = "nixpkgs";
+
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -56,6 +59,7 @@
     nixpkgs,
     stylix,
     nix-userstyles,
+    whispy,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -78,6 +82,7 @@
         astal-shell.overlays.default
         nix-vscode-extensions.overlays.default
         (self: super: {firefox-addons = firefox-addons.packages.${system};})
+        (self: super: {whispy = whispy.packages.${system}.default;})
         (
           final: prev:
             haumea.lib.load {
