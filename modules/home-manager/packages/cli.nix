@@ -55,7 +55,6 @@
     # pcre2
     # perl
     # posting # broken, installed as uv tool
-    # python313Packages.markitdown
     # rage
     # ranger
     # readline
@@ -86,6 +85,7 @@
     bluez
     bluez-tools
     brotab
+    bubblewrap
     caligula
     circumflex # hackernews client
     clang-tools
@@ -93,6 +93,7 @@
     csvlens
     dasel
     dconf
+    distrobox
     dmidecode
     duckdb
     exiftool
@@ -100,25 +101,35 @@
     ffmpeg
     fx # jq alternative
     gcalcli
+    google-authenticator-qr-decode
+    guitar
     gum
     imagemagick
     inetutils
     inotify-tools
+    jc
     jq
     lshw
     lsof
     mpv
     nh
+    nushell
     nvd
     opencode
     ox
     p7zip
     pciutils
     pcre
+    pi
+    python313Packages.markitdown
     rclone
+    reader
+    ripgrep
     rsync
     ruff
     shfmt
+    skate
+    socat
     up # repl
     usbutils
     util-linux
@@ -127,12 +138,5 @@
     wl-clipboard
     xxd
     yt-dlp
-    google-authenticator-qr-decode
-    nushell
-    guitar
-    reader
-    jc
-    skate
-    distrobox
   ];
 }
