@@ -187,6 +187,11 @@
         inherit specialArgs;
         modules = mkNixosModules ./hosts/minibookx;
       };
+
+      prusa-bear = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+        modules = mkNixosModules ./hosts/prusa-bear;
+      };
     };
   };
 }
