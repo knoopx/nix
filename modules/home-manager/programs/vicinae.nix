@@ -45,6 +45,13 @@
       };
 
       providers = {
+        files = {
+          enabled = false;
+          preferences = {
+            autoIndexing = false;
+          };
+        };
+
         "@knoopx/store.vicinae.supergenpass" = {
           preferences = {
             length = "20";
