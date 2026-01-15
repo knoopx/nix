@@ -163,6 +163,7 @@
       nfoview = pkgsWithOverlays.nfoview;
       llama-swap = pkgsWithOverlays.llama-swap;
       geary = pkgsWithOverlays.geary;
+      codemapper = pkgsWithOverlays.codemapper;
     };
 
     nixosConfigurations = {
