@@ -138,5 +138,6 @@
     wl-clipboard
     xxd
     yt-dlp
+    codemapper
   ];
 }
