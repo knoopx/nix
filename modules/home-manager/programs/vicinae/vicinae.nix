@@ -5,34 +5,30 @@
 }: {
   stylix.targets.vicinae.enable = false;
 
+  # config.xdg.dataHome.vicinae.scripts = {
+  #   source = ./scripts;
+  #   recursive = true;
+  # };
+
   programs.vicinae = {
     enable = true;
     systemd.enable = true;
 
     settings = {
       imports = [];
-
       search_files_in_root = false;
-
       escape_key_behavior = "navigate_back";
-
       close_on_focus_loss = false;
-
       consider_preedit = false;
-
       pop_to_root_on_close = false;
-
       favicon_service = "google";
-
       keybinding = "default";
-
       font = {
         normal = {
           family = "auto";
           size = 10;
         };
       };
-
       theme = {
         light = {
           name = "custom";
@@ -43,7 +39,6 @@
           icon_theme = config.gtk.iconTheme.name;
         };
       };
-
       providers = {
         files = {
           enabled = false;
@@ -51,7 +46,6 @@
             autoIndexing = false;
           };
         };
-
         "@knoopx/store.vicinae.supergenpass" = {
           preferences = {
             length = "20";
@@ -63,40 +57,31 @@
           };
         };
       };
-
       launcher_window = {
         opacity = 1;
-
         blur = {
           enabled = true;
         };
-
         dim_around = true;
-
         client_side_decorations = {
           enabled = true;
           rounding = 8;
           border_width = 3;
         };
-
         compact_mode = {
           enabled = false;
         };
-
         size = {
           width = 800;
           height = 600;
         };
-
         screen = "auto";
-
         layer_shell = {
           enabled = false;
           keyboard_interactivity = "exclusive";
           layer = "top";
         };
       };
-
       keybinds = {
         "open-search-filter" = "control+P";
         "open-settings" = "control+,";
