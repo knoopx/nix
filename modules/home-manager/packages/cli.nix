@@ -139,5 +139,7 @@
     xxd
     yt-dlp
     codemapper
+    sox
+    gh
   ];
 }
