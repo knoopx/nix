@@ -65,6 +65,8 @@
       };
 
       launcher_window = {
+        opacity = 1;
+
         blur = {
           enabled = true;
         };
