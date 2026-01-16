@@ -264,10 +264,6 @@
                 url = "https://github.com/vicinaehq/vicinae/releases.atom";
               }
               {
-                title = "Visual Studio Code";
-                url = "https://github.com/microsoft/vscode/releases.atom";
-              }
-              {
                 title = "Niri";
                 url = "https://github.com/YaLTeR/niri/releases.atom";
               }
@@ -294,6 +290,10 @@
               {
                 title = "Glance";
                 url = "https://github.com/glanceapp/glance/releases.atom";
+              }
+              {
+                title = "Pi Mono";
+                url = "https://github.com/badlogic/pi-mono/releases.atom";
               }
             ];
           }
