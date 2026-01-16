@@ -49,19 +49,9 @@
     nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = {
-    astal-shell,
-    firefox-addons,
-    haumea,
-    home-manager,
-    niri,
-    nix-vscode-extensions,
-    nixpkgs,
-    stylix,
-    nix-userstyles,
-    whispy,
-    ...
-  } @ inputs: let
+  outputs = inputs: let
+    inherit (inputs) nixpkgs haumea home-manager niri nix-vscode-extensions stylix astal-shell firefox-addons whispy;
+
     system = "x86_64-linux";
 
     specialArgs =
@@ -79,10 +69,10 @@
 
     globalOverlays =
       [
-        astal-shell.overlays.default
-        nix-vscode-extensions.overlays.default
-        (self: super: {firefox-addons = firefox-addons.packages.${system};})
-        (self: super: {whispy = whispy.packages.${system}.default;})
+        inputs.astal-shell.overlays.default
+        inputs.nix-vscode-extensions.overlays.default
+        (self: super: {firefox-addons = inputs.firefox-addons.packages.${system};})
+        (self: super: {whispy = inputs.whispy.packages.${system}.default;})
         (
           final: prev:
             haumea.lib.load {
@@ -130,8 +120,8 @@
           nixpkgs.overlays = globalOverlays ++ hostOverlays;
         }
         stylix.nixosModules.stylix
-        niri.nixosModules.niri
-        home-manager.nixosModules.home-manager
+        inputs.niri.nixosModules.niri
+        inputs.home-manager.nixosModules.home-manager
         {
           home-manager = {
             useGlobalPkgs = true;
@@ -139,7 +129,7 @@
             extraSpecialArgs = specialArgs;
             backupFileExtension = "bak";
             sharedModules = [
-              astal-shell.homeManagerModules.default
+              inputs.astal-shell.homeManagerModules.default
             ];
           };
         }
@@ -151,14 +141,59 @@
       modules = mkNixosModules ./hosts/vm;
     };
 
+    steamdeckVmConfiguration = nixpkgs.lib.nixosSystem {
+      inherit specialArgs;
+      modules = mkNixosModules ./hosts/steamdeck ++ [
+        "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
+        "${inputs.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
+        ({ lib, ... }: {
+          virtualisation.memorySize = 4096;
+          virtualisation.cores = 4;
+          virtualisation.resolution.x = 1280;
+          virtualisation.resolution.y = 800;
+          virtualisation.qemu.options = [
+            "-vga virtio"
+            "-device virtio-vga-gl"
+            "-display gtk,gl=on"
+            "-device usb-tablet"
+            "-device usb-kbd"
+          ];
+          services.spice-vdagentd.enable = true;
+          boot.kernelModules = ["uinput" "evdev"];
+          boot.initrd.kernelModules = ["virtio_gpu"];
+          virtualisation.forwardPorts = [
+            {
+              from = "host";
+              host.port = 2223;
+              guest.port = 22;
+            }
+          ];
+          fileSystems."/" = {
+            device = "/dev/disk/by-label/nixos";
+            fsType = "xfs";
+            autoResize = true;
+          };
+          fileSystems."/boot" = {
+            device = "/dev/vda1";
+            fsType = "vfat";
+          };
+          boot.loader.systemd-boot.enable = lib.mkForce false;
+          boot.loader.grub.device = "/dev/vda";
+          services.btrfs.autoScrub.enable = false;
+          services.btrfs.autoScrub.fileSystems = [];
+        })
+      ];
+    };
+
     pkgsWithOverlays = import nixpkgs {
       inherit system;
       overlays = globalOverlays;
+      config.allowUnfree = true;
     };
   in {
     packages.${system} = {
       default = vmConfiguration.config.system.build.vm;
-      browser-tool = pkgsWithOverlays.browser-tool.default;
+      steamdeck-vm = steamdeckVmConfiguration.config.system.build.vm;
       neuwaita-icon-theme = pkgsWithOverlays.neuwaita-icon-theme;
       nfoview = pkgsWithOverlays.nfoview;
       llama-swap = pkgsWithOverlays.llama-swap;
@@ -188,6 +223,13 @@
         inherit specialArgs;
         modules = mkNixosModules ./hosts/minibookx;
       };
+
+      steamdeck = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+        modules = mkNixosModules ./hosts/steamdeck;
+      };
+
+      steamdeck-vm = steamdeckVmConfiguration;
     };
   };
 }
