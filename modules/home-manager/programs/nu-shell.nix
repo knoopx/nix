@@ -67,6 +67,9 @@ in {
     };
     envFile = {
       text = ''
+
+        $env.INTELLI_VARIABLE_HOTKEY = "ctrl-k"
+
         export def git-branches []: nothing -> list<record<ref: string, obj: string, upstream: string, subject: string>> {
           ^git for-each-ref --format '%(refname:lstrip=2)%09%(objectname:short)%09%(upstream:remotename)%(upstream:track)%09%(contents:subject)' refs/heads | lines | parse "{ref}\t{obj}\t{upstream}\t{subject}"
         }
