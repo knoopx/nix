@@ -241,12 +241,20 @@ in {
     keybinds = {
       command_list = "ctrl+space";
     };
+    plugin = [
+      "opencode-gemini-auth@latest"
+    ];
+
+    instructions = [
+      ./instructions/shell.md
+    ];
+
     mcp = {
-      # sequential-thinking = {
-      #   type = "local";
-      #   command = ["bunx" "@modelcontextprotocol/server-sequential-thinking"];
-      #   enabled = true;
-      # };
+      sequential-thinking = {
+        type = "local";
+        command = ["bunx" "@modelcontextprotocol/server-sequential-thinking"];
+        enabled = true;
+      };
       deepwiki = {
         type = "local";
         command = ["bunx" "mcp-deepwiki"];
@@ -274,38 +282,6 @@ in {
         environment = {
           MODE = "stdio";
         };
-      };
-    };
-    provider = {
-      ollama-cloud = {
-        npm = "ollama-ai-provider-v2";
-        #   options = {
-        #     baseURL = "https://ollama.com/v1";
-        #   };
-
-        #   models = {
-        #     "deepseek-v3.1:671b-cloud" = {
-        #       name = "deepseek-v3.1:671b-cloud";
-        #     };
-        #     "gpt-oss:20b-cloud" = {
-        #       name = "gpt-oss:20b-cloud";
-        #     };
-        #     "gpt-oss:120b-cloud" = {
-        #       name = "gpt-oss:120b-cloud";
-        #     };
-        #     "kimi-k2:1t-cloud" = {
-        #       name = "kimi-k2:1t-cloud";
-        #     };
-        #     "qwen3-coder:480b-cloud" = {
-        #       name = "qwen3-coder:480b-cloud";
-        #     };
-        #     "glm-4.6:cloud" = {
-        #       name = "glm-4.6:cloud";
-        #     };
-        #     "minimax-m2:cloud" = {
-        #       name = "minimax-m2:cloud";
-        #     };
-        #   };
       };
     };
   };
