@@ -10,6 +10,7 @@
     expat
     fuse
     glib
+    glib.dev
     gtk3
     libdrm
     libgbm
@@ -36,7 +37,12 @@
     gst_all_1.gst-plugins-ugly
     gst_all_1.gstreamer
     gtk3
+    gtk4
     gtksourceview5
+    pango
+    gobject-introspection
+    cairo
+    gdk-pixbuf
     libadwaita
     libhandy
     webkitgtk_6_0
@@ -51,7 +57,7 @@
     # curl
     # dbus-glib
     # e2fsprogs
-    # ffmpeg
+    ffmpeg
     # ffmpeg_6 # torchvision
     # flac
     # fontconfig
@@ -103,6 +109,7 @@
     # libtiff
     # libudev0-shim
     libusb1
+    libclang
     # libuv
     # libva
     # libvdpau
@@ -112,7 +119,7 @@
     # lz4
     # mesa
     # nvidia-vaapi-driver
-    # openssl
+    openssl
     # pipewire
     # pixman
     # SDL
