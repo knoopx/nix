@@ -140,5 +140,7 @@
     codemapper
     sox
     gh
+    tmux
+    worktrunk
   ];
 }
