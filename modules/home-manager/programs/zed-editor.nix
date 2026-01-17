@@ -4,7 +4,7 @@
   ...
 }: {
   programs.zed-editor = {
-    enable = false;
+    enable = true;
     extensions = [];
     extraPackages = [];
     userSettings = {
