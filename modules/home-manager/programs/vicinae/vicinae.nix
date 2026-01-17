@@ -5,10 +5,10 @@
 }: {
   stylix.targets.vicinae.enable = false;
 
-  # config.xdg.dataHome.vicinae.scripts = {
-  #   source = ./scripts;
-  #   recursive = true;
-  # };
+  home.file."${config.xdg.dataHome}/vicinae/scripts" = {
+    source = ./scripts;
+    recursive = true;
+  };
 
   programs.vicinae = {
     enable = true;
