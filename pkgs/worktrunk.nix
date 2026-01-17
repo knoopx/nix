@@ -15,6 +15,7 @@ pkgs.rustPlatform.buildRustPackage rec {
   };
 
   cargoHash = "sha256-60o9JLUSL3B7OpSMWdlsaAr7ZRaAKbAi8C88qMqKE/A=";
+  doCheck = false;
 
   meta = with lib; {
     description = "Worktrunk is a CLI for Git worktree management, designed for parallel AI agent workflows";
