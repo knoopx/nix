@@ -100,14 +100,30 @@
             autoIndexing = false;
           };
         };
-        "@knoopx/store.vicinae.supergenpass" = {
+        "@brpaz/store.raycast.brotab" = {
           preferences = {
-            length = "20";
+            brotabPath = "";
           };
         };
-        "@tonka3000/store.raycast.homeassistant" = {
+        "@knoopx/store.vicinae.silverbullet" = {
           preferences = {
-            instance = "https://home.knoopx.net";
+            silverbulletApiUrl = "https://wiki.knoopx.net";
+          };
+        };
+        "@leiserfg/store.raycast.ssh" = {
+          preferences = {
+            terminal = "wezterm";
+          };
+        };
+        "@knoopx/store.vicinae.stocks" = {
+          preferences = {
+            symbols = "NVDA,NET,MSFT,AMZN,XPEV,BABA,BTC-USD";
+          };
+        };
+        "@knoopx/store.vicinae.tmux" = {
+          preferences = {
+            terminalCommand = "wezterm";
+            terminalArgs = "start --";
           };
         };
       };
