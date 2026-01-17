@@ -113,7 +113,6 @@
     lsof
     mpv
     nh
-    nushell
     nvd
     opencode
     ox
