@@ -1,18 +1,72 @@
 {
+  pkgs,
+  inputs,
   config,
   nixosConfig,
   ...
 }: {
   stylix.targets.vicinae.enable = false;
 
-  home.file."${config.xdg.dataHome}/vicinae/scripts" = {
-    source = ./scripts;
-    recursive = true;
-  };
+  # home.file."${config.xdg.dataHome}/vicinae/scripts" = {
+  #   source = ./scripts;
+  #   recursive = true;
+  # };
 
   programs.vicinae = {
     enable = true;
     systemd.enable = true;
+
+    extensions = map (name:
+      config.lib.vicinae.mkExtension {
+        name = name;
+        src = inputs.vicinae-extensions + "/extensions/${name}";
+      }) [
+      "bluetooth"
+      # "brotab"
+      # "dbus"
+      "firefox"
+      "niri"
+      "nix"
+      "otp"
+      "podman"
+      "port-killer"
+      "power-profile"
+      "process-manager"
+      "rodalies"
+      "screen-recording"
+      "skate"
+      "stocks"
+      "supergenpass"
+      # "systemd"
+      "tmux"
+
+      # "can-i-use"
+      # "cheatsheets"
+      # "cloudflare"
+      # "devdocs"
+      # "duckduckgo-image-search"
+      # "gif-search"
+      # "github"
+      # "github-trending"
+      # "google-fonts"
+      # "hacker-news"
+      # "homeassistant"
+      # "kill-process"
+      # "knowyourmeme"
+      # "meme-generator"
+      # "notion"
+      # "plex"
+      # "raycast-ollama"
+      # "reddit-search"
+      # "regex-tester"
+      # "remove-paywall"
+      # "rhttp"
+      # "tailwindcss"
+      # "thingiverse"
+      # "translate"
+      # "weather"
+      # "wikipedia"
+    ];
 
     settings = {
       imports = [];

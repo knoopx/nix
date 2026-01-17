@@ -45,12 +45,18 @@
     whispy.url = "github:knoopx/whispy";
     whispy.inputs.nixpkgs.follows = "nixpkgs";
 
+    vicinaehq.url = "github:vicinaehq/vicinae";
+    vicinaehq.inputs.nixpkgs.follows = "nixpkgs";
+
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
+
+    vicinae-extensions.url = "github:knoopx/vicinae-extensions";
+    vicinae-extensions.flake = false;
   };
 
   outputs = inputs: let
-    inherit (inputs) nixpkgs haumea home-manager niri nix-vscode-extensions stylix astal-shell firefox-addons whispy;
+    inherit (inputs) nixpkgs haumea home-manager niri nix-vscode-extensions stylix astal-shell firefox-addons whispy vicinaehq;
 
     system = "x86_64-linux";
 
@@ -73,6 +79,7 @@
         inputs.nix-vscode-extensions.overlays.default
         (self: super: {firefox-addons = inputs.firefox-addons.packages.${system};})
         (self: super: {whispy = inputs.whispy.packages.${system}.default;})
+        (self: super: {vicinaehq = inputs.vicinaehq;})
         (
           final: prev:
             haumea.lib.load {
@@ -143,46 +150,48 @@
 
     steamdeckVmConfiguration = nixpkgs.lib.nixosSystem {
       inherit specialArgs;
-      modules = mkNixosModules ./hosts/steamdeck ++ [
-        "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
-        "${inputs.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
-        ({ lib, ... }: {
-          virtualisation.memorySize = 4096;
-          virtualisation.cores = 4;
-          virtualisation.resolution.x = 1280;
-          virtualisation.resolution.y = 800;
-          virtualisation.qemu.options = [
-            "-vga virtio"
-            "-device virtio-vga-gl"
-            "-display gtk,gl=on"
-            "-device usb-tablet"
-            "-device usb-kbd"
-          ];
-          services.spice-vdagentd.enable = true;
-          boot.kernelModules = ["uinput" "evdev"];
-          boot.initrd.kernelModules = ["virtio_gpu"];
-          virtualisation.forwardPorts = [
-            {
-              from = "host";
-              host.port = 2223;
-              guest.port = 22;
-            }
-          ];
-          fileSystems."/" = {
-            device = "/dev/disk/by-label/nixos";
-            fsType = "xfs";
-            autoResize = true;
-          };
-          fileSystems."/boot" = {
-            device = "/dev/vda1";
-            fsType = "vfat";
-          };
-          boot.loader.systemd-boot.enable = lib.mkForce false;
-          boot.loader.grub.device = "/dev/vda";
-          services.btrfs.autoScrub.enable = false;
-          services.btrfs.autoScrub.fileSystems = [];
-        })
-      ];
+      modules =
+        mkNixosModules ./hosts/steamdeck
+        ++ [
+          "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
+          "${inputs.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
+          ({lib, ...}: {
+            virtualisation.memorySize = 4096;
+            virtualisation.cores = 4;
+            virtualisation.resolution.x = 1280;
+            virtualisation.resolution.y = 800;
+            virtualisation.qemu.options = [
+              "-vga virtio"
+              "-device virtio-vga-gl"
+              "-display gtk,gl=on"
+              "-device usb-tablet"
+              "-device usb-kbd"
+            ];
+            services.spice-vdagentd.enable = true;
+            boot.kernelModules = ["uinput" "evdev"];
+            boot.initrd.kernelModules = ["virtio_gpu"];
+            virtualisation.forwardPorts = [
+              {
+                from = "host";
+                host.port = 2223;
+                guest.port = 22;
+              }
+            ];
+            fileSystems."/" = {
+              device = "/dev/disk/by-label/nixos";
+              fsType = "xfs";
+              autoResize = true;
+            };
+            fileSystems."/boot" = {
+              device = "/dev/vda1";
+              fsType = "vfat";
+            };
+            boot.loader.systemd-boot.enable = lib.mkForce false;
+            boot.loader.grub.device = "/dev/vda";
+            services.btrfs.autoScrub.enable = false;
+            services.btrfs.autoScrub.fileSystems = [];
+          })
+        ];
     };
 
     pkgsWithOverlays = import nixpkgs {
