@@ -15,6 +15,7 @@
     # dasel
     # debugedit
     # duperemove
+    # dwarfs
     # efibootmgr
     # elfutils
     # fastfetch
@@ -70,9 +71,12 @@
     # tab
     # taskwarrior3
     # tree
+    # umu-launcher
+    # visidata
     # vllm
     # w3m
     # walk
+    # wlrctl
     # xq-xml
     # xz
     # yq
@@ -89,6 +93,7 @@
     caligula
     circumflex # hackernews client
     clang-tools
+    codemapper
     csvkit
     csvlens
     dasel
@@ -101,6 +106,7 @@
     ffmpeg
     fx # jq alternative
     gcalcli
+    gh
     google-authenticator-qr-decode
     guitar
     gum
@@ -129,18 +135,16 @@
     shfmt
     skate
     socat
+    sox
+    tmux
     up # repl
     usbutils
     util-linux
     wf-recorder
     wirelesstools
     wl-clipboard
+    worktrunk
     xxd
     yt-dlp
-    codemapper
-    sox
-    gh
-    tmux
-    worktrunk
   ];
 }

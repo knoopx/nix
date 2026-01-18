@@ -16,12 +16,14 @@
     # fclones-gui
     # foliate
     # gapless
+    # gearlever
     # ghidra
     # gnome-feeds
     # gnome-mahjongg
     # gnome-sudoku
     # google-chrome
     # impression
+    # mission-center
     # parlatype
     # pipeline
     # planify
@@ -43,7 +45,6 @@
     eog
     evince
     file-roller
-    gearlever
     geary
     gitg
     gnome-calendar
@@ -52,7 +53,6 @@
     gnome-text-editor
     gnome-weather
     loupe
-    mission-center
     nautilus
     onlyoffice-desktopeditors
     pinta
