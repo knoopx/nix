@@ -59,5 +59,6 @@
     plexamp
     seahorse
     sushi
+    newelle
   ];
 }

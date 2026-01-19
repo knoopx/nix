@@ -146,5 +146,9 @@
     worktrunk
     xxd
     yt-dlp
+    himalaya
+    jjui
+    sqlite
+    biome
   ];
 }
