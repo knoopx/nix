@@ -150,5 +150,6 @@
     jjui
     sqlite
     biome
+    ollama
   ];
 }
