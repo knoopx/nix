@@ -5,18 +5,8 @@
     when = "textInputFocus && !editorReadonly";
   }
   {
-    key = "ctrl+k j";
-    command = "terminal.focus";
-  }
-  {
-    key = "ctrl+r";
-    command = "-workbench.action.reloadWindow";
-    when = "isDevelopment";
-  }
-  {
-    key = "ctrl+r";
-    command = "-python.refreshTensorBoard";
-    when = "python.hasActiveTensorBoardSession";
+    key = "ctrl+shift+g";
+    command = "visualjj.isl.focus";
   }
   {
     key = "ctrl+r";
@@ -35,4 +25,14 @@
     key = "ctrl+shift+j";
     command = "workbench.panel.chat";
   }
+  # {
+  #   key = "ctrl+r";
+  #   command = "-workbench.action.reloadWindow";
+  #   when = "isDevelopment";
+  # }
+  # {
+  #   key = "ctrl+r";
+  #   command = "-python.refreshTensorBoard";
+  #   when = "python.hasActiveTensorBoardSession";
+  # }
 ]
