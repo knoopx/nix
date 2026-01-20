@@ -710,11 +710,11 @@
     "vicinae-extensions": {
       "flake": false,
       "locked": {
-        "lastModified": 1768748168,
-        "narHash": "sha256-qz4h1Z6IyVkFy0dRlAHeaRag4sT6WJPO1oo5FqXRevE=",
+        "lastModified": 1768916348,
+        "narHash": "sha256-JCnz2lGgBNrXgTVBD8ztS0BBHbUqBk6wyE089+ySNhw=",
         "owner": "knoopx",
         "repo": "vicinae-extensions",
-        "rev": "a9d1bf46448003b458755f233a7c0bfc2f65213e",
+        "rev": "152d5233ec8ddf9bab1c1bd9a2c08f21fe40d24a",
         "type": "github"
       },
       "original": {

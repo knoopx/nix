@@ -1,9 +1,98 @@
 {
   inputs,
   config,
+  lib,
   nixosConfig,
+  pkgs,
   ...
-}: {
+}: let
+  shortcuts = [
+    {
+      name = "Slack";
+      icon = "icon://favicon/app.slack.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
+      url = "https://app.slack.com/client/T069GEHD6AC/C09JKJ3HL4X";
+      app = "firefox.desktop";
+    }
+    {
+      name = "Home Assistant";
+      icon = "icon://omnicast/house?fill=primary-text";
+      url = "https://home.knoopx.net/lovelace";
+      app = "firefox.desktop";
+    }
+    {
+      name = "Gmail - Personal";
+      icon = "icon://omnicast/envelope?fill=primary-text";
+      url = "https://mail.google.com/mail/u/0/";
+      app = "firefox.desktop";
+    }
+    {
+      name = "Gmail - Work";
+      icon = "icon://omnicast/envelope?fill=primary-text";
+      url = "https://mail.google.com/mail/u/1/";
+      app = "firefox.desktop";
+    }
+    {
+      name = "Calendar - Work";
+      icon = "icon://favicon/calendar.google.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
+      url = "https://calendar.google.com/calendar/u/1/";
+      app = "firefox.desktop";
+    }
+    {
+      name = "Telegram";
+      icon = "icon://favicon/web.telegram.org?fallback=icon://omnicast/image?fill%3Dprimary-text";
+      url = "https://web.telegram.org/k/";
+      app = "firefox.desktop";
+    }
+    {
+      name = "Discord";
+      icon = "icon://omnicast/discord";
+      url = "https://discord.com/channels/";
+      app = "firefox.desktop";
+    }
+    {
+      name = "Youtube";
+      icon = "icon://favicon/www.youtube.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
+      url = "https://www.youtube.com/";
+      app = "firefox.desktop";
+    }
+    {
+      name = "Reddit";
+      icon = "icon://favicon/www.reddit.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
+      url = "https://www.reddit.com/";
+      app = "firefox.desktop";
+    }
+    {
+      name = "WhatsApp";
+      icon = "icon://omnicast/speech-bubble-active?fill=primary-text";
+      url = "https://web.whatsapp.com/";
+      app = "firefox.desktop";
+    }
+    {
+      name = "Spotify";
+      icon = "icon://favicon/open.spotify.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
+      url = "https://open.spotify.com/";
+      app = "firefox.desktop";
+    }
+    {
+      name = "Plex Web";
+      icon = "icon://favicon/app.plex.tv?fallback=icon://omnicast/image?fill%3Dprimary-text";
+      url = "https://app.plex.tv/desktop/";
+      app = "firefox.desktop";
+    }
+    {
+      name = "Webull";
+      icon = "icon://favicon/app.webull.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
+      url = "https://app.webull.com/stocks";
+      app = "firefox.desktop";
+    }
+    {
+      name = "Wiki";
+      icon = "icon://omnicast/snippets?fill=primary-text";
+      url = "https://wiki.knoopx.net/";
+      app = "firefox.desktop";
+    }
+  ];
+in {
   stylix.targets.vicinae.enable = false;
 
   # home.file."${config.xdg.dataHome}/vicinae/scripts" = {
@@ -175,6 +264,23 @@
       };
     };
   };
+
+  systemd.user.services.vicinae.Service.ExecStartPre = let
+    shortcutsJson = pkgs.writeText "vicinae-shortcuts.json" (builtins.toJSON shortcuts);
+  in [
+    (pkgs.writeShellScript "vicinae-sync-shortcuts" ''
+      if [ -f "${config.xdg.dataHome}/vicinae/vicinae.db" ]; then
+        export PATH="${lib.makeBinPath [pkgs.coreutils pkgs.nushell pkgs.sqlite]}:$PATH"
+        ${lib.getExe pkgs.nushell} -c --stdin <<NU
+        let vicinaedb = (realpath ~/.local/share/vicinae/vicinae.db)
+        sqlite3 $vicinaedb "DELETE FROM shortcut;"
+        open ${shortcutsJson} | each {
+          $in | merge ({id: (random uuid), created_at: (date now), updated_at: (date now) }) | into sqlite $vicinaedb -t shortcut
+        }
+      NU
+      fi
+    '')
+  ];
 
   home.file.".local/bin/vjj".source = inputs.vicinae-extensions + "/extensions/jujutsu/vjj.nu";
   home.file.".local/bin/vjj".executable = true;
