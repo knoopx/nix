@@ -2,6 +2,12 @@
 
 let shortcuts = [
   {
+    "name": "Slack",
+    "icon": "icon://omnicast/globe?fill=primary-text",
+    "url": "https://app.slack.com/client/T069GEHD6AC/C09JKJ3HL4X",
+    "app": "firefox.desktop"
+  },
+  {
     "name": "Home Assistant",
     "icon": "icon://omnicast/house?fill=primary-text",
     "url": "https://home.knoopx.net/lovelace",
@@ -14,9 +20,21 @@ let shortcuts = [
     "app": "scrcpy.desktop"
   },
   {
-    "name": "Gmail",
+    "name": "Gmail - Personal",
     "icon": "icon://omnicast/gmail",
-    "url": "https://mail.google.com/",
+    "url": "https://mail.google.com/mail/u/0/",
+    "app": "firefox.desktop"
+  },
+  {
+    "name": "Gmail - Work",
+    "icon": "icon://omnicast/gmail",
+    "url": "https://mail.google.com/mail/u/1/",
+    "app": "firefox.desktop"
+  },
+  {
+    "name": "Calendar - Work",
+    "icon": "icon://omnicast/gmail",
+    "url": "https://calendar.google.com/calendar/u/1/",
     "app": "firefox.desktop"
   },
   {

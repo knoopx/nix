@@ -1,5 +1,4 @@
 {
-  pkgs,
   inputs,
   config,
   nixosConfig,
@@ -40,6 +39,8 @@
       "github"
       # "systemd"
       "tmux"
+      "himalaya"
+      # "jujutsu"
 
       # "can-i-use"
       # "cheatsheets"
@@ -174,6 +175,9 @@
       };
     };
   };
+
+  home.file.".local/bin/vjj".source = inputs.vicinae-extensions + "/extensions/jujutsu/vjj.nu";
+  home.file.".local/bin/vjj".executable = true;
 
   home.file.".local/share/vicinae/themes/custom.toml".text = ''
     [meta]
