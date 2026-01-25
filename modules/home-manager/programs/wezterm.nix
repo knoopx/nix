@@ -15,6 +15,11 @@
              mods = 'CTRL',
              action = wezterm.action.SendString('\x17'),
            },
+           {
+             key = 'P',
+             mods = 'CTRL|SHIFT',
+             action = wezterm.action.DisableDefaultAssignment,
+           },
          },
        }
     '';
