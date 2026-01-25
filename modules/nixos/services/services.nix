@@ -9,6 +9,7 @@
     printing.enable = false;
     libinput.enable = true; # required for niri mouse handling
 
+    atd.enable = true;
     pipewire = {
       enable = true;
     };
