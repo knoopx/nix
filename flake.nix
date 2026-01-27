@@ -205,7 +205,6 @@
       steamdeck-vm = steamdeckVmConfiguration.config.system.build.vm;
       neuwaita-icon-theme = pkgsWithOverlays.neuwaita-icon-theme;
       nfoview = pkgsWithOverlays.nfoview;
-      llama-swap = pkgsWithOverlays.llama-swap;
       geary = pkgsWithOverlays.geary;
       codemapper = pkgsWithOverlays.codemapper;
     };
