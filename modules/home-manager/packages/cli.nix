@@ -86,6 +86,7 @@
     # zstd
     aria2
     ast-grep
+    bat
     binsider
     biome
     bluez
@@ -109,6 +110,7 @@
     fx # jq alternative
     gcalcli
     gh
+    glow
     google-authenticator-qr-decode
     guitar
     gum
@@ -146,6 +148,7 @@
     up # repl
     usbutils
     util-linux
+    wacli
     wf-recorder
     wirelesstools
     wl-clipboard
