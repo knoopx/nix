@@ -56,6 +56,7 @@
     # pcre2
     # perl
     # posting # broken, installed as uv tool
+    # python313Packages.markitdown
     # rage
     # ranger
     # readline
@@ -86,6 +87,7 @@
     aria2
     ast-grep
     binsider
+    biome
     bluez
     bluez-tools
     brotab
@@ -110,23 +112,26 @@
     google-authenticator-qr-decode
     guitar
     gum
+    himalaya
     imagemagick
     inetutils
     inotify-tools
     jc
+    jjui
     jq
+    just
     lshw
     lsof
     mpv
     nh
     nvd
+    ollama
     opencode
     ox
     p7zip
     pciutils
     pcre
     pi
-    python313Packages.markitdown
     rclone
     reader
     ripgrep
@@ -136,7 +141,9 @@
     skate
     socat
     sox
+    sqlite
     tmux
+    typescript-language-server
     up # repl
     usbutils
     util-linux
@@ -146,10 +153,5 @@
     worktrunk
     xxd
     yt-dlp
-    himalaya
-    jjui
-    sqlite
-    biome
-    ollama
   ];
 }
