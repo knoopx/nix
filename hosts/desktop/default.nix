@@ -12,7 +12,6 @@ in {
       ./filesystems.nix
       ./hardware.nix
       ./nvidia.nix
-      ./services.nix
     ]
     ++ (listNixModulesRecusive ./services)
     ++ (listNixModulesRecusive ./containers)
