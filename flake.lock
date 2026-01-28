@@ -556,8 +556,7 @@
         "nixpkgs": "nixpkgs",
         "stylix": "stylix",
         "vicinae-extensions": "vicinae-extensions",
-        "vicinaehq": "vicinaehq",
-        "whispy": "whispy"
+        "vicinaehq": "vicinaehq"
       }
     },
     "stylix": {
@@ -741,26 +740,6 @@
       "original": {
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "type": "github"
-      }
-    },
-    "whispy": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1768432136,
-        "narHash": "sha256-dkaswFfN4DCpegaRks9yv/Wkivk1azrLQlXYB/adF8E=",
-        "owner": "knoopx",
-        "repo": "whispy",
-        "rev": "341bbc59030c1a11a88335286c7f122c428568be",
-        "type": "github"
-      },
-      "original": {
-        "owner": "knoopx",
-        "repo": "whispy",
         "type": "github"
       }
     },

@@ -112,7 +112,6 @@
     gh
     glow
     google-authenticator-qr-decode
-    guitar
     gum
     himalaya
     imagemagick
@@ -152,8 +151,9 @@
     wf-recorder
     wirelesstools
     wl-clipboard
-    worktrunk
     xxd
     yt-dlp
+    marksman
+    tree
   ];
 }

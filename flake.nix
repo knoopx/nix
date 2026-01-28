@@ -42,9 +42,6 @@
     neuwaita.url = "github:RusticBard/Neuwaita";
     neuwaita.flake = false;
 
-    whispy.url = "github:knoopx/whispy";
-    whispy.inputs.nixpkgs.follows = "nixpkgs";
-
     vicinaehq.url = "github:vicinaehq/vicinae";
     vicinaehq.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -56,7 +53,7 @@
   };
 
   outputs = inputs: let
-    inherit (inputs) nixpkgs haumea home-manager niri nix-vscode-extensions stylix astal-shell firefox-addons whispy vicinaehq;
+    inherit (inputs) nixpkgs haumea home-manager niri nix-vscode-extensions stylix astal-shell firefox-addons vicinaehq;
 
     system = "x86_64-linux";
 
@@ -78,7 +75,6 @@
         inputs.astal-shell.overlays.default
         inputs.nix-vscode-extensions.overlays.default
         (self: super: {firefox-addons = inputs.firefox-addons.packages.${system};})
-        (self: super: {whispy = inputs.whispy.packages.${system}.default;})
         (self: super: {vicinaehq = inputs.vicinaehq;})
         (
           final: prev:
