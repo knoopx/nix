@@ -125,7 +125,6 @@
     mpv
     nh
     nvd
-    ollama
     opencode
     ox
     p7zip

@@ -65,7 +65,7 @@ The `modules/home-manager/packages/dev/` directory contains language-specific de
 - **desktop/**: Main workstation featuring:
   - NVIDIA graphics with CUDA support
   - [BTRFS](https://btrfs.readthedocs.io/en/latest/) filesystem with advanced features
-- Container services ([Watchtower](https://github.com/containrrr/watchtower) for updates, [SilverBullet](https://silverbullet.md/), [Ollama](https://github.com/ollama/ollama) for AI models)
+- Container services ([Watchtower](https://github.com/containrrr/watchtower) for updates, [SilverBullet](https://silverbullet.md/)
 - Hardware acceleration for AI models
 - EasyEffects audio configuration
 - Glance dashboard

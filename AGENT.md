@@ -139,7 +139,7 @@ overlays/          # Package overlays, used for fixing quirks/annoyances
 ├── opencode.nix, pegasus-frontend.nix, retroarch.nix
 ├── useless-desktop-items.nix, useless-files.nix
 pkgs/             # Custom packages
-├── cromite.nix, llama-swap.nix, neuwaita-icon-theme.nix, nfoview.nix
+├── cromite.nix, neuwaita-icon-theme.nix, nfoview.nix
 lib/              # Utility functions
 ├── theming/       # Theme-related utilities
 │   ├── colorVariations.nix, hexToHSL.nix, hexToRGB.nix
@@ -299,14 +299,6 @@ The configuration uses numerous external inputs:
 - **Hardware**: nix-chuwi-minibook-x
 - **Development**: nix-vscode-extensions, autofirma-nix
 - **Social**: vicinae
-
-## Available Packages
-
-The repository provides several custom packages:
-- `neuwaita-icon-theme` - Custom icon theme
-- `nfoview` - NFO file viewer
-- `llama-swap` - LLM swap management
-- `geary` - Email client (with fixes)
 
 ## Host-Specific Configurations
 
