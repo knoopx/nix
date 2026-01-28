@@ -20,4 +20,5 @@ in
     wallabyjs.console-ninja
     solomonkinard.git-blame
     thenuprojectcontributors.vscode-nushell-lang
+    visualjj.visualjj
   ]
