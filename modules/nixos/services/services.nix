@@ -30,7 +30,6 @@
         gcr
         gnome-keyring
         gvfs
-        nautilus-open-any-terminal
         udisks2
       ];
     };
