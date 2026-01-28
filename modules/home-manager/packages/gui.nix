@@ -46,7 +46,6 @@
     evince
     file-roller
     geary
-    gitg
     gnome-calendar
     gnome-disk-utility
     gnome-secrets
