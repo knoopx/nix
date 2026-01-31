@@ -155,5 +155,7 @@
     yt-dlp
     marksman
     tree
+    gogcli
+    vscode-json-languageserver
   ];
 }
