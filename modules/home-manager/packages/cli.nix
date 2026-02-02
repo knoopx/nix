@@ -113,7 +113,6 @@
     glow
     google-authenticator-qr-decode
     gum
-    himalaya
     imagemagick
     inetutils
     inotify-tools
