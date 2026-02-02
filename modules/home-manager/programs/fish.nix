@@ -25,8 +25,9 @@
       interactiveShellInit = ''
         set fish_greeting
 
-        set -gx DEEPSEEK_API_KEY (secret-tool lookup deepseek-api key | head | tr -d "\n")
-        set -gx GITHUB_PERSONAL_ACCESS_TOKEN (secret-tool lookup github token | head | tr -d "\n")
+        for line in (skate list @env-keys | cut -f1)
+            set -gx (echo $line | tr '[:lower:]' '[:upper:]') (skate get $line@env-keys)
+        end
 
         fish_add_path -g "$HOME/.cache/.bun/bin"
         fish_add_path -g "$HOME/.cargo/bin"
