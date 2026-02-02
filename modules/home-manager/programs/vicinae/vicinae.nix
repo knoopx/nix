@@ -14,30 +14,6 @@
       app = "firefox.desktop";
     }
     {
-      name = "Home Assistant";
-      icon = "icon://omnicast/house?fill=primary-text";
-      url = "https://home.knoopx.net/lovelace";
-      app = "firefox.desktop";
-    }
-    {
-      name = "Gmail - Personal";
-      icon = "icon://omnicast/envelope?fill=primary-text";
-      url = "https://mail.google.com/mail/u/0/";
-      app = "firefox.desktop";
-    }
-    {
-      name = "Gmail - Work";
-      icon = "icon://omnicast/envelope?fill=primary-text";
-      url = "https://mail.google.com/mail/u/1/";
-      app = "firefox.desktop";
-    }
-    {
-      name = "Calendar - Work";
-      icon = "icon://favicon/calendar.google.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
-      url = "https://calendar.google.com/calendar/u/1/";
-      app = "firefox.desktop";
-    }
-    {
       name = "Telegram";
       icon = "icon://favicon/web.telegram.org?fallback=icon://omnicast/image?fill%3Dprimary-text";
       url = "https://web.telegram.org/k/";
@@ -85,12 +61,6 @@
       url = "https://app.webull.com/stocks";
       app = "firefox.desktop";
     }
-    {
-      name = "Wiki";
-      icon = "icon://omnicast/snippets?fill=primary-text";
-      url = "https://wiki.knoopx.net/";
-      app = "firefox.desktop";
-    }
   ];
 in {
   stylix.targets.vicinae.enable = false;
@@ -126,9 +96,10 @@ in {
       "stocks"
       "supergenpass"
       "github"
+      # "home-assistant"
       # "systemd"
       "tmux"
-      "himalaya"
+      # "gog"
       # "jujutsu"
 
       # "can-i-use"
@@ -194,6 +165,9 @@ in {
           preferences = {
             brotabPath = "";
           };
+        };
+        "@knoopx/store.vicinae.home-assistant" = {
+          url = "https://home.knoopx.net";
         };
         "@knoopx/store.vicinae.silverbullet" = {
           preferences = {
