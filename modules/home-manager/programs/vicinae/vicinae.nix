@@ -130,14 +130,15 @@ in {
     ];
 
     settings = {
+      "$schema" = "https://vicinae.com/schemas/config.json";
       imports = [];
-      search_files_in_root = false;
-      escape_key_behavior = "navigate_back";
       close_on_focus_loss = false;
       consider_preedit = false;
       pop_to_root_on_close = false;
+      escape_key_behavior = "navigate_back";
       favicon_service = "google";
       keybinding = "default";
+      search_files_in_root = false;
       font = {
         normal = {
           family = "auto";
@@ -154,72 +155,31 @@ in {
           icon_theme = config.gtk.iconTheme.name;
         };
       };
-      providers = {
-        files = {
-          enabled = false;
-          preferences = {
-            autoIndexing = false;
-          };
-        };
-        "@brpaz/store.raycast.brotab" = {
-          preferences = {
-            brotabPath = "";
-          };
-        };
-        "@knoopx/store.vicinae.home-assistant" = {
-          url = "https://home.knoopx.net";
-        };
-        "@knoopx/store.vicinae.silverbullet" = {
-          preferences = {
-            silverbulletApiUrl = "https://wiki.knoopx.net";
-          };
-        };
-        "@leiserfg/store.raycast.ssh" = {
-          preferences = {
-            terminal = "wezterm";
-          };
-        };
-        "@knoopx/store.vicinae.stocks" = {
-          preferences = {
-            symbols = "NVDA,NET,MSFT,AMZN,XPEV,BABA,BTC-USD";
-          };
-        };
-        "@knoopx/store.vicinae.tmux" = {
-          preferences = {
-            terminalCommand = "wezterm";
-            terminalArgs = "start --";
-          };
-        };
-      };
       launcher_window = {
         opacity = 1;
-        blur = {
-          enabled = true;
-        };
-        dim_around = true;
         client_side_decorations = {
           enabled = true;
           rounding = 8;
           border_width = 3;
         };
-        compact_mode = {
-          enabled = false;
-        };
         size = {
           width = 800;
           height = 600;
         };
-        screen = "auto";
-        layer_shell = {
+        dim_around = true;
+        blur = {
           enabled = false;
-          keyboard_interactivity = "exclusive";
+        };
+        compact_mode = {
+          enabled = false;
+        };
+        layer_shell = {
           layer = "top";
+          keyboard_interactivity = "exclusive";
+          enabled = false;
         };
       };
       keybinds = {
-        "open-search-filter" = "control+P";
-        "open-settings" = "control+,";
-        "toggle-action-panel" = "control+J";
         "action.copy" = "control+shift+C";
         "action.copy-name" = "control+shift+.";
         "action.copy-path" = "control+shift+,";
@@ -235,6 +195,48 @@ in {
         "action.refresh" = "control+R";
         "action.remove" = "control+X";
         "action.save" = "control+S";
+        "open-search-filter" = "control+P";
+        "open-settings" = "control+,";
+        "toggle-action-panel" = "control+J";
+      };
+      providers = {
+        "@brpaz/store.raycast.brotab" = {
+          preferences = {
+            brotabPath = "/etc/profiles/per-user/${nixosConfig.defaults.username}/bin/brotab";
+          };
+        };
+        "@knoopx/home-assistant" = {
+          preferences = {
+            url = "https://home.knoopx.net";
+          };
+        };
+        "@knoopx/store.vicinae.silverbullet" = {
+          preferences = {
+            silverbulletApiUrl = "https://wiki.knoopx.net";
+          };
+        };
+        "@knoopx/store.vicinae.stocks" = {
+          preferences = {
+            symbols = "NVDA,NET,MSFT,AMZN,XPEV,BABA,BTC-USD";
+          };
+        };
+        "@knoopx/store.vicinae.tmux" = {
+          preferences = {
+            terminalArgs = "start --";
+            terminalCommand = "wezterm";
+          };
+        };
+        "@leiserfg/store.raycast.ssh" = {
+          preferences = {
+            terminal = "wezterm";
+          };
+        };
+        files = {
+          enabled = false;
+          preferences = {
+            autoIndexing = false;
+          };
+        };
       };
     };
   };
