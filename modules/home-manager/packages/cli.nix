@@ -156,5 +156,10 @@
     tree
     gogcli
     vscode-json-languageserver
+    fswatch
+    nb
+    w3m
+    tts
+    zk
   ];
 }
