@@ -161,5 +161,10 @@
     w3m
     tts
     zk
+    http-nu
+    typescript-go
+    emacs
+    plocate
+    findutils
   ];
 }
