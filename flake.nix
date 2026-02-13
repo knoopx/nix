@@ -50,6 +50,9 @@
 
     vicinae-extensions.url = "github:knoopx/vicinae-extensions";
     vicinae-extensions.flake = false;
+
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs: let
@@ -195,10 +198,59 @@
       overlays = globalOverlays;
       config.allowUnfree = true;
     };
+
+    # Target system for the installer (what gets installed to disk)
+    installerTargetSystem = nixpkgs.lib.nixosSystem {
+      inherit specialArgs;
+      modules =
+        mkNixosModules ./hosts/installer/system.nix
+        ++ [
+          inputs.disko.nixosModules.disko
+        ];
+    };
+
+    # Installer ISO configuration
+    installerConfiguration = nixpkgs.lib.nixosSystem {
+      inherit specialArgs;
+      modules = [
+        ./hosts/installer
+        {
+          _module.args.targetSystem = installerTargetSystem;
+        }
+      ];
+    };
   in {
     packages.${system} = {
       default = vmConfiguration.config.system.build.vm;
       steamdeck-vm = steamdeckVmConfiguration.config.system.build.vm;
+      installer-iso = installerConfiguration.config.system.build.isoImage;
+      installer-vm-test = pkgsWithOverlays.writeShellScriptBin "installer-vm-test" ''
+        set -e
+        ISO=$(find ${installerConfiguration.config.system.build.isoImage}/iso/ -name "*.iso" | head -1)
+        DISK="''${INSTALLER_VM_DISK:-''${XDG_RUNTIME_DIR:-/tmp}/installer-test-disk.qcow2}"
+
+        echo "Creating test disk: $DISK (64GB sparse)"
+        rm -f "$DISK"
+        ${pkgsWithOverlays.qemu}/bin/qemu-img create -f qcow2 "$DISK" 64G
+
+        echo "Starting VM with installer ISO..."
+        echo "ISO: $ISO"
+        exec ${pkgsWithOverlays.qemu}/bin/qemu-system-x86_64 \
+          -enable-kvm \
+          -m 8G \
+          -smp 4 \
+          -cpu host \
+          -bios ${pkgsWithOverlays.OVMF.fd}/FV/OVMF.fd \
+          -drive file="$DISK",format=qcow2,if=virtio \
+          -cdrom "$ISO" \
+          -boot d \
+          -vga virtio \
+          -display gtk,gl=on \
+          -device virtio-vga-gl \
+          -usb \
+          -device usb-tablet \
+          -nic user,model=virtio-net-pci
+      '';
       neuwaita-icon-theme = pkgsWithOverlays.neuwaita-icon-theme;
       nfoview = pkgsWithOverlays.nfoview;
       geary = pkgsWithOverlays.geary;
@@ -207,6 +259,8 @@
 
     nixosConfigurations = {
       vm = vmConfiguration;
+
+      installer = installerConfiguration;
 
       live-usb = nixpkgs.lib.nixosSystem {
         inherit specialArgs;

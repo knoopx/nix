@@ -16,6 +16,23 @@ cd nix
 nix run path:.
 ```
 
+## Installation
+
+The unattended installer creates a bootable ISO that automatically installs kOS to the first available disk.
+
+```bash
+# Build the installer ISO
+nix build .#installer-iso
+
+# Write it to a USB drive:
+caligula burn result/iso/*.iso
+
+# Or test in a VM first
+nix run .#installer-vm-test
+```
+
+**⚠️ Warning**: The installer will automatically erase and partition the first unused disk it finds. Use with caution.
+
 ## What I Focus On
 
 - **Minimal clutter**: Shell has no widgets and apps take the whole vertical space. Pressing `Super` reveals the overlay with the widgets.
@@ -73,7 +90,11 @@ The `modules/home-manager/packages/dev/` directory contains language-specific de
   - Hardware-specific drivers and optimizations
   - Power management and battery optimizations
 - **vm/**: Virtual machine setup for testing with demo scripts
-- **live-usb/**: Bootable USB configuration for system recovery and installation
+- **live-usb/**: Bootable USB configuration for system recovery
+- **installer/**: Unattended installer ISO that automatically partitions and installs kOS:
+  - Creates 1GB EFI boot partition + XFS root filesystem
+  - Installs complete system with home-manager configuration
+  - Auto-reboots after successful installation
 
 ### Modules
 
