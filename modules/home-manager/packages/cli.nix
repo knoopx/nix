@@ -86,7 +86,6 @@
     # zstd
     aria2
     ast-grep
-    bat
     binsider
     biome
     bluez
