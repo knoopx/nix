@@ -19,13 +19,13 @@
     nspr
     nss
     pango
-    xorg.libX11
-    xorg.libxcb
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
+    libx11
+    libxcb
+    libxcomposite
+    libxdamage
+    libxext
+    libxfixes
+    libxrandr
   ];
 
   gtk-dev = with pkgs; [
@@ -138,20 +138,20 @@
     # util-linux
     wayland
     webkitgtk_4_1
-    # xorg.libICE
-    # xorg.libSM
-    # xorg.libX11
-    # xorg.libXcursor
-    # xorg.libXft
-    # xorg.libXi
-    # xorg.libXinerama
-    # xorg.libXmu
-    # xorg.libXrender
-    # xorg.libXScrnSaver
-    # xorg.libxshmfence
-    # xorg.libXt
-    # xorg.libXtst
-    # xorg.libXxf86vm
+    # libice
+    # libsm
+    # libx11
+    # libxcursor
+    # libxft
+    # libxi
+    # libxinerama
+    # libxmu
+    # libxrender
+    # libxscrnsaver
+    # libxshmfence
+    # libxt
+    # libxtst
+    # libxxf86vm
     # xz
     # zlib
     # zstd
