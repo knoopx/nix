@@ -166,5 +166,6 @@
     emacs
     plocate
     findutils
+    websocat
   ];
 }
