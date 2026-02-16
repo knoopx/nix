@@ -65,10 +65,7 @@
 in {
   stylix.targets.vicinae.enable = false;
 
-  # home.file."${config.xdg.dataHome}/vicinae/scripts" = {
-  #   source = ./scripts;
-  #   recursive = true;
-  # };
+  home.file."${config.xdg.dataHome}/vicinae/scripts".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nix/modules/home-manager/programs/vicinae/scripts";
 
   programs.vicinae = {
     enable = true;
