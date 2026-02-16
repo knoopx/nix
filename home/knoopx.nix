@@ -7,4 +7,7 @@ in {
     stateVersion = "24.05";
     username = "knoopx";
   };
+
+  programs.man.enable = false;
+  fonts.fontconfig.enable = false;
 }

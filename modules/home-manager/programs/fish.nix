@@ -4,6 +4,7 @@
   programs = {
     fish = {
       enable = true;
+      generateCompletions = false;
 
       plugins = [
         {
