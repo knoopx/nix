@@ -98,7 +98,7 @@
         "Alt+Up".action = {"focus-workspace-up" = [];};
         "Mod+C".action = {"center-window" = [];};
         "Mod+Down".action = {"focus-workspace-down" = [];};
-        "Mod+F".action = {"maximize-column" = [];};
+        "Mod+F".action = {"maximize-window-to-edges" = [];};
         "Mod+J".action = {spawn = "firefox";};
         "Mod+K".action = {spawn = "code";};
         "Mod+L".action = {spawn = "wezterm";};
@@ -117,7 +117,6 @@
         "Mod+Shift+Ctrl+L".action = {quit = {"skip-confirmation" = true;};};
         "Mod+Shift+Down".action = {"move-column-to-workspace-down" = [];};
         "Mod+Shift+End".action = {"move-workspace-down" = [];};
-        "Mod+Shift+F".action = {"maximize-window-to-edges" = [];};
         "Mod+Shift+Home".action = {"move-workspace-up" = [];};
         "Mod+Shift+Left".action = {"move-column-left" = [];};
         "Mod+Shift+Right".action = {"move-column-right" = [];};
