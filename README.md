@@ -33,6 +33,30 @@ nix run .#installer-vm-test
 
 **⚠️ Warning**: The installer will automatically erase and partition the first unused disk it finds. Use with caution.
 
+## Full Disk Encryption (LUKS + XFS)
+
+Encrypt an existing NixOS installation for ISO27001/SOC2 compliance.
+
+```bash
+# 1. Backup /home to external drive or cloud
+
+# 2. Build and kexec into installer (no USB needed)
+nix build github:knoopx/nix#installer-kexec
+sudo ./result/kexec_nixos
+
+# 3. After reboot into installer, run disko and install
+echo "your-passphrase" > /tmp/luks-password
+sudo nix run github:nix-community/disko/latest -- --flake github:knoopx/nix#laptop --mode disko
+sudo nixos-install --flake github:knoopx/nix#laptop --no-root-password
+
+# 4. Reboot and restore /home backup
+```
+
+**Tips:**
+
+- Add recovery key: `sudo cryptsetup luksAddKey /dev/nvme0n1p2`
+- Backup LUKS header: `sudo cryptsetup luksHeaderBackup /dev/nvme0n1p2 --header-backup-file luks-header.img`
+
 ## What I Focus On
 
 - **Minimal clutter**: Shell has no widgets and apps take the whole vertical space. Pressing `Super` reveals the overlay with the widgets.
@@ -89,6 +113,9 @@ The `modules/home-manager/packages/dev/` directory contains language-specific de
 - **minibookx/**: Chuwi Minibook X N150 laptop configuration:
   - Hardware-specific drivers and optimizations
   - Power management and battery optimizations
+- **laptop/**: Framework Laptop 13 (AMD Ryzen AI 300) work machine:
+  - Full disk encryption (LUKS2 + XFS) for ISO27001/SOC2 compliance
+  - zram swap (no unencrypted swap partition)
 - **vm/**: Virtual machine setup for testing with demo scripts
 - **live-usb/**: Bootable USB configuration for system recovery
 - **installer/**: Unattended installer ISO that automatically partitions and installs kOS:

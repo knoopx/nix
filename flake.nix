@@ -219,11 +219,24 @@
         }
       ];
     };
+
+    # Kexec installer (boot into installer from running system)
+    installerKexecConfiguration = nixpkgs.lib.nixosSystem {
+      inherit system specialArgs;
+      modules = [
+        "${inputs.nixpkgs}/nixos/modules/installer/netboot/netboot-minimal.nix"
+        ({pkgs, ...}: {
+          networking.hostName = "installer";
+          environment.systemPackages = with pkgs; [git vim];
+        })
+      ];
+    };
   in {
     packages.${system} = {
       default = vmConfiguration.config.system.build.vm;
       steamdeck-vm = steamdeckVmConfiguration.config.system.build.vm;
       installer-iso = installerConfiguration.config.system.build.isoImage;
+      installer-kexec = installerKexecConfiguration.config.system.build.kexecTree;
       installer-vm-test = pkgsWithOverlays.writeShellScriptBin "installer-vm-test" ''
         set -e
         ISO=$(find ${installerConfiguration.config.system.build.isoImage}/iso/ -name "*.iso" | head -1)
@@ -274,7 +287,11 @@
 
       laptop = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
-        modules = mkNixosModules ./hosts/laptop;
+        modules =
+          mkNixosModules ./hosts/laptop
+          ++ [
+            inputs.disko.nixosModules.disko
+          ];
       };
 
       minibookx = nixpkgs.lib.nixosSystem {

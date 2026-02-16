@@ -10,6 +10,7 @@ in {
   imports =
     [
       ./boot.nix
+      ./disko.nix
       ./hardware.nix
       ./services.nix
     ]
