@@ -12,6 +12,7 @@ in {
 
   extensions.packages = with pkgs.firefox-addons; [
     ublock-origin
+    vimium-c
     copy-selected-links
     sponsorblock
     dictionary-spanish

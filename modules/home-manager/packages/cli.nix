@@ -166,5 +166,6 @@
     plocate
     findutils
     websocat
+    wshowkeys
   ];
 }
