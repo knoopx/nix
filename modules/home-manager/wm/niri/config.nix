@@ -120,6 +120,10 @@
         "Mod+Shift+Home".action = {"move-workspace-up" = [];};
         "Mod+Shift+Left".action = {"move-column-left" = [];};
         "Mod+Shift+Right".action = {"move-column-right" = [];};
+
+        "Ctrl+Mod+Shift+Left".action = {"move-window-to-monitor-left" = [];};
+        "Ctrl+Mod+Shift+Right".action = {"move-window-to-monitor-right" = [];};
+
         "Mod+Shift+Up".action = {"move-column-to-workspace-up" = [];};
         "Mod+Space".action = {spawn = ["vicinae" "toggle"];};
         "Mod+Up".action = {"focus-workspace-up" = [];};
