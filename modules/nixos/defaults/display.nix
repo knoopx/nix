@@ -98,7 +98,10 @@ with lib; {
             default-column-width.proportion = 1.0;
           }
           {
-            matches = [{app-id = "transmission-gtk";}];
+            matches = [
+              {app-id = "org.wezfurlong.wezterm";}
+              {app-id = "transmission-gtk";}
+            ];
             default-column-width.proportion = 0.5;
           }
           {
