@@ -54,8 +54,8 @@ with lib; {
         idleTimeout = 5 * 60;
         windowSize = [1240 900];
         sidebarWidth = 200;
-        defaultColumnWidthPercent = 0.75;
-        columnWidthPercentPresets = [0.75 0.5 0.25];
+        defaultColumnWidthPercent = 0.5;
+        columnWidthPercentPresets = [0.5 0.33 0.25];
 
         windowRules = [
           {
