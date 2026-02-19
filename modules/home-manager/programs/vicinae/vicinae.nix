@@ -274,6 +274,13 @@ in {
     secondary_background = "#${nixosConfig.defaults.colorScheme.palette.base01}"
     border = "#${nixosConfig.defaults.colorScheme.palette.base02}"
 
+    [colors.main_window]
+    border = "#${nixosConfig.defaults.colorScheme.palette.base02}"
+    footer = { background = "#${nixosConfig.defaults.colorScheme.palette.base01}" }
+
+    [colors.settings_window]
+    border = "#${nixosConfig.defaults.colorScheme.palette.base02}"
+
     [colors.accents]
     blue = "#${nixosConfig.defaults.colorScheme.palette.base0D}"
     green = "#${nixosConfig.defaults.colorScheme.palette.base0B}"
@@ -283,6 +290,9 @@ in {
     red = "#${nixosConfig.defaults.colorScheme.palette.base08}"
     yellow = "#${nixosConfig.defaults.colorScheme.palette.base0A}"
     cyan = "#${nixosConfig.defaults.colorScheme.palette.base0C}"
+
+    [colors.shortcut]
+    border = "#${nixosConfig.defaults.colorScheme.palette.base02}"
 
     [colors.text]
     default = "#${nixosConfig.defaults.colorScheme.palette.base05}"
@@ -303,13 +313,9 @@ in {
 
     [colors.button.primary]
     background = "#${nixosConfig.defaults.colorScheme.palette.base02}"
-    foreground = "#${nixosConfig.defaults.colorScheme.palette.base00}"
+    foreground = "#${nixosConfig.defaults.colorScheme.palette.base05}"
     hover = { background = "#${nixosConfig.defaults.colorScheme.palette.base03}" }
     focus = { outline = "#${nixosConfig.defaults.colorScheme.palette.base0D}" }
-
-    [colors.list.item.hover]
-    background = "#${nixosConfig.defaults.colorScheme.palette.base02}"
-    foreground = "#${nixosConfig.defaults.colorScheme.palette.base05}"
 
     [colors.list.item.selection]
     background = "#${nixosConfig.defaults.colorScheme.palette.base0D}"
@@ -324,12 +330,6 @@ in {
 
     [colors.scrollbars]
     background = "#${nixosConfig.defaults.colorScheme.palette.base02}"
-
-    [colors.main_window]
-    border = "#${nixosConfig.defaults.colorScheme.palette.base02}"
-
-    [colors.settings_window]
-    border = "#${nixosConfig.defaults.colorScheme.palette.base02}"
 
     [colors.loading]
     bar = "#${nixosConfig.defaults.colorScheme.palette.base05}"
