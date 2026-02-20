@@ -94,17 +94,6 @@ with lib; {
             default-window-height.proportion = 0.75;
           }
           {
-            matches = [{app-id = "code";}];
-            default-column-width.proportion = 1.0;
-          }
-          {
-            matches = [
-              {app-id = "org.wezfurlong.wezterm";}
-              {app-id = "transmission-gtk";}
-            ];
-            default-column-width.proportion = 0.5;
-          }
-          {
             matches = [
               {app-id = "io.bassi.Amberol";}
               {app-id = "Plexamp";}
@@ -130,8 +119,6 @@ with lib; {
               {title = "mpv";}
             ];
             open-floating = true;
-            # default-column-width.fixed = 2880;
-            # default-window-height.fixed = 1620;
           }
           {
             matches = [
