@@ -129,7 +129,7 @@
         "Mod+Up".action = {"focus-workspace-up" = [];};
         "Mod+V".action = {spawn = ["nautilus"];};
         "Mod+B".action = {spawn = ["xdg-open" "vicinae://extensions/vicinae/manage-shortcuts/manage"];};
-        "Mod+P".action = {spawn = ["wezterm" "-e" "btop"];};
+        "Mod+P".action = {spawn = ["xdg-open" "vicinae://extensions/leonkohli/process-manager/processes"];};
         "Mod+W".action = {"close-window" = [];};
         "Print".action = {screenshot = [];};
         "Shift+Print".action = {"screenshot-window" = [];};
