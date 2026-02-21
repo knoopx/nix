@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    (callPackage ../../../pkgs/romie.nix {})
     # apostrophe
     # ascii-draw
     # authenticator
