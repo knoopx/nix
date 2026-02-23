@@ -94,6 +94,24 @@ with lib; {
       # https://github.com/tinted-theming/schemes
       colorScheme = {
         name = "custom";
+
+        # base00 = "191033";
+        # base01 = "1e133c";
+        # base02 = "2f235c";
+        # base03 = "404079";
+        # base04 = "646499";
+        # base05 = "f8f8f8";
+        # base06 = "e5e4fb";
+        # base07 = "fad000";
+        # base08 = "ff628c";
+        # base09 = "68a5ff";
+        # base0A = "ffee80";
+        # base0B = "a5ff90";
+        # base0C = "80fcff";
+        # base0D = "fad000";
+        # base0E = "faefa5";
+        # base0F = "fb94ff";
+
         palette = {
           base00 = "101033";
           base01 = "161641";
@@ -102,8 +120,8 @@ with lib; {
           base04 = "616194";
           base05 = "f8f8f8";
           base06 = "f0f0f4";
-          base07 = "faf9fa";
-          base08 = "ff6565";
+          base07 = "fad000";
+          base08 = "ff628c";
           base09 = "68a5ff";
           base0A = "fad000";
           base0B = "a5ff90";
