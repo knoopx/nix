@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   programs.chromium = {
-    enable = true;
+    enable = false;
     package = pkgs.cromite;
   };
 }
