@@ -1,3 +1,5 @@
 final: prev: {
-  firefox = prev.firefox-bin;
+  firefox = prev.writeShellScriptBin "firefox" ''
+    firefox-esr "$@"
+  '';
 }

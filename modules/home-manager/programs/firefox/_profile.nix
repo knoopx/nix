@@ -5,24 +5,63 @@
   nix-userstyles,
   ...
 }: let
-  theme = pkgs.theming.mkStylixFirefoxGnomeTheme nixosConfig.defaults.colorScheme.palette;
+  c = nixosConfig.defaults.colorScheme.palette;
+  jumpAddonId = "jump@knoopx.net";
+  jump = pkgs.stdenvNoCC.mkDerivation {
+    pname = "jump";
+    version = "0.2.1";
+    src = pkgs.fetchurl {
+      url = "https://github.com/knoopx/jump/releases/download/v0.2.1/jump-0.2.1.xpi";
+      hash = "sha256-XHa5mmJdGxbOysfz2BVA/oVB7YQI6ioKtXLCt1BUiyk=";
+    };
+    nativeBuildInputs = [pkgs.zip pkgs.unzip pkgs.jq];
+    preferLocalBuild = true;
+    allowSubstitutes = true;
+    passthru = {
+      addonId = jumpAddonId;
+    };
+    buildCommand = ''
+      workdir=$(mktemp -d)
+      cd "$workdir"
+      unzip "$src"
+      jq '. + {browser_specific_settings: {gecko: {id: "${jumpAddonId}"}}}' manifest.json > manifest.json.tmp
+      mv manifest.json.tmp manifest.json
+      dst="$out/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+      mkdir -p "$dst"
+      zip -r "$dst/${jumpAddonId}.xpi" .
+    '';
+    meta = {
+      description = "Keyboard-driven link navigation with per-site selectors";
+      homepage = "https://github.com/knoopx/jump";
+      license = pkgs.lib.licenses.mit;
+      platforms = pkgs.lib.platforms.all;
+    };
+  };
 in {
   id = 0;
   isDefault = true;
 
   extensions.packages = with pkgs.firefox-addons; [
     ublock-origin
-    vimium-c
     copy-selected-links
     sponsorblock
     dictionary-spanish
     brotab
+    jump
   ];
 
   extraConfig = ''
-    ${builtins.readFile "${theme}/configuration/user.js"}
     ${builtins.readFile "${betterfox}/user.js"}
 
+    user_pref("apz.overscroll.enabled", true); // DEFAULT NON-LINUX
+    user_pref("browser.fullscreen.autohide", true);
+    user_pref("browser.link.open_newwindow.disabled_in_fullscreen", false);
+    user_pref("browser.link.open_newwindow.external", 2);
+    user_pref("browser.link.open_newwindow.restriction", 0);
+    user_pref("browser.link.open_newwindow", 2);
+    user_pref("browser.search.suggest.enabled", true);
+    user_pref("browser.sessionstore.resume_session_once", true);
+    user_pref("browser.tabs.closeWindowWithLastTab", true);
     user_pref("dom.disable_window_open_feature.location", false);
     user_pref("dom.disable_window_open_feature.menubar", false);
     user_pref("dom.disable_window_open_feature.minimizable", false);
@@ -30,37 +69,233 @@ in {
     user_pref("dom.disable_window_open_feature.resizable", false);
     user_pref("dom.disable_window_open_feature.status", false);
     user_pref("dom.disable_window_open_feature.toolbar", false);
-
-    user_pref("browser.link.open_newwindow", 2);
-    user_pref("browser.link.open_newwindow.external", 2);
-    user_pref("browser.link.open_newwindow.restriction", 0);
-    user_pref("browser.link.open_newwindow.disabled_in_fullscreen", false);
-    user_pref("gnomeTheme.tabsAsHeaderbar", true);
-
-    user_pref("urlclassifier.trackingSkipURLs", "embed.reddit.com, *.twitter.com, *.twimg.com");
-    user_pref("urlclassifier.features.socialtracking.skipURLs", "*.twitter.com, *.twimg.com");
-    user_pref("signon.rememberSignons", true);
     user_pref("extensions.formautofill.addresses.enabled", true);
     user_pref("extensions.formautofill.creditCards.enabled", true);
-    user_pref("permissions.default.geo", 0);
-    user_pref("permissions.default.desktop-notification", 0);
-    user_pref("browser.search.suggest.enabled", true);
-
-    user_pref("apz.overscroll.enabled", true); // DEFAULT NON-LINUX
-    user_pref("general.smoothScroll", true); // DEFAULT
-    user_pref("mousewheel.min_line_scroll_amount", 10); // adjust this number to your liking; default=5
-    user_pref("general.smoothScroll.mouseWheel.durationMinMS", 80); // default=50
     user_pref("general.smoothScroll.currentVelocityWeighting", "0.15"); // default=.25
-    user_pref("general.smoothScroll.stopDecelerationWeighting", "0.6"); // default=.4
+    user_pref("general.smoothScroll.mouseWheel.durationMinMS", 80); // default=50
     user_pref("general.smoothScroll.msdPhysics.enabled", false); // [FF122+ Nightly]
+    user_pref("general.smoothScroll.stopDecelerationWeighting", "0.6"); // default=.4
+    user_pref("general.smoothScroll", true); // DEFAULT
+    user_pref("gnomeTheme.tabsAsHeaderbar", true);
+    user_pref("mousewheel.min_line_scroll_amount", 10); // adjust this number to your liking; default=5
+    user_pref("permissions.default.desktop-notification", 0);
+    user_pref("permissions.default.desktop-notification", 1);
+    user_pref("permissions.default.geo", 0);
+    user_pref("signon.rememberSignons", true);
+    user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+    user_pref("ui.systemUsesDarkTheme", 1);
   '';
 
   userChrome = ''
-    @import "${theme}/theme/gnome-theme.css"
+    /* Based on adolfgatonegro/firefox-minimal (Dook97/firefox-qutebrowser-userchrome) */
+    :root {
+      /* custom vars */
+      --tab-active-bg: #${c.base02};
+      --tab-inactive-bg: #${c.base00};
+      --tab-active-fg: #${c.base05};
+      --tab-inactive-fg: #${c.base04};
+      --urlbar-height-setting: 32px;
+      --tab-min-height: 28px !important;
+
+      /* override firefox theme colors */
+      --toolbox-bgcolor: #${c.base00} !important;
+      --toolbox-bgcolor-inactive: #${c.base00} !important;
+      --toolbox-textcolor: #${c.base05} !important;
+      --toolbox-textcolor-inactive: #${c.base04} !important;
+      --toolbar-bgcolor: #${c.base00} !important;
+      --toolbar-color: #${c.base05} !important;
+      --toolbar-field-background-color: #${c.base01} !important;
+      --toolbar-field-focus-background-color: #${c.base01} !important;
+      --toolbar-field-color: #${c.base05} !important;
+      --toolbar-field-focus-color: #${c.base05} !important;
+      --toolbar-field-border-color: transparent !important;
+      --toolbar-field-focus-border-color: #${c.base08} !important;
+      --focus-outline-color: #${c.base08} !important;
+      --tab-selected-bgcolor: #${c.base02} !important;
+      --tab-selected-textcolor: #${c.base05} !important;
+      --tabs-navbar-separator-style: none !important;
+      --tabs-navbar-separator-color: transparent !important;
+      --lwt-accent-color: #${c.base00} !important;
+      --lwt-text-color: #${c.base05} !important;
+      --chrome-content-separator-color: transparent !important;
+      --arrowpanel-background: #${c.base01} !important;
+      --arrowpanel-color: #${c.base05} !important;
+      --arrowpanel-border-color: #${c.base02} !important;
+      --arrowpanel-border-radius: 8px !important;
+      --urlbarView-highlight-background: #${c.base02} !important;
+      --urlbarView-highlight-color: #${c.base05} !important;
+      --urlbarView-hover-background: #${c.base01} !important;
+      --sidebar-background-color: #${c.base00} !important;
+      --sidebar-text-color: #${c.base05} !important;
+      --sidebar-border-color: #${c.base02} !important;
+    }
+
+    /* --- NAVBAR: hidden, centered popover on Ctrl+L --- */
+
+    /* Reset .browser-toolbar defaults that override our styles */
+    #nav-bar.browser-toolbar {
+      appearance: none !important;
+      border-style: none !important;
+      border-top: none !important;
+      border-image: none !important;
+      background-color: #${c.base01} !important;
+      background-image: none !important;
+      color: #${c.base05} !important;
+      /* Position off-screen by default */
+      position: fixed !important;
+      top: -10000px !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 600px !important;
+      max-width: 80vw !important;
+      margin-inline: auto !important;
+      z-index: 10000 !important;
+      outline: none !important;
+      overflow: visible !important;
+      border-radius: 12px !important;
+      padding: 4px 12px !important;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+    }
+    #nav-bar.browser-toolbar:focus-within {
+      top: 40% !important;
+      transform: translateY(-50%) !important;
+    }
+    #urlbar[breakout] { top: unset !important; }
+    #urlbar-input-container { width: 100% !important; height: 100% !important; }
+    .urlbarView {
+      background-color: transparent !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    /* --- DEBLOAT NAVBAR --- */
+    #back-button, #forward-button, #reload-button, #stop-button,
+    #home-button, #library-button, #fxa-toolbar-menu-button,
+    #PanelUI-menu-button,
+    #customizableui-special-spring1, #customizableui-special-spring2,
+    #star-button-box, #pocket-button, #urlbar-go-button,
+    #identity-permission-box, #tracking-protection-icon-container,
+    #reader-mode-button, #translations-button, #picture-in-picture-button,
+    #unified-extensions-button, #urlbar-search-button, #searchbar,
+    .titlebar-spacer, .titlebar-buttonbox-container, toolbarspring,
+    #PersonalToolbar, #tabs-newtab-button,
+    #scrollbutton-up, #scrollbutton-down,
+    #private-browsing-indicator-with-label {
+      display: none !important;
+    }
+    #urlbar .search-one-offs { display: none !important; }
+    #userContext-label, #userContext-indicator { display: none !important; }
+
+    /* --- URLBAR STYLE --- */
+    #urlbar-container {
+      --urlbar-container-height: var(--urlbar-height-setting) !important;
+      margin: 0 !important; padding: 0 !important;
+    }
+    #urlbar {
+      --urlbar-height: var(--urlbar-height-setting) !important;
+      --urlbar-toolbar-height: var(--urlbar-height-setting) !important;
+      min-height: var(--urlbar-height-setting) !important;
+      border: none !important;
+    }
+    #urlbar-background {
+      border: 2px solid #${c.base08} !important;
+      border-radius: 12px !important;
+      outline: none !important;
+      background: #${c.base01} !important;
+      box-shadow: none !important;
+    }
+    [focused]:not([suppress-focus-border]) > .urlbar-background {
+      outline: none !important;
+      border: 2px solid #${c.base08} !important;
+    }
+    [open] > .urlbar-background {
+      border: 2px solid #${c.base08} !important;
+      background-color: #${c.base01} !important;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+      border-radius: 12px !important;
+    }
+    #urlbar-input {
+      color: #${c.base05} !important;
+      text-align: center !important;
+      font-size: 14px !important;
+    }
+
+    /* --- TAB BAR --- */
+    #navigator-toolbox {
+      border: none !important;
+    }
+    #titlebar {
+      --proton-tab-block-margin: 0px !important;
+      --tab-block-margin: 0px !important;
+    }
+    #TabsToolbar, .tabbrowser-tab { max-height: var(--tab-min-height) !important; font-size: 11px !important; }
+
+    /* hide tab bar with single tab */
+    #tabbrowser-tabs:has(.tabbrowser-tab:only-of-type) {
+      visibility: collapse !important;
+    }
+    #TabsToolbar:has(#tabbrowser-tabs .tabbrowser-tab:only-of-type) {
+      visibility: collapse !important;
+      max-height: 0 !important;
+      min-height: 0 !important;
+      height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    #tabbrowser-tabs, #tabbrowser-arrowscrollbox { min-height: var(--tab-min-height) !important; }
+    #alltabs-button { display: none !important; }
+
+    /* tab colors */
+    tab:not([selected="true"]) {
+      background-color: var(--tab-inactive-bg) !important;
+      color: var(--identity-icon-color, var(--tab-inactive-fg)) !important;
+    }
+    tab:not([selected="true"]) .tab-background {
+      background-color: var(--tab-inactive-bg) !important;
+      background-image: none !important;
+    }
+    tab { font-weight: normal; border: none !important; }
+    #tabbrowser-tabs .tabbrowser-tab[selected] .tab-content {
+      background: var(--tab-active-bg) !important;
+      color: var(--identity-icon-color, var(--tab-active-fg)) !important;
+    }
+    #tabbrowser-tabs .tabbrowser-tab:hover:not([selected]) .tab-content {
+      background: var(--tab-active-bg) !important;
+    }
+    .tabbrowser-tab[fadein] { max-width: 100vw !important; border: none; }
+    .tabbrowser-tab { flex: 0 1 auto !important; width: auto !important; }
+    .tab-label { max-width: 200px !important; }
+    .tabbrowser-tab {
+      padding-inline: 0px !important;
+      --tab-label-mask-size: 1em !important;
+      overflow-clip-margin: 0px !important;
+    }
+    .tab-content {
+      padding: 0 6px !important;
+      align-items: center !important;
+    }
+    .tab-background {
+      margin-block: 0 !important;
+      min-height: var(--tab-min-height) !important;
+    }
+    #tabbrowser-tabs .tabbrowser-tab .tab-close-button { display: none !important; }
+    #tabbrowser-tabs:not([noshadowfortests]) .tab-background:is([selected], [multiselected]) {
+      box-shadow: none !important;
+    }
+    #tabbrowser-tabs:not([secondarytext-unsupported]) .tab-label-container {
+      height: var(--tab-min-height) !important;
+    }
+
+    /* --- MISC --- */
+    #fullscreen-warning { border: none !important; background: -moz-Dialog !important; }
+    #statuspanel-label { border-radius: 0px !important; border: 0px !important; }
+    menupopup, panel { --panel-border-radius: 0px !important; }
+    menupopup > #context-navigation { display: none !important; }
+    menupopup > #context-sep-navigation { display: none !important; }
   '';
 
   userContent = ''
-    @import "${theme}/theme/userContent.css";
     ${builtins.readFile "${nix-userstyles.packages.${pkgs.stdenv.hostPlatform.system}.mkUserStyles nixosConfig.defaults.colorScheme.palette [
       "brave-search"
       "bsky"

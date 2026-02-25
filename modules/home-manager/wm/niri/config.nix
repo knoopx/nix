@@ -96,10 +96,10 @@
         "MouseForward".action = {toggle-overview = [];};
         "Alt+Down".action = {"focus-workspace-down" = [];};
         "Alt+Up".action = {"focus-workspace-up" = [];};
-        "Mod+C".action = {"center-window" = [];};
         "Mod+Down".action = {"focus-workspace-down" = [];};
-        "Mod+F".action = {"maximize-window-to-edges" = [];};
-        "Mod+J".action = {spawn = "firefox";};
+        "Mod+F".action = {"center-window" = [];};
+        "Mod+G".action = {"maximize-window-to-edges" = [];};
+        "Mod+J".action = {spawn = "firefox-esr";};
         "Mod+K".action = {spawn = "code";};
         "Mod+L".action = {spawn = "wezterm";};
         "Mod+Shift+L".action = {spawn = ["wezterm" "-e" "nu"];};

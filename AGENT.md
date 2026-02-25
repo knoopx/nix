@@ -132,7 +132,6 @@ modules/
 builders/           # Custom builders (functions that return new derivations)
 └── theming/       # Theme-related builders
     ├── mkMoreWaitaIconTheme.nix
-    └── mkStylixFirefoxGnomeTheme.nix
 overlays/          # Package overlays, used for fixing quirks/annoyances
 ├── balatro.nix, fish.nix, geary.nix, glance.nix
 ├── gnome-control-center.nix, kitty.nix, niri.nix
@@ -295,7 +294,7 @@ The configuration uses numerous external inputs:
 - **Core**: nixpkgs-unstable, home-manager, haumea
 - **Theming**: stylix, nix-colors, nix-userstyles, neuwaita, adwaita-colors
 - **Window Management**: niri, xwayland-satellite, astal-shell
-- **Applications**: firefox-addons, firefox-gnome-theme, betterfox
+- **Applications**: firefox-addons, betterfox
 - **Hardware**: nix-chuwi-minibook-x
 - **Development**: nix-vscode-extensions, autofirma-nix
 - **Social**: vicinae

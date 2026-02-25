@@ -190,11 +190,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1772011392,
-        "narHash": "sha256-+IuggIieCcV4n3OzT9ZpkisX+OmzRnGALtlE4DmPXX0=",
+        "lastModified": 1772027531,
+        "narHash": "sha256-L7Saw59aEIRv8NC+he7moVUHxbfZktn5KDnz9s6jO+k=",
         "owner": "knoopx",
         "repo": "camper",
-        "rev": "5a6ec92c76e7ef1d1c38435e7dcabce890f3b5c5",
+        "rev": "4fab5bdf98418f6bbf0db3e3f8130a4023f8ad34",
         "type": "github"
       },
       "original": {
@@ -607,7 +607,6 @@
         "camper": "camper",
         "disko": "disko",
         "firefox-addons": "firefox-addons",
-        "firefox-gnome-theme": "firefox-gnome-theme",
         "haumea": "haumea",
         "home-manager": "home-manager",
         "neuwaita": "neuwaita",
@@ -648,9 +647,7 @@
         "base16-fish": "base16-fish",
         "base16-helix": "base16-helix",
         "base16-vim": "base16-vim",
-        "firefox-gnome-theme": [
-          "firefox-gnome-theme"
-        ],
+        "firefox-gnome-theme": "firefox-gnome-theme",
         "flake-parts": "flake-parts",
         "gnome-shell": "gnome-shell",
         "nixpkgs": [

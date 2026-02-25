@@ -19,7 +19,6 @@
 
     stylix.url = "github:nix-community/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
-    stylix.inputs.firefox-gnome-theme.follows = "firefox-gnome-theme";
 
     niri.url = "github:sodiboo/niri-flake";
     niri.inputs.nixpkgs.follows = "nixpkgs";
@@ -29,9 +28,6 @@
 
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
-
-    firefox-gnome-theme.url = "github:rafaelmardojai/firefox-gnome-theme";
-    firefox-gnome-theme.flake = false;
 
     betterfox.url = "github:yokoffing/BetterFox";
     betterfox.flake = false;

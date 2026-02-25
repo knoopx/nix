@@ -7,6 +7,7 @@
   DisableFirefoxAccounts = true;
   DontCheckDefaultBrowser = true;
   DisableSetDesktopBackground = true;
+  PrintingEnabled = false;
 
   FirefoxHome = {
     Search = true;
@@ -33,6 +34,7 @@
     "media.ffmpeg.vaapi.enabled" = true;
     "browser.aboutConfig.showWarning" = false;
     "browser.warnOnQuitShortcut" = false;
+    "xpinstall.signatures.required" = false;
   };
   PopupBlocking = {
     Default = false;
