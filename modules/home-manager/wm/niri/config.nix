@@ -97,12 +97,13 @@
         "Alt+Down".action = {"focus-workspace-down" = [];};
         "Alt+Up".action = {"focus-workspace-up" = [];};
         "Mod+Down".action = {"focus-workspace-down" = [];};
+        "Mod+D".action = {"switch-focus-between-floating-and-tiling" = [];};
         "Mod+F".action = {"center-window" = [];};
         "Mod+G".action = {"maximize-window-to-edges" = [];};
-        "Mod+J".action = {spawn = "firefox-esr";};
-        "Mod+K".action = {spawn = "code";};
-        "Mod+L".action = {spawn = "wezterm";};
-        "Mod+Shift+L".action = {spawn = ["wezterm" "-e" "nu"];};
+        "Mod+J".action = {spawn = ["browser"];};
+        "Mod+K".action = {spawn = ["editor"];};
+        "Mod+L".action = {spawn = ["terminal"];};
+        "Mod+Shift+L".action = {spawn = ["terminal" "nu"];};
         "Mod+I".action = {"consume-or-expel-window-left" = [];};
         "Mod+Period".action = {"toggle-overview" = [];};
         "Mod+Left".action = {"focus-column-left" = [];};
@@ -127,7 +128,7 @@
         "Mod+Shift+Up".action = {"move-column-to-workspace-up" = [];};
         "Mod+Space".action = {spawn = ["vicinae" "toggle"];};
         "Mod+Up".action = {"focus-workspace-up" = [];};
-        "Mod+V".action = {spawn = ["nautilus"];};
+        "Mod+V".action = {spawn = ["file-manager"];};
         "Mod+B".action = {spawn = ["xdg-open" "vicinae://extensions/vicinae/manage-shortcuts/manage"];};
         "Mod+P".action = {spawn = ["xdg-open" "vicinae://extensions/leonkohli/process-manager/processes"];};
         "Mod+W".action = {"close-window" = [];};

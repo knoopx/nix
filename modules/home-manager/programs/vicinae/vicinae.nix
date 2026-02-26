@@ -6,60 +6,61 @@
   pkgs,
   ...
 }: let
+  browserDesktopEntry = nixosConfig.defaults.apps.browser.desktopEntry;
   shortcuts = [
     {
       name = "Slack";
       icon = "icon://favicon/app.slack.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
       url = "https://app.slack.com/client/T069GEHD6AC/C09JKJ3HL4X";
-      app = "firefox.desktop";
+      app = browserDesktopEntry;
     }
     {
       name = "Telegram";
       icon = "icon://favicon/web.telegram.org?fallback=icon://omnicast/image?fill%3Dprimary-text";
       url = "https://web.telegram.org/k/";
-      app = "firefox.desktop";
+      app = browserDesktopEntry;
     }
     {
       name = "Discord";
       icon = "icon://omnicast/discord";
       url = "https://discord.com/channels/";
-      app = "firefox.desktop";
+      app = browserDesktopEntry;
     }
     {
       name = "Youtube";
       icon = "icon://favicon/www.youtube.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
       url = "https://www.youtube.com/";
-      app = "firefox.desktop";
+      app = browserDesktopEntry;
     }
     {
       name = "Reddit";
       icon = "icon://favicon/www.reddit.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
       url = "https://www.reddit.com/";
-      app = "firefox.desktop";
+      app = browserDesktopEntry;
     }
     {
       name = "WhatsApp";
       icon = "icon://omnicast/speech-bubble-active?fill=primary-text";
       url = "https://web.whatsapp.com/";
-      app = "firefox.desktop";
+      app = browserDesktopEntry;
     }
     {
       name = "Spotify";
       icon = "icon://favicon/open.spotify.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
       url = "https://open.spotify.com/";
-      app = "firefox.desktop";
+      app = browserDesktopEntry;
     }
     {
       name = "Plex Web";
       icon = "icon://favicon/app.plex.tv?fallback=icon://omnicast/image?fill%3Dprimary-text";
       url = "https://app.plex.tv/desktop/";
-      app = "firefox.desktop";
+      app = browserDesktopEntry;
     }
     {
       name = "Webull";
       icon = "icon://favicon/app.webull.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
       url = "https://app.webull.com/stocks";
-      app = "firefox.desktop";
+      app = browserDesktopEntry;
     }
   ];
 in {

@@ -5,6 +5,6 @@ _: {
 
   programs.nautilus-open-any-terminal = {
     enable = true;
-    terminal = "wezterm";
+    terminal = "terminal";
   };
 }

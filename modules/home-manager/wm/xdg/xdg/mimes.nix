@@ -1,8 +1,8 @@
-{...}: let
+{nixosConfig, ...}: let
   # inherit (flake.lib) mimetypes;
-  browser = "firefox.desktop";
-  file-manager = "org.gnome.Nautilus.desktop";
-  image-viewer = "org.gnome.eog.desktop";
+  browser = nixosConfig.defaults.apps.browser.desktopEntry;
+  file-manager = nixosConfig.defaults.apps.fileManager.desktopEntry;
+  image-viewer = nixosConfig.defaults.apps.imageViewer.desktopEntry;
   # image-viewer = "org.gnome.Loupe.desktop";
   video-player = "mpv.desktop";
   # video-player = "org.gnome.Showtime";

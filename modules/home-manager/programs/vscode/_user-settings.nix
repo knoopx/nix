@@ -59,7 +59,7 @@
   "workbench.editor.revealIfOpen" = false;
   "workbench.iconTheme" = "file-icons";
   "workbench.startupEditor" = "newUntitledFile";
-  "workbench.externalBrowser" = "firefox-esr";
+  "workbench.externalBrowser" = lib.getExe pkgs.browser;
 
   "console-ninja.featureSet" = "Community";
 
