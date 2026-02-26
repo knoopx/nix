@@ -4,7 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [
-    inputs.camper.packages.${pkgs.system}.default
+    inputs.camper.packages.${pkgs.stdenv.hostPlatform.system}.default
     (callPackage ../../../pkgs/romie.nix {})
     # apostrophe
     # ascii-draw
