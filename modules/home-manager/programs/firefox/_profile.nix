@@ -9,10 +9,10 @@
   jumpAddonId = "jump@knoopx.net";
   jump = pkgs.stdenvNoCC.mkDerivation {
     pname = "jump";
-    version = "0.2.1";
+    version = "0.2.2";
     src = pkgs.fetchurl {
-      url = "https://github.com/knoopx/jump/releases/download/v0.2.1/jump-0.2.1.xpi";
-      hash = "sha256-XHa5mmJdGxbOysfz2BVA/oVB7YQI6ioKtXLCt1BUiyk=";
+      url = "https://github.com/knoopx/jump/releases/download/v0.2.2/jump-0.2.2.xpi";
+      hash = "sha256-Tyok1ilXAnIq3YisOZtGz+9BImkPztNTfg+ZJQRhWr0=";
     };
     nativeBuildInputs = [pkgs.zip pkgs.unzip pkgs.jq];
     preferLocalBuild = true;
@@ -133,40 +133,94 @@ in {
     /* --- NAVBAR: hidden, centered popover on Ctrl+L --- */
 
     /* Reset .browser-toolbar defaults that override our styles */
-    #nav-bar.browser-toolbar {
+    #nav-bar {
+      --urlbar-width: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
       appearance: none !important;
-      border-style: none !important;
-      border-top: none !important;
-      border-image: none !important;
+      border: none !important;
       background-color: #${c.base01} !important;
       background-image: none !important;
       color: #${c.base05} !important;
-      /* Position off-screen by default */
       position: fixed !important;
       top: -10000px !important;
-      left: 0 !important;
-      right: 0 !important;
-      width: 600px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      width: min(600px, 80vw) !important;
       max-width: 80vw !important;
-      margin-inline: auto !important;
+      box-sizing: border-box !important;
       z-index: 10000 !important;
       outline: none !important;
-      overflow: visible !important;
+      overflow: clip !important;
       border-radius: 12px !important;
       padding: 4px 12px !important;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
     }
-    #nav-bar.browser-toolbar:focus-within {
-      top: 40% !important;
-      transform: translateY(-50%) !important;
+    #nav-bar:focus-within {
+      top: 15% !important;
     }
-    #urlbar[breakout] { top: unset !important; }
-    #urlbar-input-container { width: 100% !important; height: 100% !important; }
+    #navigator-toolbox:has(#nav-bar:focus-within) ~ #browser {
+      opacity: 0.3 !important;
+    }
+    /* Force all nav-bar children to respect width */
+    #nav-bar > * {
+      max-width: 100% !important;
+      min-width: 0 !important;
+    }
+    #nav-bar-customization-target {
+      flex: 1 !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+    }
+    /* Kill urlbar breakout: Firefox sets --urlbar-width via JS and
+     * uses position:absolute, which escapes our fixed-width nav-bar. */
+    #urlbar-container {
+      --urlbar-container-height: var(--urlbar-height-setting) !important;
+      min-width: 0 !important;
+      width: 100% !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    #urlbar {
+      --urlbar-height: var(--urlbar-height-setting) !important;
+      --urlbar-toolbar-height: var(--urlbar-height-setting) !important;
+      min-height: var(--urlbar-height-setting) !important;
+      border: none !important;
+      position: static !important;
+      display: flex !important;
+      flex-direction: column !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      height: auto !important;
+      overflow: clip !important;
+      margin: 0 !important;
+    }
+    #urlbar[breakout][breakout-extend] {
+      width: 100% !important;
+      margin: 0 !important;
+      margin-left: 0 !important;
+    }
     .urlbarView {
       background-color: transparent !important;
       border: none !important;
       outline: none !important;
       box-shadow: none !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow: hidden !important;
+    }
+    .urlbarView-body-outer {
+      max-height: 500px !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+    }
+    .urlbarView-row {
+      overflow: hidden !important;
+    }
+    .urlbarView-url, .urlbarView-title {
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
     }
 
     /* --- DEBLOAT NAVBAR --- */
@@ -188,16 +242,6 @@ in {
     #userContext-label, #userContext-indicator { display: none !important; }
 
     /* --- URLBAR STYLE --- */
-    #urlbar-container {
-      --urlbar-container-height: var(--urlbar-height-setting) !important;
-      margin: 0 !important; padding: 0 !important;
-    }
-    #urlbar {
-      --urlbar-height: var(--urlbar-height-setting) !important;
-      --urlbar-toolbar-height: var(--urlbar-height-setting) !important;
-      min-height: var(--urlbar-height-setting) !important;
-      border: none !important;
-    }
     #urlbar-background {
       border: 2px solid #${c.base08} !important;
       border-radius: 12px !important;
@@ -217,17 +261,34 @@ in {
     }
     #urlbar-input {
       color: #${c.base05} !important;
-      text-align: center !important;
+      text-align: left !important;
       font-size: 14px !important;
     }
+    #urlbar .searchbar-engine-one-off-item,
+    .search-panel-one-offs-header,
+    .urlbar-search-mode-indicator {
+      margin: 0 !important;
+      padding: 0 2px !important;
+    }
 
-    /* --- TAB BAR --- */
+    /* --- TAB BAR (bottom) --- */
     #navigator-toolbox {
       border: none !important;
     }
+    /* Move tabs below content */
     #titlebar {
       --proton-tab-block-margin: 0px !important;
       --tab-block-margin: 0px !important;
+      -moz-box-ordinal-group: 100 !important;
+      order: 100 !important;
+    }
+    #navigator-toolbox {
+      -moz-box-ordinal-group: 100 !important;
+      order: 100 !important;
+    }
+    #main-window #browser {
+      -moz-box-ordinal-group: 0 !important;
+      order: 0 !important;
     }
     #TabsToolbar, .tabbrowser-tab { max-height: var(--tab-min-height) !important; font-size: 11px !important; }
 
