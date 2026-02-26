@@ -7,5 +7,5 @@ pkgs.runCommand "editor" {
   meta.mainProgram = "editor";
 } ''
   mkdir -p $out/bin
-  makeWrapper ${lib.getExe pkgs.wezterm} $out/bin/editor
+  makeWrapper ${lib.getExe pkgs.vscode} $out/bin/editor
 ''
