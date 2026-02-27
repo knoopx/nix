@@ -11,13 +11,13 @@ pkgs.runCommand "terminal" {
   #!${pkgs.runtimeShell}
   set -eu
 
-  wezterm_bin="${lib.getExe pkgs.wezterm}"
+  kitty_bin="${lib.getExe pkgs.kitty}"
 
   if [ "$#" -eq 0 ]; then
-    exec "$wezterm_bin" start
+    exec "$kitty_bin"
   fi
 
-  exec "$wezterm_bin" start -- "$@"
+  exec "$kitty_bin" -- "$@"
   EOF
 
   chmod +x $out/bin/terminal
