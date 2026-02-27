@@ -1,0 +1,551 @@
+/* Base16-themed userContent for Firefox internal pages */
+
+/* --- ALL ABOUT PAGES --- */
+@-moz-document url-prefix("about:") {
+  :root {
+    --in-content-page-background: var(--base00);
+    --in-content-page-color: var(--base05);
+    --in-content-box-background: var(--base01);
+    --in-content-box-background-hover: var(--base02);
+    --in-content-box-background-active: var(--base03);
+    --in-content-box-background-odd: var(--base01);
+    --in-content-box-info-background: var(--base01);
+    --in-content-box-border-color: var(--base02);
+    --in-content-text-color: var(--base05);
+    --in-content-deemphasized-text: var(--base04);
+    --in-content-selected-text: var(--base05);
+    --in-content-item-hover: var(--base02);
+    --in-content-item-selected: var(--base02);
+    --in-content-button-background: var(--base02);
+    --in-content-button-background-hover: var(--base03);
+    --in-content-button-background-active: var(--base04);
+    --in-content-button-text-color: var(--base05);
+    --in-content-primary-button-background: var(--base0D);
+    --in-content-primary-button-background-hover: var(--base0C);
+    --in-content-primary-button-background-active: var(--base0D);
+    --in-content-primary-button-text-color: var(--base00);
+    --in-content-focus-outline-color: var(--base0D);
+    --in-content-border-color: var(--base02);
+    --in-content-border-hover: var(--base03);
+    --in-content-table-background: var(--base01);
+    --in-content-table-border-color: var(--base02);
+    --in-content-table-header-background: var(--base02);
+    --in-content-table-header-color: var(--base05);
+    --in-content-link-color: var(--base0D);
+    --in-content-link-color-hover: var(--base0C);
+    --in-content-link-color-active: var(--base0D);
+    --in-content-link-color-visited: var(--base0E);
+    --in-content-accent-color: var(--base0D);
+    --in-content-accent-color-active: var(--base0C);
+    --dialog-background: var(--base01);
+    --dialog-color: var(--base05);
+    --card-outline-color: var(--base02);
+    --card-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    color-scheme: dark;
+  }
+
+  body,
+  html {
+    background-color: var(--base00);
+    color: var(--base05);
+  }
+
+  a {
+    color: var(--base0D);
+  }
+  a:hover {
+    color: var(--base0C);
+  }
+  a:visited {
+    color: var(--base0E);
+  }
+
+  ::selection {
+    background-color: var(--base02);
+    color: var(--base05);
+  }
+
+  * {
+    scrollbar-color: var(--base03) var(--base00);
+    scrollbar-width: thin;
+  }
+}
+
+/* --- NEW TAB --- */
+@-moz-document url("about:newtab"), url("about:home"), url("about:blank") {
+  body {
+    background-color: var(--base00);
+    color: var(--base05);
+  }
+}
+
+/* --- PREFERENCES --- */
+@-moz-document url-prefix("about:preferences") {
+  .navigation {
+    background-color: var(--base01);
+  }
+  .category:hover {
+    background-color: var(--base02);
+  }
+  .category[selected] {
+    background-color: var(--base02);
+    color: var(--base05);
+  }
+  groupbox {
+    background-color: var(--base01);
+    border-color: var(--base02);
+  }
+
+  /* search input */
+  search-textbox,
+  .search-container input,
+  #searchInput,
+  .textbox-search,
+  input[type="text"],
+  input[type="search"],
+  input:not([type]),
+  textarea {
+    background-color: var(--base01);
+    color: var(--base05);
+    border-color: var(--base02);
+  }
+  search-textbox:focus,
+  #searchInput:focus,
+  input:focus,
+  textarea:focus {
+    border-color: var(--base0D);
+    background-color: var(--base01);
+  }
+
+  /* theme picker cards */
+  .theme-card,
+  .addon-card,
+  .card,
+  .theme-enable-button,
+  .colorway-card,
+  .theme-icon-container {
+    background-color: var(--base01);
+    border-color: var(--base02);
+    color: var(--base05);
+  }
+  .theme-card:hover,
+  .addon-card:hover,
+  .card:hover {
+    background-color: var(--base02);
+  }
+  .theme-card[selected],
+  .theme-card[active] {
+    border-color: var(--base0D);
+  }
+  .theme-card .theme-preview,
+  .theme-icon {
+    background-color: var(--base02);
+  }
+
+  /* radio/checkbox inputs */
+  input[type="radio"],
+  input[type="checkbox"] {
+    accent-color: var(--base0D);
+  }
+
+  /* tables (search shortcuts etc.) */
+  table,
+  thead,
+  tbody {
+    background-color: var(--base00);
+    color: var(--base05);
+    border-color: var(--base02);
+  }
+  th {
+    background-color: var(--base02);
+    color: var(--base05);
+    border-color: var(--base02);
+  }
+  td {
+    background-color: var(--base00);
+    color: var(--base05);
+    border-color: var(--base02);
+  }
+  tr:hover td {
+    background-color: var(--base01);
+  }
+  tr:nth-child(odd) td {
+    background-color: var(--base00);
+  }
+  tr:nth-child(even) td {
+    background-color: var(--base01);
+  }
+
+  /* toggle switches */
+  button.toggle-button,
+  .toggle-button {
+    background-color: var(--base03);
+  }
+  button.toggle-button[pressed],
+  .toggle-button[pressed] {
+    background-color: var(--base0D);
+  }
+
+  /* description text */
+  description,
+  label,
+  .learnMore,
+  .text-link {
+    color: var(--base05);
+  }
+  .text-link,
+  .learnMore {
+    color: var(--base0D);
+  }
+}
+
+/* --- ADDONS --- */
+@-moz-document url-prefix("about:addons") {
+  .card {
+    background-color: var(--base01);
+    border-color: var(--base02);
+  }
+  .card:hover {
+    background-color: var(--base02);
+  }
+  addon-list .list-section-heading {
+    color: var(--base04);
+  }
+  .navigation-button:hover,
+  .navigation-button[active] {
+    background-color: var(--base02);
+  }
+}
+
+/* --- DEVTOOLS --- */
+@-moz-document url-prefix("chrome://devtools/content/")
+{
+  :root {
+    /* Body */
+    --theme-body-background: var(--base00);
+    --theme-body-emphasized-background: var(--base02);
+    --theme-body-alternate-emphasized-background: var(--base01);
+    --theme-body-color: var(--base05);
+    --theme-sidebar-background: var(--base00);
+
+    /* Toolbar */
+    --theme-tab-toolbar-background: var(--base00);
+    --theme-toolbar-background: var(--base01);
+    --theme-toolbar-alternate-background: var(--base01);
+    --theme-toolbar-color: var(--base05);
+    --theme-toolbar-selected-color: var(--base06);
+    --theme-toolbar-highlighted-color: var(--base0B);
+    --theme-toolbar-background-hover: var(--base02);
+    --theme-toolbar-background-alt: var(--base00);
+    --theme-toolbar-background-highlighted: var(--base0D);
+    --theme-toolbar-error-background: var(--base08);
+    --theme-toolbar-hover: var(--base02);
+    --theme-toolbar-hover-active: var(--base02);
+    --theme-toolbar-separator: color-mix(
+      in srgb,
+      var(--base03) 20%,
+      transparent
+    );
+
+    /* Toolbar buttons */
+    --toolbarbutton-background: var(--base02);
+    --toolbarbutton-hover-background: var(--base02);
+    --toolbarbutton-checked-background: var(--base0D);
+    --toolbarbutton-checked-color: var(--base00);
+
+    /* Buttons */
+    --theme-button-background: color-mix(
+      in srgb,
+      var(--base03) 10%,
+      transparent
+    );
+    --theme-button-active-background: color-mix(
+      in srgb,
+      var(--base03) 15%,
+      transparent
+    );
+
+    /* Accordion headers */
+    --theme-accordion-header-background: var(--base01);
+    --theme-accordion-header-hover-background: var(--base02);
+
+    /* Selection */
+    --theme-selection-background: var(--base02);
+    --theme-selection-background-hover: var(--base01);
+    --theme-selection-focus-background: var(--base03);
+    --theme-selection-color: var(--base05);
+
+    /* Splitters */
+    --theme-splitter-color: var(--base02);
+    --theme-emphasized-splitter-color: var(--base03);
+    --theme-emphasized-splitter-color-hover: var(--base04);
+
+    /* Icons */
+    --theme-icon-color: var(--base04);
+    --theme-icon-dimmed-color: var(--base03);
+    --theme-icon-checked-color: var(--base0D);
+    --theme-icon-error-color: var(--base08);
+    --theme-icon-warning-color: var(--base0A);
+
+    /* Text */
+    --theme-comment: var(--base03);
+    --theme-link-color: var(--base0D);
+    --theme-text-color-alt: var(--base04);
+    --theme-text-color-inactive: var(--base03);
+    --theme-text-color-error: var(--base05);
+    --theme-text-color-strong: var(--base06);
+    --theme-stack-trace-text: var(--base08);
+
+    /* Syntax highlighting */
+    --theme-highlight-green: var(--base0B);
+    --theme-highlight-blue: var(--base0D);
+    --theme-highlight-purple: var(--base0E);
+    --theme-highlight-red: var(--base08);
+    --theme-highlight-yellow: var(--base0A);
+    --theme-highlight-bluegrey: var(--base04);
+    --theme-highlight-lightorange: var(--base09);
+    --theme-highlight-orange: var(--base09);
+    --theme-highlight-pink: var(--base0E);
+    --theme-highlight-gray: var(--base04);
+
+    /* Graphs */
+    --theme-graphs-purple: var(--base0E);
+    --theme-graphs-yellow: var(--base0A);
+    --theme-graphs-orange: var(--base09);
+    --theme-graphs-grey: var(--base03);
+    --theme-graphs-full-red: var(--base08);
+
+    /* Popups */
+    --theme-popup-background: var(--base01);
+    --theme-popup-color: var(--base05);
+    --theme-popup-border-color: var(--base02);
+    --theme-popup-dimmed: color-mix(in srgb, var(--base03) 10%, transparent);
+
+    /* Devtool buttons */
+    --theme-toolbarbutton-background: none;
+    --theme-toolbarbutton-color: var(--base04);
+    --theme-toolbarbutton-hover-background: color-mix(
+      in srgb,
+      currentColor 14%,
+      transparent
+    );
+    --theme-toolbarbutton-checked-background: color-mix(
+      in srgb,
+      var(--base0D) 5%,
+      transparent
+    );
+    --theme-toolbarbutton-checked-color: var(--base0D);
+    --theme-toolbarbutton-checked-hover-background: color-mix(
+      in srgb,
+      currentColor 14%,
+      transparent
+    );
+    --theme-toolbarbutton-checked-hover-color: var(--base04);
+    --theme-toolbarbutton-active-background: color-mix(
+      in srgb,
+      var(--base0D) 25%,
+      transparent
+    );
+
+    /* Select elements */
+    --theme-select-background: var(--base02);
+    --theme-select-color: var(--base05);
+    --theme-select-hover-border-color: var(--base03);
+
+    /* Warnings */
+    --theme-warning-background: color-mix(
+      in srgb,
+      var(--base0A) 15%,
+      var(--base00)
+    );
+    --theme-warning-border: color-mix(in srgb, var(--base0A) 30%, transparent);
+    --theme-warning-color: var(--base0A);
+
+    /* Flashing/contrast */
+    --theme-contrast-background: color-mix(
+      in srgb,
+      var(--base0A) 15%,
+      var(--base00)
+    );
+    --theme-contrast-background-alpha: color-mix(
+      in srgb,
+      var(--base0A) 15%,
+      transparent
+    );
+    --theme-contrast-color: var(--base05);
+    --theme-contrast-border: var(--base0A);
+
+    /* Focus */
+    --theme-focus-outline-color: var(--base0D);
+
+    /* Zebra striping */
+    --table-zebra-background: color-mix(
+      in srgb,
+      var(--base01) 80%,
+      transparent
+    );
+  }
+}
+
+/* --- DEVTOOLS --- */
+:root.theme-dark {
+  /* Body */
+  --theme-body-background: var(--base00);
+  --theme-body-emphasized-background: var(--base02);
+  --theme-body-alternate-emphasized-background: var(--base01);
+  --theme-body-color: var(--base05);
+  --theme-sidebar-background: var(--base00);
+
+  /* Toolbar */
+  --theme-tab-toolbar-background: var(--base00);
+  --theme-toolbar-background: var(--base01);
+  --theme-toolbar-alternate-background: var(--base01);
+  --theme-toolbar-color: var(--base05);
+  --theme-toolbar-selected-color: var(--base06);
+  --theme-toolbar-highlighted-color: var(--base0B);
+  --theme-toolbar-background-hover: var(--base02);
+  --theme-toolbar-background-alt: var(--base00);
+  --theme-toolbar-background-highlighted: var(--base0D);
+  --theme-toolbar-error-background: var(--base08);
+  --theme-toolbar-hover: var(--base02);
+  --theme-toolbar-hover-active: var(--base02);
+  --theme-toolbar-separator: color-mix(in srgb, var(--base03) 20%, transparent);
+
+  /* Toolbar buttons */
+  --toolbarbutton-background: var(--base02);
+  --toolbarbutton-hover-background: var(--base02);
+  --toolbarbutton-checked-background: var(--base0D);
+  --toolbarbutton-checked-color: var(--base00);
+
+  /* Buttons */
+  --theme-button-background: color-mix(in srgb, var(--base03) 10%, transparent);
+  --theme-button-active-background: color-mix(
+    in srgb,
+    var(--base03) 15%,
+    transparent
+  );
+
+  /* Accordion headers */
+  --theme-accordion-header-background: var(--base01);
+  --theme-accordion-header-hover-background: var(--base02);
+
+  /* Selection */
+  --theme-selection-background: var(--base02);
+  --theme-selection-background-hover: var(--base01);
+  --theme-selection-focus-background: var(--base03);
+  --theme-selection-color: var(--base05);
+
+  /* Splitters */
+  --theme-splitter-color: var(--base02);
+  --theme-emphasized-splitter-color: var(--base03);
+  --theme-emphasized-splitter-color-hover: var(--base04);
+
+  /* Icons */
+  --theme-icon-color: var(--base04);
+  --theme-icon-dimmed-color: var(--base03);
+  --theme-icon-checked-color: var(--base0D);
+  --theme-icon-error-color: var(--base08);
+  --theme-icon-warning-color: var(--base0A);
+
+  /* Text */
+  --theme-comment: var(--base03);
+  --theme-link-color: var(--base0D);
+  --theme-text-color-alt: var(--base04);
+  --theme-text-color-inactive: var(--base03);
+  --theme-text-color-error: var(--base05);
+  --theme-text-color-strong: var(--base06);
+  --theme-stack-trace-text: var(--base08);
+
+  /* Syntax highlighting */
+  --theme-highlight-green: var(--base0B);
+  --theme-highlight-blue: var(--base0D);
+  --theme-highlight-purple: var(--base0E);
+  --theme-highlight-red: var(--base08);
+  --theme-highlight-yellow: var(--base0A);
+  --theme-highlight-bluegrey: var(--base04);
+  --theme-highlight-lightorange: var(--base09);
+  --theme-highlight-orange: var(--base09);
+  --theme-highlight-pink: var(--base0E);
+  --theme-highlight-gray: var(--base04);
+
+  /* Graphs */
+  --theme-graphs-purple: var(--base0E);
+  --theme-graphs-yellow: var(--base0A);
+  --theme-graphs-orange: var(--base09);
+  --theme-graphs-grey: var(--base03);
+  --theme-graphs-full-red: var(--base08);
+
+  /* Popups */
+  --theme-popup-background: var(--base01);
+  --theme-popup-color: var(--base05);
+  --theme-popup-border-color: var(--base02);
+  --theme-popup-dimmed: color-mix(in srgb, var(--base03) 10%, transparent);
+
+  /* Devtool buttons */
+  --theme-toolbarbutton-background: none;
+  --theme-toolbarbutton-color: var(--base04);
+  --theme-toolbarbutton-hover-background: color-mix(
+    in srgb,
+    currentColor 14%,
+    transparent
+  );
+  --theme-toolbarbutton-checked-background: color-mix(
+    in srgb,
+    var(--base0D) 5%,
+    transparent
+  );
+  --theme-toolbarbutton-checked-color: var(--base0D);
+  --theme-toolbarbutton-checked-hover-background: color-mix(
+    in srgb,
+    currentColor 14%,
+    transparent
+  );
+  --theme-toolbarbutton-checked-hover-color: var(--base04);
+  --theme-toolbarbutton-active-background: color-mix(
+    in srgb,
+    var(--base0D) 25%,
+    transparent
+  );
+
+  /* Select elements */
+  --theme-select-background: var(--base02);
+  --theme-select-color: var(--base05);
+  --theme-select-hover-border-color: var(--base03);
+
+  /* Warnings */
+  --theme-warning-background: color-mix(
+    in srgb,
+    var(--base0A) 15%,
+    var(--base00)
+  );
+  --theme-warning-border: color-mix(in srgb, var(--base0A) 30%, transparent);
+  --theme-warning-color: var(--base0A);
+
+  /* Flashing/contrast */
+  --theme-contrast-background: color-mix(
+    in srgb,
+    var(--base0A) 15%,
+    var(--base00)
+  );
+  --theme-contrast-background-alpha: color-mix(
+    in srgb,
+    var(--base0A) 15%,
+    transparent
+  );
+  --theme-contrast-color: var(--base05);
+  --theme-contrast-border: var(--base0A);
+
+  /* Focus */
+  --theme-focus-outline-color: var(--base0D);
+
+  /* Zebra striping */
+  --table-zebra-background: color-mix(in srgb, var(--base01) 80%, transparent);
+}
+
+/* --- PRIVATEBROWSING --- */
+@-moz-document url("about:privatebrowsing") {
+  body {
+    background-color: var(--base00);
+    color: var(--base05);
+  }
+}

@@ -1,0 +1,536 @@
+/* Based on adolfgatonegro/firefox-minimal (Dook97/firefox-qutebrowser-userchrome) */
+
+:root {
+  /* custom vars */
+  --uc-urlbar-width: min(600px, 80vw);
+  --tab-active-bg: var(--base02);
+  --tab-inactive-bg: var(--base00);
+  --tab-active-fg: var(--base05);
+  --tab-inactive-fg: var(--base04);
+  --urlbar-height-setting: 32px;
+  --tab-min-height: 28px;
+
+  /* design tokens (tokens-brand.css / tokens-shared.css) */
+  --color-accent-primary: var(--base0D);
+  --color-accent-primary-hover: var(--base0C);
+  --color-accent-primary-active: var(--base0D);
+  --background-color-canvas: var(--base00);
+  --background-color-box: var(--base01);
+  --background-color-critical: var(--base08);
+  --background-color-information: var(--base0D);
+  --background-color-success: var(--base0B);
+  --background-color-warning: var(--base0A);
+  --text-color: var(--base05);
+  --text-color-deemphasized: var(--base04);
+  --text-color-error: var(--base08);
+  --text-color-disabled: var(--base03);
+  --border-color: var(--base02);
+  --border-color-card: var(--base02);
+  --border-color-deemphasized: var(--base02);
+  --border-color-interactive: var(--base03);
+  --border-color-interactive-hover: var(--base04);
+  --border-color-interactive-active: var(--base05);
+  --border-color-interactive-disabled: var(--base02);
+  --border-color-transparent: transparent;
+  --icon-color: var(--base04);
+  --icon-color-critical: var(--base08);
+  --icon-color-information: var(--base0D);
+  --icon-color-success: var(--base0B);
+  --icon-color-warning: var(--base0A);
+  --link-color: var(--base0C);
+  --link-color-hover: var(--base0D);
+  --link-color-active: var(--base0C);
+  --link-color-visited: var(--base0E);
+  --outline-color-error: var(--base08);
+  --focus-outline-color: var(--base08);
+  --attention-dot-color: var(--base0B);
+  --button-background-color: color-mix(in srgb, var(--base05) 7%, transparent);
+  --button-background-color-hover: color-mix(in srgb, var(--base05) 14%, transparent);
+  --button-background-color-active: color-mix(in srgb, var(--base05) 21%, transparent);
+  --button-text-color: var(--base05);
+  --button-text-color-primary: var(--base00);
+  --table-row-background-color-alternate: var(--base01);
+  --box-shadow-color-darker-layer-1: rgba(0, 0, 0, 0.2);
+  --box-shadow-color-darker-layer-2: rgba(0, 0, 0, 0.4);
+  --box-shadow-color-lighter-layer-1: rgba(0, 0, 0, 0.2);
+  --box-shadow-color-lighter-layer-2: rgba(0, 0, 0, 0.4);
+
+  /* toolbox (browser-colors.css) */
+  --toolbox-bgcolor: var(--base00);
+  --toolbox-bgcolor-inactive: var(--base00);
+  --toolbox-textcolor: var(--base05);
+  --toolbox-textcolor-inactive: var(--base04);
+
+  /* toolbar (browser-colors.css) */
+  --toolbar-bgcolor: var(--base00);
+  --toolbar-color: var(--base05);
+  --toolbarbutton-icon-fill: var(--base05);
+  --toolbarbutton-icon-fill-attention: var(--base0D);
+  --toolbarbutton-icon-fill-attention-text: var(--base00);
+
+  /* toolbar fields (browser-colors.css) */
+  --toolbar-field-background-color: var(--base01);
+  --toolbar-field-focus-background-color: var(--base01);
+  --toolbar-field-color: var(--base05);
+  --toolbar-field-focus-color: var(--base05);
+  --toolbar-field-border-color: transparent;
+  --toolbar-field-focus-border-color: var(--base08);
+
+  /* tabs (browser-colors.css) */
+  --tab-selected-bgcolor: var(--base02);
+  --tab-selected-textcolor: var(--base05);
+  --tabs-navbar-separator-style: none;
+  --tabs-navbar-separator-color: transparent;
+
+  /* lwtheme (browser-colors.css) */
+  --lwt-accent-color: var(--base00);
+  --lwt-text-color: var(--base05);
+
+  /* content separator (browser-colors.css) */
+  --chrome-content-separator-color: transparent;
+
+  /* panels (browser-colors.css) */
+  --arrowpanel-background: var(--base01);
+  --arrowpanel-color: var(--base05);
+  --arrowpanel-border-color: var(--base02);
+  --arrowpanel-dimmed: color-mix(in srgb, var(--base05) 12%, transparent);
+  --arrowpanel-dimmed-further: color-mix(in srgb, var(--base05) 20%, transparent);
+
+  /* sidebar (browser-colors.css) */
+  --sidebar-background-color: var(--base00);
+  --sidebar-text-color: var(--base05);
+  --sidebar-border-color: var(--base02);
+
+  /* input (browser-colors.css) */
+  --input-border-color: var(--base02);
+  --input-bgcolor: var(--base00);
+  --input-color: var(--base05);
+
+  /* urlbar box (browser-colors.css) */
+  --urlbar-box-bgcolor: var(--base02);
+  --urlbar-box-focus-bgcolor: var(--base02);
+  --urlbar-box-hover-bgcolor: var(--base03);
+  --urlbar-box-active-bgcolor: var(--base03);
+  --urlbar-box-text-color: var(--base05);
+  --urlbar-box-hover-text-color: var(--base05);
+  --urlbar-icon-fill-opacity: 1;
+
+  /* urlbarView (browser-colors.css) */
+  --urlbarView-highlight-background: var(--base02);
+  --urlbarView-highlight-color: var(--base05);
+  --urlbarView-hover-background: var(--base01);
+  --urlbarView-separator-color: transparent;
+  --urlbarView-secondary-text-color: var(--base04);
+  --urlbarView-action-color: var(--base0D);
+
+  /* devtools splitter (splitters.css) */
+  --devtools-splitter-color: var(--base02);
+}
+
+/* --- NAVBAR: hidden (urlbar popover floats independently) --- */
+#nav-bar {
+  height: 0;
+  min-height: 0;
+  max-height: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+  appearance: none;
+  overflow: visible;
+  background: transparent;
+  box-shadow: none;
+}
+#nav-bar > * {
+  max-width: 100%;
+  min-width: 0;
+}
+#nav-bar-customization-target > :not(#urlbar-container) {
+  visibility: collapse;
+}
+
+/* --- URLBAR: popover in the top layer, styled as floating bar ---
+ * #urlbar has popover="manual". JS calls showPopover() on breakout,
+ * sets --urlbar-width via ResizeObserver, and style.top via getBoxQuads().
+ * We override all of these to position it as a centered floating bar.
+ * In the top layer, position:relative is ignored — the popover acts as
+ * position:fixed against the viewport. */
+#urlbar-container {
+  --urlbar-container-height: var(--urlbar-height-setting);
+  padding: 0;
+  margin: 0;
+}
+#urlbar,
+#urlbar[breakout],
+#urlbar[breakout][breakout-extend] {
+  --urlbar-height: var(--urlbar-height-setting);
+  --urlbar-toolbar-height: var(--urlbar-height-setting);
+  --urlbar-width: var(--uc-urlbar-width);
+  --urlbar-margin-inline: 0px;
+  display: flex;
+  flex-direction: column;
+  top: -10000px;
+  left: calc(50% - var(--uc-urlbar-width) / 2);
+  width: var(--uc-urlbar-width);
+  max-width: var(--uc-urlbar-width);
+  height: auto;
+  min-height: var(--urlbar-height-setting);
+  margin: 0;
+  padding: 4px 12px;
+  border: 1px solid var(--base08);
+  border-radius: 12px;
+  background-color: var(--base01);
+  color: var(--base05);
+  box-sizing: border-box;
+  overflow: clip;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+#urlbar:is([focused], [open]),
+#urlbar[breakout]:is([focused], [open]),
+#urlbar[breakout][breakout-extend] {
+  top: 15%;
+}
+#navigator-toolbox:has(#urlbar:is([focused], [open])) ~ #browser {
+  opacity: 0.3;
+}
+#urlbar-input-container {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 0;
+}
+#urlbar-background {
+  display: none;
+}
+.urlbarView {
+  background-color: transparent;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  /* Override margin/border from urlbarView.css */
+  margin-inline: 0;
+  border-inline: none;
+}
+.urlbarView-body-outer {
+  max-height: 500px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.urlbarView-row {
+  overflow: hidden;
+}
+.urlbarView-url,
+.urlbarView-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- DEBLOAT NAVBAR --- */
+#back-button,
+#forward-button,
+#reload-button,
+#stop-button,
+#home-button,
+#library-button,
+#fxa-toolbar-menu-button,
+#PanelUI-menu-button,
+#customizableui-special-spring1,
+#customizableui-special-spring2,
+#star-button-box,
+#urlbar-go-button,
+#identity-permission-box,
+#tracking-protection-icon-container,
+#reader-mode-button,
+#translations-button,
+#picture-in-picture-button,
+#unified-extensions-button,
+#nav-bar-overflow-button,
+#widget-overflow,
+#urlbar-search-button,
+#searchbar,
+.titlebar-spacer,
+.titlebar-buttonbox-container,
+toolbarspring,
+#PersonalToolbar,
+#tabs-newtab-button,
+.private-browsing-indicator-with-label {
+  display: none;
+}
+#urlbar .search-one-offs {
+  display: none;
+}
+#urlbar[searchmode] > .urlbar-input-container > #urlbar-search-mode-indicator,
+#urlbar[searchmode] #searchmode-switcher-chicklet {
+  display: none;
+}
+#urlbar-searchmode-switcher {
+  margin-inline-end: 8px;
+}
+#userContext-label,
+#userContext-indicator {
+  display: none;
+}
+
+/* --- URLBAR INPUT STYLE --- */
+#urlbar-input {
+  color: var(--base05);
+  text-align: left;
+  font-size: 14px;
+}
+
+/* --- TAB BAR (bottom) --- */
+#navigator-toolbox {
+  border: none;
+}
+/* Move tabs below content */
+#titlebar {
+  --tab-block-margin: 0px;
+  -moz-box-ordinal-group: 100;
+  order: 100;
+}
+#navigator-toolbox {
+  -moz-box-ordinal-group: 100;
+  order: 100;
+}
+#main-window #browser {
+  -moz-box-ordinal-group: 0;
+  order: 0;
+}
+#TabsToolbar,
+.tabbrowser-tab {
+  max-height: var(--tab-min-height);
+  font-size: 11px;
+}
+
+/* hide tab bar with single tab */
+#tabbrowser-tabs:has(.tabbrowser-tab:only-of-type) {
+  visibility: collapse;
+}
+#TabsToolbar:has(#tabbrowser-tabs .tabbrowser-tab:only-of-type) {
+  visibility: collapse;
+  max-height: 0;
+  min-height: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+}
+#tabbrowser-tabs,
+#tabbrowser-arrowscrollbox {
+  min-height: var(--tab-min-height);
+}
+#alltabs-button {
+  display: none;
+}
+
+/* tab colors */
+.tabbrowser-tab:not([selected="true"]) {
+  background-color: var(--tab-inactive-bg);
+  color: var(--identity-icon-color, var(--tab-inactive-fg));
+}
+.tabbrowser-tab:not([selected="true"]) .tab-background {
+  background-color: var(--tab-inactive-bg);
+  background-image: none;
+}
+.tabbrowser-tab {
+  font-weight: normal;
+  border: none;
+}
+#tabbrowser-tabs .tabbrowser-tab[selected] .tab-content {
+  background: var(--tab-active-bg);
+  color: var(--identity-icon-color, var(--tab-active-fg));
+}
+#tabbrowser-tabs .tabbrowser-tab:hover:not([selected]) .tab-content {
+  background: var(--tab-active-bg);
+}
+.tabbrowser-tab[fadein] {
+  max-width: 100vw;
+  border: none;
+}
+.tabbrowser-tab {
+  flex: 0 1 auto;
+  width: auto;
+  padding-inline: 0px;
+  --tab-label-mask-size: 1em;
+  overflow-clip-margin: 0px;
+}
+.tab-label {
+  max-width: 200px;
+}
+.tab-content {
+  padding: 0 6px;
+  align-items: center;
+}
+.tab-background {
+  margin-block: 0;
+  min-height: var(--tab-min-height);
+}
+#tabbrowser-tabs .tabbrowser-tab .tab-close-button {
+  display: none;
+}
+#tabbrowser-tabs:not([noshadowfortests])
+  .tab-background:is([selected], [multiselected]) {
+  box-shadow: none;
+}
+#tabbrowser-tabs:not([secondarytext-unsupported]) .tab-label-container {
+  height: var(--tab-min-height);
+}
+
+/* --- CONTEXT MENUS & POPUPS --- */
+menupopup,
+panel {
+  --panel-border-radius: 12px;
+  --panel-background: var(--base01);
+  --panel-color: var(--base05);
+  --panel-border-color: color-mix(in srgb, var(--base03) 40%, transparent);
+  --panel-padding-block: 6px;
+  --panel-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    0 0 0 1px color-mix(in srgb, var(--base03) 20%, transparent);
+  --menuitem-border-radius: 8px;
+  --menuitem-margin: 0 6px;
+  --menuitem-padding: 6px 8px;
+  --panel-separator-color: color-mix(in srgb, var(--base03) 30%, transparent);
+}
+menupopup > #context-navigation {
+  display: none;
+}
+menupopup > #context-sep-navigation {
+  display: none;
+}
+menuitem,
+menu {
+  color: var(--base05);
+}
+menuitem:hover,
+menu:hover,
+menuitem[_moz-menuactive="true"],
+menu[_moz-menuactive="true"] {
+  background-color: var(--base02);
+  color: var(--base05);
+}
+menuitem[disabled="true"],
+menu[disabled="true"] {
+  color: var(--base03);
+}
+menuseparator {
+  margin-inline: 12px;
+}
+
+/* --- FINDBAR --- */
+findbar {
+  background-color: var(--base01);
+  color: var(--base05);
+  border-color: var(--base02);
+}
+findbar .findbar-textbox {
+  background-color: var(--base00);
+  color: var(--base05);
+  border-color: var(--base02);
+}
+findbar .findbar-textbox:focus {
+  border-color: var(--base08);
+}
+.findbar-find-status,
+.found-matches {
+  color: var(--base04);
+}
+
+/* --- SIDEBAR --- */
+#sidebar-box {
+  background-color: var(--base00);
+  color: var(--base05);
+}
+#sidebar-header {
+  background-color: var(--base01);
+  color: var(--base05);
+  border-bottom-color: var(--base02);
+}
+#sidebar {
+  background-color: var(--base00);
+  color: var(--base05);
+}
+
+/* --- AUTOCOMPLETE / AWESOMEBAR RESULTS --- */
+.urlbarView-row[selected] {
+  background-color: var(--base02);
+  color: var(--base05);
+}
+.urlbarView-row:hover {
+  background-color: var(--base01);
+}
+.urlbarView-url {
+  color: var(--base0C);
+}
+.urlbarView-title strong {
+  color: var(--base0D);
+}
+
+/* --- SELECTION --- */
+::selection {
+  background-color: var(--base02);
+  color: var(--base05);
+}
+
+/* --- SCROLLBARS --- */
+* {
+  scrollbar-color: var(--base03) var(--base00);
+  scrollbar-width: thin;
+}
+
+/* --- FULLSCREEN & STATUS --- */
+#fullscreen-warning {
+  border: none;
+  background-color: var(--base01);
+  color: var(--base05);
+}
+#statuspanel-label {
+  border-radius: 0px;
+  border: 0px;
+  background-color: var(--base01);
+  color: var(--base04);
+}
+
+/* --- DOWNLOADS PANEL --- */
+#downloadsPanel {
+  background-color: var(--base01);
+  color: var(--base05);
+}
+#downloadsListBox richlistitem:hover {
+  background-color: var(--base02);
+}
+#downloadsListBox richlistitem[selected] {
+  background-color: var(--base02);
+  color: var(--base05);
+}
+#emptyDownloads {
+  color: var(--base04);
+}
+
+/* --- PERMISSIONS / SECURITY POPUPS --- */
+#permission-popup,
+#identity-popup {
+  --panel-background: var(--base01);
+  --panel-color: var(--base05);
+  --panel-border-color: var(--base02);
+}
+
+/* --- BUTTONS --- */
+button,
+toolbarbutton {
+  color: var(--base05);
+}
+button:hover,
+toolbarbutton:hover {
+  background-color: var(--base02);
+}
+button:active,
+toolbarbutton[checked="true"] {
+  background-color: var(--base03);
+}
+
+/* --- TAB LOADING INDICATOR --- */
+.tabbrowser-tab[busy] .tab-throbber {
+  color: var(--base0D);
+}
+.tabbrowser-tab[progress] .tab-throbber {
+  color: var(--base0B);
+}
