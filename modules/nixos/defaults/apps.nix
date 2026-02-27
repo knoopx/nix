@@ -69,13 +69,13 @@ in {
 
   config.defaults.apps = {
     browser.package = pkgs.browser;
-    browser.desktopEntry = "firefox.desktop";
+    browser.desktopEntry = "firefox-esr.desktop";
 
     terminal.package = pkgs.terminal;
-    terminal.desktopEntry = "org.wezfurlong.wezterm.desktop";
+    terminal.desktopEntry = "kitty.desktop";
 
     editor.package = pkgs.editor;
-    editor.desktopEntry = "org.wezfurlong.wezterm.desktop";
+    editor.desktopEntry = "code.desktop";
 
     fileManager.package = pkgs.file-manager;
     fileManager.desktopEntry = "org.gnome.Nautilus.desktop";
