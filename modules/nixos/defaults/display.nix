@@ -55,7 +55,7 @@ with lib; {
         windowSize = [1240 900];
         sidebarWidth = 200;
         defaultColumnWidthPercent = 0.5;
-        columnWidthPercentPresets = [0.5 0.33 0.25];
+        columnWidthPercentPresets = [0.66 0.5 0.33];
 
         windowRules = [
           {
