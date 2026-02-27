@@ -93,26 +93,33 @@
       };
 
       binds = {
+        "Mod+Period".action = {"toggle-overview" = [];}; # used with keyd
         "MouseForward".action = {toggle-overview = [];};
-        "Alt+Down".action = {"focus-workspace-down" = [];};
-        "Alt+Up".action = {"focus-workspace-up" = [];};
-        "Mod+Down".action = {"focus-workspace-down" = [];};
-        "Mod+D".action = {"switch-focus-between-floating-and-tiling" = [];};
-        "Mod+F".action = {"center-window" = [];};
-        "Mod+G".action = {"maximize-window-to-edges" = [];};
+
         "Mod+J".action = {spawn = ["browser"];};
+        "Mod+Shift+J".action = {spawn = ["file-manager"];};
         "Mod+K".action = {spawn = ["editor"];};
         "Mod+L".action = {spawn = ["terminal"];};
         "Mod+Shift+L".action = {spawn = ["terminal" "nu"];};
-        "Mod+I".action = {"consume-or-expel-window-left" = [];};
-        "Mod+Period".action = {"toggle-overview" = [];};
+
         "Mod+Left".action = {"focus-column-left" = [];};
-        "Mod+O".action = {"consume-or-expel-window-right" = [];};
+        "Mod+Right".action = {"focus-column-right" = [];};
+        "Mod+Down".action = {"focus-workspace-down" = [];};
+        "Mod+Up".action = {"focus-workspace-up" = [];};
+
+        "Alt+Down".action = {"focus-workspace-down" = [];};
+        "Alt+Up".action = {"focus-workspace-up" = [];};
+
+        "Mod+D".action = {"focus-window-down-or-top" = [];};
+        "Mod+V".action = {"center-window" = [];};
+        "Mod+F".action = {"maximize-window-to-edges" = [];};
+
+        "Mod+U".action = {"consume-or-expel-window-left" = [];};
+        "Mod+I".action = {"consume-or-expel-window-right" = [];};
+
         "Mod+Q".action = {"close-window" = [];};
         "Mod+R".action = {"switch-preset-column-width" = [];};
-        "Mod+Return".action = {"toggle-window-floating" = [];};
-        "Mod+Shift+Return".action = {spawn = ["window-control" "float-to-corner"];};
-        "Mod+Right".action = {"focus-column-right" = [];};
+        "Mod+Return".action = {spawn = ["window-control" "float-to-corner"];};
         "Mod+Tab".action = {"focus-monitor-next" = [];};
         "Mod+Shift+Tab".action = {"switch-focus-between-floating-and-tiling" = [];};
         "Mod+Shift+Ctrl+L".action = {quit = {"skip-confirmation" = true;};};
@@ -127,8 +134,6 @@
 
         "Mod+Shift+Up".action = {"move-column-to-workspace-up" = [];};
         "Mod+Space".action = {spawn = ["vicinae" "toggle"];};
-        "Mod+Up".action = {"focus-workspace-up" = [];};
-        "Mod+V".action = {spawn = ["file-manager"];};
         "Mod+B".action = {spawn = ["xdg-open" "vicinae://extensions/vicinae/manage-shortcuts/manage"];};
         "Mod+P".action = {spawn = ["xdg-open" "vicinae://extensions/leonkohli/process-manager/processes"];};
         "Mod+W".action = {"close-window" = [];};
