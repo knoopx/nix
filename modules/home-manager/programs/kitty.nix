@@ -15,6 +15,7 @@
     };
 
     extraConfig = with nixosConfig.defaults.colorScheme.palette; ''
+      map ctrl+backspace send_text all \x17
       map ctrl+shift+enter new_window_with_cwd
       map ctrl+shift+t new_tab_with_cwd
       mouse_map ctrl+shift+left press ungrabbed,grabbed mouse_selection rectangle
