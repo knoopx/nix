@@ -112,7 +112,7 @@
 
         "Mod+D".action = {"focus-window-down-or-top" = [];};
         "Mod+V".action = {"center-window" = [];};
-        "Mod+F".action = {"maximize-window-to-edges" = [];};
+        "Mod+F".action = {spawn = ["window-control" "fullscreen"];};
 
         "Mod+U".action = {"consume-or-expel-window-left" = [];};
         "Mod+I".action = {"consume-or-expel-window-right" = [];};
@@ -139,7 +139,7 @@
         "Mod+W".action = {"close-window" = [];};
         "Print".action = {screenshot = [];};
         "Shift+Print".action = {"screenshot-window" = [];};
-        "Mod+Shift+P".action = {spawn = ["ffplay" "-fflags" "nobuffer" "-analyzeduration" "0" "-video_size" "640x480" "/dev/video0"];};
+        "Mod+Shift+P".action = {spawn = ["window-control" "webcam"];};
         "XF86AudioLowerVolume".action = {spawn = ["volume-control" "down"];};
         "XF86AudioMute".action = {spawn = ["volume-control" "mute"];};
         "XF86AudioNext".action = {spawn = ["media-control" "next"];};
