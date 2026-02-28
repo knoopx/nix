@@ -117,9 +117,9 @@ with lib; {
           }
           {
             matches = [
-              {title = "mpv";}
+              {app-id = "mpv";}
             ];
-            open-floating = true;
+            open-fullscreen = true;
           }
           {
             matches = [
