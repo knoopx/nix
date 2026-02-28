@@ -167,7 +167,6 @@
     findutils
     websocat
     wshowkeys
-    jadx
     android-tools
   ];
 }
