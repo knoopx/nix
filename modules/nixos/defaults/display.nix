@@ -110,8 +110,8 @@ with lib; {
             open-floating = true;
             open-focused = false;
             default-floating-position = {
-              x = 16;
-              y = 16;
+              x = 12;
+              y = 12;
               relative-to = "bottom-right";
             };
           }
