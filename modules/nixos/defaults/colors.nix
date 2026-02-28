@@ -95,38 +95,21 @@ with lib; {
       colorScheme = {
         name = "custom";
 
-        # base00 = "191033";
-        # base01 = "1e133c";
-        # base02 = "2f235c";
-        # base03 = "404079";
-        # base04 = "646499";
-        # base05 = "f8f8f8";
-        # base06 = "e5e4fb";
-        # base07 = "fad000";
-        # base08 = "ff628c";
-        # base09 = "68a5ff";
-        # base0A = "ffee80";
-        # base0B = "a5ff90";
-        # base0C = "80fcff";
-        # base0D = "fad000";
-        # base0E = "faefa5";
-        # base0F = "fb94ff";
-
         palette = {
-          base00 = "101033";
-          base01 = "161641";
-          base02 = "24245d";
-          base03 = "3e3e76";
-          base04 = "616194";
+          base00 = "191033";
+          base01 = "211641";
+          base02 = "32245d";
+          base03 = "4c3e76";
+          base04 = "6e6194";
           base05 = "f8f8f8";
-          base06 = "f0f0f4";
+          base06 = "f1f0f4";
           base07 = "fad000";
           base08 = "ff628c";
-          base09 = "68a5ff";
+          base09 = "ffb454";
           base0A = "fad000";
           base0B = "a5ff90";
-          base0C = "2feeda";
-          base0D = "ff6565";
+          base0C = "80fcff";
+          base0D = "fad000";
           base0E = "faefa5";
           base0F = "fb94ff";
         };
