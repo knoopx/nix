@@ -17,6 +17,7 @@
     extraConfig = with nixosConfig.defaults.colorScheme.palette; ''
       map ctrl+shift+enter new_window_with_cwd
       map ctrl+shift+t new_tab_with_cwd
+      mouse_map ctrl+shift+left press ungrabbed,grabbed mouse_selection rectangle
 
       tab_separator " "
       tab_title_template " {fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title} "
