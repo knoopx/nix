@@ -124,7 +124,6 @@
     mpv
     nh
     nvd
-    opencode
     ox
     p7zip
     pciutils

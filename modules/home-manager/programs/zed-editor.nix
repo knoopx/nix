@@ -19,14 +19,7 @@
         font_weight = 100;
         line_height = "standard";
       };
-      agent_servers = {
-        OpenCode = {
-          type = "custom";
-          command = "/etc/profiles/per-user/${nixosConfig.defaults.username}/bin/oc";
-          args = ["acp"];
-          env = {};
-        };
-      };
+      agent_servers = {};
       context_servers = {};
       agent = {
         always_allow_tool_actions = true;
