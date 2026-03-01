@@ -2,18 +2,9 @@
   pkgs,
   nixosConfig,
   betterfox,
-  nix-userstyles,
   ...
 }: let
   c = nixosConfig.defaults.colorScheme.palette;
-  importantize = pkgs.callPackage "${nix-userstyles}/lib/importantize.nix" {};
-  importantizeCss = name: css:
-    builtins.readFile (pkgs.runCommandLocal name {
-        passAsFile = ["css"];
-        inherit css;
-      } ''
-        cat "$cssPath" | ${pkgs.lib.getExe importantize} > $out
-      '');
   jumpAddonId = "jump@knoopx";
   jump = pkgs.stdenvNoCC.mkDerivation {
     pname = "jump";
@@ -68,41 +59,13 @@ in {
 
   userChrome = ''
     ${cssVars}
-    ${importantizeCss "userChrome" (builtins.readFile ./chrome/user.css)}
+    ${builtins.readFile ./chrome/user.css}
   '';
 
   userContent = ''
     ${cssVars}
     ${devtoolsCssVars}
-    ${importantizeCss "userContent" (builtins.readFile ./chrome/content.css)}
-    ${builtins.readFile "${nix-userstyles.packages.${pkgs.stdenv.hostPlatform.system}.mkUserStyles nixosConfig.defaults.colorScheme.palette [
-      "brave-search"
-      "bsky"
-      "chatgpt"
-      "cinny"
-      "claude"
-      "devdocs"
-      "discord"
-      "duckduckgo"
-      "github"
-      "google"
-      "hacker-news"
-      "lobste.rs"
-      "nixos-*"
-      "npm"
-      "ollama"
-      "perplexity"
-      "qwant"
-      "reddit"
-      "slack"
-      "spotify-web"
-      "stack-overflow"
-      "telegram"
-      "whatsapp-web"
-      "wikipedia"
-      "wikipedia"
-      "youtube"
-    ]}"}
+    ${builtins.readFile ./chrome/content.css}
   '';
 
   search = {

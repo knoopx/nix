@@ -4,10 +4,6 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
 
-    nix-userstyles.url = "github:knoopx/nix-userstyles";
-    nix-userstyles.inputs.nixpkgs.follows = "nixpkgs";
-    nix-userstyles.inputs.nix-colors.follows = "nix-colors";
-
     haumea.url = "github:nix-community/haumea";
     haumea.inputs.nixpkgs.follows = "nixpkgs";
 

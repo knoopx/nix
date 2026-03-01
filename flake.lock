@@ -203,34 +203,6 @@
         "type": "github"
       }
     },
-    "catppuccin-userstyles": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1770327206,
-        "narHash": "sha256-QRzvMdBD3ySQ69VKQEXc174fZHm4ABG/0DtDTLuaezs=",
-        "owner": "catppuccin",
-        "repo": "userstyles",
-        "rev": "a6aca1e82039b55d7273deacfc04875d4e2f01db",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "userstyles",
-        "type": "github"
-      }
-    },
-    "discord-userstyle": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-kQK+xOaUBqWXtGhyS2GuSMztQAMy7/jIz85mhjgBiDw=",
-        "type": "file",
-        "url": "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css"
-      }
-    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -498,31 +470,6 @@
         "type": "github"
       }
     },
-    "nix-userstyles": {
-      "inputs": {
-        "catppuccin-userstyles": "catppuccin-userstyles",
-        "discord-userstyle": "discord-userstyle",
-        "nix-colors": [
-          "nix-colors"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1771953209,
-        "narHash": "sha256-I9oVfUH6FRbYw+Xm2R24CosciujtJOhrYVMY70HrpIM=",
-        "owner": "knoopx",
-        "repo": "nix-userstyles",
-        "rev": "8235e27a1b9ffb585a1c599ed37817a8a1edc753",
-        "type": "github"
-      },
-      "original": {
-        "owner": "knoopx",
-        "repo": "nix-userstyles",
-        "type": "github"
-      }
-    },
     "nix-vscode-extensions": {
       "inputs": {
         "nixpkgs": [
@@ -612,7 +559,6 @@
         "neuwaita": "neuwaita",
         "niri": "niri",
         "nix-colors": "nix-colors",
-        "nix-userstyles": "nix-userstyles",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs",
         "stylix": "stylix",

@@ -270,14 +270,18 @@ nix eval path:.#packages.x86_64-linux.neuwaita-icon-theme
 The repository uses a hybrid module loading approach:
 
 ### Haumea Loading
+
 Most modules use **haumea** for automatic module discovery and loading:
+
 - `modules/nixos/` (except defaults/)
 - `modules/home-manager/` (except top-level files)
 - `overlays/` (verbatim loader)
 - `pkgs/`, `lib/`, `builders/`
 
 ### listNixModulesRecursive Loading
+
 Custom recursive loader used for:
+
 - `modules/nixos/defaults/` - Auto-imported into all NixOS configurations
 - Host configurations (`hosts/*/`) - All `.nix` files auto-imported
 - Home Manager configurations - All `.nix` files auto-imported
@@ -285,14 +289,16 @@ Custom recursive loader used for:
 ## File Naming Conventions
 
 For modules handled by `listNixModulesRecursive`:
+
 - `modulename.nix`: Standalone modules (auto-imported)
 - `_filename.nix`: Private/helper modules (excluded from auto-import, manually imported)
 
 ## Flake Inputs
 
 The configuration uses numerous external inputs:
+
 - **Core**: nixpkgs-unstable, home-manager, haumea
-- **Theming**: stylix, nix-colors, nix-userstyles, neuwaita, adwaita-colors
+- **Theming**: stylix, nix-colors, neuwaita, adwaita-colors
 - **Window Management**: niri, xwayland-satellite, astal-shell
 - **Applications**: firefox-addons, betterfox
 - **Hardware**: nix-chuwi-minibook-x
@@ -302,6 +308,7 @@ The configuration uses numerous external inputs:
 ## Host-Specific Configurations
 
 ### Desktop
+
 - NVIDIA graphics support
 - Container services (SilverBullet, Watchtower)
 - EasyEffects audio configuration
@@ -309,14 +316,17 @@ The configuration uses numerous external inputs:
 - Autofirma integration
 
 ### MinibookX
+
 - Chuwi Minibook X hardware support
 - Custom kernel modules
 - Power management
 
 ### Live USB
+
 - Portable system configuration
 - Minimal footprint
 
 ### VM
+
 - Testing environment
 - Demo scripts
