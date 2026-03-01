@@ -1,4 +1,6 @@
 /* Based on adolfgatonegro/firefox-minimal (Dook97/firefox-qutebrowser-userchrome) */
+/* Tabs-below-content technique from MrOtherGuy/firefox-csshacks tabs_below_content_v2.css */
+/* Hide-single-tab technique from MrOtherGuy/firefox-csshacks hide_tabs_with_one_tab.css */
 
 :root {
   /* custom vars */
@@ -8,7 +10,15 @@
   --tab-active-fg: var(--base05);
   --tab-inactive-fg: var(--base04);
   --urlbar-height-setting: 32px;
-  --tab-min-height: 28px;
+  --tab-min-height: 22px;
+
+  /* arc-ui sizing (scoped to urlbar to avoid clashing with Firefox internals) */
+  --arc-xs: 0.129rem;
+  --arc-sm: 0.272rem;
+  --arc-md: 0.618rem;
+  --arc-lg: 1rem;
+  --arc-xl: 1.618rem;
+  --arc-xxl: 2.618rem;
 
   /* design tokens (tokens-brand.css / tokens-shared.css) */
   --color-accent-primary: var(--base0D);
@@ -45,8 +55,16 @@
   --focus-outline-color: var(--base08);
   --attention-dot-color: var(--base0B);
   --button-background-color: color-mix(in srgb, var(--base05) 7%, transparent);
-  --button-background-color-hover: color-mix(in srgb, var(--base05) 14%, transparent);
-  --button-background-color-active: color-mix(in srgb, var(--base05) 21%, transparent);
+  --button-background-color-hover: color-mix(
+    in srgb,
+    var(--base05) 14%,
+    transparent
+  );
+  --button-background-color-active: color-mix(
+    in srgb,
+    var(--base05) 21%,
+    transparent
+  );
   --button-text-color: var(--base05);
   --button-text-color-primary: var(--base00);
   --table-row-background-color-alternate: var(--base01);
@@ -81,6 +99,7 @@
   --tab-selected-textcolor: var(--base05);
   --tabs-navbar-separator-style: none;
   --tabs-navbar-separator-color: transparent;
+  --tabs-shadow-size: 0px;
 
   /* lwtheme (browser-colors.css) */
   --lwt-accent-color: var(--base00);
@@ -89,12 +108,26 @@
   /* content separator (browser-colors.css) */
   --chrome-content-separator-color: transparent;
 
+  /* Kill tab shadows, gaps, and content-area shadow */
+  --tab-selected-shadow: none;
+  --tab-selected-shadow-size: 0px;
+  --tab-block-margin: 0px;
+  --tabstrip-min-height: var(--tab-min-height);
+  --tab-border-radius: 0;
+  --tab-overflow-clip-margin: 0px;
+  --box-shadow-tab: none;
+  --content-area-shadow: none;
+
   /* panels (browser-colors.css) */
   --arrowpanel-background: var(--base01);
   --arrowpanel-color: var(--base05);
   --arrowpanel-border-color: var(--base02);
   --arrowpanel-dimmed: color-mix(in srgb, var(--base05) 12%, transparent);
-  --arrowpanel-dimmed-further: color-mix(in srgb, var(--base05) 20%, transparent);
+  --arrowpanel-dimmed-further: color-mix(
+    in srgb,
+    var(--base05) 20%,
+    transparent
+  );
 
   /* sidebar (browser-colors.css) */
   --sidebar-background-color: var(--base00);
@@ -127,101 +160,162 @@
   --devtools-splitter-color: var(--base02);
 }
 
-/* --- NAVBAR: hidden (urlbar popover floats independently) --- */
-#nav-bar {
-  height: 0;
-  min-height: 0;
-  max-height: 0;
-  padding: 0;
-  margin: 0;
-  border: none;
-  appearance: none;
-  overflow: visible;
-  background: transparent;
-  box-shadow: none;
+/* --- TOOLBOX BORDERS: kill all top/bottom borders and pseudo-elements --- */
+:root {
+  border: none !important;
 }
-#nav-bar > * {
-  max-width: 100%;
-  min-width: 0;
+#navigator-toolbox::after {
+  content: none !important;
 }
-#nav-bar-customization-target > :not(#urlbar-container) {
-  visibility: collapse;
+#navigator-toolbox {
+  border: none !important;
+}
+#browser {
+  border: none !important;
+  box-shadow: none !important;
+}
+#main-window > body {
+  border: none !important;
+  gap: 0 !important;
 }
 
-/* --- URLBAR: popover in the top layer, styled as floating bar ---
- * #urlbar has popover="manual". JS calls showPopover() on breakout,
- * sets --urlbar-width via ResizeObserver, and style.top via getBoxQuads().
- * We override all of these to position it as a centered floating bar.
- * In the top layer, position:relative is ignored — the popover acts as
- * position:fixed against the viewport. */
+/* --- NAVBAR: collapsed, urlbar escapes via visibility+fixed --- */
+#nav-bar {
+  visibility: collapse !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
 #urlbar-container {
-  --urlbar-container-height: var(--urlbar-height-setting);
-  padding: 0;
-  margin: 0;
+  visibility: visible;
 }
-#urlbar,
-#urlbar[breakout],
-#urlbar[breakout][breakout-extend] {
-  --urlbar-height: var(--urlbar-height-setting);
-  --urlbar-toolbar-height: var(--urlbar-height-setting);
-  --urlbar-width: var(--uc-urlbar-width);
-  --urlbar-margin-inline: 0px;
-  display: flex;
-  flex-direction: column;
+
+/* --- URLBAR: arc-ui search-prompt.css (verbatim) --- */
+#urlbar-container {
+  position: fixed !important;
   top: -10000px;
-  left: calc(50% - var(--uc-urlbar-width) / 2);
-  width: var(--uc-urlbar-width);
-  max-width: var(--uc-urlbar-width);
-  height: auto;
-  min-height: var(--urlbar-height-setting);
-  margin: 0;
-  padding: 4px 12px;
-  border: 1px solid var(--base08);
-  border-radius: 12px;
-  background-color: var(--base01);
-  color: var(--base05);
-  box-sizing: border-box;
-  overflow: clip;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 10;
+  width: clamp(35rem, 35rem + 35vw, 46rem) !important;
+  margin-inline: auto !important;
 }
-#urlbar:is([focused], [open]),
-#urlbar[breakout]:is([focused], [open]),
+
+#urlbar-container:has(#urlbar[focused]),
+#urlbar-container:has(#urlbar[breakout-extend]) {
+  top: 28vh;
+}
+
+#urlbar {
+  padding: var(--arc-md) !important;
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+  border: 2px solid var(--base02) !important;
+  border-radius: var(--arc-lg) !important;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 25%);
+  backdrop-filter: blur(1rem);
+  transition: none !important;
+}
+
+/* Force both breakout states to auto height + identical input container */
+#urlbar[breakout] {
+  height: auto !important;
+}
 #urlbar[breakout][breakout-extend] {
-  top: 15%;
+  margin-left: 0 !important;
+  width: var(--urlbar-width) !important;
 }
-#navigator-toolbox:has(#urlbar:is([focused], [open])) ~ #browser {
-  opacity: 0.3;
+#urlbar[breakout] > .urlbar-input-container,
+#urlbar[breakout][breakout-extend] > .urlbar-input-container {
+  height: 32px !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
 }
-#urlbar-input-container {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  padding: 0;
-}
+
 #urlbar-background {
-  display: none;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: calc(var(--arc-lg) - 2px) !important;
+  outline: none !important;
 }
-.urlbarView {
-  background-color: transparent;
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  /* Override margin/border from urlbarView.css */
-  margin-inline: 0;
-  border-inline: none;
+
+.urlbar-input-container {
+  margin-bottom: var(--arc-sm);
+}
+
+#urlbar-search-mode-indicator {
+  height: auto;
+  padding: 2px 6px;
+  margin: 0;
+  background-color: var(--base02) !important;
+  border-radius: var(--arc-md) !important;
+}
+
+.urlbar-icon {
+  margin: auto 0;
+}
+
+.urlbar-input-box {
+  font-weight: 600;
+  font-size: 18px !important;
+}
+
+#identity-box {
+  margin-top: -2px;
+}
+
+#identity-icon-label {
+  display: none !important;
+}
+
+.urlbar-go-button {
+  margin-top: -2px;
+  border-radius: var(--arc-sm) !important;
+  transition: background-color 100ms ease-in-out;
+
+  &:hover {
+    background-color: var(--base02) !important;
+  }
+}
+
+#urlbar-results {
+  display: flex !important;
+  flex-direction: column;
+  gap: calc(var(--arc-sm) / 3) !important;
+}
+
+.urlbarView-body-inner {
+  border: none !important;
+}
+.search-one-offs,
+.urlbarView-row[dynamicType],
+.urlbarView-row[type="tabtosearch"],
+.urlbarView-row[type="search"] ~ .urlbarView-row[source="search"] {
+  display: none !important;
+}
+
+.urlbarView-body-outer:empty,
+.urlbarView-body-outer:not(:has(.urlbarView-row)) {
+  border-top: none;
 }
 .urlbarView-body-outer {
-  max-height: 500px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  border-top: none;
 }
+
 .urlbarView-row {
-  overflow: hidden;
-}
-.urlbarView-url,
-.urlbarView-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
+  height: 32px !important;
+  border-radius: var(--arc-lg) !important;
+  transition: background-color 100ms ease-in-out;
+
+  &[selected],
+  &:hover {
+    background-color: var(--base03) !important;
+    color: var(--base05) !important;
+  }
 }
 
 /* --- DEBLOAT NAVBAR --- */
@@ -277,23 +371,70 @@ toolbarspring,
   font-size: 14px;
 }
 
-/* --- TAB BAR (bottom) --- */
+/* --- TAB BAR (bottom via CSS grid) --- */
+/* Kill GTK CSD window decorations, borders, and rounded corners */
+:root {
+  background-color: var(--base00) !important;
+  appearance: none !important;
+  -moz-default-appearance: none !important;
+}
+:root[customtitlebar] {
+  background-color: var(--base00) !important;
+}
+:root[customtitlebar][sizemode="normal"]:not([gtktiledwindow="true"]) {
+  appearance: none !important;
+  -moz-default-appearance: none !important;
+}
 #navigator-toolbox {
+  border-radius: 0 !important;
+}
+body {
+  border-radius: 0 !important;
+}
+
+/* Grid layout on body: content in row 9, tabs in row 10 (from firefox-csshacks) */
+@media not -moz-pref("sidebar.verticalTabs") {
+  #main-window > body {
+    display: grid !important;
+    grid-template-rows: repeat(8, max-content) 1fr;
+    grid-auto-rows: auto;
+  }
+  #navigator-toolbox {
+    display: contents;
+  }
+  #main-window #browser {
+    grid-row: 9 / 10;
+  }
+  #TabsToolbar {
+    grid-row: 10 / 11;
+  }
+  .browser-toolbar {
+    background: inherit;
+    background-attachment: fixed;
+  }
+}
+
+#navigator-toolbox {
+  background: var(--base00);
+  border: none !important;
+  border-radius: 0;
+  box-shadow: none !important;
+  padding: 0;
+  margin: 0;
+  min-height: 0;
+}
+
+/* Kill the inner border line above/below tab strip (tabs.css) */
+#TabsToolbar {
+  --tabstrip-inner-border: none;
+  background: var(--base00);
+  padding: 0;
+  margin: 0;
   border: none;
-}
-/* Move tabs below content */
-#titlebar {
-  --tab-block-margin: 0px;
-  -moz-box-ordinal-group: 100;
-  order: 100;
-}
-#navigator-toolbox {
-  -moz-box-ordinal-group: 100;
-  order: 100;
-}
-#main-window #browser {
-  -moz-box-ordinal-group: 0;
-  order: 0;
+  box-shadow: none;
+  will-change: unset !important;
+  transition: none !important;
+  opacity: 1 !important;
 }
 #TabsToolbar,
 .tabbrowser-tab {
@@ -301,23 +442,56 @@ toolbarspring,
   font-size: 11px;
 }
 
-/* hide tab bar with single tab */
-#tabbrowser-tabs:has(.tabbrowser-tab:only-of-type) {
-  visibility: collapse;
+/* Hide non-essential toolbox children (they occupy grid rows with display:contents) */
+#toolbar-menubar,
+#notifications-toolbar {
+  display: none !important;
 }
-#TabsToolbar:has(#tabbrowser-tabs .tabbrowser-tab:only-of-type) {
-  visibility: collapse;
-  max-height: 0;
-  min-height: 0;
-  height: 0;
-  padding: 0;
-  margin: 0;
+
+/* --- HIDE TAB BAR WITH SINGLE TAB (from firefox-csshacks) --- */
+#TabsToolbar {
+  min-height: 0px !important;
 }
 #tabbrowser-tabs,
+#pinned-tabs-container,
 #tabbrowser-arrowscrollbox {
-  min-height: var(--tab-min-height);
+  min-height: 0 !important;
 }
-#alltabs-button {
+.accessibility-indicator,
+.private-browsing-indicator {
+  height: unset !important;
+}
+.accessibility-indicator > hbox {
+  padding-block: 0 !important;
+}
+.tabbrowser-tab {
+  height: calc(var(--tab-min-height) + 2 * var(--tab-block-margin, 0px));
+}
+.tabbrowser-tab:only-of-type,
+.tabbrowser-tab[first-visible-tab="true"][last-visible-tab="true"] {
+  visibility: collapse !important;
+  min-height: 0 !important;
+  height: 0;
+}
+/* Contain periphery elements so they can't hold toolbar open */
+#tabbrowser-arrowscrollbox-periphery,
+#private-browsing-indicator-with-label,
+#TabsToolbar > .titlebar-buttonbox-container {
+  contain: strict;
+  contain-intrinsic-height: 0px;
+}
+#tabbrowser-arrowscrollbox-periphery {
+  contain-intrinsic-width: 36px;
+  padding-inline-end: 3px;
+}
+#private-browsing-indicator-with-label {
+  contain-intrinsic-width: 116px;
+}
+#TabsToolbar > .titlebar-buttonbox-container {
+  contain-intrinsic-width: var(--uc-window-control-width, 105px);
+  margin-bottom: 0 !important;
+}
+#tabbrowser-tabs:not([overflow]) ~ #alltabs-button {
   display: none;
 }
 
@@ -333,6 +507,7 @@ toolbarspring,
 .tabbrowser-tab {
   font-weight: normal;
   border: none;
+  padding-inline: 0px !important;
 }
 #tabbrowser-tabs .tabbrowser-tab[selected] .tab-content {
   background: var(--tab-active-bg);
@@ -348,30 +523,50 @@ toolbarspring,
 .tabbrowser-tab {
   flex: 0 1 auto;
   width: auto;
-  padding-inline: 0px;
   --tab-label-mask-size: 1em;
   overflow-clip-margin: 0px;
 }
 .tab-label {
   max-width: 200px;
+  line-height: var(--tab-min-height) !important;
 }
 .tab-content {
   padding: 0 6px;
-  align-items: center;
 }
 .tab-background {
   margin-block: 0;
   min-height: var(--tab-min-height);
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border-top: 0 !important;
+  outline: none !important;
 }
 #tabbrowser-tabs .tabbrowser-tab .tab-close-button {
   display: none;
 }
 #tabbrowser-tabs:not([noshadowfortests])
   .tab-background:is([selected], [multiselected]) {
-  box-shadow: none;
+  box-shadow: none !important;
 }
-#tabbrowser-tabs:not([secondarytext-unsupported]) .tab-label-container {
-  height: var(--tab-min-height);
+
+/* Remove shadow gradients between tab overflow indicators */
+#tabbrowser-arrowscrollbox::part(overflow-start-indicator),
+#tabbrowser-arrowscrollbox::part(overflow-end-indicator) {
+  background-image: none;
+  border: none;
+}
+
+.tab-stack {
+  height: var(--tab-min-height) !important;
+}
+.tab-icon-stack {
+  padding-bottom: 3px !important;
+}
+.tab-label-container {
+  padding-bottom: 3px !important;
+}
+.tab-secondary-label {
+  display: none !important;
 }
 
 /* --- CONTEXT MENUS & POPUPS --- */

@@ -2,16 +2,21 @@
   pkgs,
   nixosConfig,
   betterfox,
+  usercontent-css,
   ...
 }: let
   c = nixosConfig.defaults.colorScheme.palette;
+  system = pkgs.stdenv.hostPlatform.system;
+  palette = builtins.mapAttrs (_: v: "#${v}") c;
+  userStyles = usercontent-css.lib.${system}.mkUserStyles palette;
+  uBlockRules = usercontent-css.lib.${system}.uBlockRules;
   jumpAddonId = "jump@knoopx";
   jump = pkgs.stdenvNoCC.mkDerivation {
     pname = "jump";
-    version = "0.2.4";
+    version = "0.2.5";
     src = pkgs.fetchurl {
-      url = "https://github.com/knoopx/jump/releases/download/v0.2.4/jump-0.2.4.xpi";
-      hash = "sha256-STEtISZEh0g6FYaJI7r4JFISy7ETxvLCCICbeGhwnAs=";
+      url = "https://github.com/knoopx/jump/releases/download/v0.2.5/jump-0.2.5.xpi";
+      hash = "sha256-aVevxyHDerqpnfpdKbmfpb+935gjU4QDddADUeur2pM=";
     };
     preferLocalBuild = true;
     allowSubstitutes = true;
@@ -66,6 +71,7 @@ in {
     ${cssVars}
     ${devtoolsCssVars}
     ${builtins.readFile ./chrome/content.css}
+    ${builtins.readFile userStyles}
   '';
 
   search = {

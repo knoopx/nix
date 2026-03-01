@@ -562,6 +562,7 @@
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs",
         "stylix": "stylix",
+        "usercontent-css": "usercontent-css",
         "vicinae-extensions": "vicinae-extensions",
         "vicinaehq": "vicinaehq"
       }
@@ -744,6 +745,26 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
+        "type": "github"
+      }
+    },
+    "usercontent-css": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1772378755,
+        "narHash": "sha256-NGqVPdSqO6hM/b1TQ45PZKquQuyk6dpc/iTCCYJy82U=",
+        "owner": "knoopx",
+        "repo": "userContent.css",
+        "rev": "74df66ce9bcc13d691d97aec86d75005f10690bb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "knoopx",
+        "repo": "userContent.css",
         "type": "github"
       }
     },

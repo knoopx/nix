@@ -28,6 +28,9 @@
     betterfox.url = "github:yokoffing/BetterFox";
     betterfox.flake = false;
 
+    usercontent-css.url = "github:knoopx/userContent.css";
+    usercontent-css.inputs.nixpkgs.follows = "nixpkgs";
+
     adwaita-colors.url = "github:dpejoh/Adwaita-colors";
     adwaita-colors.flake = false;
 

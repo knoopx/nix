@@ -21,12 +21,12 @@ user_pref("general.smoothScroll.mouseWheel.durationMinMS", 80); // default=50
 user_pref("general.smoothScroll.msdPhysics.enabled", false); // [FF122+ Nightly]
 user_pref("general.smoothScroll.stopDecelerationWeighting", "0.6"); // default=.4
 user_pref("general.smoothScroll", true); // DEFAULT
-user_pref("gnomeTheme.tabsAsHeaderbar", true);
-user_pref("mousewheel.min_line_scroll_amount", 10); // adjust this number to your liking; default=5
-user_pref("permissions.default.desktop-notification", 0);
+user_pref("mousewheel.min_line_scroll_amount", 10); // default=5
 user_pref("permissions.default.desktop-notification", 1);
 user_pref("permissions.default.geo", 0);
 user_pref("signon.rememberSignons", true);
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+user_pref("browser.tabs.inTitlebar", 0);
 user_pref("print.enabled", false);
 user_pref("ui.systemUsesDarkTheme", 1);
+user_pref("gnomeTheme.tabsAsHeaderbar", false);
