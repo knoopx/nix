@@ -13,10 +13,10 @@
   jumpAddonId = "jump@knoopx";
   jump = pkgs.stdenvNoCC.mkDerivation {
     pname = "jump";
-    version = "0.2.5";
+    version = "0.2.7";
     src = pkgs.fetchurl {
-      url = "https://github.com/knoopx/jump/releases/download/v0.2.5/jump-0.2.5.xpi";
-      hash = "sha256-aVevxyHDerqpnfpdKbmfpb+935gjU4QDddADUeur2pM=";
+      url = "https://github.com/knoopx/jump/releases/download/v0.2.7/jump-0.2.7.xpi";
+      hash = "sha256-gqRR/huk6tbqDKXzeDx3nRjGAYwYyZL1ELfxjPjbDMk=";
     };
     preferLocalBuild = true;
     allowSubstitutes = true;
