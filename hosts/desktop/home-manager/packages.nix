@@ -1,7 +1,7 @@
 {pkgs, ...}: let
 in {
   home.packages = with pkgs; [
-    llama-cpp
+    # llama-cpp
     # lmstudio
     # newsflash
     # picard
