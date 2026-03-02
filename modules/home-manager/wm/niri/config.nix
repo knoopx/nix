@@ -6,7 +6,7 @@
   ...
 }: {
   services.gnome-keyring.enable = true;
-  home.packages = [pkgs.playerctl pkgs.wireplumber pkgs.xwayland-satellite];
+  home.packages = [pkgs.playerctl pkgs.wireplumber pkgs.xwayland-satellite pkgs.screen-recording];
 
   programs.niri = {
     settings = {
@@ -140,6 +140,7 @@
         "Print".action = {screenshot = [];};
         "Shift+Print".action = {"screenshot-window" = [];};
         "Mod+Shift+P".action = {spawn = ["window-control" "webcam"];};
+        "Mod+Shift+Print".action = {spawn = ["screen-recording"];};
         "XF86AudioLowerVolume".action = {spawn = ["volume-control" "down"];};
         "XF86AudioMute".action = {spawn = ["volume-control" "mute"];};
         "XF86AudioNext".action = {spawn = ["media-control" "next"];};
