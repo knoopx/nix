@@ -167,5 +167,6 @@
     websocat
     wshowkeys
     android-tools
+    poppler-utils
   ];
 }
