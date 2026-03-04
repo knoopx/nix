@@ -10,6 +10,8 @@
         "thunderbolt"
         "usb_storage"
         "sd_mod"
+        "dm_crypt"
+        "cryptd"
       ];
     };
 

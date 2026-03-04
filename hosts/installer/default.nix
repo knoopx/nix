@@ -13,6 +13,7 @@
   installer = pkgs.writeShellApplication {
     name = "installer";
     runtimeInputs = with pkgs; [
+      cryptsetup
       dosfstools
       e2fsprogs
       gawk
@@ -27,6 +28,33 @@
       echo "============================================"
       echo "       kOS Unattended Installer"
       echo "============================================"
+      echo ""
+
+      # Prompt for LUKS passphrase
+      while true; do
+        echo -n "Enter LUKS passphrase: "
+        read -rs PASSPHRASE
+        echo ""
+        echo -n "Confirm LUKS passphrase: "
+        read -rs PASSPHRASE_CONFIRM
+        echo ""
+
+        if [[ -z "$PASSPHRASE" ]]; then
+          echo "ERROR: Passphrase cannot be empty."
+          continue
+        fi
+
+        if [[ "$PASSPHRASE" != "$PASSPHRASE_CONFIRM" ]]; then
+          echo "ERROR: Passphrases do not match."
+          continue
+        fi
+
+        break
+      done
+
+      printf '%s' "$PASSPHRASE" > /tmp/luks-passphrase
+      unset PASSPHRASE PASSPHRASE_CONFIRM
+
       echo ""
       echo "Setting up disks..."
 
@@ -46,6 +74,7 @@
 
       if [[ -z "$DEVICE_MAIN" ]]; then
         echo "ERROR: No usable disk found on this machine!"
+        rm -f /tmp/luks-passphrase
         exit 1
       else
         echo "Found $DEVICE_MAIN, erasing..."
@@ -54,6 +83,8 @@
       export DISKO_DEVICE_MAIN
       DISKO_DEVICE_MAIN=''${DEVICE_MAIN#"/dev/"}
       ${targetSystem.config.system.build.diskoScript} 2> /dev/null
+
+      rm -f /tmp/luks-passphrase
 
       echo ""
       echo "Installing the system..."
@@ -120,12 +151,13 @@ in {
     serviceConfig = {
       ExecStart = ["" installerFailsafe];
       Restart = "no";
-      StandardInput = "null";
+      StandardInput = "tty";
     };
   };
 
   # Include useful tools for debugging
   environment.systemPackages = with pkgs; [
+    cryptsetup
     vim
     htop
     parted

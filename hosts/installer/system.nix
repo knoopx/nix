@@ -1,49 +1,5 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
-} @ inputs: let
-  system = "x86_64-linux";
-  listNixModulesRecusive = import ../../lib/listNixModulesRecusive.nix inputs;
-in {
-  imports = listNixModulesRecusive ../../modules/nixos;
-
-  networking.hostName = "kos";
-  networking.hostId = "67faa5a0";
-
-  nixpkgs.hostPlatform = system;
-
-  system.stateVersion = "25.05";
-
-  # Boot configuration
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    systemd-boot.enable = true;
-  };
-
-  # Display manager with greeter
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri-session";
-        user = "greeter";
-      };
-      initial_session = {
-        command = "niri-session";
-        user = config.defaults.username;
-      };
-    };
-  };
-
-  # Disable btrfs scrub (not using btrfs)
-  services.btrfs.autoScrub.enable = lib.mkForce false;
-
-  # Home manager configuration
-  home-manager.users.${config.defaults.username} = import ../../home/${config.defaults.username}.nix;
-
-  # Disko disk configuration
+{lib, ...}: {
+  # Disko disk configuration for laptop
   # Uses $DISKO_DEVICE_MAIN environment variable set by the installer
   disko.devices = {
     disk = {
@@ -65,15 +21,31 @@ in {
                 extraArgs = ["-n" "BOOT"];
               };
             };
+            swap = {
+              size = "32G";
+              label = "swap";
+              content = {
+                type = "swap";
+                randomEncryption = true;
+              };
+            };
             root = {
               size = "100%";
-              label = "nixos";
+              label = "cryptroot";
               content = {
-                type = "filesystem";
-                format = "xfs";
-                mountpoint = "/";
-                mountOptions = ["noatime"];
-                extraArgs = ["-L" "nixos"];
+                type = "luks";
+                name = "cryptroot";
+                passwordFile = "/tmp/luks-passphrase";
+                settings = {
+                  allowDiscards = true;
+                  bypassWorkqueues = true;
+                };
+                content = {
+                  type = "filesystem";
+                  format = "xfs";
+                  mountpoint = "/";
+                  mountOptions = ["noatime"];
+                };
               };
             };
           };
@@ -82,16 +54,8 @@ in {
     };
   };
 
-  # Use filesystem labels for mounting (works regardless of device name)
-  fileSystems."/" = lib.mkForce {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "xfs";
-    options = ["noatime"];
-  };
-
-  fileSystems."/boot" = lib.mkForce {
-    device = "/dev/disk/by-label/BOOT";
-    fsType = "vfat";
-    options = ["fmask=0022" "dmask=0022"];
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
   };
 }

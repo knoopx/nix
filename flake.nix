@@ -201,9 +201,12 @@
     installerTargetSystem = nixpkgs.lib.nixosSystem {
       inherit specialArgs;
       modules =
-        mkNixosModules ./hosts/installer/system.nix
+        mkNixosModules ./hosts/laptop
         ++ [
           inputs.disko.nixosModules.disko
+          ./hosts/installer/system.nix
+          # Virtio modules for VM testing (harmless on real hardware)
+          {boot.initrd.availableKernelModules = ["virtio_blk" "virtio_pci"];}
         ];
     };
 
