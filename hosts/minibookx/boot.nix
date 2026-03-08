@@ -12,19 +12,16 @@
     initrd = {
       availableKernelModules = [
         "xhci_pci"
-        "nvme"
         "usb_storage"
         "sd_mod"
         "sdhci_pci"
+        "dm_crypt"
+        "cryptd"
       ];
     };
 
     loader = {
-      grub = {
-        enable = true;
-        device = "nodev";
-        efiSupport = true;
-      };
+      systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
   };
