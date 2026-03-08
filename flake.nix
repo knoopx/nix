@@ -49,6 +49,9 @@
     camper.url = "github:knoopx/camper";
     camper.inputs.nixpkgs.follows = "nixpkgs";
 
+    waveshare-genui.url = "github:knoopx/waveshare-genui";
+    waveshare-genui.inputs.nixpkgs.follows = "nixpkgs";
+
     nixos-avf.url = "github:nix-community/nixos-avf";
     nixos-avf.inputs.nixpkgs.follows = "nixpkgs";
 
