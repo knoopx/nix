@@ -134,6 +134,7 @@
     ripgrep
     rsync
     ruff
+    sem
     shfmt
     skate
     socat
