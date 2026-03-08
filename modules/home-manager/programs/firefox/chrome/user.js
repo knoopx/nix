@@ -51,6 +51,7 @@ user_pref("devtools.onboarding.telemetry.logged", false);
 user_pref("dom.security.https_first", true);
 user_pref("extensions.autoDisableScopes", 0);
 user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
+user_pref("xpinstall.signatures.required", false);
 user_pref("gfx.webrender.all", true);
 user_pref("layers.acceleration.force-enabled", true);
 user_pref("sidebar.animation.enabled", false);
