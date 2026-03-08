@@ -112,8 +112,8 @@
 
         "Mod+D".action = {"focus-window-down-or-top" = [];};
         "Mod+V".action = {"center-window" = [];};
-        "Mod+F".action = {spawn = ["window-control" "fullscreen"];};
-        "Mod+Shift+F".action = {"fullscreen-window" = [];};
+        "Mod+F".action = {"maximize-column" = [];};
+        "Mod+Shift+F".action = {spawn = ["window-control" "fullscreen"];};
 
         "Mod+U".action = {"consume-or-expel-window-left" = [];};
         "Mod+I".action = {"consume-or-expel-window-right" = [];};
