@@ -63,6 +63,19 @@
       app = browserDesktopEntry;
     }
   ];
+  shortcutsJson = pkgs.writeText "vicinae-shortcuts.json" (builtins.toJSON shortcuts);
+  syncShortcutsScript = pkgs.writeShellScript "vicinae-sync-shortcuts" ''
+    if [ -f "${config.xdg.dataHome}/vicinae/vicinae.db" ]; then
+      export PATH="${lib.makeBinPath [pkgs.coreutils pkgs.nushell pkgs.sqlite]}:$PATH"
+      ${lib.getExe pkgs.nushell} /dev/stdin <<'NU'
+      let vicinaedb = ("${config.xdg.dataHome}/vicinae/vicinae.db" | path expand)
+      sqlite3 $vicinaedb "DELETE FROM shortcut;"
+      open ${shortcutsJson} | each {
+        $in | merge ({id: (random uuid), created_at: (date now), updated_at: (date now) }) | into sqlite $vicinaedb -t shortcut
+      }
+    NU
+    fi
+  '';
 in {
   stylix.targets.vicinae.enable = false;
 
@@ -239,22 +252,11 @@ in {
     };
   };
 
-  systemd.user.services.vicinae.Service.ExecStartPre = let
-    shortcutsJson = pkgs.writeText "vicinae-shortcuts.json" (builtins.toJSON shortcuts);
-  in [
-    (pkgs.writeShellScript "vicinae-sync-shortcuts" ''
-      if [ -f "${config.xdg.dataHome}/vicinae/vicinae.db" ]; then
-        export PATH="${lib.makeBinPath [pkgs.coreutils pkgs.nushell pkgs.sqlite]}:$PATH"
-        ${lib.getExe pkgs.nushell} -c --stdin <<NU
-        let vicinaedb = (realpath ~/.local/share/vicinae/vicinae.db)
-        sqlite3 $vicinaedb "DELETE FROM shortcut;"
-        open ${shortcutsJson} | each {
-          $in | merge ({id: (random uuid), created_at: (date now), updated_at: (date now) }) | into sqlite $vicinaedb -t shortcut
-        }
-      NU
-      fi
-    '')
-  ];
+  home.activation.vicinaeSyncShortcuts = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    ${syncShortcutsScript}
+  '';
+
+  systemd.user.services.vicinae.Service.ExecStartPre = [syncShortcutsScript];
 
   home.file.".local/bin/vjj".source = inputs.vicinae-extensions + "/extensions/jujutsu/vjj.nu";
   home.file.".local/bin/vjj".executable = true;
