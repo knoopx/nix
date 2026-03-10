@@ -49,6 +49,9 @@
     camper.url = "github:knoopx/camper";
     camper.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixos-avf.url = "github:nix-community/nixos-avf";
+    nixos-avf.inputs.nixpkgs.follows = "nixpkgs";
+
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -252,6 +255,7 @@
           -device usb-tablet \
           -nic user,model=virtio-net-pci
       '';
+      android-image = inputs.self.nixosConfigurations.android.config.system.build.avfImage;
       neuwaita-icon-theme = pkgsWithOverlays.neuwaita-icon-theme;
       nfoview = pkgsWithOverlays.nfoview;
       geary = pkgsWithOverlays.geary;
@@ -289,6 +293,13 @@
       };
 
       steamdeck-vm = steamdeckVmConfiguration;
+
+      android = nixpkgs.lib.nixosSystem {
+        modules = [
+          inputs.nixos-avf.nixosModules.avf
+          ./hosts/android
+        ];
+      };
     };
   };
 }
