@@ -3,6 +3,8 @@
   config,
   ...
 }: {
+  systemd.services.ModemManager.enable = false;
+
   networking = {
     networkmanager.enable = true;
 
