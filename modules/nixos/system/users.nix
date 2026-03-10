@@ -17,6 +17,7 @@
     extraGroups = [
       "adbusers"
       "audio"
+      "dialout"
       "docker"
       "input"
       "iio"
