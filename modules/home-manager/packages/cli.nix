@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   home.packages = with pkgs; [
     _7zz
     # android-tools
@@ -169,5 +173,6 @@
     wshowkeys
     android-tools
     poppler-utils
+    inputs.waveshare-display.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }
