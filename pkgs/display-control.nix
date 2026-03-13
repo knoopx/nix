@@ -1,5 +1,4 @@
-{ pkgs }:
-
+{pkgs}:
 pkgs.runCommand "display-control" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
   meta.mainProgram = "display-control";

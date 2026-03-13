@@ -1,5 +1,4 @@
-{ pkgs }:
-
+{pkgs}:
 pkgs.runCommand "media-control" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
   meta.mainProgram = "media-control";

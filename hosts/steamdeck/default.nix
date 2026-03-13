@@ -9,7 +9,7 @@
   system = "x86_64-linux";
   listNixModulesRecusive = import ../../lib/listNixModulesRecusive.nix inputs;
 in {
-  imports = (listNixModulesRecusive ../../modules/nixos);
+  imports = listNixModulesRecusive ../../modules/nixos;
 
   # Basic hardware
   boot.loader.systemd-boot.enable = true;

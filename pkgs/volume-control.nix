@@ -1,5 +1,7 @@
-{ pkgs, lib }:
-
+{
+  pkgs,
+  lib,
+}:
 pkgs.runCommand "volume-control" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
   meta.mainProgram = "volume-control";

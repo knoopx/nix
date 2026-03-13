@@ -1,5 +1,4 @@
-{ pkgs }:
-
+{pkgs}:
 pkgs.runCommand "tablet-mode-control" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
   meta.mainProgram = "tablet-mode-control";

@@ -1,5 +1,4 @@
-{ pkgs }:
-
+{pkgs}:
 pkgs.runCommand "session-control" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
   meta.mainProgram = "session-control";
