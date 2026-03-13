@@ -253,7 +253,9 @@ in {
   };
 
   home.activation.vicinaeSyncShortcuts = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    ${pkgs.systemd}/bin/systemctl --user stop vicinae.service 2>/dev/null || true
     ${syncShortcutsScript}
+    ${pkgs.systemd}/bin/systemctl --user start vicinae.service 2>/dev/null || true
   '';
 
   systemd.user.services.vicinae.Service.ExecStartPre = [syncShortcutsScript];
