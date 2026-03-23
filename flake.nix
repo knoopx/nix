@@ -207,7 +207,7 @@
     installerTargetSystem = nixpkgs.lib.nixosSystem {
       inherit specialArgs;
       modules =
-        mkNixosModules ./hosts/laptop
+        mkNixosModules ./hosts/minibookx
         ++ [
           inputs.disko.nixosModules.disko
           ./hosts/installer/system.nix
@@ -278,11 +278,6 @@
       desktop = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
         modules = mkNixosModules ./hosts/desktop;
-      };
-
-      laptop = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-        modules = mkNixosModules ./hosts/laptop;
       };
 
       minibookx = nixpkgs.lib.nixosSystem {
