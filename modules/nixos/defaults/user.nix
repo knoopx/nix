@@ -37,6 +37,15 @@ with lib; {
   };
 
   config = {
+    # Tell AccountsService where the user avatar is so GDM can display it
+    system.activationScripts.accountsservice-avatar = ''
+      mkdir -p /var/lib/AccountsService/users
+      mkdir -p /var/lib/AccountsService/icons
+      cp ${config.defaults.avatarImage} /var/lib/AccountsService/icons/${config.defaults.username}
+      echo '[User]' > /var/lib/AccountsService/users/${config.defaults.username}
+      echo 'Icon=/var/lib/AccountsService/icons/${config.defaults.username}' >> /var/lib/AccountsService/users/${config.defaults.username}
+    '';
+
     defaults = {
       username = "knoopx";
       password = "knoopx";
