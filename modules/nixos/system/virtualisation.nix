@@ -31,6 +31,15 @@
         dns_enabled = true;
       };
     };
+
+    containers.storage.settings = {
+      storage = {
+        driver = "btrfs";
+        runroot = "/run/containers/storage";
+        graphroot = "/var/lib/containers/storage";
+        options.overlay.mountopt = "nodev,metacopy=on";
+      };
+    };
   };
 
   environment.systemPackages = with pkgs; [
