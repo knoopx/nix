@@ -133,6 +133,7 @@
     pciutils
     pcre
     pi
+    pi-sandbox
     rclone
     reader
     ripgrep
