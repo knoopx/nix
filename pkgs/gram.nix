@@ -4,14 +4,14 @@
   ...
 }: let
   pname = "gram";
-  version = "1.0.0";
+  version = "1.2.0";
 in
   pkgs.stdenv.mkDerivation {
     inherit pname version;
 
     src = pkgs.fetchurl {
       url = "https://codeberg.org/GramEditor/gram/releases/download/${version}/gram-linux-x86_64-${version}.tar.gz";
-      hash = "sha256-ErlFc5OWMS2a8nsYZtWwWsbK94QVAneY9aaMEoK+wzE=";
+      hash = "sha256-LB3XIdyNu8Xd7pcUs9WLll7X60ZeDC7rg6yoWf+OmhA=";
     };
 
     sourceRoot = "gram.app";

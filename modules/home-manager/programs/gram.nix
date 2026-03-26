@@ -8,8 +8,8 @@
   colors = config.lib.stylix.colors;
   theme = colors {templateRepo = inputs.stylix.inputs.tinted-zed;};
   settings = builtins.toJSON {
-    ui_font_size = 16;
-    buffer_font_size = 12;
+    ui_font_size = 13;
+    buffer_font_size = 13;
     buffer_font_family = "JetBrainsMono Nerd Font";
     ui_font_weight = 400;
     buffer_font_weight = 300;
@@ -26,6 +26,7 @@
       "tailwindcss-language-server".binary.allow_binary_download = true;
       eslint.binary.allow_binary_download = true;
       vtsls.binary.allow_binary_download = true;
+      nil.binary.allow_binary_download = true;
     };
     features = {};
     telemetry = {

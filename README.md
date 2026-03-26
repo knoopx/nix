@@ -67,7 +67,7 @@ nix run .#installer-vm-test
 - **Btop**: Resource monitor
 - **Delta**: Modern diff viewer
 - **Fzf/Television**: Command-line fuzzy finders
-- **Gram**: Text-to-speech client
+- **[Gram](https://codeberg.org/GramEditor/gram)**: Modern code editor (fork of Zed) - fast, configurable, with built-in debugger, Git integration, and Zed extension support
 - **Nu Shell**: Modern shell with structured data processing
 - **Skim**: Fuzzy finder written in Rust
 - **Starship**: Customizable prompt
