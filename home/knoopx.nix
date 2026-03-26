@@ -8,6 +8,9 @@ in {
     username = "knoopx";
   };
 
+  gtk.gtk4.theme = null;
+  programs.git.signing.format = null;
+
   programs.man.enable = false;
   fonts.fontconfig.enable = false;
 }

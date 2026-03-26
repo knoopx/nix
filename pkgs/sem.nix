@@ -14,7 +14,6 @@ in
 
     sourceRoot = "${src.name}/crates";
 
-    useFetchCargoVendor = true;
     cargoHash = "sha256-Pgb40WvSkSRskgHkPPuumTgkRM211C/u99FCLOxqfyw=";
 
     nativeBuildInputs = with pkgs; [

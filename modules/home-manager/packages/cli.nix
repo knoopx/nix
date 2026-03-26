@@ -173,6 +173,7 @@
     wshowkeys
     android-tools
     poppler-utils
+    skopeo
     inputs.waveshare-genui.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

@@ -2,11 +2,12 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  camper = inputs.camper.packages.${pkgs.stdenv.hostPlatform.system}.default;
+in {
   home.packages = with pkgs; [
-    inputs.camper.packages.${pkgs.stdenv.hostPlatform.system}.default
-    (callPackage ../../../pkgs/gram.nix {})
-    (callPackage ../../../pkgs/romie.nix {})
+    # (callPackage ../../../pkgs/gram.nix {})
+    # (callPackage ../../../pkgs/romie.nix {})
     # apostrophe
     # ascii-draw
     # authenticator
@@ -31,6 +32,8 @@
     # google-chrome
     # impression
     # mission-center
+    # newelle
+    # obsidian
     # parlatype
     # pipeline
     # planify
@@ -45,6 +48,7 @@
     # wildcard
     amberol
     baobab
+    btrfs-assistant
     commit
     czkawka
     dconf-editor
@@ -58,6 +62,7 @@
     gnome-secrets
     gnome-text-editor
     gnome-weather
+    camper
     loupe
     nautilus
     onlyoffice-desktopeditors
@@ -65,6 +70,5 @@
     plexamp
     seahorse
     sushi
-    # newelle
   ];
 }
