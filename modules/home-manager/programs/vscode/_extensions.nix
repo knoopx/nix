@@ -8,8 +8,6 @@ in
     britesnow.vscode-toggle-quotes
     esbenp.prettier-vscode
     file-icons.file-icons
-    github.copilot
-    github.copilot-chat
     jnoortheen.nix-ide
     kamadorueda.alejandra
     ms-python.black-formatter
