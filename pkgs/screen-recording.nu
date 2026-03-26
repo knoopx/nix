@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 
-let pid_file = "/tmp/wf-recorder.pid"
-let lock_file = "/tmp/wf-recorder.lock"
+let pid_file = "/tmp/gpu-screen-recorder.pid"
+let lock_file = "/tmp/gpu-screen-recorder.lock"
 
 def main [--audio] {
   # Prevent double-trigger from hotkeys (press/release)
@@ -21,7 +21,7 @@ def main [--audio] {
   # Ensure output directory exists
   mkdir $"($env.HOME)/Videos/Screen Recordings" | ignore
 
-  # Check if wf-recorder is running using PID file
+  # Check if gpu-screen-recorder is running using PID file
   if ($pid_file | path exists) {
     try {
       let info = (open $pid_file | from json)
@@ -53,12 +53,11 @@ def main [--audio] {
   let timestamp = date now | format date "%Y-%m-%d-%H-%M-%S"
   let output_file = $"($env.HOME)/Videos/Screen Recordings/($timestamp).mkv"
 
-  # Fire-and-forget; bash returns wf-recorder PID via $!
-  # Use libx264rgb to avoid YUV color conversion shifts.
+  # Fire-and-forget; bash returns gpu-screen-recorder PID via $!
   let pid = if $audio {
-    (^bash -lc 'wf-recorder -f "$1" -c libx264rgb -x rgb24 --overwrite --audio=default >/dev/null 2>&1 & echo $!' _ $output_file | str trim)
+    (^bash -lc 'gpu-screen-recorder -w screen -o "$1" -a default_output >/dev/null 2>&1 & echo $!' _ $output_file | str trim)
   } else {
-    (^bash -lc 'wf-recorder -f "$1" -c libx264rgb -x rgb24 --overwrite >/dev/null 2>&1 & echo $!' _ $output_file | str trim)
+    (^bash -lc 'gpu-screen-recorder -w screen -o "$1" >/dev/null 2>&1 & echo $!' _ $output_file | str trim)
   }
 
   {

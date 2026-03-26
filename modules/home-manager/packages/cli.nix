@@ -150,7 +150,7 @@
     usbutils
     util-linux
     wacli
-    wf-recorder
+
     wirelesstools
     wl-clipboard
     xxd
