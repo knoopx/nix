@@ -71,12 +71,7 @@ in {
             }
           }
         }
-
-
       '';
-    };
-    environmentVariables = {
-      INTELLI_VARIABLE_HOTKEY = "control char_k";
     };
   };
 }
