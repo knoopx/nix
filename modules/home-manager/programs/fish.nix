@@ -11,24 +11,16 @@
           name = "autopair";
           inherit (pkgs.fishPlugins.autopair) src;
         }
-        {
-          name = "fzf.fish";
-          inherit (pkgs.fishPlugins.fzf-fish) src;
-        }
       ];
 
       shellAbbrs = {
         ls = "eza --icons -lah";
-        pbpaste = "fish_clipboard_paste";
-        pbcopy = "fish_clipboard_copy";
+        pbpaste = "wl-copy";
+        pbcopy = "wl-paste";
       };
 
       interactiveShellInit = ''
         set fish_greeting
-
-        for line in (skate list @env-keys | cut -f1)
-            set -gx (echo $line | tr '[:lower:]' '[:upper:]') (skate get $line@env-keys)
-        end
 
         fish_add_path -g "$HOME/.cache/.bun/bin"
         fish_add_path -g "$HOME/.cargo/bin"
@@ -40,7 +32,12 @@
         set -x LIBRARY_PATH "$LD_LIBRARY_PATH"
         set -gx TRITON_LIBCUDA_PATH /run/opengl-driver/lib/
 
-        set -x INTELLI_VARIABLE_HOTKEY "ctrl-k"
+        bind \cp "fzf --layout reverse --border --preview 'bat --color=always {}' | xargs -r micro"
+        function cd_projects
+          set -l selected (find ~/Projects -maxdepth 2 -type d | fzf --select-1 --layout reverse --border)
+          cd "$selected"
+        end
+        bind \ce "cd_projects"
       '';
     };
   };
