@@ -1,14 +1,10 @@
 {nixosConfig, ...}: let
-  # inherit (flake.lib) mimetypes;
   browser = nixosConfig.defaults.apps.browser.desktopEntry;
   file-manager = nixosConfig.defaults.apps.fileManager.desktopEntry;
   image-viewer = nixosConfig.defaults.apps.imageViewer.desktopEntry;
-  # image-viewer = "org.gnome.Loupe.desktop";
-  video-player = "mpv.desktop";
-  # video-player = "org.gnome.Showtime";
-  music-player = "org.gnome.Decibels";
-  text-editor = "code.desktop";
-  # music-player = "io.bassi.Amberol.desktop";
+  video-player = nixosConfig.defaults.apps.videoPlayer.desktopEntry;
+  music-player = nixosConfig.defaults.apps.musicPlayer.desktopEntry;
+  text-editor = nixosConfig.defaults.apps.editor.desktopEntry;
 in {
   xdg = {
     mimeApps = {

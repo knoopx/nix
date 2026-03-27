@@ -40,9 +40,6 @@
     vicinaehq.url = "github:vicinaehq/vicinae";
     vicinaehq.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
-
     vicinae-extensions.url = "github:knoopx/vicinae-extensions";
     vicinae-extensions.flake = false;
 
@@ -60,7 +57,7 @@
   };
 
   outputs = inputs: let
-    inherit (inputs) nixpkgs haumea home-manager niri nix-vscode-extensions stylix astal-shell firefox-addons vicinaehq;
+    inherit (inputs) nixpkgs haumea home-manager niri stylix astal-shell firefox-addons vicinaehq;
 
     system = "x86_64-linux";
 
@@ -80,7 +77,6 @@
     globalOverlays =
       [
         inputs.astal-shell.overlays.default
-        inputs.nix-vscode-extensions.overlays.default
         (self: super: {firefox-addons = inputs.firefox-addons.packages.${system};})
         (self: super: {vicinaehq = inputs.vicinaehq;})
         (

@@ -65,6 +65,14 @@ in {
       type = types.submodule (mkAppModule {description = "Default image viewer package";});
       description = "Default image viewer";
     };
+    videoPlayer = mkOption {
+      type = types.submodule (mkAppModule {description = "Default video player package";});
+      description = "Default video player";
+    };
+    musicPlayer = mkOption {
+      type = types.submodule (mkAppModule {description = "Default music player package";});
+      description = "Default music player";
+    };
   };
 
   config.defaults.apps = {
@@ -75,12 +83,18 @@ in {
     terminal.desktopEntry = "kitty.desktop";
 
     editor.package = pkgs.editor;
-    editor.desktopEntry = "code.desktop";
+    editor.desktopEntry = "gram.desktop";
 
     fileManager.package = pkgs.file-manager;
     fileManager.desktopEntry = "org.gnome.Nautilus.desktop";
 
     imageViewer.package = pkgs.image-viewer;
     imageViewer.desktopEntry = "org.gnome.eog.desktop";
+
+    videoPlayer.package = pkgs.video-player;
+    videoPlayer.desktopEntry = "mpv.desktop";
+
+    musicPlayer.package = pkgs.music-player;
+    musicPlayer.desktopEntry = "org.gnome.Decibels";
   };
 }

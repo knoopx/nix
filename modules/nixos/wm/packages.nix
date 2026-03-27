@@ -4,6 +4,5 @@
     gnome-bluetooth
     networkmanager
     xwayland-satellite
-    code-nautilus
   ];
 }

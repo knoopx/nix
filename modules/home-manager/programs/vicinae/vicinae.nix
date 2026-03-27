@@ -234,12 +234,12 @@ in {
         "@knoopx/store.vicinae.tmux" = {
           preferences = {
             terminalArgs = "start --";
-            terminalCommand = "wezterm";
+            terminalCommand = "kitty";
           };
         };
         "@leiserfg/store.raycast.ssh" = {
           preferences = {
-            terminal = "wezterm";
+            terminal = "kitty";
           };
         };
         files = {

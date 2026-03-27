@@ -38,8 +38,8 @@ nix run .#installer-vm-test
 - **Minimal clutter**: Shell has no widgets and apps take the whole vertical space. Keyboard-driven workflow throughout.
 - **Unified styling**: Consistent colors, fonts, and styles across:
   - System GTK/Qt themes and custom Neuwaita icon theme (merged with MoreWaita)
-  - Terminal emulators (Kitty)
-  - Text editors (VSCode, Helix)
+  - Terminal emulator (Kitty)
+  - Text editors (VSCode, Gram, Helix)
   - Window manager (Niri with custom color schemes)
   - All applications via Stylix theming system
 - **Reproducible**: Everything's declarative, so I can set it up the same way anywhere
@@ -66,10 +66,8 @@ nix run .#installer-vm-test
 - **Bat**: Cat clone with syntax highlighting
 - **Btop**: Resource monitor
 - **Delta**: Modern diff viewer
-- **Fzf/Television**: Command-line fuzzy finders
-- **[Gram](https://codeberg.org/GramEditor/gram)**: Modern code editor (fork of Zed) - fast, configurable, with built-in debugger, Git integration, and Zed extension support
+- **Fzf/Television/Skim**: Command-line fuzzy finders
 - **Nu Shell**: Modern shell with structured data processing
-- **Skim**: Fuzzy finder written in Rust
 - **Starship**: Customizable prompt
 
 ### Control Scripts
@@ -77,7 +75,6 @@ nix run .#installer-vm-test
 Custom Nu-based scripts for system control:
 - **Brightness/Display/Volume/Session/Media controls**: Keyboard-driven management
 - **Window/Tablet-mode control**: Window management automation
-- **Screen recording**: Terminal-based capture with VHS
 
 ### Development Environments
 
@@ -169,7 +166,6 @@ Custom package definitions:
 - [NFO Viewer](https://github.com/nfoview/nfoview)
 - Cromite
 - Gram
-- Romie
 - Screen recording utilities
 - TTS tools
 - And other custom packages

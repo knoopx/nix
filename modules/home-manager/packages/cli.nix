@@ -158,7 +158,6 @@
     marksman
     tree
     gogcli
-    vscode-json-languageserver
     fswatch
     nb
     w3m
