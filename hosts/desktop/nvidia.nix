@@ -34,5 +34,4 @@
   };
 
   hardware.nvidia-container-toolkit.enable = true;
-  systemd.services.nvidia-container-toolkit-cdi-generator.serviceConfig.ExecStartPre = lib.mkForce null;
 }
