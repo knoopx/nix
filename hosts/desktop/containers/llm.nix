@@ -9,8 +9,8 @@
     cache-type-k = q8_0
     cache-type-v = q8_0
     ; speed up long-prefill workloads
-    batch-size = 8192
-    ubatch-size = 2048
+    ;batch-size = 8192
+    ;ubatch-size = 2048
     ; single-user agent workload: prioritize larger KV per model over parallel slots
     parallel = 1
     threads = 64
@@ -23,7 +23,7 @@
     ; CRITICAL: Re-download after Feb 19, 2026 update (llama.cpp key_gdiff bug fix)
     [unsloth/Qwen3-Coder-Next-GGUF]
     hf-repo = unsloth/Qwen3-Coder-Next-GGUF:UD-IQ3_XXS
-    ctx-size = 131072
+    ctx-size = 65536:
     temp = 1.0
     top-p = 0.95
     top-k = 40
@@ -45,10 +45,21 @@
     ; Recommended coding mode: temp=0.6, top_p=0.95, top_k=20
     [unsloth/Qwen3.5-27B-GGUF]
     hf-repo = unsloth/Qwen3.5-27B-GGUF:UD-Q4_K_XL
-    ctx-size = 131072
+    ctx-size = 262144
     temp = 0.6
     top-p = 0.95
     top-k = 20
+    min-p = 0.0
+
+    ; Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-v2: 27B dense reasoning model
+    ; Distilled from Claude 4.6 Opus reasoning patterns
+    ; Recommended: temp=0.7, top_p=0.9, top_k=40 for reasoning tasks
+    [Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-v2-GGUF]
+    hf-repo = Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-v2-GGUF:Q4_K_M
+    ctx-size = 262144
+    temp = 0.7
+    top-p = 0.9
+    top-k = 40
     min-p = 0.0
   '';
 in {
@@ -61,7 +72,8 @@ in {
         "11434:8080"
       ];
       volumes = [
-        "/home/knoopx/.cache/llama.cpp:/root/.cache/llama.cpp/"
+        "/home/knoopx/.cache/llama.cpp/:/root/.cache/llama.cpp/"
+        "/home/knoopx/.cache/huggingface/:/root/.cache/huggingface/"
         "${presets}:/presets.ini:ro"
       ];
       extraOptions = [
