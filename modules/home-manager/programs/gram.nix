@@ -86,31 +86,88 @@
       node.allow_binary_download = true;
       eslint.binary.allow_binary_download = true;
       vtsls.binary.allow_binary_download = true;
-
-      rust-analyzer = {
-        binary = {
-          path_lookup = true;
-        };
-      };
-
-      nixd = {
-        binary = {
-          allow_binary_download = true;
-          path_lookup = true;
-        };
+      package-version-server.binary.allow_binary_download = true;
+      json-language-server.binary.allow_binary_download = true;
+      rust-analyzer.binary.path_lookup = true;
+      nixd.binary = {
+        allow_binary_download = true;
+        path_lookup = true;
       };
     };
 
     languages = {
+      # Nix
       Nix = {
-        language_servers = [
-          "nixd"
-        ];
+        language_servers = ["nixd"];
         formatter = {
           external = {
             command = "alejandra";
           };
         };
+      };
+
+      # Python
+      Python = {
+        language_servers = ["pyright"];
+        formatter = {
+          external = {
+            command = "black";
+            args = ["--quiet"];
+          };
+        };
+      };
+
+      # Ruby
+      Ruby = {
+        language_servers = ["ruby-lsp"];
+        formatter = {
+          external = {
+            command = "rufo";
+          };
+        };
+      };
+
+      # JavaScript / TypeScript
+      JavaScript = {
+        language_servers = ["typescript-language-server"];
+      };
+
+      TypeScript = {
+        language_servers = ["typescript-language-server"];
+      };
+
+      # Rust
+      Rust = {
+        language_servers = ["rust-analyzer"];
+      };
+
+      # TOML
+      TOML = {
+        language_servers = ["marksman"];
+      };
+
+      # JSON
+      JSON = {
+        language_servers = ["json-language-server"];
+      };
+
+      # CSS / PostCSS
+      CSS = {
+        language_servers = ["tailwindcss-language-server"];
+      };
+
+      PostCSS = {
+        language_servers = ["tailwindcss-language-server"];
+      };
+
+      # HTML
+      HTML = {
+        language_servers = ["tailwindcss-language-server"];
+      };
+
+      # Markdown
+      Markdown = {
+        language_servers = ["marksman"];
       };
     };
   };
