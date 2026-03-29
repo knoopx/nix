@@ -295,6 +295,10 @@
                 title = "Pi Mono";
                 url = "https://github.com/badlogic/pi-mono/releases.atom";
               }
+              {
+                title = "llama.cpp";
+                url = "https://github.com/ggml-org/llama.cpp/releases.atom";
+              }
             ];
           }
           {
