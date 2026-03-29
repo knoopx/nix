@@ -1,14 +1,27 @@
 {
   pkgs,
   lib,
-}:
-let
-  pkg = (pkgs.callPackage ./gram.nix {});
+}: let
+  terminal = pkgs.callPackage ./terminal.nix {};
 in
   pkgs.runCommand "editor" {
-    nativeBuildInputs = [pkgs.makeBinaryWrapper];
     meta.mainProgram = "editor";
   } ''
     mkdir -p $out/bin
-    makeWrapper ${lib.getExe pkg} $out/bin/editor
+
+    cat > $out/bin/editor <<'EOF'
+    #!${pkgs.runtimeShell}
+    set -eu
+
+    terminal_bin="${lib.getExe terminal}"
+    helix_bin="${lib.getExe pkgs.helix}"
+
+    if [ "$#" -eq 0 ]; then
+      exec "$terminal_bin" "$helix_bin"
+    fi
+
+    exec "$terminal_bin" "$helix_bin" -- "$@"
+    EOF
+
+    chmod +x $out/bin/editor
   ''
