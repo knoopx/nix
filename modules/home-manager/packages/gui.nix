@@ -49,7 +49,6 @@ in {
     amberol
     baobab
     btrfs-assistant
-    commit
     czkawka
     dconf-editor
     drawing
@@ -60,7 +59,6 @@ in {
     gnome-calendar
     gnome-disk-utility
     gnome-secrets
-    gnome-text-editor
     gnome-weather
     camper
     loupe
