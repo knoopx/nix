@@ -22,7 +22,7 @@ def restack [managed: list<record<id: int, width: float, height: float, fullscre
     let tile_w = $window_width + $tile_padding
     let tile_h = $window_height + $tile_padding
     let x = $screen.width - $tile_w - $margin
-    let y = $screen.height - $tile_h - $margin - ($it.index * ($tile_h + $stack_gap))
+    let y = $margin + ($it.index * ($tile_h + $stack_gap))
     ^niri msg action move-floating-window --id ($it.item.id | into string) --x $x --y $y
   }
 }
