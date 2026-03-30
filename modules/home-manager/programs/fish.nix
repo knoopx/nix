@@ -32,9 +32,9 @@
         set -x LIBRARY_PATH "$LD_LIBRARY_PATH"
         set -gx TRITON_LIBCUDA_PATH /run/opengl-driver/lib/
 
-        bind \cp "fzf --layout reverse --border --preview 'bat --color=always {}' | xargs -r micro"
+        bind \cp "sk --layout reverse --border --preview 'bat --color=always {}' | xargs -r micro"
         function cd_projects
-          set -l selected (find ~/Projects -maxdepth 2 -type d | fzf --select-1 --layout reverse --border)
+          set -l selected (find ~/Projects -maxdepth 2 -type d | sk --select-1 --layout reverse --border)
           cd "$selected"
         end
         bind \ce "cd_projects"

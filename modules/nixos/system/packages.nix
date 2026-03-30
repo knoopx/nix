@@ -16,7 +16,6 @@
     eza
     fd
     file
-    fzf
     git
     git-lfs
     gnugrep
