@@ -101,7 +101,7 @@
         "Mod+K".action = {spawn = ["pick-project" "editor"];};
         "Mod+Shift+K".action = {spawn = ["pick-project" "terminal" "pi"];};
         "Mod+L".action = {spawn = ["terminal"];};
-        "Mod+Shift+L".action = {spawn = ["terminal" "nu"];};
+        "Mod+Shift+L".action = {spawn = ["pick-project" "terminal"];};
 
         "Mod+Left".action = {"focus-column-left" = [];};
         "Mod+Right".action = {"focus-column-right" = [];};
