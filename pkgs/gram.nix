@@ -37,23 +37,23 @@ in
     ];
 
     installPhase = ''
-        runHook preInstall
+      runHook preInstall
 
-        mkdir -p $out/bin $out/libexec $out/lib $out/share
+      mkdir -p $out/bin $out/libexec $out/lib $out/share
 
-        cp libexec/gram-editor $out/libexec/
-        cp lib/* $out/lib/
+      cp libexec/gram-editor $out/libexec/
+      cp lib/* $out/lib/
 
-        # The CLI binary expects ../libexec/gram-editor relative to itself
-        cp bin/gram $out/bin/gram
+      # The CLI binary expects ../libexec/gram-editor relative to itself
+      cp bin/gram $out/bin/gram
 
-        # Copy icons with proper directory structure
-        cp -r share/icons $out/share/
+      # Copy icons with proper directory structure
+      cp -r share/icons $out/share/
 
-        # Copy desktop files
-        cp -r share/applications $out/share/
+      # Copy desktop files
+      cp -r share/applications $out/share/
 
-        runHook postInstall
+      runHook postInstall
     '';
 
     meta = {
