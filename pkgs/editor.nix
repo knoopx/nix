@@ -16,11 +16,26 @@ in
     terminal_bin="${lib.getExe terminal}"
     helix_bin="${lib.getExe pkgs.helix}"
 
-    if [ "$#" -eq 0 ]; then
-      exec "$terminal_bin" "$helix_bin"
+    # Detect if we can run a TUI directly or need to spawn a terminal
+    # A TUI needs stdin and stdout to be terminals
+    can_run_tui=false
+    if [ -t 0 ] && [ -t 1 ]; then
+      can_run_tui=true
     fi
 
-    exec "$terminal_bin" "$helix_bin" -- "$@"
+    if [ "$can_run_tui" = true ]; then
+      # Can run helix directly in the current terminal
+      if [ "$#" -eq 0 ]; then
+        exec "$helix_bin"
+      fi
+      exec "$helix_bin" -- "$@"
+    else
+      # Spawn kitty with helix
+      if [ "$#" -eq 0 ]; then
+        exec "$terminal_bin" "$helix_bin"
+      fi
+      exec "$terminal_bin" "$helix_bin" -- "$@"
+    fi
     EOF
 
     chmod +x $out/bin/editor
