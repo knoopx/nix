@@ -3,7 +3,6 @@
     [*]
     n-gpu-layers = 999
     flash-attn = on
-    models-max = 1
     no-mmap = true
     jinja = on
     cache-type-k = q8_0
@@ -67,7 +66,7 @@ in {
     "llm" = {
       autoStart = true;
       image = "ghcr.io/ggml-org/llama.cpp:server-cuda";
-      cmd = ["--models-preset" "/presets.ini" "--sleep-idle-seconds" "300"];
+      cmd = ["--models-preset" "/presets.ini" "--models-max" "1" "--sleep-idle-seconds" "300"];
       ports = [
         "11434:8080"
       ];
