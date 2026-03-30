@@ -136,7 +136,7 @@
         "Mod+B".action = {spawn = ["xdg-open" "vicinae://extensions/vicinae/manage-shortcuts/manage"];};
         "Mod+P".action = {spawn = ["xdg-open" "vicinae://extensions/leonkohli/process-manager/processes"];};
         "Mod+W".action = {"close-window" = [];};
-        "Print".action.spawn = ["niri" "msg" "action" "screenshot" "--show-pointer" "false"];
+        "Print".action = {screenshot = [];};
         "Shift+Print".action = {"screenshot-window" = [];};
         "Mod+Shift+P".action = {spawn = ["window-control" "webcam"];};
         "Mod+Shift+Print".action = {spawn = ["screen-recording"];};
