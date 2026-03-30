@@ -87,6 +87,9 @@
 
       # VSCode-like keybindings
       keys.normal = {
+        # Delete line like Vim dd (shift+delete in all modes)
+        "S-del" = ["extend_to_line_bounds" "delete_selection"];
+
         # File operations (Ctrl+S = save)
         "C-s" = ":write";
         "C-S-s" = ":write";
@@ -135,6 +138,9 @@
       };
 
       keys.insert = {
+        # Delete line like Vim dd (shift+delete in all modes)
+        "S-del" = ["extend_to_line_bounds" "delete_selection"];
+
         # Exit insert mode with Escape or Ctrl+[ (vscode style)
         "C-[" = "normal_mode";
 
@@ -162,6 +168,9 @@
       };
 
       keys.select = {
+        # Delete line like Vim dd (shift+delete in all modes)
+        "S-del" = ["extend_to_line_bounds" "delete_selection"];
+
         # Copy/Paste in select mode
         "C-c" = "yank_main_selection_to_clipboard";
         "C-v" = "paste_clipboard_after";
