@@ -33,6 +33,7 @@ def main [--audio] {
         rm -f $pid_file
         rm -f $lock_file
 
+        ^recording-indicator stop
         ^notify-send "Screen Recording" "Stopped screen recording" --icon video-x-generic
 
         let output_file = $info.file
@@ -66,5 +67,6 @@ def main [--audio] {
   } | to json | save -f $pid_file
 
   rm -f $lock_file
+  ^recording-indicator
   ^notify-send "Screen Recording" "Started screen recording" --icon video-x-generic
 }

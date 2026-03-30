@@ -6,7 +6,7 @@
   ...
 }: {
   services.gnome-keyring.enable = true;
-  home.packages = [pkgs.playerctl pkgs.wireplumber pkgs.xwayland-satellite pkgs.screen-recording];
+  home.packages = [pkgs.playerctl pkgs.wireplumber pkgs.xwayland-satellite pkgs.screen-recording pkgs.recording-indicator pkgs.voice-input-control];
 
   programs.niri = {
     settings = {
@@ -110,6 +110,7 @@
         "Mod+Up".action = {"focus-workspace-up" = [];};
 
         "Mod+D".action = {"focus-window-down-or-top" = [];};
+        "Mod+H".action = {spawn = ["voice-input-control" "toggle"];};
         "Mod+V".action = {"center-window" = [];};
         "Mod+F".action = {"maximize-column" = [];};
         "Mod+Shift+F".action = {spawn = ["window-control" "fullscreen"];};

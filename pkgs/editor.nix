@@ -2,7 +2,7 @@
   pkgs,
   lib,
 }: let
-  terminal = pkgs.callPackage ./terminal.nix {};
+  terminal = pkgs.terminal;
 in
   pkgs.runCommand "editor" {
     meta.mainProgram = "editor";

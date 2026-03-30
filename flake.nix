@@ -85,7 +85,7 @@
               src = ./pkgs;
               loader = haumea.lib.loaders.scoped;
               inputs =
-                haumeaInputs prev;
+                haumeaInputs final;
             }
         )
         (
