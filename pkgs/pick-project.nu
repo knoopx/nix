@@ -47,14 +47,14 @@ def list-projects [] {
 
   [$projects $documents]
   | flatten
-  | each { |path| { path: $path, sort_key: (sort-key $path) } }
-  | sort-by sort_key
+  | each { |path| { path: $path, mtime: ((ls $path | get modified | first)) } }
+  | sort-by -r mtime
   | get path
 }
 
 def pick-project [] {
   let input = (list-projects | str join (char nl))
-  let result = (do { $input | ^vicinae dmenu --no-quick-look } | complete)
+  let result = (do { $input | ^vicinae dmenu --no-quick-look --no-section --no-footer --no-metadata } | complete)
 
   if $result.exit_code != 0 {
     exit $result.exit_code
