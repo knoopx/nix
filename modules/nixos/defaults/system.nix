@@ -44,7 +44,7 @@ with lib; {
       timeZone = "Europe/Madrid";
       defaultLocale = "en_US.UTF-8";
       region = "es_ES.UTF-8";
-      editor = "re.sonny.Commit";
+      editor = "editor";
     };
   };
 }
