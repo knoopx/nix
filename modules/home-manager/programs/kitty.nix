@@ -21,6 +21,12 @@
       map ctrl+shift+t new_tab_with_cwd
       mouse_map ctrl+shift+left press ungrabbed,grabbed mouse_selection rectangle
 
+      # Window navigation
+      map ctrl+shift+up neighboring_window top
+      map ctrl+shift+down neighboring_window bottom
+      map ctrl+shift+left neighboring_window left
+      map ctrl+shift+right neighboring_window right
+
       tab_separator " "
       tab_title_template " {fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title} "
       active_tab_foreground #${base00}
