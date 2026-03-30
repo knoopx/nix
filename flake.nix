@@ -259,6 +259,7 @@
       nfoview = pkgsWithOverlays.nfoview;
       geary = pkgsWithOverlays.geary;
       codemapper = pkgsWithOverlays.codemapper;
+      jj-hunk = pkgsWithOverlays.jj-hunk;
     };
 
     nixosConfigurations = {
