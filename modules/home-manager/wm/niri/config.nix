@@ -100,6 +100,7 @@
         "Mod+Shift+J".action = {spawn = ["file-manager"];};
         "Mod+K".action = {spawn = ["pick-project" "editor"];};
         "Mod+Shift+K".action = {spawn = ["pick-project" "terminal" "pi"];};
+        "Mod+O".action = {spawn = ["pick-document" "editor"];};
         "Mod+L".action = {spawn = ["terminal"];};
         "Mod+Shift+L".action = {spawn = ["pick-project" "terminal"];};
 

@@ -176,6 +176,7 @@
     skopeo
     inputs.waveshare-genui.packages.${pkgs.stdenv.hostPlatform.system}.default
     pick-project
+    pick-document
     jj-hunk
   ];
 }
