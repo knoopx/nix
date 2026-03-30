@@ -98,7 +98,8 @@
 
         "Mod+J".action = {spawn = ["browser"];};
         "Mod+Shift+J".action = {spawn = ["file-manager"];};
-        "Mod+K".action = {spawn = ["editor"];};
+        "Mod+K".action = {spawn = ["pick-project" "editor"];};
+        "Mod+Shift+K".action = {spawn = ["pick-project" "terminal" "pi"];};
         "Mod+L".action = {spawn = ["terminal"];};
         "Mod+Shift+L".action = {spawn = ["terminal" "nu"];};
 
@@ -106,9 +107,6 @@
         "Mod+Right".action = {"focus-column-right" = [];};
         "Mod+Down".action = {"focus-workspace-down" = [];};
         "Mod+Up".action = {"focus-workspace-up" = [];};
-
-        "Alt+Down".action = {"focus-workspace-down" = [];};
-        "Alt+Up".action = {"focus-workspace-up" = [];};
 
         "Mod+D".action = {"focus-window-down-or-top" = [];};
         "Mod+V".action = {"center-window" = [];};
