@@ -156,6 +156,7 @@
     xxd
     yt-dlp
     marksman
+    mdtt
     tree
     gogcli
     fswatch
@@ -174,5 +175,7 @@
     poppler-utils
     skopeo
     inputs.waveshare-genui.packages.${pkgs.stdenv.hostPlatform.system}.default
+    pick-project
+    jj-hunk
   ];
 }
