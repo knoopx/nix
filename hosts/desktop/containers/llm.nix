@@ -5,15 +5,14 @@
     flash-attn = on
     no-mmap = true
     jinja = on
-    cache-type-k = q8_0
-    cache-type-v = q8_0
-    ; speed up long-prefill workloads
-    ;batch-size = 8192
-    ;ubatch-size = 2048
-    ; single-user agent workload: prioritize larger KV per model over parallel slots
+    cache-type-k = q4_0
+    cache-type-v = q4_0
+
+    ; batch-size = 8192
+    ; ubatch-size = 2048
+
     parallel = 1
     threads = 64
-    ; each model section sets its own explicit ctx-size
     ctx-size = 0
 
     ; Qwen3-Coder-Next: 80B MoE, 3B active, non-thinking only
@@ -28,17 +27,6 @@
     top-k = 40
     min-p = 0.01
 
-    ; Qwen3.5-35B-A3B: 35B MoE, 3B active
-    ; Unsloth Dynamic quant
-    ; Recommended coding mode: temp=0.6, top_p=0.95, top_k=20
-    [unsloth/Qwen3.5-35B-A3B-GGUF]
-    hf-repo = unsloth/Qwen3.5-35B-A3B-GGUF:UD-Q4_K_XL
-    ctx-size = 262144
-    temp = 0.6
-    top-p = 0.95
-    top-k = 20
-    min-p = 0.0
-
     ; Qwen3.5-27B: 27B dense, strongest coder in family (72.4 SWE-bench)
     ; UD-Q4_K_XL: Unsloth Dynamic, important layers upcasted to 8/16-bit
     ; Recommended coding mode: temp=0.6, top_p=0.95, top_k=20
@@ -48,17 +36,6 @@
     temp = 0.6
     top-p = 0.95
     top-k = 20
-    min-p = 0.0
-
-    ; Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-v2: 27B dense reasoning model
-    ; Distilled from Claude 4.6 Opus reasoning patterns
-    ; Recommended: temp=0.7, top_p=0.9, top_k=40 for reasoning tasks
-    [Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-v2-GGUF]
-    hf-repo = Jackrong/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled-v2-GGUF:Q4_K_M
-    ctx-size = 262144
-    temp = 0.7
-    top-p = 0.9
-    top-k = 40
     min-p = 0.0
   '';
 in {
