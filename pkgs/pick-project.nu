@@ -75,6 +75,5 @@ def --wrapped --env main [...command: string] {
     return
   }
 
-  cd $selection
-  run-external ...$command
+  run-external ...$command $selection
 }
