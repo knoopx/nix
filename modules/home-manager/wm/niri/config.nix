@@ -6,7 +6,16 @@
   ...
 }: {
   services.gnome-keyring.enable = true;
-  home.packages = [pkgs.playerctl pkgs.wireplumber pkgs.xwayland-satellite pkgs.screen-recording pkgs.recording-indicator pkgs.voice-input-control];
+  home.packages = [
+    pkgs.playerctl
+    pkgs.wireplumber
+    pkgs.xwayland-satellite
+    pkgs.screen-recording
+    pkgs.recording-indicator
+    pkgs.voice-input-control
+    pkgs.pi-project
+    pkgs.pick-project
+  ];
 
   programs.niri = {
     settings = {
@@ -99,7 +108,7 @@
         "Mod+J".action = {spawn = ["browser"];};
         "Mod+Shift+J".action = {spawn = ["file-manager"];};
         "Mod+K".action = {spawn = ["pick-project" "editor"];};
-        "Mod+Shift+K".action = {spawn = ["pick-project" "terminal" "pi"];};
+        "Mod+Shift+K".action = {spawn = ["pi-project"];};
         "Mod+O".action = {spawn = ["pick-document" "editor"];};
         "Mod+L".action = {spawn = ["terminal"];};
         "Mod+Shift+L".action = {spawn = ["pick-project" "terminal"];};
