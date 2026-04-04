@@ -1,12 +1,12 @@
 {pkgs}: let
   pname = "codemapper";
-  version = "0-unstable-2026-02-11";
+  version = "0-unstable-2026-04-04";
 
   src = pkgs.fetchFromGitHub {
     owner = "p1rallels";
     repo = "codemapper";
-    rev = "c950747dbbba108d21bbc31f5cb11ab2f3b6c1fd";
-    sha256 = "sha256-hV4yrgNVDrJf+ZYZOfAsPeLn2xo15j9eYGzy2a4/CvQ=";
+    rev = "37256f4384403a02088eb2bd2a60be507eeb3d4b";
+    sha256 = "sha256-k30hVLnM8oUWF8XdL65v1DwJTLhmiZc9k8yWpNvxtV0=";
   };
 in
   pkgs.rustPlatform.buildRustPackage {

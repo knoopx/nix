@@ -1,12 +1,12 @@
-{pkgs}: let
+{pkgs, ...}: let
   pname = "sem";
-  version = "0.3.6";
+  version = "0.3.13";
 
   src = pkgs.fetchFromGitHub {
     owner = "Ataraxy-Labs";
     repo = "sem";
     rev = "v${version}";
-    hash = "sha256-XlbsB8ikm4QSVjOygXFMiZ/b1aHZ99eESoyeu4ihtzo=";
+    hash = "sha256-4D6BmtwpZcKeV6vCpbzOfs7dY3znUGjOapjGGVTOx3Y=";
   };
 in
   pkgs.rustPlatform.buildRustPackage {
@@ -14,7 +14,7 @@ in
 
     sourceRoot = "${src.name}/crates";
 
-    cargoHash = "sha256-Pgb40WvSkSRskgHkPPuumTgkRM211C/u99FCLOxqfyw=";
+    cargoHash = "sha256-Z0i1yGumKde8qb3Hd1PTXWS/CputhqbRZ4deIf0vl4s=";
 
     nativeBuildInputs = with pkgs; [
       pkg-config
