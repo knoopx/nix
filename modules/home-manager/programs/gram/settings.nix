@@ -5,11 +5,7 @@
   inputs,
   ...
 }: let
-  colors = config.lib.stylix.colors;
-  theme = colors {templateRepo = inputs.stylix.inputs.tinted-zed;};
   settings = builtins.toJSON {
-    auto_update = false;
-
     ui_font_size = 13;
     buffer_font_size = 13;
     buffer_font_family = "JetBrainsMono Nerd Font";
@@ -25,14 +21,10 @@
 
     features = {};
 
-    telemetry = {
-      metrics = false;
-    };
-
     theme = {
       mode = "dark";
-      dark = "Base16 ${colors.scheme-name}";
-      light = "Base16 ${colors.scheme-name}";
+      dark = "Base16 custom";
+      light = "Base16 custom";
     };
     base_keymap = "VSCode";
     vim_mode = false;
@@ -41,11 +33,8 @@
       restore_unsaved_buffers = false;
     };
 
-    restore_on_startup = "none";
-
     toolbar = {
       code_actions = true;
-      agent_review = false;
       breadcrumbs = true;
     };
 
@@ -88,11 +77,8 @@
       vtsls.binary.allow_binary_download = true;
       package-version-server.binary.allow_binary_download = true;
       json-language-server.binary.allow_binary_download = true;
-      rust-analyzer.binary.path_lookup = true;
-      nixd.binary = {
-        allow_binary_download = true;
-        path_lookup = true;
-      };
+      nixd.binary.allow_binary_download = true;
+      typescript-language-server.binary.allow_binary_download = true;
     };
 
     languages = {
@@ -112,7 +98,6 @@
         formatter = {
           external = {
             command = "black";
-            args = ["--quiet"];
           };
         };
       };
@@ -156,10 +141,6 @@
         language_servers = ["tailwindcss-language-server"];
       };
 
-      PostCSS = {
-        language_servers = ["tailwindcss-language-server"];
-      };
-
       # HTML
       HTML = {
         language_servers = ["tailwindcss-language-server"];
@@ -173,5 +154,4 @@
   };
 in {
   xdg.configFile."gram/settings.jsonc".text = settings;
-  xdg.configFile."gram/themes/stylix.json".source = theme;
 }
