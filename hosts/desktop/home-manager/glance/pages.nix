@@ -264,6 +264,10 @@
                 url = "https://github.com/vicinaehq/vicinae/releases.atom";
               }
               {
+                title = "Vicinae Extensions";
+                url = "https://github.com/knoopx/vicinae-extensions/releases.atom";
+              }
+              {
                 title = "Niri";
                 url = "https://github.com/YaLTeR/niri/releases.atom";
               }
@@ -273,7 +277,7 @@
               }
               {
                 title = "Ollama";
-                url = "https://github.com/YaLTeR/niri/releases.atom";
+                url = "https://github.com/ollama/ollama/releases.atom";
               }
               {
                 title = "Home Assistant";
@@ -298,6 +302,58 @@
               {
                 title = "llama.cpp";
                 url = "https://github.com/ggml-org/llama.cpp/releases.atom";
+              }
+              {
+                title = "Cromite";
+                url = "https://github.com/uazo/cromite/releases.atom";
+              }
+              {
+                title = "Gram";
+                url = "https://codeberg.org/GramEditor/gram/releases.atom";
+              }
+              {
+                title = "CodeMapper";
+                url = "https://github.com/p1rallels/codemapper/releases.atom";
+              }
+              {
+                title = "JJ Hunk";
+                url = "https://github.com/laulauland/jj-hunk/releases.atom";
+              }
+              {
+                title = "Sem";
+                url = "https://github.com/Ataraxy-Labs/sem/releases.atom";
+              }
+              {
+                title = "GOG CLI";
+                url = "https://github.com/steipete/gogcli/releases.atom";
+              }
+              {
+                title = "WA CLI";
+                url = "https://github.com/steipete/wacli/releases.atom";
+              }
+              {
+                title = "MDTT";
+                url = "https://github.com/szktkfm/mdtt/releases.atom";
+              }
+              {
+                title = "ROMie";
+                url = "https://github.com/JZimz/romie/releases.atom";
+              }
+              {
+                title = "NFOView";
+                url = "https://github.com/otsaloma/nfoview/releases.atom";
+              }
+              {
+                title = "Astal Shell";
+                url = "https://github.com/knoopx/astal-shell/releases.atom";
+              }
+              {
+                title = "Camper";
+                url = "https://github.com/knoopx/camper/releases.atom";
+              }
+              {
+                title = "Waveshare Genui";
+                url = "https://github.com/knoopx/waveshare-genui/releases.atom";
               }
             ];
           }
