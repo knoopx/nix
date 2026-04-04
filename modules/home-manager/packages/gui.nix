@@ -70,5 +70,6 @@ in {
     plexamp
     seahorse
     sushi
+    wl-kbptr
   ];
 }

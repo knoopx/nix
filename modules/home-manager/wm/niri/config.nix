@@ -151,6 +151,7 @@
         "Shift+Print".action = {"screenshot-window" = [];};
         "Mod+Shift+P".action = {spawn = ["window-control" "webcam"];};
         "Mod+Shift+Print".action = {spawn = ["screen-recording"];};
+        "Mod+G".action = {spawn = ["wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect"];};
         "XF86AudioLowerVolume".action = {spawn = ["volume-control" "down"];};
         "XF86AudioMute".action = {spawn = ["volume-control" "mute"];};
         "XF86AudioNext".action = {spawn = ["media-control" "next"];};
