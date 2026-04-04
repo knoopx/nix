@@ -5,15 +5,15 @@
     flash-attn = on
     no-mmap = true
     jinja = on
+    parallel = 1
+    threads = 64
+    ctx-size = 0
+
     cache-type-k = q4_0
     cache-type-v = q4_0
 
     ; batch-size = 8192
     ; ubatch-size = 2048
-
-    parallel = 1
-    threads = 64
-    ctx-size = 0
 
     ; Qwen3-Coder-Next: 80B MoE, 3B active, non-thinking only
     ; Qwen recommended: temp=1.0, top_p=0.95, top_k=40, min_p=0.01
@@ -32,6 +32,19 @@
     ; Recommended coding mode: temp=0.6, top_p=0.95, top_k=20
     [unsloth/Qwen3.5-27B-GGUF]
     hf-repo = unsloth/Qwen3.5-27B-GGUF:UD-Q4_K_XL
+    ctx-size = 262144
+    temp = 0.6
+    top-p = 0.95
+    top-k = 20
+    min-p = 0.0
+
+
+    ; Qwopus3.5-27B-v3: 27B dense, reasoning-enhanced Qwen3.5-27B
+    ; Act-then-refine paradigm, optimized for tool-calling and coding (95.73% HumanEval)
+    ; Recommended: temp=0.6, top_p=0.95, top_k=20
+    ; Q4_K_M: ~16.5GB
+    [Jackrong/Qwopus3.5-27B-v3-GGUF]
+    hf-repo = Jackrong/Qwopus3.5-27B-v3-GGUF:Q4_K_M
     ctx-size = 262144
     temp = 0.6
     top-p = 0.95
