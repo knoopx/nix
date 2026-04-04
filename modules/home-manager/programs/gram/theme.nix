@@ -5,7 +5,7 @@
 }: let
   c = nixosConfig.defaults.colorScheme.palette;
 
-  toHex = hex: "${hex}ff";
+  toHex = hex: "#${hex}ff";
 
   theme = {
     "$schema" = "https://zed.dev/schema/themes/v0.2.0.json";
