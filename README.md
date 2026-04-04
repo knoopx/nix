@@ -50,15 +50,20 @@ nix run .#installer-vm-test
 
 - **[Niri](https://github.com/YaLTeR/niri)**: A modern, Wayland-native tiling window manager that provides efficient keyboard-driven window management with custom layouts and workspaces
 - **[Firefox](https://www.mozilla.org/firefox/)**: Web browser optimized for privacy with [uBlock Origin](https://github.com/gorhill/uBlock) for ad-blocking, custom search engines, and userstyles for consistent theming. Includes policies for enhanced security and performance thanks to [BetterFox](https://github.com/yokoffing/BetterFox) and GNOME theme integration
+- **[Chromite](https://github.com/beetlelust/chromite)**: Privacy-focused Chromium fork with enhanced security features
 - **[Kitty](https://github.com/kovidgoyal/kitty)**: GPU-accelerated terminal emulator with theme integration
 - **[Fish](https://github.com/fish-shell/fish-shell)**: The user-friendly command line shell with custom completions
 - **[Hyprlock](https://github.com/hyprwm/Hyprlock)**: Screen locker with custom theme
 - **[Yazi](https://github.com/sxyazi/yazi)**: Modern terminal file manager
+- **[Astal](https://github.com/astrsh/astal)**: Dynamic shell for desktop widgets and system integration
 
 ### Development Tools
 
 - **[VSCode](https://github.com/microsoft/vscode)**: Primary code editor with custom keybindings, themes, and productivity tools
+- **[Gram](https://github.com/gram-editor/gram)**: Fast, minimal text editor built with GTK
 - **[Helix](https://github.com/helix-editor/helix)**: Modal text editor inspired by Vim
+- **[jj (Jujutsu)](https://github.com/jj-vcs/jj)**: Version control system with superior history manipulation and workflow management
+- **[jj-hunk](https://github.com/knoopx/jj-hunk)**: Programmatic hunk selection tool for Jujutsu
 - **[nix-ld](https://github.com/nix-community/nix-ld)**: Enables the experience (and caveats) of conventional Linux distros into NixOS, avoiding the need to re-package every single binary
 
 ### Command Line Tools
@@ -66,15 +71,39 @@ nix run .#installer-vm-test
 - **Bat**: Cat clone with syntax highlighting
 - **Btop**: Resource monitor
 - **Delta**: Modern diff viewer
-- **Fzf/Television/Skim**: Command-line fuzzy finders
+- **Fzf/Skim**: Command-line fuzzy finders
 - **Nu Shell**: Modern shell with structured data processing
 - **Starship**: Customizable prompt
 
 ### Control Scripts
 
 Custom Nu-based scripts for system control:
-- **Brightness/Display/Volume/Session/Media controls**: Keyboard-driven management
-- **Window/Tablet-mode control**: Window management automation
+
+- **brightness-control**: Adjust screen brightness
+- **display-control**: Manage display settings and outputs
+- **volume-control**: Control system and application volume
+- **media-control**: Media playback controls
+- **session-control**: Session management (lock, suspend, logout, etc.)
+- **window-control**: Window management automation
+- **tablet-mode-control**: Toggle tablet mode settings
+- **voice-input-control**: Control voice input services
+- **recording-indicator**: Visual indicator for active recordings
+- **screen-recording**: Screen capture and recording utilities
+- **google-authenticator-qr-decode**: Decode QR codes from Google Authenticator
+- **pick-project**: Project selection utility
+- **pick-document**: Document selection utility
+
+### Default Applications
+
+Configured default applications across the system:
+
+- **Browser**: Firefox ESR
+- **Terminal**: Kitty
+- **Editor**: Gram
+- **File Manager**: Nautilus
+- **Image Viewer**: Eye of GNOME (EOG)
+- **Video Player**: MPV
+- **Music Player**: Decibels
 
 ### Development Environments
 
@@ -93,6 +122,7 @@ The `modules/home-manager/packages/dev/` directory contains language-specific de
 ### Launchers and Extensions
 
 - **[Vicinae](https://github.com/vicinaehq/vicinae/)**: Application launcher inspired by Raycast
+- **[Astal](https://github.com/astrsh/astal)**: Dynamic desktop shell for widgets and system integration
 - **Camper**: Home automation control integration
 - **Vicinae Extensions**: Custom extensions for the launcher
 
@@ -122,7 +152,7 @@ The `modules/home-manager/packages/dev/` directory contains language-specific de
 ### Modules
 
 - **modules/nixos/**: System-level configurations including:
-  - **defaults/**: Global settings for AI, apps, colors, display, fonts, system, and user
+  - **defaults/**: Global settings for apps, colors, display, fonts, system, and user
   - **services/**: System services ([Plex Media Server](https://www.plex.tv/), [Traefik](https://github.com/traefik/traefik), Android photo backup, auto-scrcpy, Flatpak, Keyd, etc.)
   - **system/**: Core system settings (boot, documentation, environment, hardware, networking, Nix configuration, packages, programs, users, virtualisation)
   - **theming/**: [Stylix](https://github.com/danth/stylix) theming configuration
@@ -134,8 +164,10 @@ The `modules/home-manager/packages/dev/` directory contains language-specific de
     - **gui.nix**: Graphical user interface packages
   - **programs/**: Application configurations (VSCode, Firefox, Kitty, Fish, Helix, Hyprlock, etc.)
     - **firefox/**: Firefox with custom policies, profiles, and uBlock rules
-    - **vscode/**: VSCode with extensions, keybindings, and user settings
-    - Other programs: bat, btop, delta, fzf, git, gram, helix, hyprlock, kitty, nix-index, nu-shell, pi-ai, skim, starship, television, vicinae, wezterm, yazi
+    - **vicinae/**: Vicinae launcher configuration with custom scripts
+    - **gram/**: Gram editor settings and themes
+    - **nu-shell/**: Nu Shell configuration with custom completions
+    - Other programs: bat, btop, chromite, delta, fish, git, helix, hyprlock, jj, kitty, micro, nix-index, pi-ai, skim, starship, voxtype, yazi
   - **wm/**: Window manager user settings
     - **shell.nix**: Shell integration with window control
     - **niri/**: Niri window manager configuration
@@ -144,31 +176,64 @@ The `modules/home-manager/packages/dev/` directory contains language-specific de
 ### Overlays
 
 Package customizations and fixes:
-- Theme and UI modifications (Balatro, Glance, Gnome Control Center, Pegasus Frontend, RetroArch, etc.)
-- Custom package patches and fixes
+
+- **balatro.nix**: Balatro game modifications
+- **glance.nix**: Glance dashboard customizations
+- **gnome-control-center.nix**: GNOME Control Center patches
+- **pegasus-frontend.nix**: Pegasus Frontend modifications
+- **retroarch.nix**: RetroArch emulator customizations
+- **useless-desktop-items.nix**: Desktop item management
+- **plotly.nix**: Plotly library patches
+- **pi.nix**: Pi AI integration
 
 ### Builders
 
 Helper functions for creating package derivations:
+
 - **theming/**: Theme builders (MoreWaita icons, Plymouth themes, Stylix Firefox/Gnome themes)
 
 ### Library
 
 Utility functions for theming, color manipulation, and module loading:
+
 - **theming/**: Color conversion utilities (hexToRGB, rgbToHex, etc.)
-- **listNixModulesRecursive.nix**: Custom module loading utility
+- **listNixModulesRecusive.nix**: Custom module loading utility
 
 ### Packages
 
-Custom package definitions:
-- [Neuwaita Icon Theme](https://github.com/knoopx/neuwaita-icon-theme)
-- Control scripts (brightness-control, display-control, editor, file-manager, image-viewer, media-control, session-control, terminal, volume-control, window-control)
-- [NFO Viewer](https://github.com/nfoview/nfoview)
-- Cromite
-- Gram
-- Screen recording utilities
-- TTS tools
-- And other custom packages
+Custom package definitions in `pkgs/`:
+
+**Control & Utility Scripts:**
+
+- brightness-control, display-control, volume-control, media-control
+- session-control, window-control, tablet-mode-control
+- voice-input-control, recording-indicator, screen-recording
+- google-authenticator-qr-decode
+- pick-project, pick-document
+
+**Applications:**
+
+- [Neuwaita Icon Theme](https://github.com/knoopx/neuwaita-icon-theme): Custom icon theme
+- [NFO Viewer](https://github.com/nfoview/nfoview): NFO file viewer
+- **browser**: Custom Firefox/Chromium browser wrapper
+- **file-manager**: Custom file manager wrapper
+- **image-viewer**: Custom image viewer wrapper
+- **terminal**: Custom terminal emulator wrapper
+- **editor**: Custom editor wrapper
+- **gram**: Fast GTK-based text editor
+- **cromite**: Privacy-focused Chromium fork
+- **tts**: Text-to-speech utilities
+
+**Development & Productivity:**
+
+- **codemapper**: Code mapping and navigation tool
+- **jj-hunk**: Programmatic hunk selection for Jujutsu
+- **romie**: ROM management utility
+- **sem**: Semantic versioning tool
+- **mdtt**: Markdown to text tool
+- **wacli**: WhatsApp CLI client
+- **gogcli**: GOG.com CLI client
+- **pi-project**: Pi AI project integration
 
 ### Host-Specific Configurations
 
