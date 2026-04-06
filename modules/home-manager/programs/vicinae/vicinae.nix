@@ -7,75 +7,6 @@
   ...
 }: let
   browserDesktopEntry = nixosConfig.defaults.apps.browser.desktopEntry;
-  shortcuts = [
-    {
-      name = "Slack";
-      icon = "icon://favicon/app.slack.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
-      url = "https://app.slack.com/client/T069GEHD6AC/C09JKJ3HL4X";
-      app = browserDesktopEntry;
-    }
-    {
-      name = "Telegram";
-      icon = "icon://favicon/web.telegram.org?fallback=icon://omnicast/image?fill%3Dprimary-text";
-      url = "https://web.telegram.org/k/";
-      app = browserDesktopEntry;
-    }
-    {
-      name = "Discord";
-      icon = "icon://omnicast/discord";
-      url = "https://discord.com/channels/";
-      app = browserDesktopEntry;
-    }
-    {
-      name = "Youtube";
-      icon = "icon://favicon/www.youtube.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
-      url = "https://www.youtube.com/";
-      app = browserDesktopEntry;
-    }
-    {
-      name = "Reddit";
-      icon = "icon://favicon/www.reddit.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
-      url = "https://www.reddit.com/";
-      app = browserDesktopEntry;
-    }
-    {
-      name = "WhatsApp";
-      icon = "icon://omnicast/speech-bubble-active?fill=primary-text";
-      url = "https://web.whatsapp.com/";
-      app = browserDesktopEntry;
-    }
-    {
-      name = "Spotify";
-      icon = "icon://favicon/open.spotify.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
-      url = "https://open.spotify.com/";
-      app = browserDesktopEntry;
-    }
-    {
-      name = "Plex Web";
-      icon = "icon://favicon/app.plex.tv?fallback=icon://omnicast/image?fill%3Dprimary-text";
-      url = "https://app.plex.tv/desktop/";
-      app = browserDesktopEntry;
-    }
-    {
-      name = "Webull";
-      icon = "icon://favicon/app.webull.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
-      url = "https://app.webull.com/stocks";
-      app = browserDesktopEntry;
-    }
-  ];
-  shortcutsJson = pkgs.writeText "vicinae-shortcuts.json" (builtins.toJSON shortcuts);
-  syncShortcutsScript = pkgs.writeShellScript "vicinae-sync-shortcuts" ''
-    if [ -f "${config.xdg.dataHome}/vicinae/vicinae.db" ]; then
-      export PATH="${lib.makeBinPath [pkgs.coreutils pkgs.nushell pkgs.sqlite]}:$PATH"
-      ${lib.getExe pkgs.nushell} /dev/stdin <<'NU'
-      let vicinaedb = ("${config.xdg.dataHome}/vicinae/vicinae.db" | path expand)
-      sqlite3 $vicinaedb "DELETE FROM shortcut;"
-      open ${shortcutsJson} | each {
-        $in | merge ({id: (random uuid), created_at: (date now), updated_at: (date now) }) | into sqlite $vicinaedb -t shortcut
-      }
-    NU
-    fi
-  '';
 in {
   stylix.targets.vicinae.enable = false;
 
@@ -91,8 +22,6 @@ in {
         src = inputs.vicinae-extensions + "/extensions/${name}";
       }) [
       "bluetooth"
-      # "brotab"
-      # "dbus"
       "firefox"
       "niri"
       "nix"
@@ -107,12 +36,13 @@ in {
       "stocks"
       "supergenpass"
       "github"
+      "tmux"
+      # "brotab"
+      # "dbus"
       # "home-assistant"
       # "systemd"
-      "tmux"
       # "gog"
       # "jujutsu"
-
       # "can-i-use"
       # "cheatsheets"
       # "cloudflare"
@@ -251,17 +181,6 @@ in {
       };
     };
   };
-
-  home.activation.vicinaeSyncShortcuts = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    ${pkgs.systemd}/bin/systemctl --user stop vicinae.service 2>/dev/null || true
-    ${syncShortcutsScript}
-    ${pkgs.systemd}/bin/systemctl --user start vicinae.service 2>/dev/null || true
-  '';
-
-  systemd.user.services.vicinae.Service.ExecStartPre = [syncShortcutsScript];
-
-  home.file.".local/bin/vjj".source = inputs.vicinae-extensions + "/extensions/jujutsu/vjj.nu";
-  home.file.".local/bin/vjj".executable = true;
 
   home.file.".local/share/vicinae/themes/custom.toml".text = ''
     [meta]
