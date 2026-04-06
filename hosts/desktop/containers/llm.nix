@@ -7,12 +7,12 @@
     parallel = 1
     ctx-size = 0
 
-    cache-type-k = q8_0
-    cache-type-v = q8_0
+    cache-type-k = q4_0
+    cache-type-v = q4_0
 
-    ; threads = 64
-    ; batch-size = 8192
-    ; ubatch-size = 2048
+    threads = 64
+    batch-size = 16384
+    ubatch-size = 8192
 
     ; Qwen3-Coder-Next: 80B MoE, 3B active, non-thinking only
     ; Qwen recommended: temp=1.0, top_p=0.95, top_k=40, min_p=0.01
@@ -61,12 +61,32 @@
     top-p = 0.95
     top-k = 40
     min-p = 0.0
+
+    ; Qwen3.5-35B-A3B: 35B MoE, 3B active per token, 256K context
+    ; UD-Q4_K_XL: Unsloth Dynamic, ~21GB
+    [unsloth/Qwen3.5-35B-A3B-GGUF]
+    hf-repo = unsloth/Qwen3.5-35B-A3B-GGUF:UD-Q4_K_XL
+    ctx-size = 262144
+    temp = 0.6
+    top-p = 0.95
+    top-k = 20
+    min-p = 0.0
+
+    ; Gemma-4-26B-A4B: 26B MoE, 3.8B active, 256K context, multimodal (text + image)
+    ; UD-Q4_K_XL: Unsloth Dynamic quantization, ~17GB
+    [unsloth/gemma-4-26B-A4B-it-GGUF]
+    hf-repo = unsloth/gemma-4-26B-A4B-it-GGUF:UD-Q4_K_XL
+    ctx-size = 262144
+    temp = 1.0
+    top-p = 0.95
+    top-k = 64
+    min-p = 0.0
   '';
 in {
   virtualisation.oci-containers.containers = {
     "llm" = {
       autoStart = true;
-      image = "ghcr.io/ggml-org/llama.cpp:server-cuda";
+      image = "ghcr.io/ggml-org/llama.cpp:server-cuda13";
       cmd = ["--models-preset" "/presets.ini" "--models-max" "1" "--sleep-idle-seconds" "300"];
       ports = [
         "11434:8080"
