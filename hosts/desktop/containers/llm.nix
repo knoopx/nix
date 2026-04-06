@@ -50,6 +50,17 @@
     top-p = 0.95
     top-k = 20
     min-p = 0.0
+
+    ; Gemma-4-31B-it: 31B dense, multimodal (text + image)
+    ; Recommended: temp=0.7, top_p=0.95, top_k=40
+    ; UD-Q4_K_XL: Unsloth Dynamic quantization
+    [unsloth/gemma-4-31B-it-GGUF]
+    hf-repo = unsloth/gemma-4-31B-it-GGUF:UD-Q4_K_XL
+    ctx-size = 131072
+    temp = 0.7
+    top-p = 0.95
+    top-k = 40
+    min-p = 0.0
   '';
 in {
   virtualisation.oci-containers.containers = {
