@@ -125,7 +125,6 @@
     just
     lshw
     lsof
-    mpv
     nh
     nvd
     ox
