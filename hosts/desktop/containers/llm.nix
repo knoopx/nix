@@ -26,9 +26,15 @@
     top-k = 40
     min-p = 0.01
 
-    ; Qwen3.5-27B: 27B dense, strongest coder in family (72.4 SWE-bench)
+    ; Qwen3.5-27B: 27B dense, strongest coder in family (72.4 SWE-bench Verified)
     ; UD-Q4_K_XL: Unsloth Dynamic, important layers upcasted to 8/16-bit
-    ; Recommended coding mode: temp=0.6, top_p=0.95, top_k=20
+    ; Official Qwen Team recommendation (HuggingFace model card):
+    ; - Thinking mode for precise coding: temp=0.6, top_p=0.95, top_k=20, min_p=0.0
+    ;   presence_penalty=0.0, repetition_penalty=1.0
+    ; - Thinking mode for general tasks: temp=1.0, top_p=0.95, top_k=20, min_p=0.0
+    ;   presence_penalty=1.5, repetition_penalty=1.0
+    ; - Native context: 262,144 tokens (recommend at least 128K for thinking capabilities)
+    ; - Output: 32K for most queries, 81K for complex problems
     [unsloth/Qwen3.5-27B-GGUF]
     hf-repo = unsloth/Qwen3.5-27B-GGUF:UD-Q4_K_XL
     ctx-size = 131072
@@ -36,12 +42,19 @@
     top-p = 0.95
     top-k = 20
     min-p = 0.0
+    presence-penalty = 0.0
+    repeat-penalty = 1.0
     alias = gpt-3.5-turbo
 
     ; Qwopus3.5-27B-v3: 27B dense, reasoning-enhanced Qwen3.5-27B
     ; Act-then-refine paradigm, optimized for tool-calling and coding (95.73% HumanEval)
-    ; Recommended: temp=0.6, top_p=0.95, top_k=20
-    ; Q4_K_M: ~16.5GB
+    ; Official Qwen Team recommendation (HuggingFace model card):
+    ; - Thinking mode for precise coding: temp=0.6, top_p=0.95, top_k=20, min_p=0.0
+    ;   presence_penalty=0.0, repetition_penalty=1.0
+    ; - Thinking mode for general tasks: temp=1.0, top_p=0.95, top_k=20, min_p=0.0
+    ;   presence_penalty=1.5, repetition_penalty=1.0
+    ; - Native context: 262,144 tokens (recommend at least 128K for thinking capabilities)
+    ; - Output: 32K for most queries, 81K for complex problems
     [Jackrong/Qwopus3.5-27B-v3-GGUF]
     hf-repo = Jackrong/Qwopus3.5-27B-v3-GGUF:Q4_K_M
     ctx-size = 262144
@@ -49,6 +62,8 @@
     top-p = 0.95
     top-k = 20
     min-p = 0.0
+    presence-penalty = 0.0
+    repeat-penalty = 1.0
 
     ; Gemma-4-31B-it: 31B dense, multimodal (text + image)
     ; Recommended: temp=0.7, top_p=0.95, top_k=40
