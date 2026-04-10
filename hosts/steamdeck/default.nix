@@ -45,6 +45,7 @@ in {
   services.xserver.desktopManager.xfce.enable = false; # No desktop
   services.xserver.displayManager.session = lib.singleton {
     name = "pegasus";
+    manage = "desktop";
     start = ''
       ${pkgs.pegasus-frontend}/bin/pegasus-frontend &
       waitPID=$!
