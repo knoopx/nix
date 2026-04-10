@@ -5,14 +5,14 @@
     no-mmap = true
     jinja = on
     parallel = 1
-    ctx-size = 0
+    ;ctx-size = 0
 
     cache-type-k = q4_0
     cache-type-v = q4_0
 
-    threads = 64
-    batch-size = 16384
-    ubatch-size = 8192
+    ;threads = 64
+    ;batch-size = 16384
+    ;ubatch-size = 8192
 
     ; Qwen3-Coder-Next: 80B MoE, 3B active, non-thinking only
     ; Qwen recommended: temp=1.0, top_p=0.95, top_k=40, min_p=0.01
@@ -20,7 +20,7 @@
     ; CRITICAL: Re-download after Feb 19, 2026 update (llama.cpp key_gdiff bug fix)
     [unsloth/Qwen3-Coder-Next-GGUF]
     hf-repo = unsloth/Qwen3-Coder-Next-GGUF:UD-IQ3_XXS
-    ctx-size = 65536:
+    ctx-size = 131072
     temp = 1.0
     top-p = 0.95
     top-k = 40
@@ -38,14 +38,13 @@
     min-p = 0.0
     alias = gpt-3.5-turbo
 
-
     ; Qwopus3.5-27B-v3: 27B dense, reasoning-enhanced Qwen3.5-27B
     ; Act-then-refine paradigm, optimized for tool-calling and coding (95.73% HumanEval)
     ; Recommended: temp=0.6, top_p=0.95, top_k=20
     ; Q4_K_M: ~16.5GB
     [Jackrong/Qwopus3.5-27B-v3-GGUF]
     hf-repo = Jackrong/Qwopus3.5-27B-v3-GGUF:Q4_K_M
-    ctx-size = 131072
+    ctx-size = 262144
     temp = 0.6
     top-p = 0.95
     top-k = 20
@@ -56,7 +55,7 @@
     ; UD-Q4_K_XL: Unsloth Dynamic quantization
     [unsloth/gemma-4-31B-it-GGUF]
     hf-repo = unsloth/gemma-4-31B-it-GGUF:UD-Q4_K_XL
-    ctx-size = 131072
+    ctx-size = 262144
     temp = 0.7
     top-p = 0.95
     top-k = 40
@@ -86,7 +85,7 @@ in {
   virtualisation.oci-containers.containers = {
     "llm" = {
       autoStart = true;
-      image = "ghcr.io/ggml-org/llama.cpp:server-cuda-b8660";
+      image = "ghcr.io/ggml-org/llama.cpp:server-cuda";
       cmd = ["--models-preset" "/presets.ini" "--models-max" "1" "--sleep-idle-seconds" "300"];
       ports = [
         "11434:8080"
