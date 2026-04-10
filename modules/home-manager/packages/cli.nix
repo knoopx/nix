@@ -147,6 +147,8 @@
     sqlite
     tmux
     typescript-language-server
+    jq-lsp
+    yaml-language-server
     up # repl
     usbutils
     util-linux
@@ -159,6 +161,8 @@
     marksman
     mdtt
     tree
+    rust-analyzer
+    rustfmt
     gogcli
     fswatch
     nb
