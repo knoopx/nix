@@ -83,7 +83,12 @@
           file-types = ["nix"];
           shebangs = ["nix-shell"];
           comment-token = "#";
-          block-comment-tokens = [{ start = "/*"; end = "*/"; }];
+          block-comment-tokens = [
+            {
+              start = "/*";
+              end = "*/";
+            }
+          ];
           auto-format = true;
           formatter = {
             command = lib.getExe pkgs.nixpkgs-fmt;
@@ -107,7 +112,12 @@
           file-types = ["js" "mjs" "cjs"];
           shebangs = ["node"];
           comment-token = "//";
-          block-comment-tokens = [{ start = "/*"; end = "*/"; }];
+          block-comment-tokens = [
+            {
+              start = "/*";
+              end = "*/";
+            }
+          ];
           language-servers = ["typescript-language-server"];
           auto-format = true;
         }
@@ -118,7 +128,12 @@
           file-types = ["ts" "mts" "cts"];
           shebangs = ["deno" "bun" "ts-node"];
           comment-token = "//";
-          block-comment-tokens = [{ start = "/*"; end = "*/"; }];
+          block-comment-tokens = [
+            {
+              start = "/*";
+              end = "*/";
+            }
+          ];
           language-servers = ["typescript-language-server"];
           auto-format = true;
         }
@@ -128,7 +143,12 @@
           injection-regex = "jsx";
           file-types = ["jsx"];
           comment-token = "//";
-          block-comment-tokens = [{ start = "/*"; end = "*/"; }];
+          block-comment-tokens = [
+            {
+              start = "/*";
+              end = "*/";
+            }
+          ];
           language-servers = ["typescript-language-server"];
           auto-format = true;
         }
@@ -138,7 +158,12 @@
           injection-regex = "tsx";
           file-types = ["tsx"];
           comment-token = "//";
-          block-comment-tokens = [{ start = "/*"; end = "*/"; }];
+          block-comment-tokens = [
+            {
+              start = "/*";
+              end = "*/";
+            }
+          ];
           language-servers = ["typescript-language-server"];
           auto-format = true;
         }
@@ -147,7 +172,12 @@
           scope = "source.md";
           injection-regex = "md|markdown";
           file-types = ["md" "markdown" "mdx"];
-          block-comment-tokens = [{ start = "<!--"; end = "-->"; }];
+          block-comment-tokens = [
+            {
+              start = "<!--";
+              end = "-->";
+            }
+          ];
           language-servers = ["marksman"];
         }
         {
@@ -163,7 +193,12 @@
           injection-regex = "jsonc";
           file-types = ["jsonc"];
           comment-token = "//";
-          block-comment-tokens = [{ start = "/*"; end = "*/"; }];
+          block-comment-tokens = [
+            {
+              start = "/*";
+              end = "*/";
+            }
+          ];
           auto-format = true;
         }
         {
@@ -196,9 +231,18 @@
           shebangs = ["rust-script" "cargo"];
           comment-tokens = ["//" "///" "//!"];
           block-comment-tokens = [
-            { start = "/*"; end = "*/"; }
-            { start = "/**"; end = "*/"; }
-            { start = "/*!"; end = "*/"; }
+            {
+              start = "/*";
+              end = "*/";
+            }
+            {
+              start = "/**";
+              end = "*/";
+            }
+            {
+              start = "/*!";
+              end = "*/";
+            }
           ];
           language-servers = ["rust-analyzer"];
           auto-format = true;
@@ -335,7 +379,7 @@
 
         # Format document (Ctrl+Shift+I) and selection (Ctrl+K Ctrl+F)
         "C-S-i" = "format_selections";
-        "C-k" = { f = "format_selections"; };
+        "C-k" = {f = "format_selections";};
 
         # Word navigation (Ctrl+Left/Right)
         "C-left" = "move_prev_word_start";
@@ -380,7 +424,7 @@
         "C-l" = "extend_line_below";
 
         # Close window (Ctrl+W)
-        "C-w" = { q = "wclose"; };
+        "C-w" = {q = "wclose";};
 
         # Split editor (Ctrl+\\)
         "C-_" = "vsplit";
