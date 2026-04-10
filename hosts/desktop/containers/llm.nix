@@ -86,7 +86,7 @@ in {
   virtualisation.oci-containers.containers = {
     "llm" = {
       autoStart = true;
-      image = "ghcr.io/ggml-org/llama.cpp:server-cuda13";
+      image = "ghcr.io/ggml-org/llama.cpp:server-cuda-b8660";
       cmd = ["--models-preset" "/presets.ini" "--models-max" "1" "--sleep-idle-seconds" "300"];
       ports = [
         "11434:8080"
