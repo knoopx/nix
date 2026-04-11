@@ -39,7 +39,7 @@ nix run .#installer-vm-test
 - **Unified styling**: Consistent colors, fonts, and styles across:
   - System GTK/Qt themes and custom Neuwaita icon theme (merged with MoreWaita)
   - Terminal emulator (Kitty)
-  - Text editors (VSCode, Gram, Helix)
+  - Text editors (VSCode, Helix)
   - Window manager (Niri with custom color schemes)
   - All applications via Stylix theming system
 - **Reproducible**: Everything's declarative, so I can set it up the same way anywhere
@@ -60,7 +60,6 @@ nix run .#installer-vm-test
 ### Development Tools
 
 - **[VSCode](https://github.com/microsoft/vscode)**: Primary code editor with custom keybindings, themes, and productivity tools
-- **[Gram](https://github.com/gram-editor/gram)**: Fast, minimal text editor built with GTK
 - **[Helix](https://github.com/helix-editor/helix)**: Modal text editor inspired by Vim
 - **[jj (Jujutsu)](https://github.com/jj-vcs/jj)**: Version control system with superior history manipulation and workflow management
 - **[jj-hunk](https://github.com/knoopx/jj-hunk)**: Programmatic hunk selection tool for Jujutsu
@@ -99,7 +98,7 @@ Configured default applications across the system:
 
 - **Browser**: Firefox ESR
 - **Terminal**: Kitty
-- **Editor**: Gram
+- **Editor**: Helix
 - **File Manager**: Nautilus
 - **Image Viewer**: Eye of GNOME (EOG)
 - **Video Player**: MPV
@@ -165,9 +164,10 @@ The `modules/home-manager/packages/dev/` directory contains language-specific de
   - **programs/**: Application configurations (VSCode, Firefox, Kitty, Fish, Helix, Hyprlock, etc.)
     - **firefox/**: Firefox with custom policies, profiles, and uBlock rules
     - **vicinae/**: Vicinae launcher configuration with custom scripts
-    - **gram/**: Gram editor settings and themes
+
     - **nu-shell/**: Nu Shell configuration with custom completions
     - Other programs: bat, btop, chromite, delta, fish, git, helix, hyprlock, jj, kitty, micro, nix-index, pi-ai, skim, starship, voxtype, yazi
+
   - **wm/**: Window manager user settings
     - **shell.nix**: Shell integration with window control
     - **niri/**: Niri window manager configuration
@@ -220,7 +220,7 @@ Custom package definitions in `pkgs/`:
 - **image-viewer**: Custom image viewer wrapper
 - **terminal**: Custom terminal emulator wrapper
 - **editor**: Custom editor wrapper
-- **gram**: Fast GTK-based text editor
+
 - **cromite**: Privacy-focused Chromium fork
 - **tts**: Text-to-speech utilities
 

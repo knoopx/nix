@@ -308,10 +308,6 @@
                 url = "https://github.com/uazo/cromite/releases.atom";
               }
               {
-                title = "Gram";
-                url = "https://codeberg.org/GramEditor/gram/releases.atom";
-              }
-              {
                 title = "CodeMapper";
                 url = "https://github.com/p1rallels/codemapper/releases.atom";
               }

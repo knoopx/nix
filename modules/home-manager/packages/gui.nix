@@ -6,7 +6,6 @@
   camper = inputs.camper.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in {
   home.packages = with pkgs; [
-    gram
     # romie
     # apostrophe
     # ascii-draw

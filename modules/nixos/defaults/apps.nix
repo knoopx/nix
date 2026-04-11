@@ -83,7 +83,7 @@ in {
     terminal.desktopEntry = "kitty.desktop";
 
     editor.package = pkgs.editor;
-    editor.desktopEntry = "gram.desktop";
+    editor.desktopEntry = "helix.desktop";
 
     fileManager.package = pkgs.file-manager;
     fileManager.desktopEntry = "org.gnome.Nautilus.desktop";

@@ -30,12 +30,6 @@ gh api repos/OWNER/REPO/releases/latest | jq -r '.tag_name'
 gh api repos/OWNER/REPO/branches/main | jq -r '.commit.sha'
 ```
 
-**Codeberg (for GramEditor/gram):**
-
-```bash
-curl -s https://codeberg.org/GramEditor/gram/releases | grep -oP 'releases/download/\K[0-9.]+' | head -1
-```
-
 ### 3. Fetch new hashes
 
 Download the new source and compute the hash:
