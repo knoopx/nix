@@ -24,7 +24,7 @@
         };
 
         marksman = {
-          command = "marksman";
+          command = lib.getExe pkgs.marksman;
           args = ["--stdio"];
         };
 
@@ -63,7 +63,7 @@
           language-servers = ["pyright"];
           auto-format = true;
           formatter = {
-            command = "ruff";
+            command = lib.getExe pkgs.ruff;
             args = ["format" "--stdin-filename" "%{buffer_name}" "-"];
           };
         }
@@ -120,6 +120,10 @@
           ];
           language-servers = ["typescript-language-server"];
           auto-format = true;
+          formatter = {
+            command = lib.getExe pkgs.prettier;
+            args = ["--stdin-filepath" "%{buffer_name}" "--parser" "babel"];
+          };
         }
         {
           name = "typescript";
@@ -136,6 +140,10 @@
           ];
           language-servers = ["typescript-language-server"];
           auto-format = true;
+          formatter = {
+            command = lib.getExe pkgs.prettier;
+            args = ["--stdin-filepath" "%{buffer_name}" "--parser" "typescript"];
+          };
         }
         {
           name = "javascriptreact";
@@ -151,6 +159,10 @@
           ];
           language-servers = ["typescript-language-server"];
           auto-format = true;
+          formatter = {
+            command = lib.getExe pkgs.prettier;
+            args = ["--stdin-filepath" "%{buffer_name}" "--parser" "babel"];
+          };
         }
         {
           name = "typescriptreact";
@@ -166,6 +178,10 @@
           ];
           language-servers = ["typescript-language-server"];
           auto-format = true;
+          formatter = {
+            command = lib.getExe pkgs.prettier;
+            args = ["--stdin-filepath" "%{buffer_name}" "--parser" "typescript"];
+          };
         }
         {
           name = "markdown";
@@ -186,6 +202,10 @@
           injection-regex = "json";
           file-types = ["json" "jsonl" "ipynb"];
           auto-format = true;
+          formatter = {
+            command = lib.getExe pkgs.prettier;
+            args = ["--stdin-filepath" "%{buffer_name}" "--parser" "json"];
+          };
         }
         {
           name = "jsonc";
@@ -200,6 +220,10 @@
             }
           ];
           auto-format = true;
+          formatter = {
+            command = lib.getExe pkgs.prettier;
+            args = ["--stdin-filepath" "%{buffer_name}" "--parser" "json"];
+          };
         }
         {
           name = "bash";
@@ -222,6 +246,10 @@
           comment-token = "#";
           language-servers = ["yaml-language-server"];
           auto-format = true;
+          formatter = {
+            command = lib.getExe pkgs.prettier;
+            args = ["--stdin-filepath" "%{buffer_name}" "--parser" "yaml"];
+          };
         }
         {
           name = "rust";
@@ -385,6 +413,12 @@
         "C-left" = "move_prev_word_start";
         "C-right" = "move_next_word_start";
 
+        # Selection (Shift+Left/Right, Ctrl+Shift+Left/Right)
+        "S-left" = "extend_char_left";
+        "S-right" = "extend_char_right";
+        "C-S-left" = "extend_prev_word_start";
+        "C-S-right" = "extend_next_word_start";
+
         # Line navigation (Home/End)
         "home" = "goto_line_start";
         "end" = "goto_line_end";
@@ -397,8 +431,23 @@
         "pageup" = "page_up";
         "pagedown" = "page_down";
 
-        # Delete line (Ctrl+Shift+K) - select line bounds then delete
-        "C-S-k" = ["extend_to_line_bounds" "delete_selection"];
+        # Go to definition (Ctrl+D)
+        "C-d" = "goto_definition";
+
+        # Duplicate line (Ctrl+Shift+D)
+        "C-S-d" = ["normal_mode" "extend_to_line_bounds" "yank" "open_below" "replace_with_yanked" "collapse_selection" "normal_mode"];
+
+        # Go to references (Ctrl+T)
+        "C-t" = "goto_reference";
+
+        # Rename symbol (Ctrl+R)
+        "C-r" = "rename_symbol";
+
+        # File picker / quick open (Ctrl+P)
+        "C-p" = "file_picker";
+
+        # Delete line (Shift+D)
+        "S-d" = ["extend_to_line_bounds" "delete_selection"];
 
         # Insert line above (Ctrl+O - VSCode style)
         "C-o" = "open_above";
@@ -414,8 +463,8 @@
         # Jump to bracket (Ctrl+Shift+\)
         "C-S-_" = "match_brackets";
 
-        # Quick actions (Ctrl+. = quick fix)
-        "C-." = "goto_next_diag";
+        # Code action (Ctrl+.)
+        "C-." = "code_action";
 
         # Select all occurrences (Ctrl+Shift+L)
         "C-S-l" = ["search_selection_detect_word_boundaries" "select_all"];
