@@ -433,6 +433,10 @@
         "C-tab" = "goto_next_buffer";
         "C-S-tab" = "goto_previous_buffer";
 
+        # Tab navigation (Ctrl+PageUp/PageDown = switch tabs)
+        "C-pageup" = "goto_previous_buffer";
+        "C-pagedown" = "goto_next_buffer";
+
         # Command palette (Ctrl+Shift+P)
         "C-S-p" = "command_mode";
 
