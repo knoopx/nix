@@ -407,7 +407,6 @@
 
         # Format document (Ctrl+Shift+I) and selection (Ctrl+K Ctrl+F)
         "C-S-i" = "format_selections";
-        "C-k" = {f = "format_selections";};
 
         # Word navigation (Ctrl+Left/Right)
         "C-left" = "move_prev_word_start";
@@ -494,13 +493,22 @@
       };
 
       keys.insert = {
-        # Exit insert mode with Escape or Ctrl+[ (vscode style)
+        # Exit insert mode with Escape (vscode style)
         "esc" = "normal_mode";
-        "C-[" = "normal_mode";
+
+        # File operations (Ctrl+S = save, Ctrl+Shift+S = save all/as)
+        "C-s" = ":write";
+        "C-S-s" = ":wq";
 
         # Undo/Redo in insert mode (Ctrl+Z/Ctrl+Y)
         "C-z" = "undo";
         "C-y" = "redo";
+
+        # Find/Replace (Ctrl+F = find)
+        "C-f" = "search";
+
+        # Go to line (Ctrl+G)
+        "C-g" = "goto_line";
 
         # Word navigation (Ctrl+Left/Right) - VSCode style
         "C-left" = "move_prev_word_start";
@@ -517,15 +525,98 @@
         "C-a" = "goto_line_start";
         "C-e" = "goto_line_end";
 
-        # Copy/Paste in insert mode (Ctrl+C = copy, Ctrl+V = paste)
+        # Copy/Paste (Ctrl+C = yank, Ctrl+V = paste, Ctrl+X = cut)
         "C-c" = "yank_main_selection_to_clipboard";
         "C-v" = "paste_clipboard_after";
+        "C-x" = ["delete_selection" "yank_main_selection_to_clipboard"];
 
-        # Trigger completions (Ctrl+x) - manual trigger, automatic by default
-        "C-x" = "completion";
+        # Comment toggle (Ctrl+/)
+        "C-/" = "toggle_comments";
 
-        # Quick fix (Ctrl+.)
-        "C-." = "goto_next_diag";
+        # Block comment (Ctrl+Shift+A)
+        "C-S-a" = "toggle_comments";
+
+        # Format document (Ctrl+Shift+I) and selection (Ctrl+K Ctrl+F)
+        "C-S-i" = "format_selections";
+
+        # Selection (Shift+Left/Right, Ctrl+Shift+Left/Right)
+        "S-left" = "extend_char_left";
+        "S-right" = "extend_char_right";
+        "C-S-left" = "extend_prev_word_start";
+        "C-S-right" = "extend_next_word_start";
+
+        # Line navigation (Home/End)
+        "home" = "goto_line_start";
+        "end" = "goto_line_end";
+
+        # Go to beginning/end of file (Ctrl+Home/End)
+        "C-home" = "goto_file_start";
+        "C-end" = "goto_last_line";
+
+        # Page navigation (PageUp/PageDown)
+        "pageup" = "page_up";
+        "pagedown" = "page_down";
+
+        # Go to definition (Ctrl+D)
+        "C-d" = "goto_definition";
+
+        # Duplicate line (Ctrl+Shift+D)
+        "C-S-d" = ["normal_mode" "extend_to_line_bounds" "yank" "open_below" "replace_with_yanked" "collapse_selection" "normal_mode"];
+
+        # Go to references (Ctrl+T)
+        "C-t" = "goto_reference";
+
+        # Rename symbol (Ctrl+R)
+        "C-r" = "rename_symbol";
+
+        # File picker / quick open (Ctrl+P)
+        "C-p" = "file_picker";
+
+        # Delete line (Shift+D)
+        "S-d" = ["extend_to_line_bounds" "delete_selection"];
+
+        # Insert line above (Ctrl+O - VSCode style)
+        "C-o" = "open_above";
+
+        # Copy line up/down
+        "C-S-A-up" = "move_line_up";
+        "C-S-A-down" = "move_line_down";
+
+        # Indent/outdent (Ctrl+]/Ctrl+[)
+        "C-]" = "indent";
+        "C-[" = "unindent";
+
+        # Jump to bracket (Ctrl+Shift+\\)
+        "C-S-_" = "match_brackets";
+
+        # Code action (Ctrl+.)
+        "C-." = "code_action";
+
+        # Select all occurrences (Ctrl+Shift+L)
+        "C-S-l" = ["search_selection_detect_word_boundaries" "select_all"];
+
+        # Select current line (Ctrl+L)
+        "C-l" = "extend_line_below";
+
+        # Close window (Ctrl+W)
+        "C-w" = {q = "wclose";};
+
+        # Split editor (Ctrl+\\)
+        "C-_" = "vsplit";
+
+        # Tab navigation (Ctrl+Tab = next buffer, Ctrl+Shift+Tab = prev buffer)
+        "C-tab" = "goto_next_buffer";
+        "C-S-tab" = "goto_previous_buffer";
+
+        # Tab navigation (Ctrl+PageUp/PageDown = switch tabs)
+        "C-pageup" = "goto_previous_buffer";
+        "C-pagedown" = "goto_next_buffer";
+
+        # Command palette (Ctrl+Shift+P)
+        "C-S-p" = "command_mode";
+
+        # Settings (Ctrl+,)
+        "C-," = "command_mode";
 
         # Accept suggestion (Tab) - triggers completions if menu is open, otherwise inserts tab
         "tab" = "completion";
