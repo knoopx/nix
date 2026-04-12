@@ -139,6 +139,8 @@
     rsync
     ruff
     sem
+    weave
+    inspect
     shfmt
     skate
     socat

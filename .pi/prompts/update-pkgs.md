@@ -1,15 +1,15 @@
-# Update pkgs/ to Latest Versions
+# Update pkgs/ and overlays/ to Latest Versions
 
-Update all packages in `pkgs/` to their latest versions from upstream repositories.
+Update all packages in `pkgs/` and `overlays/` to their latest versions from upstream repositories.
 
 ## Process
 
 ### 1. Identify packages with hardcoded versions
 
-List all `.nix` files in `pkgs/` and identify which ones have version pins:
+List all `.nix` files in `pkgs/` and `overlays/` and identify which ones have version pins:
 
 ```bash
-ls -la pkgs/
+ls -la pkgs/ overlays/
 ```
 
 Check each file for `version =` or `rev =` fields.
@@ -30,24 +30,9 @@ gh api repos/OWNER/REPO/releases/latest | jq -r '.tag_name'
 gh api repos/OWNER/REPO/branches/main | jq -r '.commit.sha'
 ```
 
-### 3. Fetch new hashes
+### 3. Build to get all hashes
 
-Download the new source and compute the hash:
-
-```bash
-# Download source
-curl -sL https://github.com/OWNER/REPO/archive/REV.tar.gz -o source.tar.gz
-
-# Get SHA256 hash
-sha256sum source.tar.gz | awk '{print $1}'
-
-# Convert base16 to SRI format
-nix hash convert --hash-algo sha256 --from base16 --to sri <base16-hash>
-```
-
-### 4. Build to get vendor/cargo hashes
-
-Create a test build file and run it to get the correct vendor/cargo hashes:
+Create a test build with blank/placeholder hashes and let the build fail to reveal the correct hashes:
 
 ```bash
 cat > /tmp/test.nix << 'EOF'
@@ -59,22 +44,27 @@ let
     owner = "owner";
     repo = "repo";
     rev = "v${version}";
-    hash = "sha256-<NEW-SRC-HASH>";
+    hash = "sha256-";  # blank - build will show correct hash
   };
 in
 pkgs.buildGoModule {  # or rustPlatform.buildRustPackage
   inherit pname version src;
-  vendorHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";  # placeholder
+  vendorHash = "sha256-";  # blank - build will show correct hash
   # ... rest of build
 }
 EOF
 
-nix-build /tmp/test.nix 2>&1 | grep 'got:' | awk '{print $2}'
+nix-build /tmp/test.nix 2>&1 | grep 'got:'
 ```
 
-The "got:" hash is the correct hash to use.
+The build will fail with hash mismatches showing both:
 
-### 5. Update the nix file
+- `specified: sha256-` (what you put)
+- `got: sha256-...` (the correct hash to use)
+
+Capture all "got:" hashes from the error output.
+
+### 4. Update the nix file
 
 Replace version, rev, and all hashes in the package file:
 
@@ -99,7 +89,7 @@ in
   }
 ```
 
-### 6. Verify build
+### 5. Verify build
 
 ```bash
 cd /home/knoopx/Projects/knoopx/nix

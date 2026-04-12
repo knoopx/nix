@@ -223,44 +223,45 @@
       ];
     };
   in {
-    packages.${system} = {
-      default = vmConfiguration.config.system.build.vm;
-      steamdeck-vm = steamdeckVmConfiguration.config.system.build.vm;
-      installer-iso = installerConfiguration.config.system.build.isoImage;
-      installer-vm-test = pkgsWithOverlays.writeShellScriptBin "installer-vm-test" ''
-        set -e
-        ISO=$(find ${installerConfiguration.config.system.build.isoImage}/iso/ -name "*.iso" | head -1)
-        DISK="''${INSTALLER_VM_DISK:-''${XDG_RUNTIME_DIR:-/tmp}/installer-test-disk.qcow2}"
+    packages.${system} =
+      (haumea.lib.load {
+        src = ./pkgs;
+        loader = haumea.lib.loaders.scoped;
+        inputs = haumeaInputs pkgsWithOverlays;
+      })
+      // {
+        default = vmConfiguration.config.system.build.vm;
+        steamdeck-vm = steamdeckVmConfiguration.config.system.build.vm;
+        installer-iso = installerConfiguration.config.system.build.isoImage;
+        installer-vm-test = pkgsWithOverlays.writeShellScriptBin "installer-vm-test" ''
+          set -e
+          ISO=$(find ${installerConfiguration.config.system.build.isoImage}/iso/ -name "*.iso" | head -1)
+          DISK="''${INSTALLER_VM_DISK:-''${XDG_RUNTIME_DIR:-/tmp}/installer-test-disk.qcow2}"
 
-        echo "Creating test disk: $DISK (64GB sparse)"
-        rm -f "$DISK"
-        ${pkgsWithOverlays.qemu}/bin/qemu-img create -f qcow2 "$DISK" 64G
+          echo "Creating test disk: $DISK (64GB sparse)"
+          rm -f "$DISK"
+          ${pkgsWithOverlays.qemu}/bin/qemu-img create -f qcow2 "$DISK" 64G
 
-        echo "Starting VM with installer ISO..."
-        echo "ISO: $ISO"
-        exec ${pkgsWithOverlays.qemu}/bin/qemu-system-x86_64 \
-          -enable-kvm \
-          -m 8G \
-          -smp 4 \
-          -cpu host \
-          -bios ${pkgsWithOverlays.OVMF.fd}/FV/OVMF.fd \
-          -drive file="$DISK",format=qcow2,if=virtio \
-          -cdrom "$ISO" \
-          -boot d \
-          -vga virtio \
-          -display gtk,gl=on \
-          -device virtio-vga-gl \
-          -usb \
-          -device usb-tablet \
-          -nic user,model=virtio-net-pci
-      '';
-      android-image = inputs.self.nixosConfigurations.android.config.system.build.avfImage;
-      neuwaita-icon-theme = pkgsWithOverlays.neuwaita-icon-theme;
-      nfoview = pkgsWithOverlays.nfoview;
-      geary = pkgsWithOverlays.geary;
-      codemapper = pkgsWithOverlays.codemapper;
-      jj-hunk = pkgsWithOverlays.jj-hunk;
-    };
+          echo "Starting VM with installer ISO..."
+          echo "ISO: $ISO"
+          exec ${pkgsWithOverlays.qemu}/bin/qemu-system-x86_64 \
+            -enable-kvm \
+            -m 8G \
+            -smp 4 \
+            -cpu host \
+            -bios ${pkgsWithOverlays.OVMF.fd}/FV/OVMF.fd \
+            -drive file="$DISK",format=qcow2,if=virtio \
+            -cdrom "$ISO" \
+            -boot d \
+            -vga virtio \
+            -display gtk,gl=on \
+            -device virtio-vga-gl \
+            -usb \
+            -device usb-tablet \
+            -nic user,model=virtio-net-pci
+        '';
+        android-image = inputs.self.nixosConfigurations.android.config.system.build.avfImage;
+      };
 
     nixosConfigurations = {
       vm = vmConfiguration;

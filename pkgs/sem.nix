@@ -1,12 +1,12 @@
 {pkgs, ...}: let
   pname = "sem";
-  version = "0.3.15";
+  version = "0.3.16";
 
   src = pkgs.fetchFromGitHub {
     owner = "Ataraxy-Labs";
     repo = "sem";
     rev = "v${version}";
-    hash = "sha256-qMYfawzsGMvJSC+cm/GdJMQwVpZIMEvbY5cCt7lJj78=";
+    hash = "sha256-sP8fY92+7S445deo6EPqawVGDnSFh0nk0vVqaLcoaAg=";
   };
 in
   pkgs.rustPlatform.buildRustPackage {
