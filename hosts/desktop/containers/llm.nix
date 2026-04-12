@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   presets = pkgs.writeText "presets.ini" ''
     [*]
     flash-attn = on
@@ -35,10 +36,11 @@
     ;   presence_penalty=1.5, repetition_penalty=1.0
     ; - Native context: 262,144 tokens (recommend at least 128K for thinking capabilities)
     ; - Output: 32K for most queries, 81K for complex problems
+    ; --chat-template-kwargs '{"enable_thinking":false}'
     [unsloth/Qwen3.5-27B-GGUF]
     hf-repo = unsloth/Qwen3.5-27B-GGUF:UD-Q4_K_XL
-    ctx-size = 131072
-    temp = 0.6
+    ctx-size = 262144
+    temp = 0.3
     top-p = 0.95
     top-k = 20
     min-p = 0.0
@@ -96,12 +98,13 @@
     top-k = 64
     min-p = 0.0
   '';
-in {
+in
+{
   virtualisation.oci-containers.containers = {
     "llm" = {
       autoStart = true;
       image = "ghcr.io/ggml-org/llama.cpp:server-cuda";
-      cmd = ["--models-preset" "/presets.ini" "--models-max" "1" "--sleep-idle-seconds" "300"];
+      cmd = [ "--models-preset" "/presets.ini" "--models-max" "1" "--sleep-idle-seconds" "300" ];
       ports = [
         "11434:8080"
       ];
