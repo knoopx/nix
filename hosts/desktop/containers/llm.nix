@@ -40,7 +40,7 @@ let
     [unsloth/Qwen3.5-27B-GGUF]
     hf-repo = unsloth/Qwen3.5-27B-GGUF:UD-Q4_K_XL
     ctx-size = 262144
-    temp = 0.3
+    temp = 1.0
     top-p = 0.95
     top-k = 20
     min-p = 0.0
@@ -60,7 +60,7 @@ let
     [Jackrong/Qwopus3.5-27B-v3-GGUF]
     hf-repo = Jackrong/Qwopus3.5-27B-v3-GGUF:Q4_K_M
     ctx-size = 262144
-    temp = 0.6
+    temp = 1.0
     top-p = 0.95
     top-k = 20
     min-p = 0.0
@@ -83,7 +83,7 @@ let
     [unsloth/Qwen3.5-35B-A3B-GGUF]
     hf-repo = unsloth/Qwen3.5-35B-A3B-GGUF:UD-Q4_K_XL
     ctx-size = 262144
-    temp = 0.6
+    temp = 1.0
     top-p = 0.95
     top-k = 20
     min-p = 0.0
