@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  self,
+  ...
+}: {
   home.shell.enableFishIntegration = true;
 
   programs = {
@@ -21,6 +25,15 @@
 
       interactiveShellInit = ''
         set fish_greeting
+        cat ${../../nixos/defaults/logo.ascii}
+        set -l logo_line (head -1 ${../../nixos/defaults/logo.ascii})
+        set -l logo_width (string length --visible "$logo_line")
+        set -l date_str (date '+%A, %B %d, %Y')
+        set -l date_width (string length --visible "$date_str")
+        set -l diff (math $logo_width - $date_width)
+        set -l padding (math $diff / 2)
+        set -l spaces (string repeat $padding ' ')
+        echo "$spaces$date_str"
 
         fish_add_path -g "$HOME/.cache/.bun/bin"
         fish_add_path -g "$HOME/.cargo/bin"
