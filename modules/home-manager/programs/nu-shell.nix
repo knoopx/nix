@@ -1,8 +1,152 @@
-{nixosConfig, ...}: let
+{ nixosConfig
+, pkgs
+, ...
+}:
+let
   colors = nixosConfig.defaults.colorScheme.palette;
-in {
+
+  nu_plugin_file = pkgs.rustPlatform.buildRustPackage rec {
+    pname = "nu_plugin_file";
+    version = "0.22.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "fdncred";
+      repo = "nu_plugin_file";
+      rev = "v${version}";
+      hash = "sha256-play1lKAboy4bgmlTQ2Cw6OEuxAmGrd5iI2erkGJFK8=";
+    };
+    cargoHash = "sha256-lGxwrkjQPK054cmMs0livc8g3MBlQex+m1XUBlDxjWs=";
+    meta = {
+      description = "A nushell plugin to inspect file formats using magic bytes";
+      homepage = "https://github.com/fdncred/nu_plugin_file";
+      license = with pkgs.lib.licenses; [ agpl3Plus ];
+      mainProgram = "nu_plugin_file";
+    };
+  };
+
+  nu_plugin_toon = pkgs.rustPlatform.buildRustPackage {
+    pname = "nu_plugin_toon";
+    version = "0.1.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "fdncred";
+      repo = "nu_plugin_toon";
+      rev = "99dfedc2031ff574babe2d6f94be071cd826c9d4";
+      hash = "sha256-0Wls+oE3OyHvh19FNjzfn0EaZlucnhSKTQUlfoIP3gQ=";
+    };
+    cargoHash = "sha256-ezqMkhzexhPFcUd4xPibaG1Sq+/fFhUWuGvfUAmEkhM=";
+    doCheck = false;
+    meta = {
+      description = "A nushell plugin that implements the toon format";
+      homepage = "https://github.com/fdncred/nu_plugin_toon";
+      license = with pkgs.lib.licenses; [ mit ];
+      mainProgram = "nu_plugin_toon";
+    };
+  };
+
+  nu_plugin_json_path = pkgs.rustPlatform.buildRustPackage {
+    pname = "nu_plugin_json_path";
+    version = "0.21.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "fdncred";
+      repo = "nu_plugin_json_path";
+      rev = "c54aa92e2f6cc813444dd6f96cb66a3a70dd4ece";
+      hash = "sha256-ltZ+uz/J3GFOznOm7gs8M02hB9oYTHb8uBABDmcjoZI=";
+    };
+    cargoHash = "sha256-22wGFLkuY8C91cuPg66BGDboy+HOFhIYMN/aqLsxtc4=";
+    doCheck = false;
+    meta = {
+      description = "A nushell plugin to parse JSON files using JSONPath";
+      homepage = "https://github.com/fdncred/nu_plugin_json_path";
+      license = with pkgs.lib.licenses; [ mit ];
+      mainProgram = "nu_plugin_json_path";
+    };
+  };
+
+  nu_plugin_strutils = pkgs.rustPlatform.buildRustPackage {
+    pname = "nu_plugin_strutils";
+    version = "0.19.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "fdncred";
+      repo = "nu_plugin_strutils";
+      rev = "5e7463ffa80fdb94e94bcbd9228c59b61e416422";
+      hash = "sha256-AiUD3xeoiSSl6uA+miN3sgya43eJ5ac3Aji0w6tnn4I=";
+    };
+    cargoHash = "sha256-TrA5KyATQ5VaS+0sTly4bDc79IuXAyERfbf7aw36BMc=";
+    doCheck = false;
+    meta = {
+      description = "A collection of string utilities for Nushell";
+      homepage = "https://github.com/fdncred/nu_plugin_strutils";
+      license = with pkgs.lib.licenses; [ mit ];
+      mainProgram = "nu_plugin_strutils";
+    };
+  };
+
+  nu_plugin_regex = pkgs.rustPlatform.buildRustPackage {
+    pname = "nu_plugin_regex";
+    version = "0.20.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "fdncred";
+      repo = "nu_plugin_regex";
+      rev = "a9501ca410cdc7dfdf85f17ce4e5ffee7fd19576";
+      hash = "sha256-E0CnjckAY176cdn8ZwlzM/opGieGqr7iA5NhEJnlOWc=";
+    };
+    cargoHash = "sha256-u5bdrITNJanj+5DG+FmnKClivQ2qrZ2JtdHlw70UmXY=";
+    doCheck = false;
+    meta = {
+      description = "A Nushell plugin to search text with regex";
+      homepage = "https://github.com/fdncred/nu_plugin_regex";
+      license = with pkgs.lib.licenses; [ mit ];
+      mainProgram = "nu_plugin_regex";
+    };
+  };
+
+  nu_plugin_to_gui = pkgs.rustPlatform.buildRustPackage {
+    pname = "nu_plugin_to_gui";
+    version = "0.1.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "fdncred";
+      repo = "nu_plugin_to_gui";
+      rev = "d6400589c973fe12fe916958043f9957fdce8203";
+      hash = "sha256-C5OvSImyK8mgAIMrGZlkDEGHNk4lRx9KS/mPRQ2zaog=";
+    };
+    cargoHash = "sha256-QPlJffqMV/IdbUlXG5oEKdKJPdpcT2/hUH+uFkdzLVA=";
+    doCheck = false;
+    nativeBuildInputs = with pkgs; [ pkg-config ];
+    buildInputs = with pkgs; [ libxcb libxkbcommon ];
+    meta = {
+      description = "A Nushell plugin to display data in a GUI";
+      homepage = "https://github.com/fdncred/nu_plugin_to_gui";
+      license = with pkgs.lib.licenses; [ mit ];
+      mainProgram = "nu_plugin_to_gui";
+    };
+  };
+in
+{
+  home.packages = with pkgs; [
+    nushell
+    nufmt
+  ];
+
   programs.nushell = {
     enable = true;
+
+    plugins = with pkgs; [
+      nushellPlugins.polars
+      nushellPlugins.query
+      # nushellPlugins.skim
+      # nushellPlugins.desktop_notifications
+      # nushellPlugins.highlight
+      # nu_plugin_file
+      # nu_plugin_toon
+      # nu_plugin_json_path
+      # nu_plugin_strutils
+      # nu_plugin_regex
+      # nu_plugin_to_gui
+    ];
     configFile = {
       text = ''
         let fish_completer = {|spans|
@@ -62,17 +206,6 @@ in {
               completer: $fish_completer
             }
           }
-        }
-      '';
-    };
-    envFile = {
-      text = ''
-        export def git-branches []: nothing -> list<record<ref: string, obj: string, upstream: string, subject: string>> {
-          ^git for-each-ref --format '%(refname:lstrip=2)%09%(objectname:short)%09%(upstream:remotename)%(upstream:track)%09%(contents:subject)' refs/heads | lines | parse "{ref}\t{obj}\t{upstream}\t{subject}"
-        }
-
-        export def git-remote-branches []: nothing -> list<record<ref: string, obj: string, subject: string>> {
-          ^git for-each-ref --format '%(refname:lstrip=2)%09%(objectname:short)%09%(contents:subject)' refs/remotes | lines | parse "{ref}\t{obj}\t{subject}"
         }
       '';
     };
