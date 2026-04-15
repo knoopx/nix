@@ -1,4 +1,4 @@
-{nixosConfig, ...}: {
+{ nixosConfig, ... }: {
   programs.kitty = {
     enable = true;
 
@@ -28,6 +28,10 @@
       map ctrl+shift+down neighboring_window bottom
       map ctrl+shift+left neighboring_window left
       map ctrl+shift+right neighboring_window right
+
+      # unbind defaults
+      map ctrl+shift+l ungrabbed
+      map ctrl+shift+p ungrabbed
 
       tab_separator " "
       tab_title_template " {fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title} "
