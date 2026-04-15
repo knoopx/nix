@@ -43,10 +43,16 @@ in {
     };
 
     initrd = {
-      # systemd.enable = true;
-      preLVMCommands = ''
-        cat "${msg}"
-      '';
+      systemd.enable = true;
+      systemd.services.initrd-message = {
+        description = "Display ownership message";
+        unitConfig.DefaultDependencies = false;
+        serviceConfig.Type = "oneshot";
+        serviceConfig.RemainAfterExit = "yes";
+        script = ''
+          cat "${msg}"
+        '';
+      };
     };
 
     kernelParams = [
