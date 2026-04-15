@@ -1,7 +1,6 @@
-{
-  pkgs,
-  lib,
-  ...
+{ pkgs
+, lib
+, ...
 }: {
   programs.helix = {
     enable = true;
@@ -10,37 +9,37 @@
       language-server = {
         pyright = {
           command = "${pkgs.pyright}/bin/pyright-langserver";
-          args = ["--stdio"];
+          args = [ "--stdio" ];
         };
 
         solargraph = {
           command = lib.getExe pkgs.solargraph;
-          args = ["stdio"];
+          args = [ "stdio" ];
         };
 
         typescript-language-server = {
           command = lib.getExe pkgs.typescript-language-server;
-          args = ["--stdio"];
+          args = [ "--stdio" ];
         };
 
         marksman = {
           command = lib.getExe pkgs.marksman;
-          args = ["--stdio"];
+          args = [ "--stdio" ];
         };
 
         jq-lsp = {
           command = lib.getExe pkgs.jq-lsp;
-          args = ["--stdio"];
+          args = [ "--stdio" ];
         };
 
         yaml-language-server = {
           command = lib.getExe pkgs.yaml-language-server;
-          args = ["--stdio"];
+          args = [ "--stdio" ];
         };
 
         rust-analyzer = {
           command = lib.getExe pkgs.rust-analyzer;
-          args = ["--stdio"];
+          args = [ "--stdio" ];
           config = {
             checkOnSave.command = "clippy";
             inlayHints.parameterHints.enable = true;
@@ -57,31 +56,31 @@
           name = "python";
           scope = "source.python";
           injection-regex = "py(thon)?";
-          file-types = ["py" "pyi" "py3" "pyw"];
-          shebangs = ["python" "uv"];
+          file-types = [ "py" "pyi" "py3" "pyw" ];
+          shebangs = [ "python" "uv" ];
           comment-token = "#";
-          language-servers = ["pyright"];
+          language-servers = [ "pyright" ];
           auto-format = true;
           formatter = {
             command = lib.getExe pkgs.ruff;
-            args = ["format" "--stdin-filename" "%{buffer_name}" "-"];
+            args = [ "format" "--stdin-filename" "%{buffer_name}" "-" ];
           };
         }
         {
           name = "ruby";
           scope = "source.ruby";
           injection-regex = "ruby";
-          file-types = ["rb" "rake" "gemspec"];
-          shebangs = ["ruby"];
+          file-types = [ "rb" "rake" "gemspec" ];
+          shebangs = [ "ruby" ];
           comment-token = "#";
-          language-servers = ["solargraph"];
+          language-servers = [ "solargraph" ];
         }
         {
           name = "nix";
           scope = "source.nix";
           injection-regex = "nix";
-          file-types = ["nix"];
-          shebangs = ["nix-shell"];
+          file-types = [ "nix" ];
+          shebangs = [ "nix-shell" ];
           comment-token = "#";
           block-comment-tokens = [
             {
@@ -93,14 +92,14 @@
           formatter = {
             command = lib.getExe pkgs.nixpkgs-fmt;
           };
-          language-servers = ["nil"];
+          language-servers = [ "nil" ];
         }
 
         {
           name = "toml";
           scope = "source.toml";
           injection-regex = "toml";
-          file-types = ["toml"];
+          file-types = [ "toml" ];
           comment-token = "#";
           auto-format = true;
         }
@@ -109,8 +108,8 @@
           name = "javascript";
           scope = "source.js";
           injection-regex = "(js|javascript)";
-          file-types = ["js" "mjs" "cjs"];
-          shebangs = ["node"];
+          file-types = [ "js" "mjs" "cjs" ];
+          shebangs = [ "node" ];
           comment-token = "//";
           block-comment-tokens = [
             {
@@ -118,19 +117,19 @@
               end = "*/";
             }
           ];
-          language-servers = ["typescript-language-server"];
+          language-servers = [ "typescript-language-server" ];
           auto-format = true;
           formatter = {
             command = lib.getExe pkgs.prettier;
-            args = ["--stdin-filepath" "%{buffer_name}" "--parser" "babel"];
+            args = [ "--stdin-filepath" "%{buffer_name}" "--parser" "babel" ];
           };
         }
         {
           name = "typescript";
           scope = "source.ts";
           injection-regex = "(ts|typescript)";
-          file-types = ["ts" "mts" "cts"];
-          shebangs = ["deno" "bun" "ts-node"];
+          file-types = [ "ts" "mts" "cts" ];
+          shebangs = [ "deno" "bun" "ts-node" ];
           comment-token = "//";
           block-comment-tokens = [
             {
@@ -138,18 +137,18 @@
               end = "*/";
             }
           ];
-          language-servers = ["typescript-language-server"];
+          language-servers = [ "typescript-language-server" ];
           auto-format = true;
           formatter = {
             command = lib.getExe pkgs.prettier;
-            args = ["--stdin-filepath" "%{buffer_name}" "--parser" "typescript"];
+            args = [ "--stdin-filepath" "%{buffer_name}" "--parser" "typescript" ];
           };
         }
         {
           name = "javascriptreact";
           scope = "source.jsx";
           injection-regex = "jsx";
-          file-types = ["jsx"];
+          file-types = [ "jsx" ];
           comment-token = "//";
           block-comment-tokens = [
             {
@@ -157,18 +156,18 @@
               end = "*/";
             }
           ];
-          language-servers = ["typescript-language-server"];
+          language-servers = [ "typescript-language-server" ];
           auto-format = true;
           formatter = {
             command = lib.getExe pkgs.prettier;
-            args = ["--stdin-filepath" "%{buffer_name}" "--parser" "babel"];
+            args = [ "--stdin-filepath" "%{buffer_name}" "--parser" "babel" ];
           };
         }
         {
           name = "typescriptreact";
           scope = "source.tsx";
           injection-regex = "tsx";
-          file-types = ["tsx"];
+          file-types = [ "tsx" ];
           comment-token = "//";
           block-comment-tokens = [
             {
@@ -176,42 +175,42 @@
               end = "*/";
             }
           ];
-          language-servers = ["typescript-language-server"];
+          language-servers = [ "typescript-language-server" ];
           auto-format = true;
           formatter = {
             command = lib.getExe pkgs.prettier;
-            args = ["--stdin-filepath" "%{buffer_name}" "--parser" "typescript"];
+            args = [ "--stdin-filepath" "%{buffer_name}" "--parser" "typescript" ];
           };
         }
         {
           name = "markdown";
           scope = "source.md";
           injection-regex = "md|markdown";
-          file-types = ["md" "markdown" "mdx"];
+          file-types = [ "md" "markdown" "mdx" ];
           block-comment-tokens = [
             {
               start = "<!--";
               end = "-->";
             }
           ];
-          language-servers = ["marksman"];
+          language-servers = [ "marksman" ];
         }
         {
           name = "json";
           scope = "source.json";
           injection-regex = "json";
-          file-types = ["json" "jsonl" "ipynb"];
+          file-types = [ "json" "jsonl" "ipynb" ];
           auto-format = true;
           formatter = {
             command = lib.getExe pkgs.prettier;
-            args = ["--stdin-filepath" "%{buffer_name}" "--parser" "json"];
+            args = [ "--stdin-filepath" "%{buffer_name}" "--parser" "json" ];
           };
         }
         {
           name = "jsonc";
           scope = "source.json";
           injection-regex = "jsonc";
-          file-types = ["jsonc"];
+          file-types = [ "jsonc" ];
           comment-token = "//";
           block-comment-tokens = [
             {
@@ -222,42 +221,42 @@
           auto-format = true;
           formatter = {
             command = lib.getExe pkgs.prettier;
-            args = ["--stdin-filepath" "%{buffer_name}" "--parser" "json"];
+            args = [ "--stdin-filepath" "%{buffer_name}" "--parser" "json" ];
           };
         }
         {
           name = "bash";
           scope = "source.bash";
           injection-regex = "(shell|bash|zsh|sh)";
-          file-types = ["sh" "bash" "zsh" "zshrc"];
-          shebangs = ["sh" "bash" "dash" "zsh"];
+          file-types = [ "sh" "bash" "zsh" "zshrc" ];
+          shebangs = [ "sh" "bash" "dash" "zsh" ];
           comment-token = "#";
           auto-format = true;
           formatter = {
             command = lib.getExe pkgs.shfmt;
-            args = ["-fn" "-i" "2" "-ci" "-sr"];
+            args = [ "-fn" "-i" "2" "-ci" "-sr" ];
           };
         }
         {
           name = "yaml";
           scope = "source.yaml";
           injection-regex = "yml|yaml";
-          file-types = ["yml" "yaml"];
+          file-types = [ "yml" "yaml" ];
           comment-token = "#";
-          language-servers = ["yaml-language-server"];
+          language-servers = [ "yaml-language-server" ];
           auto-format = true;
           formatter = {
             command = lib.getExe pkgs.prettier;
-            args = ["--stdin-filepath" "%{buffer_name}" "--parser" "yaml"];
+            args = [ "--stdin-filepath" "%{buffer_name}" "--parser" "yaml" ];
           };
         }
         {
           name = "rust";
           scope = "source.rust";
           injection-regex = "rs|rust";
-          file-types = ["rs"];
-          shebangs = ["rust-script" "cargo"];
-          comment-tokens = ["//" "///" "//!"];
+          file-types = [ "rs" ];
+          shebangs = [ "rust-script" "cargo" ];
+          comment-tokens = [ "//" "///" "//!" ];
           block-comment-tokens = [
             {
               start = "/*";
@@ -272,7 +271,7 @@
               end = "*/";
             }
           ];
-          language-servers = ["rust-analyzer"];
+          language-servers = [ "rust-analyzer" ];
           auto-format = true;
           formatter = {
             command = lib.getExe pkgs.rustfmt;
@@ -361,7 +360,7 @@
         };
 
         # Gutter layout (diff, diagnostics, line numbers)
-        gutters = ["diff" "diagnostics" "line-numbers" "spacer"];
+        gutters = [ "diff" "diagnostics" "line-numbers" "spacer" ];
 
         # Auto-save on focus lost (VSCode style)
         auto-save = {
@@ -375,272 +374,118 @@
         };
       };
 
-      # VSCode-like keybindings
-      keys.normal = {
-        # File operations (Ctrl+S = save, Ctrl+Shift+S = save all/as)
-        "C-s" = ":write";
-        "C-S-s" = ":wq";
-
-        # Undo/Redo (Ctrl+Z = undo, Ctrl+Y = redo - VSCode style)
-        "C-z" = "undo";
-        "C-y" = "redo";
-
-        # Find/Replace (Ctrl+F = find)
-        "C-f" = "search";
-
-        # Go to line (Ctrl+G)
-        "C-g" = "goto_line";
-
-        # Copy/Paste (Ctrl+C = yank, Ctrl+V = paste, Ctrl+X = cut)
-        "C-c" = "yank_main_selection_to_clipboard";
-        "C-v" = "paste_clipboard_after";
-        "C-x" = ["delete_selection" "yank_main_selection_to_clipboard"];
-
-        # Select all (Ctrl+A)
-        "C-a" = "select_all";
-
-        # Comment toggle (Ctrl+/)
-        "C-/" = "toggle_comments";
-
-        # Block comment (Ctrl+Shift+A)
-        "C-S-a" = "toggle_comments";
-
-        # Format document (Ctrl+Shift+I) and selection (Ctrl+K Ctrl+F)
-        "C-S-i" = "format_selections";
-
-        # Word navigation (Ctrl+Left/Right)
-        "C-left" = "move_prev_word_start";
-        "C-right" = "move_next_word_start";
-
-        # Selection (Shift+Left/Right, Ctrl+Shift+Left/Right)
-        "S-left" = "extend_char_left";
-        "S-right" = "extend_char_right";
-        "C-S-left" = "extend_prev_word_start";
-        "C-S-right" = "extend_next_word_start";
-
-        # Line navigation (Home/End)
-        "home" = "goto_line_start";
-        "end" = "goto_line_end";
-
-        # Go to beginning/end of file (Ctrl+Home/End)
-        "C-home" = "goto_file_start";
-        "C-end" = "goto_last_line";
-
-        # Page navigation (PageUp/PageDown)
-        "pageup" = "page_up";
-        "pagedown" = "page_down";
-
-        # Go to definition (Ctrl+D)
-        "C-d" = "goto_definition";
-
-        # Duplicate line (Ctrl+Shift+D)
-        "C-S-d" = ["normal_mode" "extend_to_line_bounds" "yank" "open_below" "replace_with_yanked" "collapse_selection" "normal_mode"];
-
-        # Go to references (Ctrl+T)
-        "C-t" = "goto_reference";
-
-        # Rename symbol (Ctrl+R)
-        "C-r" = "rename_symbol";
-
-        # File picker / quick open (Ctrl+P)
-        "C-p" = "file_picker";
-
-        # Delete line (Shift+D)
-        "S-d" = ["extend_to_line_bounds" "delete_selection"];
-
-        # Insert line above (Ctrl+O - VSCode style)
-        "C-o" = "open_above";
-
-        # Copy line up/down
-        "C-S-A-up" = "move_line_up";
-        "C-S-A-down" = "move_line_down";
-
-        # Indent/outdent (Ctrl+]/Ctrl+[)
-        "C-]" = "indent";
-        "C-[" = "unindent";
-
-        # Jump to bracket (Ctrl+Shift+\)
-        "C-S-_" = "match_brackets";
-
-        # Code action (Ctrl+.)
-        "C-." = "code_action";
-
-        # Select all occurrences (Ctrl+Shift+L)
-        "C-S-l" = ["search_selection_detect_word_boundaries" "select_all"];
-
-        # Select current line (Ctrl+L)
-        "C-l" = "extend_line_below";
-
-        # Close window (Ctrl+W)
-        "C-w" = {q = "wclose";};
-
-        # Split editor (Ctrl+\\)
-        "C-_" = "vsplit";
-
-        # Tab navigation (Ctrl+Tab = next buffer, Ctrl+Shift+Tab = prev buffer)
-        "C-tab" = "goto_next_buffer";
-        "C-S-tab" = "goto_previous_buffer";
-
-        # Tab navigation (Ctrl+PageUp/PageDown = switch tabs)
-        "C-pageup" = "goto_previous_buffer";
-        "C-pagedown" = "goto_next_buffer";
-
-        # Command palette (Ctrl+Shift+P)
-        "C-S-p" = "command_mode";
-
-        # Settings (Ctrl+,)
-        "C-," = "command_mode";
-      };
-
-      keys.insert = {
-        # Exit insert mode with Escape (vscode style)
-        "esc" = "normal_mode";
-
-        # File operations (Ctrl+S = save, Ctrl+Shift+S = save all/as)
-        "C-s" = ":write";
-        "C-S-s" = ":wq";
-
-        # Undo/Redo in insert mode (Ctrl+Z/Ctrl+Y)
-        "C-z" = "undo";
-        "C-y" = "redo";
-
-        # Find/Replace (Ctrl+F = find)
-        "C-f" = "search";
-
-        # Go to line (Ctrl+G)
-        "C-g" = "goto_line";
-
-        # Word navigation (Ctrl+Left/Right) - VSCode style
-        "C-left" = "move_prev_word_start";
-        "C-right" = "move_next_word_start";
-
-        # Word deletion (Ctrl+Backspace = delete word backward, Ctrl+Delete = delete word forward)
-        "C-backspace" = "delete_word_backward";
-        "C-del" = "delete_word_forward";
-
-        # Line deletion (Ctrl+K = delete to end of line)
-        "C-k" = "kill_to_line_end";
-
-        # Move to line start/end (Ctrl+A = start, Ctrl+E = end)
-        "C-a" = "goto_line_start";
-        "C-e" = "goto_line_end";
-
-        # Copy/Paste (Ctrl+C = yank, Ctrl+V = paste, Ctrl+X = cut)
-        "C-c" = "yank_main_selection_to_clipboard";
-        "C-v" = "paste_clipboard_after";
-        "C-x" = ["delete_selection" "yank_main_selection_to_clipboard"];
-
-        # Comment toggle (Ctrl+/)
-        "C-/" = "toggle_comments";
-
-        # Block comment (Ctrl+Shift+A)
-        "C-S-a" = "toggle_comments";
-
-        # Format document (Ctrl+Shift+I) and selection (Ctrl+K Ctrl+F)
-        "C-S-i" = "format_selections";
-
-        # Selection (Shift+Left/Right, Ctrl+Shift+Left/Right)
-        "S-left" = "extend_char_left";
-        "S-right" = "extend_char_right";
-        "C-S-left" = "extend_prev_word_start";
-        "C-S-right" = "extend_next_word_start";
-
-        # Line navigation (Home/End)
-        "home" = "goto_line_start";
-        "end" = "goto_line_end";
-
-        # Go to beginning/end of file (Ctrl+Home/End)
-        "C-home" = "goto_file_start";
-        "C-end" = "goto_last_line";
-
-        # Page navigation (PageUp/PageDown)
-        "pageup" = "page_up";
-        "pagedown" = "page_down";
-
-        # Go to definition (Ctrl+D)
-        "C-d" = "goto_definition";
-
-        # Duplicate line (Ctrl+Shift+D)
-        "C-S-d" = ["normal_mode" "extend_to_line_bounds" "yank" "open_below" "replace_with_yanked" "collapse_selection" "normal_mode"];
-
-        # Go to references (Ctrl+T)
-        "C-t" = "goto_reference";
-
-        # Rename symbol (Ctrl+R)
-        "C-r" = "rename_symbol";
-
-        # File picker / quick open (Ctrl+P)
-        "C-p" = "file_picker";
-
-        # Delete line (Shift+D)
-        "S-d" = ["extend_to_line_bounds" "delete_selection"];
-
-        # Insert line above (Ctrl+O - VSCode style)
-        "C-o" = "open_above";
-
-        # Copy line up/down
-        "C-S-A-up" = "move_line_up";
-        "C-S-A-down" = "move_line_down";
-
-        # Indent/outdent (Ctrl+]/Ctrl+[)
-        "C-]" = "indent";
-        "C-[" = "unindent";
-
-        # Jump to bracket (Ctrl+Shift+\\)
-        "C-S-_" = "match_brackets";
-
-        # Code action (Ctrl+.)
-        "C-." = "code_action";
-
-        # Select all occurrences (Ctrl+Shift+L)
-        "C-S-l" = ["search_selection_detect_word_boundaries" "select_all"];
-
-        # Select current line (Ctrl+L)
-        "C-l" = "extend_line_below";
-
-        # Close window (Ctrl+W)
-        "C-w" = {q = "wclose";};
-
-        # Split editor (Ctrl+\\)
-        "C-_" = "vsplit";
-
-        # Tab navigation (Ctrl+Tab = next buffer, Ctrl+Shift+Tab = prev buffer)
-        "C-tab" = "goto_next_buffer";
-        "C-S-tab" = "goto_previous_buffer";
-
-        # Tab navigation (Ctrl+PageUp/PageDown = switch tabs)
-        "C-pageup" = "goto_previous_buffer";
-        "C-pagedown" = "goto_next_buffer";
-
-        # Command palette (Ctrl+Shift+P)
-        "C-S-p" = "command_mode";
-
-        # Settings (Ctrl+,)
-        "C-," = "command_mode";
-
-        # Accept suggestion (Tab) - triggers completions if menu is open, otherwise inserts tab
-        "tab" = "completion";
-
-        # Delete to end of line (Shift+Delete)
-        "S-del" = "kill_to_line_end";
-      };
-
-      keys.select = {
-        # Delete line (Shift+Delete)
-        "S-del" = ["extend_to_line_bounds" "delete_selection"];
-
-        # Copy/Paste in select mode
-        "C-c" = "yank_main_selection_to_clipboard";
-        "C-v" = "paste_clipboard_after";
-        "C-x" = ["delete_selection" "yank_main_selection_to_clipboard"];
-
-        # Exit select mode
-        "esc" = "normal_mode";
-        "C-[" = "normal_mode";
-
-        # Jump to bracket (Ctrl+Shift+\)
-        "C-S-_" = "match_brackets";
-      };
+      keys =
+        let
+          shared = {
+            # File operations
+            "C-s" = ":write";
+
+            # Undo/Redo 
+            "C-z" = "undo";
+            "C-S-z" = "redo";
+
+            # Find/Replace
+            "C-f" = "search";
+            "C-S-f" = "global_search";
+
+            # Copy/Paste 
+            # Not working
+            "C-c" = "yank_main_selection_to_clipboard";
+            "C-v" = "paste_clipboard_after";
+            "C-x" = [ "delete_selection" "yank_main_selection_to_clipboard" ];
+
+            # Select all 
+            "C-a" = "select_all";
+
+            # Comment toggle
+            "C-/" = "toggle_comments";
+            # Block comment 
+            "C-S-/" = "toggle_comments";
+
+            # Format document
+            "C-S-i" = ":format";
+
+            # Word navigation
+            "C-left" = "move_prev_word_start";
+            "C-right" = "move_next_word_start";
+
+            "C-backspace" = "delete_word_backward";
+            "C-del" = "delete_word_forward";
+
+            # Selection
+            "C-S-left" = "extend_prev_word_start";
+            "C-S-right" = "extend_next_word_start";
+
+            # Line navigation
+            "home" = "goto_line_start";
+            "end" = "goto_line_end_newline";
+            "C-g" = "goto_word";
+
+            # Go to beginning/end of file
+            "C-home" = "goto_file_start";
+            "C-end" = "goto_last_line";
+
+            # Page navigation
+            "pageup" = "page_up";
+            "pagedown" = "page_down";
+
+            # Go to definition
+            "C-d" = "goto_definition";
+
+            # Duplicate line            
+            "C-S-d" = [ "extend_to_line_bounds" "yank" "open_below" "replace_with_yanked" "collapse_selection" ];
+
+            # Go to references
+            "C-t" = "goto_reference";
+
+            # Rename symbol
+            "C-r" = "rename_symbol";
+
+            # File picker / quick open
+            "C-p" = "file_picker";
+            # Command Palete
+            "C-S-p" = "command_palette";
+
+            # Delete line
+            "S-d" = [ "normal_mode" "goto_line_start" "kill_to_line_end" "kill_to_line_end" ];
+
+            # Indent/outdent
+            "tab" = "indent";
+            "S-tab" = "unindent";
+
+            # Code action
+            "C-." = "code_action";
+
+            # Select all occurrences
+            # not working
+            "C-S-l" = [ "search_selection_detect_word_boundaries" "select_all" ];
+
+            # Select current line
+            "C-l" = "extend_line_below";
+
+            # Close window 
+            "C-w" = "wclose";
+
+            # Split editor 
+            "C-ret" = "vsplit";
+
+            # Tab navigation
+            "C-pageup" = "goto_previous_buffer";
+            "C-pagedown" = "goto_next_buffer";
+          };
+        in
+        {
+          normal = shared // {
+            "ret" = "insert_mode";
+          };
+          insert = {
+            "esc" = "normal_mode";
+          } // shared;
+
+          select = {
+            "esc" = "normal_mode";
+          } // shared;
+        };
     };
   };
 }
