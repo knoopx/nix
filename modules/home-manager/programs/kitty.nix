@@ -32,6 +32,9 @@
       # unbind defaults
       map ctrl+shift+l ungrabbed
       map ctrl+shift+p ungrabbed
+      map ctrl+shift+left ungrabbed
+      map ctrl+shift+right ungrabbed
+      map ctrl+shift+f ungrabbed
 
       tab_separator " "
       tab_title_template " {fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title} "
