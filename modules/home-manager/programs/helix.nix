@@ -447,7 +447,7 @@
             "C-S-p" = "command_palette";
 
             # Delete line
-            "S-d" = [ "normal_mode" "goto_line_start" "kill_to_line_end" "kill_to_line_end" ];
+            "S-del" = [ "extend_to_line_end" "delete_selection" ];
 
             # Indent/outdent
             "tab" = "indent";
