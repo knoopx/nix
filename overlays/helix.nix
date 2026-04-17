@@ -4,8 +4,8 @@ final: prev: {
     src = final.fetchFromGitHub {
       owner = "helix-editor";
       repo = "helix";
-      rev = "a05c151bb6e8e9c65ec390b0ae2afe7a5efd619b";
-      hash = "sha256-RFSzGAcB0mMg/02ykYfTWXzQjLFu2CJ4BkS5HZ/6pBo=";
+      rev = "0805bc8534bafaa9109f1839f4e771afb32c3391";
+      hash = "sha256-utPazkXA5Ef1KELKUDA+tMWkgeLlPhjmA6ma8NAWAe4=";
     };
     patches = [];
     cargoDeps = final.rustPlatform.importCargoLock {
