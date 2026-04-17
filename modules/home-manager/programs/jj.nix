@@ -1,4 +1,8 @@
-{nixosConfig, ...}: {
+{
+  lib,
+  nixosConfig,
+  ...
+}: {
   programs.jujutsu.enable = true;
   programs.jujutsu.settings = {
     user = {
@@ -6,7 +10,7 @@
       email = nixosConfig.defaults.primaryEmail;
     };
     ui = {
-      editor = nixosConfig.defaults.editor;
+      editor = lib.getExe nixosConfig.defaults.apps.editor.package;
       merge-editor = "weave";
     };
     "merge-tools" = {

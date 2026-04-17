@@ -7,6 +7,7 @@
   ...
 }: let
   browserDesktopEntry = nixosConfig.defaults.apps.browser.desktopEntry;
+  terminalPackage = nixosConfig.defaults.apps.terminal.package;
 in {
   stylix.targets.vicinae.enable = false;
 
@@ -164,12 +165,12 @@ in {
         "@knoopx/store.vicinae.tmux" = {
           preferences = {
             terminalArgs = "start --";
-            terminalCommand = "kitty";
+            terminalCommand = lib.getExe terminalPackage;
           };
         };
         "@leiserfg/store.raycast.ssh" = {
           preferences = {
-            terminal = "kitty";
+            terminal = lib.getExe terminalPackage;
           };
         };
         files = {

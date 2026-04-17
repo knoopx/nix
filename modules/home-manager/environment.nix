@@ -7,8 +7,8 @@
 }: {
   xdg.enable = true;
   home.sessionVariables = {
-    EDITOR = nixosConfig.defaults.editor;
-    DEFAULT_BROWSER = "${lib.getExe pkgs.browser}";
+    EDITOR = lib.getExe nixosConfig.defaults.apps.editor.package;
+    DEFAULT_BROWSER = lib.getExe nixosConfig.defaults.apps.browser.package;
     _JAVA_AWT_WM_NONREPARENTING = "1";
   };
 }

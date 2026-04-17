@@ -1,4 +1,8 @@
-{nixosConfig, ...}: {
+{
+  nixosConfig,
+  lib,
+  ...
+}: {
   programs = {
     git = {
       enable = true;
@@ -34,7 +38,7 @@
         };
 
         core = {
-          editor = nixosConfig.defaults.editor;
+          editor = lib.getExe nixosConfig.defaults.apps.editor.package;
           autocrlf = false;
           quotePath = false;
         };

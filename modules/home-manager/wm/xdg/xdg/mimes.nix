@@ -4,6 +4,8 @@
   image-viewer = nixosConfig.defaults.apps.imageViewer.desktopEntry;
   video-player = nixosConfig.defaults.apps.videoPlayer.desktopEntry;
   music-player = nixosConfig.defaults.apps.musicPlayer.desktopEntry;
+  pdf-viewer = nixosConfig.defaults.apps.pdfViewer.desktopEntry;
+  archive-manager = nixosConfig.defaults.apps.archiveManager.desktopEntry;
   text-editor = nixosConfig.defaults.apps.editor.desktopEntry;
 in {
   xdg = {
@@ -17,11 +19,11 @@ in {
         # (mimetypes.genAssoc mimetypes.archive "org.gnome.FileRoller.desktop")
         # // (mimetypes.genAssoc mimetypes.image "org.gnome.Loupe.desktop")
         {
-          "application/pdf" = "org.gnome.Evince.desktop";
-          "application/x-bzip2" = "org.gnome.FileRoller.desktop";
-          "application/x-gzip" = "org.gnome.FileRoller.desktop";
-          "application/x-tar" = "org.gnome.FileRoller.desktop";
-          "application/zip" = "org.gnome.FileRoller.desktop";
+          "application/pdf" = pdf-viewer;
+          "application/x-bzip2" = archive-manager;
+          "application/x-gzip" = archive-manager;
+          "application/x-tar" = archive-manager;
+          "application/zip" = archive-manager;
           "audio/mpeg" = music-player;
           "audio/flac" = music-player;
           "audio/vnd.wave" = music-player;
@@ -44,8 +46,8 @@ in {
           "x-scheme-handler/https" = browser;
           "x-scheme-handler/about" = browser;
           "x-scheme-handler/unknown" = browser;
-          "x-scheme-handler/mailto" = "mailto-gmail.desktop";
-          "x-scheme-handler/magnet" = "userapp-transmission-gtk-FROFT2.desktop";
+          "x-scheme-handler/mailto" = browser;
+          "x-scheme-handler/magnet" = browser;
         };
     };
   };

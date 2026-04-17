@@ -1,15 +1,21 @@
-{pkgs, ...}: {
+{
+  nixosConfig,
+  pkgs,
+  ...
+}: let
+  apps = nixosConfig.defaults.apps;
+in {
   home.packages = [
     pkgs.brightness-control
-    pkgs.browser
+    apps.browser.package
     pkgs.display-control
-    pkgs.editor
-    pkgs.file-manager
-    pkgs.image-viewer
+    apps.editor.package
+    apps.fileManager.package
+    apps.imageViewer.package
     pkgs.media-control
     pkgs.session-control
     pkgs.tablet-mode-control
-    pkgs.terminal
+    apps.terminal.package
     pkgs.window-control
     pkgs.volume-control
   ];

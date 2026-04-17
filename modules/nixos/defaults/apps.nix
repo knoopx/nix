@@ -73,6 +73,14 @@ in {
       type = types.submodule (mkAppModule {description = "Default music player package";});
       description = "Default music player";
     };
+    pdfViewer = mkOption {
+      type = types.submodule (mkAppModule {description = "Default PDF viewer package";});
+      description = "Default PDF viewer";
+    };
+    archiveManager = mkOption {
+      type = types.submodule (mkAppModule {description = "Default archive manager package";});
+      description = "Default archive manager";
+    };
   };
 
   config.defaults.apps = {
@@ -96,5 +104,11 @@ in {
 
     musicPlayer.package = pkgs.music-player;
     musicPlayer.desktopEntry = "org.gnome.Decibels";
+
+    pdfViewer.package = pkgs.pdf-viewer;
+    pdfViewer.desktopEntry = "org.gnome.Evince.desktop";
+
+    archiveManager.package = pkgs.archive-manager;
+    archiveManager.desktopEntry = "org.gnome.FileRoller.desktop";
   };
 }
