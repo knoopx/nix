@@ -185,5 +185,6 @@
     pick-project
     pick-document
     jj-hunk
+    dawn
   ];
 }
