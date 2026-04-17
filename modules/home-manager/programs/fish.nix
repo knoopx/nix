@@ -31,7 +31,7 @@
         set -l date_str (date '+%A, %B %d, %Y')
         set -l date_width (string length --visible "$date_str")
         set -l diff (math $logo_width - $date_width)
-        set -l padding (math $diff / 2)
+        set -l padding (math "floor($diff / 2)")
         set -l spaces (string repeat $padding ' ')
         echo "$spaces$date_str"
 
