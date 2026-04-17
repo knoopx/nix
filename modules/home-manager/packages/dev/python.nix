@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     uv
     black
@@ -10,9 +10,6 @@
       ps.mypy
       ps.pytest
       ps.pytest-cov
-      ps.ipykernel
-      ps.ipython
-      ps.ipywidgets
       ps.pandas
       ps.pyarrow
     ]))
