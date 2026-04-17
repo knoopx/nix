@@ -1,18 +1,18 @@
 {pkgs}: let
   pname = "wacli";
-  version = "0.5.0";
+  version = "0.6.0";
 
   src = pkgs.fetchFromGitHub {
     owner = "steipete";
     repo = "wacli";
     rev = "v${version}";
-    hash = "sha256-iDpkwn2LK99+VT0spa9O3HOPrprWBIYbNAp0HuAUxaY=";
+    hash = "sha256-qEEiqX0r6iIm5STYxpaHuXdbtaQKigSGD8jLECbsW/0=";
   };
 in
   pkgs.buildGoModule {
     inherit pname version src;
 
-    vendorHash = "sha256-/nz61Inm4rF5H4u16607wmER+Wp651gc7u/FFFIX9wo=";
+    vendorHash = "sha256-A5XDBUYHsNVnIJ5TBt8ePSY5oWlyjsYxp6u9169vy9I=";
 
     subPackages = ["cmd/wacli"];
 
