@@ -1,7 +1,6 @@
-{
-  pkgs,
-  inputs,
-  ...
+{ pkgs
+, inputs
+, ...
 }: {
   home.packages = with pkgs; [
     _7zz
@@ -88,6 +87,7 @@
     # yq-go
     # zlib
     # zstd
+    kuva
     aria2
     ast-grep
     binsider
