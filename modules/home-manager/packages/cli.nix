@@ -140,6 +140,7 @@
     ruff
     sem
     weave
+    mcat
     inspect
     shfmt
     skate
