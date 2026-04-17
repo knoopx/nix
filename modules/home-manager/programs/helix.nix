@@ -376,8 +376,11 @@
 
       keys =
         let
+          # https://docs.helix-editor.com/commands.html
+
           shared = {
             # File operations
+            "C-q" = ":q";
             "C-s" = ":write";
 
             # Undo/Redo 
@@ -389,10 +392,12 @@
             "C-S-f" = "global_search";
 
             # Copy/Paste 
-            # Not working
             "C-c" = "yank_main_selection_to_clipboard";
-            "C-v" = "paste_clipboard_after";
-            "C-x" = [ "delete_selection" "yank_main_selection_to_clipboard" ];
+            "C-v" = "paste_clipboard_before";
+            "C-x" = [
+              "yank_main_selection_to_clipboard"
+              "delete_selection"
+            ];
 
             # Select all 
             "C-a" = "select_all";
