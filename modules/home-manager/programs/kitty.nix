@@ -1,4 +1,9 @@
-{nixosConfig, ...}: {
+{
+  nixosConfig,
+  lib,
+  pkgs,
+  ...
+}: {
   programs.kitty = {
     enable = true;
 
@@ -18,7 +23,7 @@
     extraConfig = with nixosConfig.defaults.colorScheme.palette; ''
       map ctrl+backspace send_text all \x17
       # Toggle a temporary bottom panel (preserves session across toggle)
-      map ctrl+shift+enter remote_control_script toggle-panel.sh
+      map ctrl+shift+enter remote_control_script ${lib.getExe pkgs.toggle-panel}
       map ctrl+shift+n new_os_window_with_cwd
       map ctrl+shift+t new_tab_with_cwd
       mouse_map ctrl+shift+left press ungrabbed,grabbed mouse_selection rectangle
@@ -44,30 +49,6 @@
       active_tab_background #${base0D}
       inactive_tab_background #${base00}
       tab_bar_background #${base00}
-    '';
-  };
-
-  xdg.configFile."kitty/toggle-panel.sh" = {
-    executable = true;
-    text = ''
-      #!/bin/sh
-      state="''${XDG_RUNTIME_DIR:-/tmp}/kitty-panel-open"
-
-      if ! kitten @ ls 2>/dev/null | grep -q '"title": "panel"'; then
-        # No panel - create and focus it
-        kitten @ launch --location=hsplit --cwd=current --title=panel
-        touch "$state"
-      elif [ -f "$state" ]; then
-        # Panel is visible - hide it (preserves session)
-        kitten @ focus-window --match 'not title:panel' 2>/dev/null
-        kitten @ action toggle_layout stack
-        rm -f "$state"
-      else
-        # Panel is hidden - show and focus it
-        kitten @ action toggle_layout stack
-        kitten @ focus-window --match title:panel
-        touch "$state"
-      fi
     '';
   };
 }
