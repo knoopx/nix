@@ -1,4 +1,4 @@
-{ nixosConfig, ... }: {
+{nixosConfig, ...}: {
   programs.kitty = {
     enable = true;
 
@@ -36,6 +36,7 @@
       map ctrl+shift+right ungrabbed
       map ctrl+shift+f ungrabbed
       map ctrl+backspace ungrabbed
+      map ctrl+w ungrabbed
 
       tab_separator " "
       tab_title_template " {fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title} "
