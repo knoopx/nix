@@ -147,6 +147,7 @@
     socat
     sox
     sqlite
+    swayimg
     tmux
     typescript-language-server
     jq-lsp
