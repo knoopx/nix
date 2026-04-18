@@ -1,6 +1,7 @@
-{ pkgs
-, inputs
-, ...
+{
+  pkgs,
+  inputs,
+  ...
 }: {
   home.packages = with pkgs; [
     _7zz
@@ -185,6 +186,9 @@
     inputs.waveshare-genui.packages.${pkgs.stdenv.hostPlatform.system}.default
     pick-project
     pick-document
+    inbox
+    events
+    project-summary
     jj-hunk
     dawn
     gritql

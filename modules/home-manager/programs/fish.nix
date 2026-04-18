@@ -1,7 +1,6 @@
-{
-  pkgs,
-  self,
-  ...
+{ pkgs
+, self
+, ...
 }: {
   home.shell.enableFishIntegration = true;
 
@@ -34,6 +33,13 @@
         set -l padding (math "floor($diff / 2)")
         set -l spaces (string repeat $padding ' ')
         echo "$spaces$date_str"
+        echo
+
+        ${pkgs.events}/bin/events
+        echo
+        ${pkgs.inbox}/bin/inbox
+        echo
+        ${pkgs.project-summary}/bin/project-summary
 
         fish_add_path -g "$HOME/.cache/.bun/bin"
         fish_add_path -g "$HOME/.cargo/bin"
