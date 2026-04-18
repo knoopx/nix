@@ -4,8 +4,7 @@ pkgs.runCommand "voice-input-control" {
   meta.mainProgram = "voice-input-control";
 } ''
   mkdir -p $out/bin
-  cp ${./voice-input-control.nu} $out/bin/voice-input-control.nu
-  chmod +x $out/bin/voice-input-control.nu
-  makeWrapper $out/bin/voice-input-control.nu $out/bin/voice-input-control \
+  makeWrapper ${pkgs.nushell}/bin/nu $out/bin/voice-input-control \
+    --add-flags ${./voice-input-control.nu} \
     --prefix PATH : ${pkgs.nushell}/bin:${pkgs.voxtype-vulkan}/bin:${pkgs.recording-indicator}/bin
 ''

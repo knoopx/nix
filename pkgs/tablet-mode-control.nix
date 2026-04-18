@@ -4,8 +4,7 @@ pkgs.runCommand "tablet-mode-control" {
   meta.mainProgram = "tablet-mode-control";
 } ''
   mkdir -p $out/bin
-  cp ${./tablet-mode-control.nu} $out/bin/tablet-mode-control.nu
-  chmod +x $out/bin/tablet-mode-control.nu
-  makeWrapper $out/bin/tablet-mode-control.nu $out/bin/tablet-mode-control \
+  makeWrapper ${pkgs.nushell}/bin/nu $out/bin/tablet-mode-control \
+    --add-flags ${./tablet-mode-control.nu} \
     --suffix PATH : ${pkgs.glib}/bin
 ''

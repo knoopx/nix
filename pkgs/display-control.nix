@@ -4,8 +4,7 @@ pkgs.runCommand "display-control" {
   meta.mainProgram = "display-control";
 } ''
   mkdir -p $out/bin
-  cp ${./display-control.nu} $out/bin/display-control.nu
-  chmod +x $out/bin/display-control.nu
-  makeWrapper $out/bin/display-control.nu $out/bin/display-control \
+  makeWrapper ${pkgs.nushell}/bin/nu $out/bin/display-control \
+    --add-flags ${./display-control.nu} \
     --suffix PATH : ${pkgs.niri}/bin:${pkgs.nushell}/bin
 ''

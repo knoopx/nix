@@ -4,8 +4,7 @@ pkgs.runCommand "media-control" {
   meta.mainProgram = "media-control";
 } ''
   mkdir -p $out/bin
-  cp ${./media-control.nu} $out/bin/media-control.nu
-  chmod +x $out/bin/media-control.nu
-  makeWrapper $out/bin/media-control.nu $out/bin/media-control \
+  makeWrapper ${pkgs.nushell}/bin/nu $out/bin/media-control \
+    --add-flags ${./media-control.nu} \
     --suffix PATH : ${pkgs.playerctl}/bin:${pkgs.nushell}/bin
 ''

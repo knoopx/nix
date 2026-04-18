@@ -4,8 +4,7 @@ pkgs.runCommand "session-control" {
   meta.mainProgram = "session-control";
 } ''
   mkdir -p $out/bin
-  cp ${./session-control.nu} $out/bin/session-control.nu
-  chmod +x $out/bin/session-control.nu
-  makeWrapper $out/bin/session-control.nu $out/bin/session-control \
+  makeWrapper ${pkgs.nushell}/bin/nu $out/bin/session-control \
+    --add-flags ${./session-control.nu} \
     --suffix PATH : ${pkgs.hyprlock}/bin:${pkgs.niri}/bin:${pkgs.nushell}/bin
 ''

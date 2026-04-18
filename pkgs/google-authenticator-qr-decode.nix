@@ -5,8 +5,7 @@ pkgs.runCommand "google-authenticator-qr-decode" {
   meta.mainProgram = "google-authenticator-qr-decode";
 } ''
   mkdir -p $out/bin
-  cp ${./google-authenticator-qr-decode.nu} $out/bin/google-authenticator-qr-decode.nu
-  chmod +x $out/bin/google-authenticator-qr-decode.nu
-  makeWrapper $out/bin/google-authenticator-qr-decode.nu $out/bin/google-authenticator-qr-decode \
+  makeWrapper ${pkgs.nushell}/bin/nu $out/bin/google-authenticator-qr-decode \
+    --add-flags ${./google-authenticator-qr-decode.nu} \
     --suffix PATH : ${pkgs.zbar}/bin:${pkgs.otpauth}/bin
 ''

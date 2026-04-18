@@ -4,8 +4,7 @@ pkgs.runCommand "window-control" {
   meta.mainProgram = "window-control";
 } ''
   mkdir -p $out/bin
-  cp ${./window-control.nu} $out/bin/window-control.nu
-  chmod +x $out/bin/window-control.nu
-  makeWrapper $out/bin/window-control.nu $out/bin/window-control \
+  makeWrapper ${pkgs.nushell}/bin/nu $out/bin/window-control \
+    --add-flags ${./window-control.nu} \
     --suffix PATH : ${pkgs.niri}/bin:${pkgs.nushell}/bin:${pkgs.ffmpeg}/bin
 ''

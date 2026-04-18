@@ -4,8 +4,7 @@ pkgs.runCommand "pick-document" {
   meta.mainProgram = "pick-document";
 } ''
   mkdir -p $out/bin
-  cp ${./pick-document.nu} $out/bin/pick-document.nu
-  chmod +x $out/bin/pick-document.nu
-  makeWrapper $out/bin/pick-document.nu $out/bin/pick-document \
+  makeWrapper ${pkgs.nushell}/bin/nu $out/bin/pick-document \
+    --add-flags ${./pick-document.nu} \
     --suffix PATH : ${pkgs.nushell}/bin
 ''
