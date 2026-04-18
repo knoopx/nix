@@ -187,5 +187,6 @@
     pick-document
     jj-hunk
     dawn
+    gritql
   ];
 }
