@@ -1,12 +1,39 @@
 #!/usr/bin/env nu
+
 let cache = $env.HOME | path join ".cache" "inbox.json"
-let ttl = 300sec
+let refresh_interval = 300sec
 
-let cache_hit = ($cache | path exists) and ((ls -s $cache | get modified | last)  | into datetime) > ((date now) - $ttl)
-
-if not $cache_hit {
- gog gmail messages search "in:inbox" --json | from json | get messages | select date subject from | update date { into datetime | date humanize } | save -f $cache
+def fetch-inbox [] {
+  gog gmail messages search "in:inbox" --json | from json | get messages
+    | select date subject from
+    | update date { into datetime | date humanize }
+    | save -f $cache | ignore
 }
 
-open $cache | table -i false --theme frameless
+def main [action?: string] {
+  let action = (if $action != null { $action } else { "show" })
+
+  match $action {
+    "daemon" => {
+      # Initial fetch
+      fetch-inbox
+
+      # Periodic refresh loop
+      while true {
+        do { sleep $refresh_interval }
+        fetch-inbox
+      }
+    }
+
+    "show" => {
+      if not ($cache | path exists) { fetch-inbox }
+      open $cache | table -i false --theme frameless
+    }
+
+    _ => {
+      print "Usage: inbox [daemon|show]"
+      exit 1
+    }
+  }
+}
 

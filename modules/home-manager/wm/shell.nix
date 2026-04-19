@@ -32,4 +32,28 @@ in {
     };
     Install.WantedBy = ["graphical-session.target"];
   };
+
+  systemd.user.services.inbox = {
+    Unit = {
+      Description = "Inbox cache daemon";
+    };
+    Service = {
+      ExecStart = "${pkgs.inbox}/bin/inbox daemon";
+      Restart = "on-failure";
+      RestartSec = 2;
+    };
+    Install.WantedBy = ["graphical-session.target"];
+  };
+
+  systemd.user.services.events = {
+    Unit = {
+      Description = "Events cache daemon";
+    };
+    Service = {
+      ExecStart = "${pkgs.events}/bin/events daemon";
+      Restart = "on-failure";
+      RestartSec = 2;
+    };
+    Install.WantedBy = ["graphical-session.target"];
+  };
 }
