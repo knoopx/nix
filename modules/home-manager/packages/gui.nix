@@ -62,6 +62,7 @@ in {
     camper
     loupe
     nautilus
+    numnum
     onlyoffice-desktopeditors
     pinta
     plexamp
