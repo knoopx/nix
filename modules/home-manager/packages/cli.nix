@@ -176,6 +176,7 @@
     zk
     http-nu
     typescript-go
+    tabiew
     emacs
     plocate
     findutils
