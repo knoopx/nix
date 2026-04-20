@@ -126,6 +126,7 @@
     just
     lshw
     lsof
+    lychee
     nh
     nvd
     ox
