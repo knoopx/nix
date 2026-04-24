@@ -54,6 +54,9 @@
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+
+    ik-llama.url = "github:ikawrakow/ik_llama.cpp";
+    ik-llama.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs: let
