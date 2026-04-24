@@ -68,6 +68,7 @@ in {
     plexamp
     seahorse
     sushi
+    tolaria
     wl-kbptr
   ];
 }
