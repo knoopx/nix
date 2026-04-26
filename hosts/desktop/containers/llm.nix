@@ -13,15 +13,15 @@ let
     threads = 64
     prio = 2
  
-    cache-type-k = q8_0
-    cache-type-v = q8_0
+    cache-type-k = q4_0
+    cache-type-v = q4_0
 
     batch-size = 4096
     ubatch-size = 2048
 
     [unsloth/Qwen3.6-27B-GGUF]
-    hf-repo = unsloth/Qwen3.6-27B-GGUF:UD-Q5_K_XL
-    ctx-size = 131072
+    hf-repo = unsloth/Qwen3.6-27B-GGUF:UD-Q4_K_XL
+    ctx-size = 262144
     temp = 0.6
     top-p = 0.95
     top-k = 20
