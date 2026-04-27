@@ -9,9 +9,9 @@ ls ~/Projects/knoopx
 
       if ($parts | length) >= 2 {
         {
+          date:      ($parts.1 | into datetime | date humanize),
           project:   ($e.name | path split | last 2 | path join),
           commit:    $parts.0,
-          date:      ($parts.1 | into datetime | date humanize),
           _sort:     ($parts.1 | into datetime)
         }
       } else {
@@ -22,6 +22,6 @@ ls ~/Projects/knoopx
     }
   }
   | sort-by _sort --reverse
-  | first 5
+  | first 10
   | reject _sort
   | table -i false --theme frameless
