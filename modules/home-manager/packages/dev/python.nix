@@ -4,7 +4,7 @@
     black
     isort
     pyright
-    (python3.withPackages (ps: [
+    (python314.withPackages (ps: [
       ps.pygobject3
       ps.pillow
       ps.mypy
