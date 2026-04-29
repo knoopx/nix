@@ -221,7 +221,6 @@ Custom package definitions in `pkgs/`:
 - **terminal**: Custom terminal emulator wrapper
 - **editor**: Custom editor wrapper
 
-- **cromite**: Privacy-focused Chromium fork
 - **tts**: Text-to-speech utilities
 
 **Development & Productivity:**

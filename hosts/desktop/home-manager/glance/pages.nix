@@ -1,8 +1,8 @@
-{ config
-, nixosConfig
-, ...
-}:
-let
+{
+  config,
+  nixosConfig,
+  ...
+}: let
   homePage = {
     name = "Home";
     columns = [
@@ -13,7 +13,7 @@ let
             type = "weather";
             location = nixosConfig.defaults.location;
           }
-          { type = "calendar"; }
+          {type = "calendar";}
           {
             type = "custom-api";
             title = "Vilassar de Mar Departures";
@@ -104,10 +104,10 @@ let
             type = "rss";
             cache = "5m";
             feeds = [
-              { url = "https://community.silverbullet.md/latest.rss"; }
-              { url = "https://discourse.nixos.org/latest.rss"; }
-              { url = "https://towardsdatascience.com/feed"; }
-              { url = "https://huggingface.co/blog/feed.xml"; }
+              {url = "https://community.silverbullet.md/latest.rss";}
+              {url = "https://discourse.nixos.org/latest.rss";}
+              {url = "https://towardsdatascience.com/feed";}
+              {url = "https://huggingface.co/blog/feed.xml";}
             ];
           }
 
@@ -336,10 +336,6 @@ let
                 url = "https://github.com/ggml-org/llama.cpp/releases.atom";
               }
               {
-                title = "Cromite";
-                url = "https://github.com/uazo/cromite/releases.atom";
-              }
-              {
                 title = "CodeMapper";
                 url = "https://github.com/p1rallels/codemapper/releases.atom";
               }
@@ -405,8 +401,7 @@ let
       }
     ];
   };
-in
-{
+in {
   # https://github.com/glanceapp/glance/blob/main/docs/extensions.md
   config = {
     services.glance.settings.pages = [
