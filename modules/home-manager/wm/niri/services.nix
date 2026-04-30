@@ -10,6 +10,8 @@
     squeekboard
   ];
 
+  programs.niri-notify-focus.enable = true;
+
   # https://github.com/emersion/mako/blob/master/doc/mako.5.scd
   services.mako = {
     enable = true;
