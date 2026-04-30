@@ -381,6 +381,8 @@
           # File operations
           "C-q" = ":q";
           "C-s" = ":write";
+          "C-S-s" = ":write!";
+          "C-S-r" = ":reload";
 
           # Undo/Redo
           "C-z" = "undo";
