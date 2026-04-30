@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   presets = pkgs.writeText "presets.ini" ''
     [*]
     # flash-attn = on
@@ -45,8 +44,7 @@ let
     repeat-penalty = 1.0
     # override-tensor = blk\.(3[5-9])\.ffn_.*_exps.*=CPU
   '';
-in
-{
+in {
   virtualisation.oci-containers.containers = {
     "llm" = {
       autoStart = true;
@@ -58,6 +56,7 @@ in
         "1"
         "--sleep-idle-seconds"
         "300"
+        "--no-mmproj-offload"
         "--chat-template-kwargs"
         (builtins.toJSON {
           preserve_thinking = true;
