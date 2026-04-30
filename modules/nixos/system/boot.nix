@@ -26,6 +26,9 @@ in {
     crashDump.enable = false;
     tmp.cleanOnBoot = true;
 
+    # protect against the copy fail exploit by blacklisting the affected kernel modules
+    blacklistedKernelModules = ["af_alg" "algif_hash" "algif_skcipher" "algif_rng" "algif_aead"];
+
     kernel.sysctl = {
       "kernel.core_pattern" = "|/bin/false";
       "fs.suid_dumpable" = 0;
