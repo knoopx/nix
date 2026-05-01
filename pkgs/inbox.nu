@@ -7,6 +7,7 @@ def fetch-inbox [] {
   gog gmail messages search "in:inbox" --json | from json | get messages
     | select date subject from
     | update date { into datetime | date humanize }
+    | update subject { let val = $in; if ($val | str length) > 76 { ($val | str substring --grapheme-clusters 0..75) + '…' } else { $val } }
     | save -f $cache | ignore
 }
 
