@@ -42,6 +42,7 @@
       map ctrl+shift+f ungrabbed
       map ctrl+backspace ungrabbed
       map ctrl+w ungrabbed
+      map ctrl+shift+r ungrabbed
 
       tab_separator " "
       tab_title_template " {fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title} "

@@ -1,7 +1,12 @@
-{ pkgs
-, self
-, ...
+{
+  config,
+  pkgs,
+  self,
+  ...
 }: {
+  home.file.".frequent-commands".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nix/modules/home-manager/programs/fish/frequent-commands";
+
   home.shell.enableFishIntegration = true;
 
   programs = {
@@ -57,6 +62,18 @@
           cd "$selected"
         end
         bind \ce "cd_projects"
+
+        function pick_frequent_command
+          if test -f ~/.frequent-commands
+            set -l query (commandline)
+            set -l result (cat ~/.frequent-commands | sk --no-multi -q "$query")
+            if test -n "$result"
+              commandline -- $result
+            end
+          end
+          commandline -f repaint
+        end
+        bind ctrl-shift-r "pick_frequent_command"
       '';
     };
   };
