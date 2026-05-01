@@ -1,21 +1,21 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   presets = pkgs.writeText "presets.ini" ''
     [*]
-    # flash-attn = on
-    # no-mmap = true
-    ngl = 999
+    flash-attn = on
+    no-mmap = true
     no-warmup = true
     jinja = on
     parallel = 1
 
-    # threads = 64
-    # prio = 2
+    ngl = 999
+    threads = 64
+    prio = 2
+    batch-size = 8096
+    ubatch-size = 2024
 
     cache-type-k = q4_0
     cache-type-v = q4_0
-
-    # batch-size = 4096
-    # ubatch-size = 2048
 
     [Qwen/Qwen3.6-27B]
     alias = Qwen3.6-27B
@@ -44,7 +44,8 @@
     repeat-penalty = 1.0
     # override-tensor = blk\.(3[5-9])\.ffn_.*_exps.*=CPU
   '';
-in {
+in
+{
   virtualisation.oci-containers.containers = {
     "llm" = {
       autoStart = true;
