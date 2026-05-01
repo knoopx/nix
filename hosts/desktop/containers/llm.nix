@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   presets = pkgs.writeText "presets.ini" ''
     [*]
     flash-attn = on
@@ -43,9 +42,13 @@ let
     presence-penalty = 1.5
     repeat-penalty = 1.0
     # override-tensor = blk\.(3[5-9])\.ffn_.*_exps.*=CPU
+
+    [unsloth/embeddinggemma-300m-GGUF]
+    alias = unsloth/embeddinggemma-300m-GGUF
+    hf-repo = unsloth/embeddinggemma-300m-GGUF:Q4_0
+    embedding = true
   '';
-in
-{
+in {
   virtualisation.oci-containers.containers = {
     "llm" = {
       autoStart = true;
@@ -54,7 +57,7 @@ in
         "--models-preset"
         "/presets.ini"
         "--models-max"
-        "1"
+        "2"
         "--sleep-idle-seconds"
         "300"
         "--no-mmproj-offload"
