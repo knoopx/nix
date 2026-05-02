@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   presets = pkgs.writeText "presets.ini" ''
     [*]
     flash-attn = on
@@ -6,49 +7,29 @@
     no-warmup = true
     jinja = on
     parallel = 1
-
-    ngl = 999
-    threads = 64
-    prio = 2
-    batch-size = 8096
-    ubatch-size = 2024
-
-    cache-type-k = q4_0
-    cache-type-v = q4_0
+    temp = 0.6
+    top-p = 0.95
+    top-k = 20
+    min-p = 0.0
+    presence-penalty = 1.5
+    repeat-penalty = 1.0
+    # ctx-size = 131072
 
     [Qwen/Qwen3.6-27B]
     alias = Qwen3.6-27B
     hf-repo = unsloth/Qwen3.6-27B-GGUF:UD-Q4_K_XL
-    # hf-repo = Freenixi/Abiray-Qwen3.6-27B-NVFP4-GGUF:NVFP4
-    # hf-repo = DavidAU/Qwen3.6-27B-NEO-CODE-Di-IMatrix-MAX-GGUF:Q5_K_M
-    ctx-size = 262144
-    temp = 0.8
-    top-p = 0.95
-    top-k = 20
-    min-p = 0.0
-    presence-penalty = 1.5
-    repeat-penalty = 1.0
 
     [Qwen/Qwen3.6-35B-A3B]
     alias = Qwen3.6-35B-A3B
-    # hf-repo = AesSedai/Qwen3.6-35B-A3B-GGUF:Q5_K_M
-    hf-repo = unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_XL
-    # hf-repo = knoopx/Qwen3.6-35B-A3B-NVFP4-GGUF
-    ctx-size = 262144
-    temp = 0.8
-    top-p = 0.95
-    top-k = 20
-    min-p = 0.0
-    presence-penalty = 1.5
-    repeat-penalty = 1.0
-    # override-tensor = blk\.(3[5-9])\.ffn_.*_exps.*=CPU
+    hf-repo = unsloth/Qwen3.6-35B-A3B-GGUF:Q4_K_XL
 
     [unsloth/embeddinggemma-300m-GGUF]
     alias = unsloth/embeddinggemma-300m-GGUF
     hf-repo = unsloth/embeddinggemma-300m-GGUF:Q4_0
     embedding = true
   '';
-in {
+in
+{
   virtualisation.oci-containers.containers = {
     "llm" = {
       autoStart = true;
@@ -60,7 +41,11 @@ in {
         "2"
         "--sleep-idle-seconds"
         "300"
+        "--reasoning-budget"
+        "512"
         "--no-mmproj-offload"
+        "--chat-template-file"
+        "/chat_template.jinja"
         "--chat-template-kwargs"
         (builtins.toJSON {
           preserve_thinking = true;
@@ -73,6 +58,7 @@ in {
         "/home/knoopx/.cache/llama.cpp/:/root/.cache/llama.cpp/"
         "/home/knoopx/.cache/huggingface/:/root/.cache/huggingface/"
         "${presets}:/presets.ini:ro"
+        "${./chat_template.jinja}:/chat_template.jinja:ro"
       ];
       extraOptions = [
         "--device=nvidia.com/gpu=all"
