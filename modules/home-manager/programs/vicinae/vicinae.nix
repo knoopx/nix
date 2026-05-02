@@ -8,10 +8,81 @@
 }: let
   browserDesktopEntry = nixosConfig.defaults.apps.browser.desktopEntry;
   terminalPackage = nixosConfig.defaults.apps.terminal.package;
+
+  shortcuts = [
+    {
+      name = "Slack";
+      icon = "icon://favicon/app.slack.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
+      url = "https://app.slack.com/client/T069GEHD6AC/C09JKJ3HL4X";
+      app = browserDesktopEntry;
+    }
+    {
+      name = "Telegram";
+      icon = "icon://favicon/web.telegram.org?fallback=icon://omnicast/image?fill%3Dprimary-text";
+      url = "https://web.telegram.org/a/";
+      app = browserDesktopEntry;
+    }
+    {
+      name = "Discord";
+      icon = "icon://omnicast/discord";
+      url = "https://discord.com/channels/";
+      app = browserDesktopEntry;
+    }
+    {
+      name = "Youtube";
+      icon = "icon://favicon/www.youtube.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
+      url = "https://www.youtube.com/";
+      app = browserDesktopEntry;
+    }
+    {
+      name = "Reddit";
+      icon = "icon://favicon/www.reddit.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
+      url = "https://www.reddit.com/";
+      app = browserDesktopEntry;
+    }
+    {
+      name = "WhatsApp";
+      icon = "icon://omnicast/speech-bubble-active?fill=primary-text";
+      url = "https://web.whatsapp.com/";
+      app = browserDesktopEntry;
+    }
+    {
+      name = "Spotify";
+      icon = "icon://favicon/open.spotify.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
+      url = "https://open.spotify.com/";
+      app = browserDesktopEntry;
+    }
+    {
+      name = "Plex Web";
+      icon = "icon://favicon/app.plex.tv?fallback=icon://omnicast/image?fill%3Dprimary-text";
+      url = "https://app.plex.tv/desktop/";
+      app = browserDesktopEntry;
+    }
+    {
+      name = "Webull";
+      icon = "icon://favicon/app.webull.com?fallback=icon://omnicast/image?fill%3Dprimary-text";
+      url = "https://app.webull.com/stocks";
+      app = browserDesktopEntry;
+    }
+  ];
+
+  shortcutsJson = pkgs.writeText "vicinae-shortcuts.json" (builtins.toJSON (
+    map (s: {
+      id = "sct_${s.name}";
+      inherit (s) name icon url app;
+      openCount = 0;
+      createdAt = 0;
+      updatedAt = 0;
+      lastUsedAt = null;
+    })
+    shortcuts
+  ));
 in {
   stylix.targets.vicinae.enable = false;
 
   home.file."${config.xdg.dataHome}/vicinae/scripts".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nix/modules/home-manager/programs/vicinae/scripts";
+
+  home.file."${config.xdg.dataHome}/vicinae/shortcuts/shortcuts.json".source = shortcutsJson;
 
   programs.vicinae = {
     enable = true;
