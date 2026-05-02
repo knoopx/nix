@@ -1,8 +1,8 @@
-{ nixosConfig
-, pkgs
-, ...
-}:
-let
+{
+  nixosConfig,
+  pkgs,
+  ...
+}: let
   colors = nixosConfig.defaults.colorScheme.palette;
 
   nu_plugin_file = pkgs.rustPlatform.buildRustPackage rec {
@@ -19,7 +19,7 @@ let
     meta = {
       description = "A nushell plugin to inspect file formats using magic bytes";
       homepage = "https://github.com/fdncred/nu_plugin_file";
-      license = with pkgs.lib.licenses; [ agpl3Plus ];
+      license = with pkgs.lib.licenses; [agpl3Plus];
       mainProgram = "nu_plugin_file";
     };
   };
@@ -39,7 +39,7 @@ let
     meta = {
       description = "A nushell plugin that implements the toon format";
       homepage = "https://github.com/fdncred/nu_plugin_toon";
-      license = with pkgs.lib.licenses; [ mit ];
+      license = with pkgs.lib.licenses; [mit];
       mainProgram = "nu_plugin_toon";
     };
   };
@@ -59,7 +59,7 @@ let
     meta = {
       description = "A nushell plugin to parse JSON files using JSONPath";
       homepage = "https://github.com/fdncred/nu_plugin_json_path";
-      license = with pkgs.lib.licenses; [ mit ];
+      license = with pkgs.lib.licenses; [mit];
       mainProgram = "nu_plugin_json_path";
     };
   };
@@ -79,7 +79,7 @@ let
     meta = {
       description = "A collection of string utilities for Nushell";
       homepage = "https://github.com/fdncred/nu_plugin_strutils";
-      license = with pkgs.lib.licenses; [ mit ];
+      license = with pkgs.lib.licenses; [mit];
       mainProgram = "nu_plugin_strutils";
     };
   };
@@ -99,7 +99,7 @@ let
     meta = {
       description = "A Nushell plugin to search text with regex";
       homepage = "https://github.com/fdncred/nu_plugin_regex";
-      license = with pkgs.lib.licenses; [ mit ];
+      license = with pkgs.lib.licenses; [mit];
       mainProgram = "nu_plugin_regex";
     };
   };
@@ -115,17 +115,16 @@ let
     };
     cargoHash = "sha256-QPlJffqMV/IdbUlXG5oEKdKJPdpcT2/hUH+uFkdzLVA=";
     doCheck = false;
-    nativeBuildInputs = with pkgs; [ pkg-config ];
-    buildInputs = with pkgs; [ libxcb libxkbcommon ];
+    nativeBuildInputs = with pkgs; [pkg-config];
+    buildInputs = with pkgs; [libxcb libxkbcommon];
     meta = {
       description = "A Nushell plugin to display data in a GUI";
       homepage = "https://github.com/fdncred/nu_plugin_to_gui";
-      license = with pkgs.lib.licenses; [ mit ];
+      license = with pkgs.lib.licenses; [mit];
       mainProgram = "nu_plugin_to_gui";
     };
   };
-in
-{
+in {
   home.packages = with pkgs; [
     nushell
     nufmt

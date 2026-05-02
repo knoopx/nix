@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{pkgs, ...}:
 pkgs.runCommand "project-summary"
 {
-  nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+  nativeBuildInputs = [pkgs.makeBinaryWrapper];
   meta.mainProgram = "project-summary";
 } ''
   mkdir -p $out/bin

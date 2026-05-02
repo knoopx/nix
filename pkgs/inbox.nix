@@ -1,10 +1,11 @@
-{ pkgs
-, lib
-, ...
+{
+  pkgs,
+  lib,
+  ...
 }:
 pkgs.runCommand "inbox"
 {
-  nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+  nativeBuildInputs = [pkgs.makeBinaryWrapper];
   meta.mainProgram = "inbox";
 } ''
   mkdir -p $out/bin
