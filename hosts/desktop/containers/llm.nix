@@ -7,7 +7,7 @@ let
     no-warmup = true
     jinja = on
     parallel = 1
-    temp = 0.6
+    temp = 0.8
     top-p = 0.95
     top-k = 20
     min-p = 0.0
@@ -43,7 +43,7 @@ in
         "300"
         "--reasoning-budget"
         "512"
-        "--no-mmproj-offload"
+        # "--no-mmproj-offload"
         "--chat-template-file"
         "/chat_template.jinja"
         "--chat-template-kwargs"
