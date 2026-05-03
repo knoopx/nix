@@ -1,7 +1,6 @@
-{
-  pkgs,
-  inputs,
-  ...
+{ pkgs
+, inputs
+, ...
 }: {
   home.packages = with pkgs; [
     _7zz
@@ -194,5 +193,6 @@
     jj-hunk
     dawn
     gritql
+    typst
   ];
 }
