@@ -13,7 +13,7 @@ in
     inherit pname version src;
 
     doCheck = false;
-    buildFeatures = ["cli"];
+    buildFeatures = ["cli" "png"];
     cargoBuildArgs = ["--bin kuva"];
     cargoLock.lockFile = "${src}/Cargo.lock";
 
