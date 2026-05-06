@@ -1,11 +1,11 @@
 {pkgs, ...}:
 pkgs.stdenv.mkDerivation rec {
   pname = "sem";
-  version = "0.4.0";
+  version = "0.5.4";
 
   src = pkgs.fetchurl {
     url = "https://github.com/Ataraxy-Labs/sem/releases/download/v${version}/sem-linux-x86_64.tar.gz";
-    hash = "sha256-VmbbENszdFGOz5kqk0+bLvD0wg/FgvXKNmYlm5Yopsc=";
+    hash = "sha256-p019mC3ocqY4b5/WyXgi4azPr3n6Kpt7EJL4zT8z3eQ=";
   };
 
   sourceRoot = ".";
