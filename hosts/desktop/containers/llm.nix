@@ -10,38 +10,42 @@
     top-p = 0.95
     top-k = 20
     min-p = 0.0
-    presence-penalty = 1.5
+    presence-penalty = 0.0
     repeat-penalty = 1.0
+    reasoning = on
 
-    [Qwen/Qwen3.6-27B]
+    [Qwen/Qwen3.6-27B-MTP]
     alias = Qwen3.6-27B
-    hf-repo = unsloth/Qwen3.6-27B-GGUF:UD-Q4_K_XL
-
-    [Qwen/Qwen3.6-35B-A3B]
-    alias = Qwen3.6-35B-A3B
-    hf-repo = mudler/Qwen3.6-35B-A3B-APEX-GGUF:APEX-I-Balanced
-
-    [unsloth/embeddinggemma-300m-GGUF]
-    alias = unsloth/embeddinggemma-300m-GGUF
-    hf-repo = unsloth/embeddinggemma-300m-GGUF:Q4_0
-    embedding = true
+    hf-repo = unsloth/Qwen3.6-27B-MTP-GGUF:UD-Q4_K_XL
+    ctx-size = 131072
+    no-mmproj = true
+    spec-type = draft-mtp
+    spec-draft-n-max = 3
 
   '';
 in {
   virtualisation.oci-containers.containers = {
     "llm" = {
       autoStart = true;
-      image = "ghcr.io/ggml-org/llama.cpp:server-cuda13";
+      image = "havenoammo/llama:cuda13-server";
       cmd = [
         "--models-preset"
         "/presets.ini"
         "--models-max"
         "1"
+
+        "--port"
+        "8080"
+
+        "--threads"
+        "24"
+
+        "--n-gpu-layers"
+        "-1"
+
         "--sleep-idle-seconds"
         "300"
-        "--reasoning-budget"
-        "512"
-        "--no-mmproj-offload"
+
         "--chat-template-file"
         "/chat_template.jinja"
         "--chat-template-kwargs"
@@ -53,7 +57,6 @@ in {
         "11434:8080"
       ];
       volumes = [
-        "/home/knoopx/.cache/llama.cpp/:/root/.cache/llama.cpp/"
         "/home/knoopx/.cache/huggingface/:/root/.cache/huggingface/"
         "${presets}:/presets.ini:ro"
         "${./chat_template.jinja}:/chat_template.jinja:ro"
