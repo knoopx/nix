@@ -40,6 +40,7 @@ in {
   defaults.display.idleTimeout = lib.mkForce 60; # 1 minute for battery conservation
   defaults.display.defaultColumnWidthPercent = lib.mkForce 1.0;
   defaults.display.columnWidthPercentPresets = lib.mkForce [0.5 0.75];
+  defaults.display.windowRules = lib.mkForce [{open-fullscreen = true;}];
 
   home-manager.users.${config.defaults.username} = {
     imports = [
