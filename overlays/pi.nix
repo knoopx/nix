@@ -1,6 +1,6 @@
 final: prev: {
   pi = prev.writeShellScriptBin "pi" ''
-    exec bunx @mariozechner/pi-coding-agent "$@"
+    exec bunx @earendil-works/pi-coding-agent@latest "$@"
   '';
 
   pi-sandbox = prev.writeShellScriptBin "pi-sandbox" ''
@@ -54,6 +54,6 @@ final: prev: {
     )
 
     exec "$BWRAP_CMD" "''${BWRAP_ARGS[@]}" \
-      ${final.bun}/bin/bunx @mariozechner/pi-coding-agent "$@"
+      ${final.bun}/bin/bunx @earendil-works/pi-coding-agent@latest "$@"
   '';
 }
