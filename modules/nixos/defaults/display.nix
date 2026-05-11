@@ -16,6 +16,11 @@ with lib; {
             type = types.int;
             description = "Idle timeout in seconds before powering off monitors";
           };
+          idleTimeoutAC = mkOption {
+            type = types.nullOr types.int;
+            default = null;
+            description = "Idle timeout in seconds on AC (null to use idleTimeout)";
+          };
           windowSize = mkOption {
             type = types.listOf types.int;
             description = "Default window size [width, height]";

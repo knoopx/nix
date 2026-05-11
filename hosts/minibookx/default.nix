@@ -38,6 +38,7 @@ in {
   defaults.display.width = lib.mkForce 1920;
   defaults.display.height = lib.mkForce 1200;
   defaults.display.idleTimeout = lib.mkForce 60; # 1 minute for battery conservation
+  defaults.display.idleTimeoutAC = lib.mkForce (15 * 60);
   defaults.display.defaultColumnWidthPercent = lib.mkForce 1.0;
   defaults.display.columnWidthPercentPresets = lib.mkForce [0.5 0.75];
   defaults.display.windowRules = lib.mkForce [
