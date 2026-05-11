@@ -159,6 +159,12 @@ in {
       ../../home/${config.defaults.username}.nix
     ];
 
+    programs.vicinae.settings.launcher_window.layer_shell = lib.mkForce {
+      enabled = true;
+      layer = "overlay";
+      keyboard_interactivity = "exclusive";
+    };
+
     programs.niri = {
       settings = {
         input = {
