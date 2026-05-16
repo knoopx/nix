@@ -74,6 +74,9 @@
           commandline -f repaint
         end
         bind ctrl-shift-r "pick_frequent_command"
+
+        bind \cj "hx"
+        bind \ck "jjui"
       '';
     };
   };
