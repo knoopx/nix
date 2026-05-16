@@ -1,10 +1,11 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: let
+{ pkgs
+, inputs
+, ...
+}:
+let
   camper = inputs.camper.packages.${pkgs.stdenv.hostPlatform.system}.default;
-in {
+in
+{
   home.packages = with pkgs; [
     # romie
     # apostrophe
@@ -70,5 +71,6 @@ in {
     sushi
     tolaria
     wl-kbptr
+    gnome-graphs
   ];
 }
