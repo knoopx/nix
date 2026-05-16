@@ -1,18 +1,20 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   presets = pkgs.writeText "presets.ini" ''
     [*]
+    parallel = 1
     flash-attn = on
     no-mmap = true
-    no-warmup = true
     jinja = on
-    parallel = 1
+    no-warmup = true
+    reasoning = on
+
     temp = 0.6
     top-p = 0.95
     top-k = 20
     min-p = 0.0
     presence-penalty = 0.0
     repeat-penalty = 1.0
-    reasoning = on
 
     [Qwen/Qwen3.6-27B-MTP]
     alias = Qwen3.6-27B
@@ -21,31 +23,22 @@
     no-mmproj = true
     spec-type = draft-mtp
     spec-draft-n-max = 3
-
   '';
-in {
+in
+{
   virtualisation.oci-containers.containers = {
     "llm" = {
       autoStart = true;
-      image = "havenoammo/llama:cuda13-server";
+      image = "ghcr.io/ggml-org/llama.cpp:server-cuda13";
       cmd = [
         "--models-preset"
         "/presets.ini"
         "--models-max"
         "1"
-
         "--port"
         "8080"
-
-        "--threads"
-        "24"
-
-        "--n-gpu-layers"
-        "-1"
-
         "--sleep-idle-seconds"
         "300"
-
         "--chat-template-file"
         "/chat_template.jinja"
         "--chat-template-kwargs"
