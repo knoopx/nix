@@ -3,17 +3,19 @@
 
   xdg.configFile."voxtype/config.toml".text = ''
     state_file = "auto"
+    engine = "parakeet"
 
     [hotkey]
-    enabled = false
+    mode = "toggle"
 
     [audio]
     device = "default"
     sample_rate = 16000
     max_duration_secs = 60
 
-    [whisper]
-    model = "large-v3-turbo"
+    [parakeet]
+    model = "parakeet-unified-en-0.6b"
+    streaming = true
 
     [output]
     mode = "type"
