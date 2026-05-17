@@ -7,7 +7,11 @@ let
     no-mmap = true
     jinja = on
     no-warmup = true
+    no-mmproj = true
     reasoning = on
+
+    # ctk = q4_0
+    # ctv = q4_0
 
     temp = 0.6
     top-p = 0.95
@@ -20,9 +24,19 @@ let
     alias = Qwen3.6-27B
     hf-repo = unsloth/Qwen3.6-27B-MTP-GGUF:UD-Q4_K_XL
     ctx-size = 131072
-    no-mmproj = true
     spec-type = draft-mtp
     spec-draft-n-max = 3
+    temp = 1.0
+    presence-penalty = 1.5
+
+    [unsloth/Qwen3.6-35B-A3B-MTP]
+    alias = Qwen3.6-35B-A3B
+    hf-repo = unsloth/Qwen3.6-35B-A3B-MTP-GGUF:UD-Q4_K_XL
+    temp = 1.0
+    presence-penalty = 1.5
+    # ctx-size = 131072
+    # spec-type = draft-mtp
+    # spec-draft-n-max = 6    
   '';
 in
 {
