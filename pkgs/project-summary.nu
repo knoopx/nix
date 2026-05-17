@@ -4,15 +4,23 @@ ls ~/Projects/knoopx
     let proj = ($env.HOME | path join "Projects" "knoopx" $e.name)
 
     if (($proj | path join ".git") | path exists) {
-      let r = (do { git -C $proj log -1 --pretty="%s%n%ci" } | complete)
-      let parts = ($r.stdout | str trim | split row "\n")
+      let date_r = (do { git -C $proj log -1 --format="%ci" } | complete)
+      let commit_r = (do { git -C $proj log -1 --format="%s" --grep="." } | complete)
 
-      if ($parts | length) >= 2 {
-        {
-          date:      ($parts.1 | into datetime | date humanize),
-          project:   ($e.name | path split | last 2 | path join),
-          commit:    $parts.0,
-          _sort:     ($parts.1 | into datetime)
+      if $date_r.exit_code == 0 {
+        let date_str = ($date_r.stdout | str trim)
+        let commit_raw = ($commit_r.stdout | str trim)
+        let commit_msg = (if ($commit_raw | is-empty) { "(no changes)" } else { $commit_raw })
+
+        if ($date_str | is-empty) {
+          ignore
+        } else {
+          {
+            date:      ($date_str | into datetime | date humanize),
+            project:   ($e.name | path split | last 2 | path join),
+            commit:    $commit_msg,
+            _sort:     ($date_str | into datetime)
+          }
         }
       } else {
         ignore
