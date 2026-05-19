@@ -1,12 +1,12 @@
 {pkgs}: let
   pname = "gogcli";
-  version = "0.17.0";
+  version = "0.19.0";
 
   src = pkgs.fetchFromGitHub {
     owner = "steipete";
     repo = "gogcli";
     rev = "v${version}";
-    hash = "sha256-SrLK3IwdKXroTuIlfQXh839SkTYWH+y7cSvcdSubr1Q=";
+    hash = "sha256-8+ojZUNsmAzFQbdTG0eE/FG6nbptq49QZqjrCP1RhE4=";
   };
 in
   pkgs.buildGoModule {

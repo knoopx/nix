@@ -1,12 +1,12 @@
 {pkgs}: let
   pname = "numnum";
-  version = "0.1.0";
+  version = "0.2.2";
 
   src = pkgs.fetchFromGitHub {
     owner = "rudrabhoj";
     repo = "numnum";
     rev = "v${version}";
-    hash = "sha256-Zu0Ba9Ds2Nm3gYS2QgNeGJdeMgK5mSjlPjBfsbKwdLY=";
+    hash = "sha256-1+eWjFxfgytIPs04Kt3pQtv0n1NliMbJDsT8uedeLIA=";
   };
 
   devLibraries = with pkgs; [
@@ -37,7 +37,7 @@ in
   pkgs.rustPlatform.buildRustPackage {
     inherit pname version src;
 
-    cargoHash = "sha256-w7vo9lblVHzUK8S2/JG40dn2cf1xmKs93sJsvJkTfTA=";
+    cargoHash = "sha256-+TQPb0YcRxwu8WqZOygybXaQY44GmRVqY6U/FP9C44Y=";
     doVendorCheck = false;
 
     nativeBuildInputs = with pkgs; devLibraries ++ [pkg-config cmake makeWrapper copyDesktopItems];

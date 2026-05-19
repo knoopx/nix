@@ -1,12 +1,12 @@
 {pkgs}: let
   pname = "niri-notify-focus";
-  version = "0.2.0";
+  version = "0.2.1";
 
   src = pkgs.fetchFromGitHub {
     owner = "Oaklight";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-j316HJYnUdnRqd7wa27mN2g2eaerQnQu32N4jBfQ6fs=";
+    hash = "sha256-POaBIo5k4ukVTuDxaVqnc2Z+D1wk0DB6ny6U1CbaCB4=";
   };
 
   dbus-python = pkgs.python3.pkgs."dbus-python";
