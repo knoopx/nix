@@ -1,9 +1,8 @@
-{
-  lib,
-  pkgs,
-  nixosConfig,
-  nix-colors,
-  ...
+{ lib
+, pkgs
+, nixosConfig
+, nix-colors
+, ...
 }: {
   services.gnome-keyring.enable = true;
   home.packages = [
@@ -79,9 +78,7 @@
         insert-hint.display.color = "rgb(${nix-colors.lib-core.conversions.hexToRGBString " " nixosConfig.defaults.colorScheme.palette.base0D} / 50%)";
 
         default-column-width.proportion = nixosConfig.defaults.display.defaultColumnWidthPercent;
-        preset-column-widths = map (width: {proportion = width;}) nixosConfig.defaults.display.columnWidthPercentPresets;
-        center-focused-column = "on-overflow";
-        always-center-single-column = true;
+        preset-column-widths = map (width: { proportion = width; }) nixosConfig.defaults.display.columnWidthPercentPresets;
       };
 
       cursor = {
@@ -102,72 +99,72 @@
       };
 
       binds = {
-        "Mod+Period".action = {"toggle-overview" = [];}; # used with keyd
-        "MouseForward".action = {toggle-overview = [];};
+        "Mod+Period".action = { "toggle-overview" = [ ]; }; # used with keyd
+        "MouseForward".action = { toggle-overview = [ ]; };
 
-        "Mod+J".action = {spawn = ["browser"];};
-        "Mod+Shift+J".action = {spawn = ["file-manager"];};
-        "Mod+K".action = {spawn = ["pick-project" "editor"];};
-        "Mod+Shift+K".action = {spawn = ["pi-project"];};
-        "Mod+O".action = {spawn = ["pick-document" "editor"];};
-        "Mod+L".action = {spawn = ["terminal"];};
-        "Mod+Shift+L".action = {spawn = ["pick-project" "terminal"];};
+        "Mod+J".action = { spawn = [ "browser" ]; };
+        "Mod+Shift+J".action = { spawn = [ "file-manager" ]; };
+        "Mod+K".action = { spawn = [ "pick-project" "editor" ]; };
+        "Mod+Shift+K".action = { spawn = [ "pi-project" ]; };
+        "Mod+O".action = { spawn = [ "pick-document" "editor" ]; };
+        "Mod+L".action = { spawn = [ "terminal" ]; };
+        "Mod+Shift+L".action = { spawn = [ "pick-project" "terminal" ]; };
 
-        "Mod+Left".action = {"focus-column-left" = [];};
-        "Mod+Right".action = {"focus-column-right" = [];};
-        "Mod+Down".action = {"focus-workspace-down" = [];};
-        "Mod+Up".action = {"focus-workspace-up" = [];};
+        "Mod+Left".action = { "focus-column-left" = [ ]; };
+        "Mod+Right".action = { "focus-column-right" = [ ]; };
+        "Mod+Down".action = { "focus-workspace-down" = [ ]; };
+        "Mod+Up".action = { "focus-workspace-up" = [ ]; };
 
-        "Mod+D".action = {"focus-window-down-or-top" = [];};
-        "Mod+H".action = {spawn = ["voice-input-control" "toggle"];};
-        "Mod+V".action = {"center-window" = [];};
-        "Mod+F".action = {"maximize-column" = [];};
-        "Mod+Shift+F".action = {spawn = ["window-control" "fullscreen"];};
+        "Mod+D".action = { "focus-window-down-or-top" = [ ]; };
+        "Mod+H".action = { spawn = [ "voice-input-control" "toggle" ]; };
+        "Mod+V".action = { "center-window" = [ ]; };
+        "Mod+F".action = { "maximize-column" = [ ]; };
+        "Mod+Shift+F".action = { spawn = [ "window-control" "fullscreen" ]; };
 
-        "Mod+U".action = {"consume-or-expel-window-left" = [];};
-        "Mod+I".action = {"consume-or-expel-window-right" = [];};
+        "Mod+U".action = { "consume-or-expel-window-left" = [ ]; };
+        "Mod+I".action = { "consume-or-expel-window-right" = [ ]; };
 
-        "Mod+Q".action = {"close-window" = [];};
-        "Mod+R".action = {"switch-preset-column-width" = [];};
-        "Mod+Return".action = {spawn = ["window-control" "float-to-corner"];};
-        "Mod+Tab".action = {"focus-monitor-next" = [];};
-        "Mod+Shift+Tab".action = {"switch-focus-between-floating-and-tiling" = [];};
-        "Mod+Shift+Ctrl+L".action = {quit = {"skip-confirmation" = true;};};
-        "Mod+Shift+Down".action = {"move-column-to-workspace-down" = [];};
-        "Mod+Shift+End".action = {"move-workspace-down" = [];};
-        "Mod+Shift+Home".action = {"move-workspace-up" = [];};
-        "Mod+Shift+Left".action = {"move-column-left" = [];};
-        "Mod+Shift+Right".action = {"move-column-right" = [];};
+        "Mod+Q".action = { "close-window" = [ ]; };
+        "Mod+R".action = { "switch-preset-column-width" = [ ]; };
+        "Mod+Return".action = { spawn = [ "window-control" "float-to-corner" ]; };
+        "Mod+Tab".action = { "focus-monitor-next" = [ ]; };
+        "Mod+Shift+Tab".action = { "switch-focus-between-floating-and-tiling" = [ ]; };
+        "Mod+Shift+Ctrl+L".action = { quit = { "skip-confirmation" = true; }; };
+        "Mod+Shift+Down".action = { "move-column-to-workspace-down" = [ ]; };
+        "Mod+Shift+End".action = { "move-workspace-down" = [ ]; };
+        "Mod+Shift+Home".action = { "move-workspace-up" = [ ]; };
+        "Mod+Shift+Left".action = { "move-column-left" = [ ]; };
+        "Mod+Shift+Right".action = { "move-column-right" = [ ]; };
 
-        "Ctrl+Mod+Shift+Left".action = {"move-window-to-monitor-left" = [];};
-        "Ctrl+Mod+Shift+Right".action = {"move-window-to-monitor-right" = [];};
+        "Ctrl+Mod+Shift+Left".action = { "move-window-to-monitor-left" = [ ]; };
+        "Ctrl+Mod+Shift+Right".action = { "move-window-to-monitor-right" = [ ]; };
 
-        "Mod+Shift+Up".action = {"move-column-to-workspace-up" = [];};
-        "Mod+Space".action = {spawn = ["vicinae" "toggle"];};
-        "Mod+B".action = {spawn = ["xdg-open" "vicinae://extensions/vicinae/manage-shortcuts/manage"];};
-        "Mod+P".action = {spawn = ["xdg-open" "vicinae://extensions/leonkohli/process-manager/processes"];};
-        "Mod+W".action = {"close-window" = [];};
-        "Print".action.spawn = ["niri" "msg" "action" "screenshot" "--show-pointer" "false"];
-        "Shift+Print".action = {"screenshot-window" = [];};
-        "Mod+Shift+P".action = {spawn = ["window-control" "webcam"];};
-        "Mod+Shift+Print".action = {spawn = ["screen-recording"];};
-        "Ctrl+Mod+Shift+Print".action = {spawn = ["screen-recording" "--mode" "portal"];};
-        "Mod+G".action = {spawn = ["wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect"];};
-        "XF86AudioLowerVolume".action = {spawn = ["volume-control" "down"];};
-        "XF86AudioMute".action = {spawn = ["volume-control" "mute"];};
-        "XF86AudioNext".action = {spawn = ["media-control" "next"];};
-        "XF86AudioPlay".action = {spawn = ["media-control" "play-pause"];};
-        "XF86AudioPrev".action = {spawn = ["media-control" "previous"];};
-        "XF86AudioRaiseVolume".action = {spawn = ["volume-control" "up"];};
-        "XF86AudioStop".action = {spawn = ["media-control" "stop"];};
-        "XF86MonBrightnessDown".action = {spawn = ["brightness-control" "down"];};
-        "XF86MonBrightnessUp".action = {spawn = ["brightness-control" "up"];};
+        "Mod+Shift+Up".action = { "move-column-to-workspace-up" = [ ]; };
+        "Mod+Space".action = { spawn = [ "vicinae" "toggle" ]; };
+        "Mod+B".action = { spawn = [ "xdg-open" "vicinae://extensions/vicinae/manage-shortcuts/manage" ]; };
+        "Mod+P".action = { spawn = [ "xdg-open" "vicinae://extensions/leonkohli/process-manager/processes" ]; };
+        "Mod+W".action = { "close-window" = [ ]; };
+        "Print".action.spawn = [ "niri" "msg" "action" "screenshot" "--show-pointer" "false" ];
+        "Shift+Print".action = { "screenshot-window" = [ ]; };
+        "Mod+Shift+P".action = { spawn = [ "window-control" "webcam" ]; };
+        "Mod+Shift+Print".action = { spawn = [ "screen-recording" ]; };
+        "Ctrl+Mod+Shift+Print".action = { spawn = [ "screen-recording" "--mode" "portal" ]; };
+        "Mod+G".action = { spawn = [ "wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect" ]; };
+        "XF86AudioLowerVolume".action = { spawn = [ "volume-control" "down" ]; };
+        "XF86AudioMute".action = { spawn = [ "volume-control" "mute" ]; };
+        "XF86AudioNext".action = { spawn = [ "media-control" "next" ]; };
+        "XF86AudioPlay".action = { spawn = [ "media-control" "play-pause" ]; };
+        "XF86AudioPrev".action = { spawn = [ "media-control" "previous" ]; };
+        "XF86AudioRaiseVolume".action = { spawn = [ "volume-control" "up" ]; };
+        "XF86AudioStop".action = { spawn = [ "media-control" "stop" ]; };
+        "XF86MonBrightnessDown".action = { spawn = [ "brightness-control" "down" ]; };
+        "XF86MonBrightnessUp".action = { spawn = [ "brightness-control" "up" ]; };
       };
 
       switch-events = {
-        lid-close.action = {spawn = ["display-control" "power-off-monitors"];};
-        tablet-mode-on.action = {spawn = ["tablet-mode-control" "on"];};
-        tablet-mode-off.action = {spawn = ["tablet-mode-control" "off"];};
+        lid-close.action = { spawn = [ "display-control" "power-off-monitors" ]; };
+        tablet-mode-on.action = { spawn = [ "tablet-mode-control" "on" ]; };
+        tablet-mode-off.action = { spawn = [ "tablet-mode-control" "off" ]; };
       };
 
       window-rules = nixosConfig.defaults.display.windowRules;
