@@ -23,8 +23,8 @@
 
       shellAbbrs = {
         ls = "eza --icons -lah";
-        pbpaste = "wl-copy";
-        pbcopy = "wl-paste";
+        pbpaste = "wl-paste";
+        pbcopy = "wl-copy";
       };
 
       interactiveShellInit = ''
