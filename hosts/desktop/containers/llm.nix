@@ -1,14 +1,12 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   presets = pkgs.writeText "presets.ini" ''
     [*]
     parallel = 1
-    flash-attn = on
-    no-mmap = true
     jinja = on
     no-warmup = true
-    no-mmproj = true
-    reasoning = on
+    flash-attn = on
+    # no-mmap = true
+    kv-unified = true
 
     ctk = q8_0
     ctv = q8_0
@@ -17,37 +15,44 @@ let
     top-p = 0.95
     top-k = 20
     min-p = 0.0
-    presence-penalty = 0.0
+    presence-penalty = 1.5
     repeat-penalty = 1.0
 
-    [Qwen/Qwen3.6-27B-MTP]
+    [localweights/Qwen3.6-27B-MTP-IMAT-IQ4_XS-Q8nextn-GGUF]
     alias = Qwen3.6-27B
-    hf-repo = unsloth/Qwen3.6-27B-MTP-GGUF:UD-Q4_K_XL
-    # ctx-size = 131072
+    hf-repo = localweights/Qwen3.6-27B-MTP-IMAT-IQ4_XS-Q8nextn-GGUF
+    no-mmproj = true
+    spec-type = draft-mtp
+    spec-draft-n-max = 3
+    spec-draft-p-min = 0.75
 
+    [byteshape/Qwen3.6-35B-A3B-MTP]
+    alias = Qwen3.6-35B-A3B
+    hf-repo = byteshape/Qwen3.6-35B-A3B-MTP-GGUF:IQ4_XS-4.19bpw
     spec-type = draft-mtp
     spec-draft-n-max = 4
-    cache-type-k-draft = q4_0
-    cache-type-v-draft = q4_0 
-    
-    temp = 1.0
-    presence-penalty = 1.5
+    spec-draft-p-min = 0.75
 
-    [unsloth/Qwen3.6-35B-A3B-MTP]
-    alias = Qwen3.6-35B-A3B
-    hf-repo = unsloth/Qwen3.6-35B-A3B-MTP-GGUF:UD-Q4_K_XL
-    temp = 1.0
-    presence-penalty = 1.5
-    # ctx-size = 131072
-    # spec-type = draft-mtp
-    # spec-draft-n-max = 6    
+    [Jackrong/Qwopus3.5-9B-Coder-MTP-GGUF]
+    alias = Qwopus3.5-9B-Coder
+    hf-repo = Jackrong/Qwopus3.5-9B-Coder-MTP-GGUF:Q5_K_M
+    spec-type = draft-mtp
+    spec-draft-n-max = 3
+    spec-draft-p-min = 0.75
+
+    [Jackrong/Qwopus3.6-27B-v2-MTP-GGUF]
+    alias = Qwopus3.6-27B-v2
+    hf-repo = Jackrong/Qwopus3.6-27B-v2-MTP-GGUF:Q4_K_M
+    spec-type = draft-mtp
+    spec-draft-n-max = 3
+    spec-draft-p-min = 0.75
+
   '';
-in
-{
+in {
   virtualisation.oci-containers.containers = {
     "llm" = {
       autoStart = true;
-      image = "ghcr.io/ggml-org/llama.cpp:server-cuda13";
+      image = "ghcr.io/ggml-org/llama.cpp:server-cuda13-b9265";
       cmd = [
         "--models-preset"
         "/presets.ini"
@@ -63,6 +68,7 @@ in
         (builtins.toJSON {
           preserve_thinking = true;
         })
+        "--spec-default"
       ];
       ports = [
         "11434:8080"
