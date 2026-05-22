@@ -1,7 +1,6 @@
-{
-  pkgs,
-  config,
-  ...
+{ pkgs
+, config
+, ...
 }: {
   services = {
     accounts-daemon.enable = true;
@@ -20,12 +19,11 @@
     xserver = {
       enable = false;
       xkb.layout = config.defaults.keyMap;
-      excludePackages = [pkgs.xterm];
+      excludePackages = [ pkgs.xterm ];
     };
 
     displayManager.gdm = {
       enable = true;
-      wayland = true;
     };
 
     gnome = {
