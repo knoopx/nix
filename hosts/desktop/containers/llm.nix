@@ -23,7 +23,7 @@
     hf-repo = localweights/Qwen3.6-27B-MTP-IMAT-IQ4_XS-Q8nextn-GGUF
     no-mmproj = true
     spec-type = draft-mtp
-    spec-draft-n-max = 3
+    spec-draft-n-max = 4
     spec-draft-p-min = 0.75
 
     [byteshape/Qwen3.6-35B-A3B-MTP]
@@ -37,7 +37,7 @@
     alias = Qwopus3.5-9B-Coder
     hf-repo = Jackrong/Qwopus3.5-9B-Coder-MTP-GGUF:Q5_K_M
     spec-type = draft-mtp
-    spec-draft-n-max = 3
+    spec-draft-n-max = 2
     spec-draft-p-min = 0.75
 
     [Jackrong/Qwopus3.6-27B-v2-MTP-GGUF]
@@ -52,7 +52,7 @@ in {
   virtualisation.oci-containers.containers = {
     "llm" = {
       autoStart = true;
-      image = "ghcr.io/ggml-org/llama.cpp:server-cuda13-b9265";
+      image = "ghcr.io/ggml-org/llama.cpp:server-cuda13";
       cmd = [
         "--models-preset"
         "/presets.ini"
