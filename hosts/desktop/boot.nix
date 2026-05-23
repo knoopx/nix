@@ -1,4 +1,4 @@
-{...}: {
+{lib, ...}: {
   boot = {
     extraModprobeConfig = ''
       options snd_hda_intel enable=0
@@ -17,5 +17,7 @@
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
     };
+
+    plymouth.enable = lib.mkForce false;
   };
 }
