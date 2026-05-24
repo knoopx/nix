@@ -1,6 +1,9 @@
 {pkgs, ...}: {
   programs.mpv = {
     enable = true;
-    scripts = [pkgs.mpvScripts.sponsorblock-minimal];
+    scripts = [
+      pkgs.mpvScripts.mpris
+      pkgs.mpvScripts.sponsorblock-minimal
+    ];
   };
 }
