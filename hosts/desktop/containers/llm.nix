@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   presets = pkgs.writeText "presets.ini" ''
     [*]
     parallel = 1
@@ -23,32 +24,33 @@
     hf-repo = localweights/Qwen3.6-27B-MTP-IMAT-IQ4_XS-Q8nextn-GGUF
     no-mmproj = true
     spec-type = draft-mtp
-    spec-draft-n-max = 4
+    spec-draft-n-max = 6
     spec-draft-p-min = 0.75
 
     [byteshape/Qwen3.6-35B-A3B-MTP]
     alias = Qwen3.6-35B-A3B
     hf-repo = byteshape/Qwen3.6-35B-A3B-MTP-GGUF:IQ4_XS-4.19bpw
     spec-type = draft-mtp
-    spec-draft-n-max = 4
+    spec-draft-n-max = 6
     spec-draft-p-min = 0.75
 
     [Jackrong/Qwopus3.5-9B-Coder-MTP-GGUF]
     alias = Qwopus3.5-9B-Coder
     hf-repo = Jackrong/Qwopus3.5-9B-Coder-MTP-GGUF:Q5_K_M
     spec-type = draft-mtp
-    spec-draft-n-max = 2
+    spec-draft-n-max = 6
     spec-draft-p-min = 0.75
 
     [Jackrong/Qwopus3.6-27B-v2-MTP-GGUF]
     alias = Qwopus3.6-27B-v2
     hf-repo = Jackrong/Qwopus3.6-27B-v2-MTP-GGUF:Q4_K_M
     spec-type = draft-mtp
-    spec-draft-n-max = 3
+    spec-draft-n-max = 6
     spec-draft-p-min = 0.75
 
   '';
-in {
+in
+{
   virtualisation.oci-containers.containers = {
     "llm" = {
       autoStart = true;
