@@ -1,8 +1,7 @@
-{
-  nixosConfig,
-  lib,
-  pkgs,
-  ...
+{ nixosConfig
+, lib
+, pkgs
+, ...
 }: {
   programs.kitty = {
     enable = true;
@@ -35,14 +34,17 @@
       map ctrl+shift+right neighboring_window right
 
       # unbind defaults
-      map ctrl+shift+l ungrabbed
-      map ctrl+shift+p ungrabbed
-      map ctrl+shift+left ungrabbed
-      map ctrl+shift+right ungrabbed
-      map ctrl+shift+f ungrabbed
       map ctrl+backspace ungrabbed
-      map ctrl+w ungrabbed
+      map ctrl+shift+f ungrabbed
+      map ctrl+shift+j ungrabbed
+      map ctrl+shift+k ungrabbed
+      map ctrl+shift+l ungrabbed
+      map ctrl+shift+left ungrabbed
+      map ctrl+shift+p ungrabbed
       map ctrl+shift+r ungrabbed
+      map ctrl+shift+right ungrabbed
+      map ctrl+w ungrabbed
+      
 
       tab_separator " "
       tab_title_template " {fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{title} "
