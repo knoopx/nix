@@ -2,7 +2,7 @@
   description = "kOS";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/705e9929918b43bd7b715dc0a878ac870449bb03";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
 
     haumea.url = "github:nix-community/haumea";
     haumea.inputs.nixpkgs.follows = "nixpkgs";
