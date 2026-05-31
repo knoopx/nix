@@ -38,31 +38,37 @@
               {
                 symbol = "NVDA";
                 name = "Nvidia";
+                chart-link = "https://www.tradingview.com/chart/?symbol=NASDAQ:NVDA";
               }
 
               {
                 symbol = "NET";
                 name = "Cloudflare";
+                chart-link = "https://www.tradingview.com/chart/?symbol=NYSE:NET";
               }
 
               {
                 symbol = "MSFT";
                 name = "Microsoft Corp";
+                chart-link = "https://www.tradingview.com/chart/?symbol=NASDAQ:MSFT";
               }
 
               {
                 symbol = "AMZN";
                 name = "Amazon";
+                chart-link = "https://www.tradingview.com/chart/?symbol=NASDAQ:AMZN";
               }
 
               {
                 symbol = "XPEV";
                 name = "Xpeng";
+                chart-link = "https://www.tradingview.com/chart/?symbol=NYSE:XPEV";
               }
 
               {
                 symbol = "BABA";
                 name = "Alibaba";
+                chart-link = "https://www.tradingview.com/chart/?symbol=NYSE:BABA";
               }
 
               {
