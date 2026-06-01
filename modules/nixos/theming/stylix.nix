@@ -22,5 +22,6 @@
       name = "Quintom_Snow";
       size = 24;
     };
+    targets.kmscon.enable = false; # extraConfig and fonts removed in nixpkgs
   };
 }
