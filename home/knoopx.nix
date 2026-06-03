@@ -1,6 +1,8 @@
-{...} @ inputs: let
+{ ... } @ inputs:
+let
   listNixModulesRecusive = import ../lib/listNixModulesRecusive.nix inputs;
-in {
+in
+{
   imports = listNixModulesRecusive ../modules/home-manager;
 
   home = {
@@ -8,7 +10,6 @@ in {
     username = "knoopx";
   };
 
-  gtk.gtk4.theme = null;
   programs.git.signing.format = null;
 
   programs.man.enable = false;
