@@ -1,10 +1,10 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   presets = pkgs.writeText "presets.ini" ''
     [*]
     parallel = 1
     jinja = on
     no-warmup = true
+    kv-unified = on
 
     ctk = q8_0
     ctv = q8_0
@@ -32,8 +32,7 @@ let
     spec-draft-p-min = 0.75
 
   '';
-in
-{
+in {
   virtualisation.oci-containers.containers = {
     "llm" = {
       autoStart = true;
@@ -53,7 +52,6 @@ in
         (builtins.toJSON {
           preserve_thinking = true;
         })
-        "--spec-default"
       ];
       ports = [
         "11434:8080"
