@@ -13,29 +13,20 @@ def fetch-events [] {
     | update "date" { into datetime | date humanize } | save -f $cache | ignore
 }
 
-def main [action?: string] {
-  let action = (if $action != null { $action } else { "show" })
+def main [--tsv, action?: string] {
+  if ($action == null or $action != "daemon") and not ($cache | path exists) {
+    fetch-events
+  }
 
-  match $action {
-    "daemon" => {
-      # Initial fetch
+  if $action == "daemon" {
+    fetch-events
+    while true {
+      do { sleep $refresh_interval }
       fetch-events
-
-      # Periodic refresh loop
-      while true {
-        do { sleep $refresh_interval }
-        fetch-events
-      }
     }
-
-    "show" => {
-      if not ($cache | path exists) { fetch-events }
-      open $cache | table -i false --theme frameless
-    }
-
-    _ => {
-      print "Usage: events [daemon|show]"
-      exit 1
-    }
+  } else if $tsv {
+    open $cache | first 10 | select date summary | to tsv
+  } else {
+    open $cache | table -i false --theme frameless
   }
 }

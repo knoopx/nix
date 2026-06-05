@@ -29,22 +29,7 @@
 
       interactiveShellInit = ''
         set fish_greeting
-        cat ${../../nixos/defaults/logo.ascii}
-        set -l logo_line (head -1 ${../../nixos/defaults/logo.ascii})
-        set -l logo_width (string length --visible "$logo_line")
-        set -l date_str (date '+%A, %B %d, %Y')
-        set -l date_width (string length --visible "$date_str")
-        set -l diff (math $logo_width - $date_width)
-        set -l padding (math "floor($diff / 2)")
-        set -l spaces (string repeat $padding ' ')
-        echo "$spaces$date_str"
-        echo
-
-        ${pkgs.events}/bin/events
-        echo
-        ${pkgs.inbox}/bin/inbox
-        echo
-        ${pkgs.project-summary}/bin/project-summary
+        ${pkgs.dashboard}/bin/dashboard
 
         fish_add_path -g "$HOME/.cache/.bun/bin"
         fish_add_path -g "$HOME/.cargo/bin"
