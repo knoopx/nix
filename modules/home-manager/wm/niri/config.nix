@@ -142,11 +142,11 @@
         "Mod+Shift+Up".action = { "move-column-to-workspace-up" = [ ]; };
         "Mod+Space".action = { spawn = [ "vicinae" "toggle" ]; };
         "Mod+B".action = { spawn = [ "xdg-open" "vicinae://extensions/vicinae/manage-shortcuts/manage" ]; };
-        "Mod+P".action = { spawn = [ "xdg-open" "vicinae://extensions/leonkohli/process-manager/processes" ]; };
         "Mod+W".action = { "close-window" = [ ]; };
         "Print".action.spawn = [ "niri" "msg" "action" "screenshot" "--show-pointer" "false" ];
         "Shift+Print".action = { "screenshot-window" = [ ]; };
         "Mod+Shift+P".action = { spawn = [ "window-control" "webcam" ]; };
+        "Mod+P".action = { spawn = [ "kitty" "sh" "-c" "cd ~/.pi && pi" ]; };
         "Mod+Shift+Print".action = { spawn = [ "screen-recording" ]; };
         "Ctrl+Mod+Shift+Print".action = { spawn = [ "screen-recording" "--mode" "portal" ]; };
         "Mod+G".action = { spawn = [ "wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect" ]; };
