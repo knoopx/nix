@@ -1,8 +1,8 @@
-nh os switch
-nh home switch
-nh clean all
-nix flake update
-sudo podman system prune -a
-sudo podman pull ghcr.io/ggml-org/llama.cpp:server-cuda13:latest
-sudo systemctl restart podman-llm.service
 journalctl -f -u podman-llm.service
+nh clean all
+nh home switch
+nh os switch
+nix flake update
+sudo podman pull ghcr.io/ggml-org/llama.cpp:server-cuda13
+sudo podman system prune -a
+sudo systemctl restart podman-llm.service
