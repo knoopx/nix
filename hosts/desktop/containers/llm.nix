@@ -23,10 +23,6 @@ let
     presence-penalty = 0.0
     repeat-penalty = 1.0
 
-    [unsloth/Qwen3.6-27B-GGUF]
-    alias = Qwen3.6-27B
-    hf-repo = unsloth/Qwen3.6-27B-GGUF:Q5_K_M
-
     [localweights/Qwen3.6-27B-MTP-IMAT-IQ4_XS-Q8nextn-GGUF]          
     alias = Qwen3.6-27B-MTP                                              
     hf-repo = localweights/Qwen3.6-27B-MTP-IMAT-IQ4_XS-Q8nextn-GGUF  
