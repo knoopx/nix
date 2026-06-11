@@ -296,6 +296,11 @@
           ./hosts/android
         ];
       };
+
+      hi10max = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+        modules = mkNixosModules ./hosts/hi10max;
+      };
     };
   };
 }
