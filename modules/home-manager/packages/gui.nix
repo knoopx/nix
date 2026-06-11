@@ -70,6 +70,7 @@ in
     sushi
     tolaria
     wl-kbptr
+    wvkbd
     gnome-graphs
   ];
 }

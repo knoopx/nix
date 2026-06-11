@@ -5,6 +5,7 @@
 , ...
 }: {
   services.gnome-keyring.enable = true;
+
   home.packages = [
     pkgs.playerctl
     pkgs.wireplumber
@@ -150,6 +151,7 @@
         "Mod+Shift+Print".action = { spawn = [ "screen-recording" ]; };
         "Ctrl+Mod+Shift+Print".action = { spawn = [ "screen-recording" "--mode" "portal" ]; };
         "Mod+G".action = { spawn = [ "wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect" ]; };
+        "Mod+Y".action = { spawn = [ "tablet-mode-control" "toggle" ]; };
         "XF86AudioLowerVolume".action = { spawn = [ "volume-control" "down" ]; };
         "XF86AudioMute".action = { spawn = [ "volume-control" "mute" ]; };
         "XF86AudioNext".action = { spawn = [ "media-control" "next" ]; };

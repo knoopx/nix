@@ -46,5 +46,30 @@ in {
         error = rgba palette.base08 1.0;
       };
     };
+
+    # Configure quick settings buttons
+    quickSettings = [
+      {
+        id = "shutdown";
+        icon = "system-shutdown-symbolic";
+        label = "Shutdown";
+        command = ["systemctl" "poweroff"];
+        confirm = true;
+      }
+      {
+        id = "reboot";
+        icon = "system-reboot-symbolic";
+        label = "Reboot";
+        command = ["systemctl" "reboot"];
+        confirm = true;
+      }
+      {
+        id = "logout";
+        icon = "system-log-out-symbolic";
+        label = "Logout";
+        command = ["niri" "msg" "action" "quit" "-s"];
+        confirm = true;
+      }
+    ];
   };
 }
