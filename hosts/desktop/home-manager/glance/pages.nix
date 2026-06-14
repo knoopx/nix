@@ -1,8 +1,8 @@
-{
-  config,
-  nixosConfig,
-  ...
-}: let
+{ config
+, nixosConfig
+, ...
+}:
+let
   homePage = {
     name = "Home";
     columns = [
@@ -13,7 +13,7 @@
             type = "weather";
             location = nixosConfig.defaults.location;
           }
-          {type = "calendar";}
+          { type = "calendar"; }
           {
             type = "custom-api";
             title = "Vilassar de Mar Departures";
@@ -110,10 +110,10 @@
             type = "rss";
             cache = "5m";
             feeds = [
-              {url = "https://community.silverbullet.md/latest.rss";}
-              {url = "https://discourse.nixos.org/latest.rss";}
-              {url = "https://towardsdatascience.com/feed";}
-              {url = "https://huggingface.co/blog/feed.xml";}
+              { url = "https://community.silverbullet.md/latest.rss"; }
+              { url = "https://discourse.nixos.org/latest.rss"; }
+              { url = "https://towardsdatascience.com/feed"; }
+              { url = "https://huggingface.co/blog/feed.xml"; }
             ];
           }
 
@@ -131,10 +131,6 @@
                 type = "rss";
                 title = "Stonks";
                 feeds = [
-                  {
-                    title = "unusual_whales";
-                    url = "https://nitter.privacydev.net/unusual_whales/rss";
-                  }
                   {
                     title = "NVDA";
                     url = "https://news.google.com/rss/search?q=nvda+when:1d&hl=en-US&gl=US&ceid=US:en";
@@ -407,7 +403,8 @@
       }
     ];
   };
-in {
+in
+{
   # https://github.com/glanceapp/glance/blob/main/docs/extensions.md
   config = {
     services.glance.settings.pages = [
