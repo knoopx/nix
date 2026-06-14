@@ -37,7 +37,7 @@ in {
           "text/html" = browser;
           "text/xml" = text-editor;
           "application/json" = text-editor;
-          "text/markdown" = text-editor;
+          "text/markdown" = "markdown-viewer.desktop";
           "text/plain" = text-editor;
           "video/mpeg" = video-player;
           "video/webm" = video-player;

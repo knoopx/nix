@@ -9,6 +9,7 @@ in {
   home.packages = [
     pkgs.adwaita-icon-theme
     (pkgs.theming.mkMoreWaitaIconTheme nixosConfig.defaults.colorScheme.palette)
+    (pkgs.mkRenderMd nixosConfig.defaults.colorScheme)
   ];
 
   xdg.dataFile."gtksourceview-5/styles/catppuccin-mocha.xml".source = let
