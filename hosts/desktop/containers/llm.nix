@@ -41,6 +41,16 @@ let
     spec-type = draft-mtp
     spec-draft-n-max = 4
     spec-draft-p-min = 0.85
+
+    [bartowski/nex-agi_Nex-N2-mini-GGUF]
+    alias = Nex-N2-mini
+    hf-repo = bartowski/nex-agi_Nex-N2-mini-GGUF:Q4_K_M
+    spec-type = ngram-mod
+    spec-ngram-mod-n-match = 24
+    spec-ngram-mod-n-min = 48
+    spec-ngram-mod-n-max = 64
+    temp = 0.7
+    top-k = 40
   '';
 in
 {
