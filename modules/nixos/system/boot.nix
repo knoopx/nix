@@ -62,4 +62,9 @@ in {
       "usbcore.autosuspend=-1"
     ];
   };
+
+  systemd.timers."systemd-tmpfiles-clean".timerConfig = {
+    OnCalendar = "*-*-* 00/4:00:00";
+    Persistent = true;
+  };
 }
