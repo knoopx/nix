@@ -19,5 +19,7 @@
     };
 
     plymouth.enable = lib.mkForce false;
+    
+    binfmt.emulatedSystems = ["aarch64-linux"];
   };
 }
