@@ -184,7 +184,6 @@ Package customizations and fixes:
 - **retroarch.nix**: RetroArch emulator customizations
 - **useless-desktop-items.nix**: Desktop item management
 - **plotly.nix**: Plotly library patches
-- **pi.nix**: Pi AI integration
 
 ### Builders
 

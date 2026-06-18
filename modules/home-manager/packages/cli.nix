@@ -132,8 +132,7 @@
     p7zip
     pciutils
     pcre
-    pi
-    pi-sandbox
+    pi-coding-agent
     rclone
     reader
     ripgrep
