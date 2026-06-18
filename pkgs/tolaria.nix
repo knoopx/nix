@@ -1,11 +1,11 @@
 {pkgs}: let
   pname = "tolaria";
-  version = "2026.5.29";
-  releaseTag = "v2026-05-29";
+  version = "2026.6.14";
+  releaseTag = "v2026-06-14";
 
   src = pkgs.fetchurl {
     url = "https://github.com/refactoringhq/tolaria/releases/download/${releaseTag}/Tolaria_${version}_amd64.deb";
-    hash = "sha256-T0EYrZGcPU9+wvSnmwXI7l39mgaMvb81a4DfdLr9538=";
+    hash = "sha256-iXmQHLS6/ousJedyA09E21fXanaFpx6myKoTQTVcrtA=";
   };
 
   inherit (pkgs) lib stdenv;
