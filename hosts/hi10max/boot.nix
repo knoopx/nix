@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, lib, ...}: {
   services = {
     # scx.enable = true;
     # scx.package = pkgs.scx_git.full;
@@ -24,5 +24,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+
+    plymouth.enable = lib.mkForce false;
   };
 }
