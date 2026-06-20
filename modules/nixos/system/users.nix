@@ -21,6 +21,7 @@
       "docker"
       "input"
       "iio"
+      "plugdev"
       "sensor"
       "kvm"
       "libvirtd"
