@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ lib, pkgs, ... }: {
   programs.niri.enable = true;
   programs.niri.package = pkgs.niri;
   environment.systemPackages = [
@@ -16,14 +16,19 @@
     icons.enable = true;
     portal = {
       config.niri = {
-        "org.freedesktop.impl.portal.ScreenCast" = ["gnome"];
-        "org.freedesktop.impl.portal.Screenshot" = ["gnome"];
-        "org.freedesktop.impl.portal.OpenURI" = ["gtk"];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
+        "org.freedesktop.impl.portal.Screenshot" = [ "gnome" ];
+        "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
       };
     };
   };
 
-  services.displayManager.sessionPackages = [pkgs.niri];
+  services.displayManager = {
+    defaultSession = lib.mkDefault "niri";
+    sessionPackages = [
+      pkgs.niri
+    ];
+  };
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
 
