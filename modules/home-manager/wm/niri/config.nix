@@ -146,7 +146,7 @@
         "Print".action.spawn = [ "niri" "msg" "action" "screenshot" "--show-pointer" "false" ];
         "Shift+Print".action = { "screenshot-window" = [ ]; };
         "Mod+Shift+P".action = { spawn = [ "window-control" "webcam" ]; };
-        "Mod+P".action = { spawn = [ "kitty" "sh" "-c" "cd ~/.pi && pi" ]; };
+        "Mod+P".action = { spawn = [ "kitty" "sh" "-c" "cd ~/.assistant && pi" ]; };
         "Mod+Shift+Print".action = { spawn = [ "screen-recording" ]; };
         "Ctrl+Mod+Shift+Print".action = { spawn = [ "screen-recording" "--mode" "portal" ]; };
         "Mod+G".action = { spawn = [ "wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect" ]; };
