@@ -16,7 +16,6 @@ let
     batch-size = 4096
     # batch-size = 2048
     ubatch-size = 512
-   
     ctk = q8_0
     ctv = q8_0
   
@@ -27,28 +26,24 @@ let
     presence-penalty = 0.0
     repeat-penalty = 1.0
 
-    [localweights/Qwen3.6-27B-MTP-IMAT-IQ4_XS-Q8nextn-GGUF]
+    [Qwen3.6-27B]
+    hf-repo = sphaela/Qwen3.6-27B-AutoRound-GGUF:Q6_K
+    no-mmproj = true
+
+    [Qwen3.6-27B-MTP]
     alias = Qwen3.6-27B-MTP
-    hf-repo = localweights/Qwen3.6-27B-MTP-IMAT-IQ4_XS-Q8nextn-GGUF
+    hf-repo = localweights/Qwen3.6-27B-MTP-Q4_K_M-Q8nextn-GGUF
     no-mmproj = true
     spec-type = draft-mtp
     spec-draft-n-max = 4
     spec-draft-p-min = 0.85
 
-    [byteshape/Qwen3.6-35B-A3B-MTP]
-    alias = Qwen3.6-35B-A3B-MTP
-    hf-repo = byteshape/Qwen3.6-35B-A3B-MTP-GGUF:IQ4_XS-4.19bpw
-    spec-type = draft-mtp
-    spec-draft-n-max = 4
-    spec-draft-p-min = 0.85
+    [Qwen3.6-35B-A3B]
+    hf-repo = unsloth/Qwen3.6-35B-A3B-MTP-GGUF:UD-Q6_K
+    no-mmproj = true
 
-    [bartowski/nex-agi_Nex-N2-mini-GGUF]
-    alias = Nex-N2-mini
-    hf-repo = bartowski/nex-agi_Nex-N2-mini-GGUF:Q4_K_M
-    spec-type = ngram-mod
-    spec-ngram-mod-n-match = 24
-    spec-ngram-mod-n-min = 48
-    spec-ngram-mod-n-max = 64
+    [Nex-N2-mini]
+    hf-repo = mudler/Nex-N2-mini-APEX-GGUF:APEX-I-Balanced
     temp = 0.7
     top-k = 40
   '';
