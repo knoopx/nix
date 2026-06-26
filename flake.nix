@@ -18,6 +18,7 @@
 
     niri.url = "github:sodiboo/niri-flake";
     niri.inputs.nixpkgs.follows = "nixpkgs";
+    niri.inputs.nixpkgs-stable.follows = "nixpkgs";
 
     astal-shell.url = "github:knoopx/astal-shell";
     astal-shell.inputs.nixpkgs.follows = "nixpkgs";
