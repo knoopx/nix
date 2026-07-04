@@ -1,18 +1,18 @@
 {pkgs}: let
   pname = "codemapper";
-  version = "0-unstable-2026-05-06";
+  version = "0-unstable-2026-05-31";
 
   src = pkgs.fetchFromGitHub {
     owner = "p1rallels";
     repo = "codemapper";
-    rev = "689cd0175ad232ec41e2325ace531da4527c8f77";
-    sha256 = "sha256-cpor5NxkKpTllYIvghaUnQDQ//7EM3Rh0k05seiWENA=";
+    rev = "c93ea97a405bf740efb1427deb02bf2a7f279972";
+    sha256 = "sha256-i2+lU7mghnDDjAg7GJu8iJXR43Fj3Xvifr3EIQsr95U=";
   };
 in
   pkgs.rustPlatform.buildRustPackage {
     inherit pname version src;
 
-    cargoHash = "sha256-vRpWKoVNAwjOu7MarS0aoFoM0TRwSYTd5rrlOaVLWxg=";
+    cargoHash = "sha256-Tv5392d3JMbldrmCMI+aWpab1x1eHJ15xPtZA/BPJ1w=";
 
     doCheck = false;
 
