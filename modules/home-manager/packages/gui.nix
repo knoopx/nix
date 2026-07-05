@@ -48,31 +48,30 @@ in
     # wike               # Wikipedia reader (GNOME)
     # wildcard           # Regular expression tester (GNOME)
     # amberol            # Simple music player (GNOME)
+    # btrfs-assistant # Btrfs subvolume and snapshot manager
 
     # ── installed packages ─────────────────────────────────────────────────
-    baobab               # Disk usage analyzer (pie chart visualization)
-    btrfs-assistant      # Btrfs subvolume and snapshot manager
-    czkawka              # Multi-functional file cleaner (duplicates, empties, etc.)
-    dconf-editor         # Low-level GNOME settings editor
-    drawing              # Vector drawing app (MyPaint fork, GNOME)
-    # eog                # Eye of GNOME image viewer (commented)
-    evince               # Document viewer (PDF, PostScript, etc.)
-    file-roller          # Archive manager (tar, zip, 7z, etc.)
+    baobab # Disk usage analyzer (pie chart visualization)
+    czkawka # Multi-functional file cleaner (duplicates, empties, etc.)
+    dconf-editor # Low-level GNOME settings editor
+    drawing # Vector drawing app (MyPaint fork, GNOME)
+    evince # Document viewer (PDF, PostScript, etc.)
+    file-roller # Archive manager (tar, zip, 7z, etc.)
     # geary              # Email client (GNOME, commented)
-    gnome-calendar       # Calendar application (GNOME)
-    gnome-disk-utility   # Disk manager (format, SMART, benchmarks)
-    gnome-secrets        # Password and secret manager (GNOME)
-    gnome-weather        # Weather application (GNOME)
-    camper               # Custom flake package (camper input)
-    loupe                # Image viewer (GNOME, replaces eog)
-    nautilus             # File manager (GNOME)
+    gnome-calendar # Calendar application (GNOME)
+    gnome-disk-utility # Disk manager (format, SMART, benchmarks)
+    gnome-secrets # Password and secret manager (GNOME)
+    gnome-weather # Weather application (GNOME)
+    # camper # Bandcamp GTK4 (camper input)
+    nautilus # File manager (GNOME)
     # onlyoffice-desktopeditors  # Office suite (Word/Excel/PowerPoint, commented)
     # pinta              # Image editor (Paint.NET clone, commented)
-    plexamp              # Plex music player (amp/Tidal integration)
+    plexamp # Plex music player (amp/Tidal integration)
     # seahorse           # GPG key manager (commented)
-    sushi                # File previewer (GNOME/Nautilus)
+    sushi # File previewer (GNOME/Nautilus)
+    swayimg # Image viewer for Wayland (swaywm)
     # tolaria            # Markdown knowledge base manager (commented)
-    wl-kbptr             # Control mouse pointer with keyboard (Wayland)
+    wl-kbptr # Control mouse pointer with keyboard (Wayland)
     # gnome-graphs       # Data plotting and manipulation tool (commented)
   ];
 }

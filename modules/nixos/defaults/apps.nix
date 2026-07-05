@@ -96,8 +96,8 @@ in {
     fileManager.package = pkgs.file-manager;
     fileManager.desktopEntry = "org.gnome.Nautilus.desktop";
 
-    imageViewer.package = pkgs.image-viewer;
-    imageViewer.desktopEntry = "org.gnome.eog.desktop";
+    imageViewer.package = pkgs.swayimg;
+    imageViewer.desktopEntry = "swayimg.desktop";
 
     videoPlayer.package = pkgs.video-player;
     videoPlayer.desktopEntry = "mpv.desktop";

@@ -1,11 +1,7 @@
-{
-  pkgs,
-  lib,
-}:
+{pkgs, lib, ...}:
 pkgs.runCommand "image-viewer" {
-  nativeBuildInputs = [pkgs.makeBinaryWrapper];
   meta.mainProgram = "image-viewer";
+  nativeBuildInputs = [pkgs.makeWrapper];
 } ''
-  mkdir -p $out/bin
-  makeWrapper ${lib.getExe pkgs.eog} $out/bin/image-viewer
+  makeWrapper ${lib.getExe pkgs.swayimg} $out/bin/image-viewer
 ''

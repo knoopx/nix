@@ -1,5 +1,4 @@
 { pkgs
-, inputs
 , ...
 }: {
   home.packages = with pkgs; [
@@ -79,6 +78,7 @@
     # rage                 # age encryption/decryption CLI (Rust implementation)
     # ranger               # Terminal file manager with Vi keys
     # rclone               # Cloud storage sync/copy tool (S3, GCS, etc.)
+    rclip # Commandline CLIP based search
     # reader               # Web page readability extractor for CLI
     # readline             # Line editing library
     # rich-cli             # Rich text formatting CLI
@@ -89,7 +89,6 @@
     # smartmontools        # SMART disk health monitoring (smartctl)
     # smassh               # Monkeytype clone (typing test)
     # speedtest-cli        # Internet speed test CLI
-    # swayimg              # Image viewer for Wayland (swaywm)
     # sysz                 # System information display
     # tab                  # Programming language / shell calculator
     # tabiew               # Interactive database/CSV viewer
