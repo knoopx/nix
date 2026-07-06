@@ -12,6 +12,7 @@ _: {
       auto-optimise-store = true;
 
       substituters = [
+        "https://attic.xuyh0120.win/lantian"
         "https://cache.nixos.org"
         "https://cache.lix.systems"
         "https://nix-community.cachix.org"
@@ -26,6 +27,7 @@ _: {
       ];
 
       trusted-public-keys = [
+        "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
         "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
         "ags.cachix.org-1:naAvMrz0CuYqeyGNyLgE010iUiuf/qx6kYrUv3NwAJ8="
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="

@@ -1,13 +1,13 @@
-{
-  pkgs,
-  config,
-  lib,
-  inputs,
-  ...
-}: let
+{ pkgs
+, config
+, lib
+, inputs
+, ...
+}:
+let
   msg = pkgs.stdenvNoCC.mkDerivation {
     name = "message.txt";
-    phases = ["buildPhase"];
+    phases = [ "buildPhase" ];
     buildPhase = with config.defaults; ''
       ${lib.getExe pkgs.gum} style \
         --border-foreground '#${colorScheme.palette.base08}' --border double \
@@ -21,20 +21,22 @@
     inherit pkgs lib inputs;
     colorScheme = config.defaults.colorScheme;
   };
-in {
+in
+{
   boot = {
     crashDump.enable = false;
     tmp.cleanOnBoot = true;
 
     # protect against the copy fail exploit by blacklisting the affected kernel modules
-    blacklistedKernelModules = ["af_alg" "algif_hash" "algif_skcipher" "algif_rng" "algif_aead"];
+    blacklistedKernelModules = [ "af_alg" "algif_hash" "algif_skcipher" "algif_rng" "algif_aead" ];
 
     kernel.sysctl = {
       "kernel.core_pattern" = "|/bin/false";
       "fs.suid_dumpable" = 0;
     };
 
-    kernelPackages = pkgs.linuxPackages_zen;
+    # kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-zen4;
 
     plymouth = {
       enable = true;
@@ -42,7 +44,7 @@ in {
         ShowDelay=0
       '';
       theme = lib.mkForce "custom";
-      themePackages = [theme];
+      themePackages = [ theme ];
     };
 
     initrd = {

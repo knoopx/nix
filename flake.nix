@@ -56,6 +56,8 @@
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   };
 
   outputs = inputs: let
@@ -78,6 +80,7 @@
 
     globalOverlays =
       [
+        inputs.nix-cachyos-kernel.overlays.pinned
         inputs.astal-shell.overlays.default
         (self: super: {firefox-addons = inputs.firefox-addons.packages.${system};})
         (self: super: {vicinaehq = inputs.vicinaehq;})
