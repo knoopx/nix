@@ -140,21 +140,43 @@ in
       swayimg.gallery.switch_image("left")
     end)
 
+    swayimg.gallery.on_key("Space", function()
+      swayimg.gallery.mark_image()
+    end)
+
     swayimg.on_window_resize(function()
       if swayimg.get_mode() == "viewer" then
         swayimg.viewer.set_fix_scale("optimal")
       end
     end)
 
-    swayimg.viewer.on_key("Q", function()
-      swayimg.exit()
-    end)
+    local orders = { "none", "alpha", "numeric", "mtime", "size", "random" }
+    local order_idx = 3
 
+    local shared_keys = {
+      q = function()
+        swayimg.exit()
+      end,
+      ["/"] = function()
+        order_idx = order_idx % #orders + 1
+        swayimg.imagelist.set_order(orders[order_idx])
+        swayimg.text.set_status("Sort: " .. orders[order_idx])
+      end,
+      ["Ctrl+R"] = function()
+        swayimg.viewer.reload()
+      end,
+    }
+
+    for key, handler in pairs(shared_keys) do
+      swayimg.viewer.on_key(key, handler)
+      swayimg.gallery.on_key(key, handler)
+    end
+   
     swayimg.viewer.on_key("Escape", function()
       swayimg.set_mode("gallery")
     end)
 
-    swayimg.gallery.on_key("Q", function()
+    swayimg.gallery.on_key("Escape", function()
     end)
   '';
 }
