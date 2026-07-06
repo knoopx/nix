@@ -455,6 +455,28 @@
         "type": "github"
       }
     },
+    "niri-touch": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay_2"
+      },
+      "locked": {
+        "lastModified": 1781146535,
+        "narHash": "sha256-vSbZOzBwFMJo3pOKqbzJ9keCG3LMRO9DKR5qgVOH1pM=",
+        "owner": "julianjc84",
+        "repo": "niri",
+        "rev": "0e8ec77b630f0df0d34a733b48fdb9cbc0afb118",
+        "type": "github"
+      },
+      "original": {
+        "owner": "julianjc84",
+        "ref": "feat/configurable-touch-gestures",
+        "repo": "niri",
+        "type": "github"
+      }
+    },
     "niri-unstable": {
       "flake": false,
       "locked": {
@@ -563,6 +585,7 @@
         "home-manager": "home-manager",
         "neuwaita": "neuwaita",
         "niri": "niri",
+        "niri-touch": "niri-touch",
         "nix-colors": "nix-colors",
         "nixos-avf": "nixos-avf",
         "nixpkgs": "nixpkgs",
@@ -603,6 +626,27 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "rev": "085bdbf5dde5477538e4c87d1684b6c6df56c0ad",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_2": {
+      "inputs": {
+        "nixpkgs": [
+          "niri-touch",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1757989933,
+        "narHash": "sha256-9cpKYWWPCFhgwQTww8S94rTXgg8Q8ydFv9fXM6I8xQM=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "8249aa3442fb9b45e615a35f39eca2fe5510d7c3",
         "type": "github"
       },
       "original": {

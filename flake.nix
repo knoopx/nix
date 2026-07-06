@@ -20,6 +20,10 @@
     niri.inputs.nixpkgs.follows = "nixpkgs";
     niri.inputs.nixpkgs-stable.follows = "nixpkgs";
 
+    # julianjc84's niri fork with configurable touch gestures (for minibookx)
+    niri-touch.url = "github:julianjc84/niri/feat/configurable-touch-gestures";
+    niri-touch.inputs.nixpkgs.follows = "nixpkgs";
+
     astal-shell.url = "github:knoopx/astal-shell";
     astal-shell.inputs.nixpkgs.follows = "nixpkgs";
 
