@@ -1,0 +1,101 @@
+// Touchscreen gesture recognition tuning + binds for hi10max.
+//
+// Requires julianjc84's niri fork (feat/configurable-touch-gestures branch).
+// On upstream niri, gesture nodes are unknown and will fail to parse.
+
+input {
+    touchscreen {
+        // Pin the absolute touch surface to the built-in eDP display.
+        map-to-output "eDP-1"
+
+        // Defer focus to finger-lift; skip focus entirely if touch became a
+        // compositor gesture. Plain taps focus on lift.
+        focus-on-touch "touch-up"
+
+        gestures {
+            // -----------------------------------------------------
+            // Swipe tuning
+            // -----------------------------------------------------
+            swipe-trigger-distance    100.0
+            swipe-multi-finger-scale  1.2
+
+            // -----------------------------------------------------
+            // Edge swipe tuning
+            // -----------------------------------------------------
+            edge-start-distance       12.0
+
+            // -----------------------------------------------------
+            // Pinch tuning
+            // -----------------------------------------------------
+            pinch-trigger-distance    100.0
+            pinch-dominance-ratio     1.0
+            pinch-sensitivity         1.0
+
+            // -----------------------------------------------------
+            // Rotation tuning — all angles in DEGREES
+            // -----------------------------------------------------
+            rotation-trigger-angle    20.0
+            rotation-dominance-ratio  0.5
+
+            // -----------------------------------------------------
+            // Tap tuning
+            // -----------------------------------------------------
+            tap-wobble-threshold      15.0
+            tap-timeout-ms            500.0
+
+            // -----------------------------------------------------
+            // Tap-hold-drag tuning
+            // -----------------------------------------------------
+            tap-hold-trigger-delay-ms 200.0
+
+            // -----------------------------------------------------
+            // Flick-to-throw tuning
+            // -----------------------------------------------------
+            // flick-to-monitor          true
+            // flick-velocity-threshold  800.0
+        }
+    }
+}
+
+binds {
+    // =========================================================================
+    // Plain touchscreen gestures (no modifier)
+    // =========================================================================
+
+    // -------------------------------------------------------------------------
+    // Swipe — workspace / column navigation + overview
+    // -------------------------------------------------------------------------
+    TouchSwipe fingers=3 direction="up"    natural-scroll=true { focus-workspace-up; }
+    TouchSwipe fingers=3 direction="down"  natural-scroll=true { focus-workspace-down; }
+    TouchSwipe fingers=3 direction="left"  natural-scroll=true { focus-column-right; }
+    TouchSwipe fingers=3 direction="right" natural-scroll=true { focus-column-left; }
+
+    TouchSwipe fingers=4 direction="up"    { toggle-overview; }
+    TouchSwipe fingers=4 direction="down"  { toggle-overview; }
+
+    // -------------------------------------------------------------------------
+    // Pinch — overview toggles
+    // -------------------------------------------------------------------------
+    TouchPinch fingers=3 direction="in"    { open-overview; }
+    TouchPinch fingers=3 direction="out"   { close-overview; }
+
+    TouchPinch fingers=4 direction="in"    { open-overview; }
+    TouchPinch fingers=4 direction="out"   { close-overview; }
+
+    // -------------------------------------------------------------------------
+    // Rotate — column navigation
+    // -------------------------------------------------------------------------
+    TouchRotate fingers=4 direction="ccw" { focus-column-left; }
+    TouchRotate fingers=4 direction="cw"  { focus-column-right; }
+
+    // -------------------------------------------------------------------------
+    // Edge swipes — column / workspace navigation
+    // -------------------------------------------------------------------------
+    TouchEdge edge="left"   sensitivity=0.6 natural-scroll=true { focus-column-right; }
+    TouchEdge edge="right"  sensitivity=0.6 natural-scroll=true { focus-column-left; }
+    TouchEdge edge="top"    sensitivity=0.5 natural-scroll=true { focus-workspace-up; }
+    TouchEdge edge="bottom" sensitivity=0.5 natural-scroll=true { focus-workspace-down; }
+
+    TouchEdge edge="top" zone="right" natural-scroll=true { toggle-overview; }
+    TouchEdge edge="left" zone="top" natural-scroll=true { toggle-overview; }
+}

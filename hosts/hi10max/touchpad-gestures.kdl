@@ -1,0 +1,36 @@
+// Touchpad gesture recognition tuning + binds for hi10max.
+//
+// Requires julianjc84's niri fork (feat/configurable-touch-gestures branch).
+// On upstream niri, gesture nodes are unknown and will fail to parse.
+
+input {
+    touchpad {
+        tap
+        dwt
+        natural-scroll
+        accel-speed   0.2
+        accel-profile "adaptive"
+        scroll-factor 0.3
+        gestures {
+            swipe-trigger-distance  16.0
+            pinch-trigger-scale     0.15
+        }
+    }
+}
+
+binds {
+    // =========================================================================
+    // Plain touchpad gestures (no modifier)
+    // =========================================================================
+
+    // -------------------------------------------------------------------------
+    // Swipe — workspace / column navigation + overview
+    // -------------------------------------------------------------------------
+    TouchpadSwipe fingers=3 direction="up"    { focus-workspace-up; }
+    TouchpadSwipe fingers=3 direction="down"  { focus-workspace-down; }
+    TouchpadSwipe fingers=3 direction="left"  { focus-column-right; }
+    TouchpadSwipe fingers=3 direction="right" { focus-column-left; }
+
+    TouchpadSwipe fingers=4 direction="up"    { toggle-overview; }
+    TouchpadSwipe fingers=4 direction="down"  { toggle-overview; }
+}
