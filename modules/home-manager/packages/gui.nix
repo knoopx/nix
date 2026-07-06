@@ -52,7 +52,7 @@ in
 
     # ── installed packages ─────────────────────────────────────────────────
     baobab # Disk usage analyzer (pie chart visualization)
-    czkawka # Multi-functional file cleaner (duplicates, empties, etc.)
+    # czkawka # Multi-functional file cleaner (duplicates, empties, etc.)
     dconf-editor # Low-level GNOME settings editor
     drawing # Vector drawing app (MyPaint fork, GNOME)
     evince # Document viewer (PDF, PostScript, etc.)
