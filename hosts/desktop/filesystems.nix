@@ -2,13 +2,13 @@ _: {
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-label/system";
-      options = ["subvol=@nixos" "compress=zstd" "noatime" "nodiratime" "discard"];
+      options = ["subvol=@nixos" "compress=zstd" "noatime" "nodiratime" "nodiscard" "ssd"];
       fsType = "btrfs";
     };
 
     "/home" = {
       device = "/dev/disk/by-label/system";
-      options = ["subvol=@home" "compress=zstd" "noatime" "nodiratime" "discard"];
+      options = ["subvol=@home" "compress=zstd" "noatime" "nodiratime" "nodiscard" "ssd"];
       fsType = "btrfs";
     };
     "/boot" = {
@@ -18,22 +18,22 @@ _: {
     };
     "/mnt/storage" = {
       device = "/dev/disk/by-label/Storage";
-      options = ["nosuid" "compress=zstd" "nodev" "nofail" "x-gvfs-show"];
+      options = ["nosuid" "compress=zstd" "noatime" "nodev" "nofail" "x-gvfs-show"];
       fsType = "btrfs";
     };
     "/mnt/music" = {
       device = "/dev/disk/by-label/Music";
-      options = ["nosuid" "compress=zstd" "nodev" "nofail" "x-gvfs-show"];
+      options = ["nosuid" "compress=zstd" "noatime" "nodev" "nofail" "x-gvfs-show"];
       fsType = "btrfs";
     };
     "/btrfs" = {
       device = "/dev/disk/by-label/system";
-      options = ["compress=zstd" "noatime"];
+      options = ["compress=zstd" "noatime" "ssd"];
       fsType = "btrfs";
     };
     "/swap" = {
       device = "/dev/disk/by-label/system";
-      options = ["subvol=@swap" "compress=lzo" "noatime"];
+      options = ["subvol=@swap" "noatime" "ssd"];
       fsType = "btrfs";
     };
   };
