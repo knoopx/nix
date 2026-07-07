@@ -1,5 +1,9 @@
 {lib, ...}: {
   boot = {
+    blacklistedKernelModules = [
+      "snd_hda_intel" # NVIDIA HDMI audio probe fails; use ALSA directly via NVIDIA driver
+    ];
+
     extraModprobeConfig = ''
       options snd_hda_intel enable=0
     '';
