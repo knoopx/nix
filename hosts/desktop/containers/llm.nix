@@ -18,7 +18,7 @@ let
     ubatch-size = 512
     ctk = q8_0
     ctv = q8_0
-  
+
     temp = 0.6
     top-p = 0.95
     top-k = 20
@@ -26,21 +26,39 @@ let
     presence-penalty = 0.0
     repeat-penalty = 1.0
 
-    [Qwen3.6-27B]
-    hf-repo = sphaela/Qwen3.6-27B-AutoRound-GGUF:Q6_K
-    no-mmproj = true
+    [Qwen3.6-35B-A3B-MTP]
+    hf-repo = byteshape/Qwen3.6-35B-A3B-MTP-GGUF:IQ4_XS-3.97bpw
+    no-mmproj = false
+    spec-type = draft-mtp
+    spec-draft-n-max = 4
+    spec-draft-p-min = 0.85
 
-    [Qwen3.6-27B-MTP]
-    alias = Qwen3.6-27B-MTP
-    hf-repo = localweights/Qwen3.6-27B-MTP-Q4_K_M-Q8nextn-GGUF
+    [ThinkingCap-Qwen3.6-27B-MTP]
+    hf-repo = bottlecapai/ThinkingCap-Qwen3.6-27B-GGUF:Q4_K_M
     no-mmproj = true
     spec-type = draft-mtp
     spec-draft-n-max = 4
     spec-draft-p-min = 0.85
 
-    [Qwen3.6-35B-A3B]
-    hf-repo = unsloth/Qwen3.6-35B-A3B-MTP-GGUF:UD-Q6_K
+    [Tess-4-27B-MTP]
+    hf-repo = migtissera/Tess-4-27B-GGUF:Q4_K_M
     no-mmproj = true
+    spec-type = draft-mtp
+    spec-draft-n-max = 4
+    spec-draft-p-min = 0.85
+
+    [Qwen3.6-27B]
+    alias = Qwen3.6-27B
+    hf-repo = sphaela/Qwen3.6-27B-AutoRound-GGUF:Q6_K
+    no-mmproj = true
+
+    [Qwen3.6-35B-A3B-MMPROJ]
+    hf-repo = unsloth/Qwen3.6-35B-A3B-MTP-GGUF:UD-Q5_K_M
+    no-mmproj = false
+
+    [ThinkingCap-Qwen3.6-27B-MMPROJ]
+    hf-repo = bottlecapai/ThinkingCap-Qwen3.6-27B-GGUF:Q4_K_M
+    no-mmproj = false
 
     [Nex-N2-mini]
     hf-repo = mudler/Nex-N2-mini-APEX-GGUF:APEX-I-Balanced
@@ -49,6 +67,10 @@ let
   '';
 in
 {
+  systemd.services.podman-llm.after = [
+    "nvidia-container-toolkit-cdi-generator.service"
+  ];
+
   virtualisation.oci-containers.containers = {
     "llm" = {
       autoStart = true;
