@@ -1,5 +1,6 @@
-{pkgs}: let
-  py = pkgs.python313.pkgs;
+{ pkgs }:
+let
+  py = pkgs.python314.pkgs;
   supertonicPy = py.buildPythonPackage rec {
     pname = "supertonic";
     version = "1.3.1";
@@ -8,19 +9,21 @@
       hash = "sha256-Q2fo9hr+phjayUj2vuVf7UchrWbKLT/JB3GipmdAcx4=";
     };
     format = "pyproject";
-    nativeBuildInputs = [py.setuptools py.wheel];
-    propagatedBuildInputs = with py; [onnxruntime numpy huggingface-hub soundfile];
+    nativeBuildInputs = [ py.setuptools py.wheel ];
+    propagatedBuildInputs = with py; [ onnxruntime numpy huggingface-hub soundfile ];
     doCheck = false;
   };
-  ttsPython = pkgs.python313.withPackages (_ps: [supertonicPy]);
+  ttsPython = pkgs.python314.withPackages (ps: with ps; [ supertonicPy numpy onnxruntime huggingface-hub soundfile ]);
 in
-  pkgs.writeShellApplication {
-    name = "tts";
-    runtimeInputs = [ttsPython pkgs.pipewire pkgs.playerctl];
-    text = let
+pkgs.writeShellApplication {
+  name = "tts";
+  runtimeInputs = [ ttsPython pkgs.pipewire pkgs.playerctl ];
+  text =
+    let
       python = ttsPython.interpreter;
       ttsPy = ./tts.py;
-    in ''
+    in
+    ''
       VOICE_STYLE="''${TTS_VOICE:-F4}"
       TOTAL_STEPS="''${TTS_STEPS:-5}"
       GAIN="''${TTS_GAIN:-3}"
@@ -47,4 +50,4 @@ in
       playerctl -a play 2>/dev/null || true
       rm -f /tmp/tts.pid
     '';
-  }
+}
