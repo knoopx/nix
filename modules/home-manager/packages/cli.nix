@@ -160,6 +160,7 @@
     wl-clipboard # Wayland clipboard tools (wl-copy, wl-paste)
     wshowkeys # Wayland key/mouse event viewer
     xxd # Hex dumper/editor
+    secretspec
 
     # ── custom/overlay packages ────────────────────────────────────────────
     google-authenticator-qr-decode # Decode QR codes for Google Authenticator setup
