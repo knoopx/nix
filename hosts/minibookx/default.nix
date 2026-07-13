@@ -60,7 +60,6 @@ in {
         {app-id = "org.gnome.NautilusPreviewer";}
         {app-id = "io.bassi.Amberol";}
         {app-id = "Plexamp";}
-        {app-id = "net.knoopx.camper";}
         {title = "[Ll]ogin";}
         {title = "Photos";}
         {title = "[Ss]ign-?in";}
@@ -118,7 +117,6 @@ in {
       matches = [
         {app-id = "io.bassi.Amberol";}
         {app-id = "Plexamp";}
-        {app-id = "net.knoopx.camper";}
       ];
       default-column-width.proportion = 0.25;
     }
@@ -314,7 +312,6 @@ in {
           exclude app-id="org.gnome.NautilusPreviewer"
           exclude app-id="io.bassi.Amberol"
           exclude app-id="Plexamp"
-          exclude app-id="net.knoopx.camper"
           exclude title="[Ll]ogin"
           exclude title="Photos"
           exclude title="[Ss]ign-?in"
@@ -355,7 +352,6 @@ in {
       window-rule {
           match app-id="io.bassi.Amberol"
           match app-id="Plexamp"
-          match app-id="net.knoopx.camper"
           default-column-width { proportion 0.25; }
       }
       window-rule {

@@ -48,9 +48,6 @@
     vicinae-extensions.url = "github:knoopx/vicinae-extensions";
     vicinae-extensions.flake = false;
 
-    camper.url = "github:knoopx/camper";
-    camper.inputs.nixpkgs.follows = "nixpkgs";
-
     waveshare-genui.url = "github:knoopx/waveshare-genui";
     waveshare-genui.inputs.nixpkgs.follows = "nixpkgs";
 

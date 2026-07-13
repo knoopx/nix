@@ -3,7 +3,6 @@
 , ...
 }:
 let
-  camper = inputs.camper.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   home.packages = with pkgs; [
@@ -62,7 +61,6 @@ in
     gnome-disk-utility # Disk manager (format, SMART, benchmarks)
     gnome-secrets # Password and secret manager (GNOME)
     gnome-weather # Weather application (GNOME)
-    # camper # Bandcamp GTK4 (camper input)
     nautilus # File manager (GNOME)
     # onlyoffice-desktopeditors  # Office suite (Word/Excel/PowerPoint, commented)
     # pinta              # Image editor (Paint.NET clone, commented)
