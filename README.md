@@ -2,9 +2,7 @@
 
 This is my personal NixOS configuration for a clean, keyboard-focused development machine. I built it to keep things simple, consistent, and distraction-free while coding.
 
-https://github.com/user-attachments/assets/d45f3687-cfda-47a7-b2e9-3c0dbdb562bf
-
-## Try Out
+## Quick Start
 
 ```bash
 # Run the VM demo
@@ -31,7 +29,7 @@ caligula burn result/iso/*.iso
 nix run .#installer-vm-test
 ```
 
-**⚠️ Warning**: The installer will automatically erase and partition the first unused disk it finds. Use with caution.
+**Warning**: The installer automatically erases and partitions the first unused disk it finds. Use with caution.
 
 ## What I Focus On
 
@@ -42,28 +40,27 @@ nix run .#installer-vm-test
   - Text editors (VSCode, Helix)
   - Window manager (Niri with custom color schemes)
   - All applications via Stylix theming system
-- **Reproducible**: Everything's declarative, so I can set it up the same way anywhere
+- **Reproducible**: Everything is declarative, so I can set it up the same way anywhere
 
 ## Software
 
 ### Core System
 
-- **[Niri](https://github.com/YaLTeR/niri)**: A modern, Wayland-native tiling window manager that provides efficient keyboard-driven window management with custom layouts and workspaces
-- **[Firefox](https://www.mozilla.org/firefox/)**: Web browser optimized for privacy with [uBlock Origin](https://github.com/gorhill/uBlock) for ad-blocking, custom search engines, and userstyles for consistent theming. Includes policies for enhanced security and performance thanks to [BetterFox](https://github.com/yokoffing/BetterFox) and GNOME theme integration
-- **[Chromite](https://github.com/beetlelust/chromite)**: Privacy-focused Chromium fork with enhanced security features
+- **[Niri](https://github.com/YaLTeR/niri)**: Wayland-native tiling window manager with custom layouts and workspaces
+- **[Firefox](https://www.mozilla.org/firefox/)**: Web browser with uBlock Origin, custom search engines, userstyles, BetterFox policies, and GNOME theme integration
 - **[Kitty](https://github.com/kovidgoyal/kitty)**: GPU-accelerated terminal emulator with theme integration
-- **[Fish](https://github.com/fish-shell/fish-shell)**: The user-friendly command line shell with custom completions
+- **[Fish](https://github.com/fish-shell/fish-shell)**: Shell with custom completions
 - **[Hyprlock](https://github.com/hyprwm/Hyprlock)**: Screen locker with custom theme
-- **[Yazi](https://github.com/sxyazi/yazi)**: Modern terminal file manager
-- **[Astal](https://github.com/astrsh/astal)**: Dynamic shell for desktop widgets and system integration
+- **[Yazi](https://github.com/sxyazi/yazi)**: Terminal file manager
+- **[Astal](https://github.com/astrsh/astal)**: Desktop shell for widgets and system integration
 
 ### Development Tools
 
-- **[VSCode](https://github.com/microsoft/vscode)**: Primary code editor with custom keybindings, themes, and productivity tools
+- **[VSCode](https://github.com/microsoft/vscode)**: Primary code editor with custom keybindings and themes
 - **[Helix](https://github.com/helix-editor/helix)**: Modal text editor inspired by Vim
-- **[jj (Jujutsu)](https://github.com/jj-vcs/jj)**: Version control system with superior history manipulation and workflow management
+- **[jj (Jujutsu)](https://github.com/jj-vcs/jj)**: Version control system with strong history manipulation
 - **[jj-hunk](https://github.com/knoopx/jj-hunk)**: Programmatic hunk selection tool for Jujutsu
-- **[nix-ld](https://github.com/nix-community/nix-ld)**: Enables the experience (and caveats) of conventional Linux distros into NixOS, avoiding the need to re-package every single binary
+- **[nix-ld](https://github.com/nix-community/nix-ld)**: Runs conventional Linux binaries on NixOS without repackaging
 
 ### Command Line Tools
 
@@ -71,8 +68,9 @@ nix run .#installer-vm-test
 - **Btop**: Resource monitor
 - **Delta**: Modern diff viewer
 - **Fzf/Skim**: Command-line fuzzy finders
-- **Nu Shell**: Modern shell with structured data processing
+- **Nu Shell**: Shell with structured data processing
 - **Starship**: Customizable prompt
+- **Rclip**: CLIP-based command-line image search
 
 ### Control Scripts
 
@@ -91,6 +89,10 @@ Custom Nu-based scripts for system control:
 - **google-authenticator-qr-decode**: Decode QR codes from Google Authenticator
 - **pick-project**: Project selection utility
 - **pick-document**: Document selection utility
+- **dashboard**: System dashboard with inbox and project summaries
+- **events**: Event management utilities
+- **inbox**: Gmail inbox retrieval
+- **project-summary**: Project overview utility
 
 ### Default Applications
 
@@ -100,77 +102,62 @@ Configured default applications across the system:
 - **Terminal**: Kitty
 - **Editor**: Helix
 - **File Manager**: Nautilus
-- **Image Viewer**: Eye of GNOME (EOG)
+- **Image Viewer**: Swayimg
+- **PDF Viewer**: Evince
 - **Video Player**: MPV
-- **Music Player**: Decibels
+- **Music Player**: Plexamp
 
 ### Development Environments
 
-The `modules/home-manager/packages/dev/` directory contains language-specific development environments, each providing essential tools for programming in that language:
+The `modules/home-manager/packages/dev/` directory contains language-specific development environments:
 
-- **[Crystal](https://github.com/crystal-lang/crystal)**: Compiler, [Crystalline](https://github.com/elbywan/crystalline) language server, [Shards](https://github.com/crystal-lang/shards) package manager, and [Mint framework](https://github.com/mint-lang/mint) for building web applications
-- **[Go](https://github.com/golang/go)**: Compiler, [gopls](https://github.com/golang/tools/tree/master/gopls) language server, [Delve](https://github.com/go-delve/delve) debugger, and build tools for efficient Go development
-- **JavaScript**: [Node.js](https://github.com/nodejs/node) runtime, package managers ([Yarn](https://github.com/yarnpkg/yarn), [pnpm](https://github.com/pnpm/pnpm)), and [Bun](https://bun.sh) for modern web development
-- **[Nix](https://github.com/NixOS/nix)**: [nixpkgs-fmt](https://github.com/nix-community/nixpkgs-fmt) formatter and development tools for Nix language development
-- **[Nu Shell](https://www.nushell.sh)**: Modern shell with plugins for data processing (polars, query, notifications, highlight, skim) and formatting (nufmt)
+- **[Crystal](https://github.com/crystal-lang/crystal)**: Compiler, Crystalline language server, Shards package manager, and Mint framework
+- **[Go](https://github.com/golang/go)**: Compiler, gopls language server, Delve debugger, and build tools
+- **JavaScript**: Node.js, Yarn, pnpm, and Bun
+- **[Nix](https://github.com/NixOS/nix)**: nixpkgs-fmt formatter and development tools
 - **[Python](https://github.com/python/cpython)**: Interpreter and development utilities
-- **[Ruby](https://github.com/ruby/ruby)**: Interpreter, [Bundler](https://github.com/rubygems/bundler) for dependency management
-- **[Rust](https://github.com/rust-lang/rust)**: Compiler and [Cargo](https://github.com/rust-lang/cargo) package manager
-- **System**: C/C++ compilers ([GCC](https://gcc.gnu.org/), [Clang](https://clang.llvm.org/)), build tools, and system-level development utilities
+- **[Ruby](https://github.com/ruby/ruby)**: Interpreter and Bundler
+- **[Rust](https://github.com/rust-lang/rust)**: Compiler and Cargo
+- **System**: C/C++ compilers (GCC, Clang), build tools, and system-level utilities
 
-### Launchers and Extensions
+### Launchers and Applications
 
 - **[Vicinae](https://github.com/vicinaehq/vicinae/)**: Application launcher inspired by Raycast
-- **[Astal](https://github.com/astrsh/astal)**: Dynamic desktop shell for widgets and system integration
-- **Camper**: Home automation control integration
 - **Vicinae Extensions**: Custom extensions for the launcher
 
 ## How It's Organized
 
 ### My Machines
 
-- **desktop/**: Main workstation featuring:
-  - NVIDIA graphics with CUDA support
-  - [BTRFS](https://btrfs.readthedocs.io/en/latest/) filesystem with advanced features
-  - Container services ([Watchtower](https://github.com/containrrr/watchtower) for updates, [SilverBullet](https://silverbullet.md/))
-  - Hardware acceleration for AI models
-  - EasyEffects audio configuration
-  - Glance dashboard
-- **minibookx/**: Chuwi Minibook X N150 laptop configuration:
-  - Hardware-specific drivers and optimizations
-  - Power management and battery optimizations
-- **vm/**: Virtual machine setup for testing with demo scripts
-- **steamdeck/**: Steam Deck configuration with VM test support
-- **android/**: Android Virtual Framework (AVF) image configuration
-- **live-usb/**: Bootable USB configuration for system recovery
-- **installer/**: Unattended installer ISO that automatically partitions and installs kOS:
-  - Creates 1GB EFI boot partition + XFS root filesystem
-  - Installs complete system with home-manager configuration
-  - Auto-reboots after successful installation
+- **hosts/desktop/**: Main workstation with NVIDIA CUDA, BTRFS, container services (Watchtower, LLM), hardware-accelerated AI, and Glance dashboard
+- **hosts/minibookx/**: Chuwi Minibook X N150 laptop with hardware-specific drivers and power management
+- **hosts/hi10max/**: Touchscreen tablet with configurable touch gestures via julianjc84's niri fork
+- **hosts/vm/**: Virtual machine setup for testing with demo scripts
+- **hosts/steamdeck/**: Steam Deck configuration with VM test support
+- **hosts/android/**: Android Virtual Framework (AVF) image configuration
+- **hosts/live-usb/**: Bootable USB configuration for system recovery
+- **hosts/installer/**: Unattended installer ISO that creates a 1GB EFI boot partition, 32GB encrypted swap, and XFS root with LUKS, installs the complete system with home-manager configuration, then auto-reboots
 
 ### Modules
 
 - **modules/nixos/**: System-level configurations including:
   - **defaults/**: Global settings for apps, colors, display, fonts, system, and user
-  - **services/**: System services ([Plex Media Server](https://www.plex.tv/), [Traefik](https://github.com/traefik/traefik), Android photo backup, auto-scrcpy, Flatpak, Keyd, etc.)
+  - **services/**: System services (Plex Media Server, Traefik, auto-scrcpy, Flatpak, Keyd, etc.)
   - **system/**: Core system settings (boot, documentation, environment, hardware, networking, Nix configuration, packages, programs, users, virtualisation)
-  - **theming/**: [Stylix](https://github.com/danth/stylix) theming configuration
+  - **theming/**: Stylix theming configuration
   - **wm/**: Window manager and desktop environment settings (Niri, packages, programs, services, XDG)
 - **modules/home-manager/**: User environment configurations:
   - **packages/**: User packages and development tools
-    - **dev/**: Language-specific development environments (Crystal, Go, JavaScript, Nix, Nu Shell, Python, Ruby, Rust, System)
+    - **dev/**: Language-specific development environments (Crystal, Go, JavaScript, Nix, Python, Ruby, Rust, System)
     - **cli.nix**: Command-line interface utilities
     - **gui.nix**: Graphical user interface packages
-  - **programs/**: Application configurations (VSCode, Firefox, Kitty, Fish, Helix, Hyprlock, etc.)
+  - **programs/**: Application configurations (Bat, Btop, Delta, Firefox, Fish, Git, Gram, Helix, Hyprlock, JJ, Kitty, Micro, MPV, NH, Nix-index, Nu Shell, Pi-AI, Skim, Starship, Swayimg, Vicinae, Voxtype, WL-KBPtr, Yazi)
     - **firefox/**: Firefox with custom policies, profiles, and uBlock rules
     - **vicinae/**: Vicinae launcher configuration with custom scripts
-
     - **nu-shell/**: Nu Shell configuration with custom completions
-    - Other programs: bat, btop, chromite, delta, fish, git, helix, hyprlock, jj, kitty, micro, nix-index, pi-ai, skim, starship, voxtype, yazi
-
   - **wm/**: Window manager user settings
     - **shell.nix**: Shell integration with window control
-    - **niri/**: Niri window manager configuration
+    - **niri/**: Niri window manager configuration (Astal shell, swayidle, niri-notify-focus)
     - **xdg/**: XDG desktop integration, GTK themes, dconf settings
 
 ### Overlays
@@ -181,57 +168,67 @@ Package customizations and fixes:
 - **glance.nix**: Glance dashboard customizations
 - **gnome-control-center.nix**: GNOME Control Center patches
 - **pegasus-frontend.nix**: Pegasus Frontend modifications
+- **plotly.nix**: Plotly library patches
+- **rclip.nix**: Rclip CLIP search overrides
 - **retroarch.nix**: RetroArch emulator customizations
 - **useless-desktop-items.nix**: Desktop item management
-- **plotly.nix**: Plotly library patches
 
 ### Builders
 
 Helper functions for creating package derivations:
 
-- **theming/**: Theme builders (MoreWaita icons, Plymouth themes, Stylix Firefox/Gnome themes)
+- **theming/**: Theme builders (MoreWaita icons, Plymouth themes)
+- **mkRenderMd.nix**: Markdown rendering utility
 
 ### Library
 
 Utility functions for theming, color manipulation, and module loading:
 
-- **theming/**: Color conversion utilities (hexToRGB, rgbToHex, etc.)
+- **theming/**: Color conversion utilities (hexToRGB, rgbToHex, hexToHSL, colorVariations, matchThemeColors)
 - **listNixModulesRecusive.nix**: Custom module loading utility
 
 ### Packages
 
 Custom package definitions in `pkgs/`:
 
-**Control & Utility Scripts:**
-
-- brightness-control, display-control, volume-control, media-control
-- session-control, window-control, tablet-mode-control
-- voice-input-control, recording-indicator, screen-recording
-- google-authenticator-qr-decode
-- pick-project, pick-document
-
 **Applications:**
 
 - [Neuwaita Icon Theme](https://github.com/knoopx/neuwaita-icon-theme): Custom icon theme
 - [NFO Viewer](https://github.com/nfoview/nfoview): NFO file viewer
-- **browser**: Custom Firefox/Chromium browser wrapper
+- **browser**: Custom Firefox browser wrapper
 - **file-manager**: Custom file manager wrapper
-- **image-viewer**: Custom image viewer wrapper
+- **image-viewer**: Custom image viewer wrapper (Swayimg)
+- **pdf-viewer**: Custom PDF viewer wrapper (Evince)
 - **terminal**: Custom terminal emulator wrapper
-- **editor**: Custom editor wrapper
-
+- **editor**: Custom editor wrapper (Helix)
 - **tts**: Text-to-speech utilities
 
 **Development & Productivity:**
 
 - **codemapper**: Code mapping and navigation tool
-- **jj-hunk**: Programmatic hunk selection for Jujutsu
 - **romie**: ROM management utility
 - **sem**: Semantic versioning tool
 - **mdtt**: Markdown to text tool
 - **wacli**: WhatsApp CLI client
 - **gogcli**: GOG.com CLI client
 - **pi-project**: Pi AI project integration
+- **dashboard**: System dashboard with inbox and project summaries
+- **events**: Event management utilities
+- **inbox**: Gmail inbox retrieval
+- **project-summary**: Project overview utility
+- **inspect**: Codebase inspection tool
+- **qmd**: Markdown workspace tool
+- **weave**: CLI tool and driver
+- **tolaria**: Markdown knowledge base manager
+- **kuva**: Image viewing utility
+- **numnum**: Image viewer
+- **gritql**: Semantic code search
+- **dawn**: Image optimization tool
+- **freeze**: Image snapshot tool
+- **nu-jupyter-kernel**: Jupyter kernel for Nushell
+- **niri-notify-focus**: Window focus notification for Niri
+- **toggle-panel**: Panel toggle utility
+- **jj-hunk**: Hunk selection tool for Jujutsu
 
 ### Host-Specific Configurations
 
