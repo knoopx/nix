@@ -298,10 +298,6 @@ let
                 url = "https://github.com/vicinaehq/vicinae/releases.atom";
               }
               {
-                title = "Vicinae Extensions";
-                url = "https://github.com/knoopx/vicinae-extensions/releases.atom";
-              }
-              {
                 title = "Niri";
                 url = "https://github.com/YaLTeR/niri/releases.atom";
               }
@@ -376,18 +372,6 @@ let
               {
                 title = "NFOView";
                 url = "https://github.com/otsaloma/nfoview/releases.atom";
-              }
-              {
-                title = "Astal Shell";
-                url = "https://github.com/knoopx/astal-shell/releases.atom";
-              }
-              {
-                title = "Camper";
-                url = "https://github.com/knoopx/camper/releases.atom";
-              }
-              {
-                title = "Waveshare Genui";
-                url = "https://github.com/knoopx/waveshare-genui/releases.atom";
               }
             ];
           }
