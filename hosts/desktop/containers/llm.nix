@@ -2,76 +2,60 @@
 let
   presets = pkgs.writeText "presets.ini" ''
     [*]
-    parallel = 2
-    jinja = on
-    no-warmup = on
-    kv-unified = on
-    no-host = on
-    flash-attn = on
-    ngl = all
-    spec-draft-ngl = all
-    no-mmap = on
-    mlock = on
+    parallel = 1
+    # jinja = on
+    # no-warmup = on
+    # kv-unified = on;
+    # no-host = on
+    # flash-attn = on
+    # ngl = all
+    # spec-draft-ngl = all
+    # no-mmap = on
+    # mlock = on
     ctx-size = 131072
     # threads = 64
-    batch-size = 4096
+    # batch-size = 4096
     # batch-size = 2048
-    ubatch-size = 512
+    # ubatch-size = 512
     ctk = q8_0
     ctv = q8_0
 
-    temp = 0.6
+    # temp = 0.6
+    # top-p = 0.95
+    # top-k = 20
+    # min-p = 0.0
+
+    temp = 1.0
     top-p = 0.95
-    top-k = 20
-    min-p = 0.0
+    top-k = 0
+    min-p = 0
+
     presence-penalty = 0.0
     repeat-penalty = 1.0
 
-    [Qwen3.6-35B-A3B-MTP]
-    hf-repo = byteshape/Qwen3.6-35B-A3B-MTP-GGUF:IQ4_XS-3.97bpw
-    no-mmproj = false
-    spec-type = draft-mtp
     spec-draft-n-max = 4
     spec-draft-p-min = 0.85
 
-    [ThinkingCap-Qwen3.6-27B-NVFP4-MTP]
-    hf-repo = protoLabsAI/ThinkingCap-Qwen3.6-27B-MTP-GGUF:NVFP4-MTP
+    # spec-draft-n-max = 3
+    # spec-draft-p-min = 0.6
+
+    no-mmproj = true
+
+    [bytkim/Qwen3.6-27B-MTP-pi-reasoning-GGUF:Q5_K_M]
+    hf-repo = bytkim/Qwen3.6-27B-MTP-pi-reasoning-GGUF:Q5_K_M
     no-mmproj = true
     spec-type = draft-mtp
-    spec-draft-n-max = 3
-    spec-draft-p-min = 0.85
 
-    [ThinkingCap-Qwen3.6-27B-NVFP4-MMPROJ]
-    hf-repo = protoLabsAI/ThinkingCap-Qwen3.6-27B-MTP-GGUF:NVFP4-MTP
+    [mudler/Qwen3.6-35B-A3B-APEX-MTP-GGUF:QUALITY]
+    hf-repo = mudler/Qwen3.6-35B-A3B-APEX-MTP-GGUF:APEX-MTP-I-Quality
+    ctx-size = 262144    
     no-mmproj = false
-
-    [Tess-4-27B-MTP]
-    hf-repo = migtissera/Tess-4-27B-GGUF:Q4_K_M
-    no-mmproj = true
     spec-type = draft-mtp
-    spec-draft-n-max = 4
-    spec-draft-p-min = 0.85
 
-    [Qwen3.6-27B]
-    alias = Qwen3.6-27B
-    hf-repo = sphaela/Qwen3.6-27B-AutoRound-GGUF:Q6_K
+    [prism-ml/Bonsai-27B-gguf:Q1_0]
+    hf-repo = prism-ml/Bonsai-27B-gguf:q1_0
     no-mmproj = true
-
-    [Qwen3.6-35B-A3B-MMPROJ]
-    hf-repo = unsloth/Qwen3.6-35B-A3B-MTP-GGUF:UD-Q5_K_M
-    no-mmproj = false
-
-    [Nex-N2-mini]
-    hf-repo = mudler/Nex-N2-mini-APEX-GGUF:APEX-I-Balanced
-    temp = 0.7
-    top-k = 40
-
-    [Agents-A1-Q4_K_M]
-    hf-repo = InternScience/Agents-A1-Q4_K_M-GGUF:Q4_K_M
-    no-mmproj = false
-    temp = 0.85
-    presence-penalty = 1.1
-    repeat-penalty = 1.0
+    ctx-size = 262144
   '';
 in
 {
@@ -104,11 +88,7 @@ in
         "/home/knoopx/.cache/huggingface/:/root/.cache/huggingface/"
         "${presets}:/presets.ini:ro"
       ];
-      environment = {
-        CUDA_SCALE_LAUNCH_QUEUES = "4x";
-        GGML_CUDA_GRAPH_OPT = "1";
-        GGML_CUDA_FORCE_CUBLAS_COMPUTE_16F = "1";
-      };
+      environment = { };
       extraOptions = [
         "--device=nvidia.com/gpu=all"
       ];
