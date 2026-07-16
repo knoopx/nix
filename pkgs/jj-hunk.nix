@@ -1,11 +1,11 @@
 {pkgs}: let
   pname = "jj-hunk";
-  version = "0-unstable-2026-05-17";
+  version = "0.4.1";
 
   src = pkgs.fetchFromGitHub {
     owner = "laulauland";
     repo = "jj-hunk";
-    rev = "3643ee8f7fa02f0ea4befd060e0e1057df72b987";
+    rev = "v${version}";
     sha256 = "sha256-lFuYTg6TW/Lsz4wwaaWFi37F2aGKpLwQgq40VTdDUKE=";
   };
 in
