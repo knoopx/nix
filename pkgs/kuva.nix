@@ -1,12 +1,12 @@
 {pkgs}: let
   pname = "kuva";
-  version = "0.3.0";
+  version = "0.4.0";
 
   src = pkgs.fetchFromGitHub {
     owner = "Psy-Fer";
     repo = "kuva";
     rev = "v${version}";
-    sha256 = "sha256-DGuFM5D5QLzcXcuncZ9WAt+O4k/wxMysXKpIiHyHl0E=";
+    sha256 = "sha256-tmMn6uSLlNu3rDcp70ap7KpNOpdWaMps9QCu6d2xiF0=";
   };
 in
   pkgs.rustPlatform.buildRustPackage {
