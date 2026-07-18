@@ -1,11 +1,12 @@
-{
-  lib,
-  config,
-  ...
-} @ inputs: let
+{ lib
+, config
+, ...
+} @ inputs:
+let
   system = "x86_64-linux";
   listNixModulesRecusive = import ../../lib/listNixModulesRecusive.nix inputs;
-in {
+in
+{
   imports =
     [
       ./boot.nix
@@ -14,6 +15,7 @@ in {
       ./nvidia.nix
     ]
     ++ (listNixModulesRecusive ./services)
+    ++ (listNixModulesRecusive ./packages)
     ++ (listNixModulesRecusive ./containers)
     ++ (listNixModulesRecusive ../../modules/nixos);
 
@@ -42,7 +44,7 @@ in {
   defaults.display.idleTimeout = lib.mkForce (15 * 60);
 
   home-manager.users.${config.defaults.username} = {
-    imports = [../../home/${config.defaults.username}.nix] ++ (listNixModulesRecusive ./home-manager);
+    imports = [ ../../home/${config.defaults.username}.nix ] ++ (listNixModulesRecusive ./home-manager);
 
     programs.niri = {
       settings = {
@@ -58,8 +60,8 @@ in {
           };
         };
         binds = {
-          "Mod+Tab".action = lib.mkForce {"switch-focus-between-floating-and-tiling" = [];};
-          "Mod+Shift+Tab".action = lib.mkForce {"focus-monitor-next" = [];};
+          "Mod+Tab".action = lib.mkForce { "switch-focus-between-floating-and-tiling" = [ ]; };
+          "Mod+Shift+Tab".action = lib.mkForce { "focus-monitor-next" = [ ]; };
         };
       };
     };
