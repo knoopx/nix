@@ -101,7 +101,7 @@ with lib; {
           {
             matches = [
               {app-id = "io.bassi.Amberol";}
-              {app-id = "Plexamp";}
+              {app-id = "plexamp";}
             ];
             default-column-width.proportion = 0.25;
           }
