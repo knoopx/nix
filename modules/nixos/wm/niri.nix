@@ -2,10 +2,10 @@
   programs.niri.enable = true;
   programs.niri.package = pkgs.niri;
   environment.systemPackages = [
-    pkgs.xdg-utils
-    pkgs.xdg-desktop-portal-wlr
-    pkgs.xdg-desktop-portal-gnome
-    pkgs.xdg-desktop-portal-gtk
+    pkgs.xdg-utils # Desktop integration tools for applications
+    pkgs.xdg-desktop-portal-wlr # xdg-desktop-portal backend for wlroots
+    pkgs.xdg-desktop-portal-gnome # xdg-desktop-portal backend for GNOME
+    pkgs.xdg-desktop-portal-gtk # Desktop integration portals for sandboxed apps
   ];
 
   xdg = {
@@ -26,7 +26,7 @@
   services.displayManager = {
     defaultSession = lib.mkDefault "niri";
     sessionPackages = [
-      pkgs.niri
+      pkgs.niri # Scrollable-tiling Wayland compositor
     ];
   };
   security.polkit.enable = true;

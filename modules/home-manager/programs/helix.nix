@@ -3,10 +3,10 @@
 , ...
 }: {
   home.packages = with pkgs; [
-    jq-lsp
-    biome
-    yaml-language-server
-    marksman
+    jq-lsp # Language server for jq
+    biome # Web toolchain
+    yaml-language-server # Language server for YAML
+    marksman # Language server for Markdown
   ];
 
   programs.helix = {

@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    libsecret
+    libsecret # Password and secrets storage library
   ];
 
   xdg = {

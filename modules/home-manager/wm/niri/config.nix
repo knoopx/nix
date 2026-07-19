@@ -6,14 +6,14 @@
 }: {
   services.gnome-keyring.enable = true;
   home.packages = [
-    pkgs.playerctl
-    pkgs.wireplumber
-    pkgs.xwayland-satellite
-    pkgs.screen-recording
-    pkgs.recording-indicator
-    pkgs.voice-input-control
-    pkgs.pi-project
-    pkgs.pick-project
+    pkgs.playerctl # MPRIS media player control
+    pkgs.wireplumber # PipeWire session/policy manager
+    pkgs.xwayland-satellite # Xwayland outside your Wayland compositor
+    pkgs.screen-recording # Screen recording with gpu-screen-recorder
+    pkgs.recording-indicator # Flashing REC indicator overlay
+    pkgs.voice-input-control # Voice input recording toggle
+    pkgs.pi-project # Open pi agent for selected project
+    pkgs.pick-project # Select project via dmenu and run command
   ];
 
   programs.niri = {

@@ -5,9 +5,9 @@
   ...
 }: {
   home.packages = with pkgs; [
-    libnotify
-    polkit_gnome
-    squeekboard
+    libnotify # Desktop notification library
+    polkit_gnome # Authentication dialogs for polkit
+    squeekboard # Wayland virtual keyboard
   ];
 
   programs.niri-notify-focus.enable = true;

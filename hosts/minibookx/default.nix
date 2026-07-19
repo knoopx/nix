@@ -14,8 +14,8 @@ in
       ./display.nix
       ./hardware.nix
       ./services.nix
-      ./packages.nix
     ]
+    ++ (listNixModulesRecusive ./packages)
     ++ (listNixModulesRecusive ../../modules/nixos);
 
   # Use julianjc84's niri fork (feat/configurable-touch-gestures) for

@@ -1,9 +1,7 @@
 { pkgs
 , ...
 }: {
-  home.packages = with pkgs; [
-    # ── commented out (available but not installed) ─────────────────────────
-
+  environment.systemPackages = with pkgs; [
     # asciinema            # Terminal session recorder
     # atuin                # Shell history manager with sync and search
     # axel                 # Multi-connection download accelerator
@@ -42,7 +40,6 @@
     # harlequin            # SQL client (broken, installed as uv tool)
     # hdparm               # Hard disk parameter utility
     # iftop                # Real-time network bandwidth monitor
-    inspect # Semantic git change inspector (Ataraxy-Labs)
     # iperf                # Network performance benchmark tool
     # isort                # Python import statement sorter
     # just                 # Command runner (like make, uses Justfile)
@@ -78,7 +75,6 @@
     # rage                 # age encryption/decryption CLI (Rust implementation)
     # ranger               # Terminal file manager with Vi keys
     # rclone               # Cloud storage sync/copy tool (S3, GCS, etc.)
-    rclip # Commandline CLIP based search
     # reader               # Web page readability extractor for CLI
     # readline             # Line editing library
     # rich-cli             # Rich text formatting CLI
@@ -110,13 +106,11 @@
     # zk                   # Zettelkasten note-taking system
     # zlib                 # Compression library
     # zstd                 # Zstandard compression tool
-
-
     android-tools # Android debugging bridge (adb) and fastboot
-    wacli # WhatsApp CLI (sync, search, send messages)
     gogcli # google services cli
-
+    inspect # Semantic git change inspector (Ataraxy-Labs)
+    rclip # Commandline CLIP based search
     tts # Text-to-speech CLI
-
+    wacli # WhatsApp CLI (sync, search, send messages)
   ];
 }

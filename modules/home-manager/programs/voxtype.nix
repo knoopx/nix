@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
-  home.packages = [ pkgs.voxtype-vulkan ];
+  home.packages = [
+    pkgs.voxtype-vulkan # Voice-to-text with push-to-talk for Wayland
+  ];
 
   xdg.dataFile."voxtype/models/ggml-large-v3.bin" = {
     source =

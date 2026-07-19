@@ -13,7 +13,7 @@ in
 
     # Install sound theme package
     environment.systemPackages = with pkgs; [
-      sound-theme-freedesktop
+      sound-theme-freedesktop # Freedesktop reference sound theme
     ];
 
     # Udev rules for device plug/eject sounds

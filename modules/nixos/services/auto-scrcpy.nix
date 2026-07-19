@@ -11,7 +11,10 @@
   };
 
   config = lib.mkIf config.services.autoScrcpy.enable {
-    environment.systemPackages = with pkgs; [scrcpy android-tools];
+    environment.systemPackages = with pkgs; [
+      scrcpy # Android device display and control
+      android-tools # Android SDK platform tools
+    ];
 
     services.udev.extraRules = ''
       SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666", GROUP="adbusers"

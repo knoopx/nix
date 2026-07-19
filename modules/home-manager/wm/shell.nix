@@ -6,18 +6,18 @@
   apps = nixosConfig.defaults.apps;
 in {
   home.packages = [
-    pkgs.brightness-control
+    pkgs.brightness-control # Screen brightness control
     apps.browser.package
-    pkgs.display-control
+    pkgs.display-control # Power monitors on/off
     apps.editor.package
     apps.fileManager.package
     apps.imageViewer.package
-    pkgs.media-control
-    pkgs.session-control
-    pkgs.tablet-mode-control
+    pkgs.media-control # Media playback controls
+    pkgs.session-control # Session lock, logout, suspend, etc.
+    pkgs.tablet-mode-control # Enable/disable screen keyboard
     apps.terminal.package
-    pkgs.window-control
-    pkgs.volume-control
+    pkgs.window-control # Window button theming
+    pkgs.volume-control # Audio volume control
   ];
 
   systemd.user.services.window-control = {

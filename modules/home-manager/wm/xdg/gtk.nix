@@ -7,7 +7,7 @@
   mkTuple = lib.hm.gvariant.mkTuple;
 in {
   home.packages = [
-    pkgs.adwaita-icon-theme
+    pkgs.adwaita-icon-theme # Default GNOME icon theme
     (pkgs.theming.mkMoreWaitaIconTheme nixosConfig.defaults.colorScheme.palette)
     (pkgs.mkRenderMd nixosConfig.defaults.colorScheme)
   ];

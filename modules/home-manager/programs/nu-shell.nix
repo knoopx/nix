@@ -126,8 +126,8 @@
   };
 in {
   home.packages = with pkgs; [
-    nushell
-    nufmt
+    nushell # Modern shell written in Rust
+    nufmt # Nushell formatter
   ];
 
   programs.nushell = {
