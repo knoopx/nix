@@ -1,10 +1,13 @@
 {
+  lib,
   pkgs,
   nixosConfig,
   betterfox,
   usercontent-css,
   ...
 }: let
+  cfg = nixosConfig.defaults.firefox;
+
   c = nixosConfig.defaults.colorScheme.palette;
   system = pkgs.stdenv.hostPlatform.system;
   palette = builtins.mapAttrs (_: v: "#${v}") c;
@@ -47,34 +50,33 @@ in {
   id = 0;
   isDefault = true;
 
-  extensions.packages = with pkgs.firefox-addons; [
+  extensions.packages = lib.mkIf cfg.extensions (with pkgs.firefox-addons; [
     ublock-origin
     copy-selected-links
     sponsorblock
     dictionary-spanish
     brotab
     jump
-  ];
+  ]);
 
-  extraConfig = ''
+  extraConfig = lib.mkIf cfg.extensions ''
     ${builtins.readFile "${betterfox}/user.js"}
     ${builtins.readFile ./chrome/user.js}
-
   '';
 
-  userChrome = ''
+  userChrome = lib.mkIf cfg.userChrome ''
     ${cssVars}
     ${builtins.readFile ./chrome/user.css}
   '';
 
-  userContent = ''
+  userContent = lib.mkIf cfg.userContent ''
     ${cssVars}
     ${devtoolsCssVars}
     ${builtins.readFile ./chrome/content.css}
     ${builtins.readFile userStyles}
   '';
 
-  search = {
+  search = lib.mkIf cfg.searchEngines {
     default = "qwant";
     force = true;
     engines = {

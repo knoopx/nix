@@ -1,8 +1,11 @@
 {
   nixosConfig,
+  lib,
   pkgs,
   ...
 } @ args: let
+  cfg = nixosConfig.defaults.firefox;
+
   brotabMediatorJson = pkgs.writeTextFile {
     name = "brotab_mediator.json";
     text = builtins.toJSON {
@@ -14,12 +17,15 @@
     };
   };
 in {
-  home.file.".mozilla/native-messaging-hosts/brotab_mediator.json".source = brotabMediatorJson;
+  home.file.".mozilla/native-messaging-hosts/brotab_mediator.json" =
+    lib.mkIf cfg.nativeMessaging {
+      source = brotabMediatorJson;
+    };
 
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-esr;
-    policies = import ./_policies.nix args;
+    policies = lib.mkIf cfg.policies (import ./_policies.nix args);
     profiles."${nixosConfig.defaults.username}" = import ./_profile.nix args;
   };
 
