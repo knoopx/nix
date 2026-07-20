@@ -2,6 +2,8 @@
 
 This is my personal NixOS configuration for a clean, keyboard-focused development machine. I built it to keep things simple, consistent, and distraction-free while coding.
 
+https://github.com/user-attachments/assets/d45f3687-cfda-47a7-b2e9-3c0dbdb562bf
+
 ## Quick Start
 
 ```bash
