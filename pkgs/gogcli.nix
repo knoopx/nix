@@ -1,18 +1,18 @@
 {pkgs}: let
   pname = "gogcli";
-  version = "0.32.0";
+  version = "0.34.1";
 
   src = pkgs.fetchFromGitHub {
     owner = "steipete";
     repo = "gogcli";
     rev = "v${version}";
-    hash = "sha256-Cg2UAS2qPhMT1MklLGIXk4x+6dIwIeKypFtpZsj+ddw=";
+    hash = "sha256-ocC+A63GLrZQA3mXEPjIfsM7Af9NiYjGF8DZI/2yNS0=";
   };
 in
   pkgs.buildGoModule {
     inherit pname version src;
 
-    vendorHash = "sha256-fof2DVm6Cn1ZW7gKSYLHX6M6nPbtYBn6EKinptjhhrE=";
+    vendorHash = "sha256-MAbbCLdoOLWer7HO3+RZJuN10gLeTgN6/CbNn6pzGwQ=";
 
     subPackages = ["cmd/gog"];
 
