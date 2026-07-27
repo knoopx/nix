@@ -1,18 +1,18 @@
 {pkgs}: let
   pname = "gritql";
-  version = "0.0.3";
+  version = "0.1.0-alpha.1743007075";
 
   src = pkgs.fetchgit {
     url = "https://github.com/biomejs/gritql";
     rev = "v${version}";
-    sha256 = "sha256-sFrkZ2z0WFO7Wh+gt/ChftQblwTh4QEUf1MZxFXxqqA=";
+    sha256 = "sha256-ru8XnXiwwrlrGFtj8kIXUGBS6jnazLIQklZotTPItSw=";
     fetchSubmodules = true;
   };
 in
   pkgs.rustPlatform.buildRustPackage {
     inherit pname version src;
 
-    cargoHash = "sha256-crK2HXhYTqfzYgLS+TJVm9MEN/oDw9QtVfYG3Jl0tHM=";
+    cargoHash = "sha256-tvwxoqPpVoR7oZJuVfssrwica2dVVs2DyvD9mzW+NwU=";
 
     nativeBuildInputs = with pkgs; [
       perl
