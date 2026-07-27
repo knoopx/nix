@@ -106,11 +106,11 @@
     # zk                   # Zettelkasten note-taking system
     # zlib                 # Compression library
     # zstd                 # Zstandard compression tool
-    android-tools # Android debugging bridge (adb) and fastboot
+    # android-tools # Android debugging bridge (adb) and fastboot
     gogcli # google services cli
     inspect # Semantic git change inspector (Ataraxy-Labs)
-    rclip # Commandline CLIP based search
-    tts # Text-to-speech CLI
-    wacli # WhatsApp CLI (sync, search, send messages)
+    # rclip # Commandline CLIP based search
+    # tts # Text-to-speech CLI
+    # wacli # WhatsApp CLI (sync, search, send messages)
   ];
 }
