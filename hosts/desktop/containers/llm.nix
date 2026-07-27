@@ -52,6 +52,12 @@ let
     no-mmproj = false
     spec-type = draft-mtp
 
+    [gbuzhf/KAT-Coder-V2.5-Dev-APEX-MTP-GGUF]
+    hf-repo = gbuzhf/KAT-Coder-V2.5-Dev-APEX-MTP-GGUF:I-Balanced
+    no-mmproj = true
+    ctx-size = 262144    
+    spec-type = draft-mtp
+
     [prism-ml/Bonsai-27B-gguf:Q1_0]
     hf-repo = prism-ml/Bonsai-27B-gguf:q1_0
     no-mmproj = true
