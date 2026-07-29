@@ -1,7 +1,7 @@
-{
-  lib,
-  nixosConfig,
-  ...
+{ lib
+, config
+, nixosConfig
+, ...
 }:
 with lib; let
   palette = nixosConfig.defaults.colorScheme.palette;
@@ -87,6 +87,70 @@ with lib; let
       bashMode = "base08";
     };
   };
-in {
-  home.file.".pi/agent/themes/custom.json".text = builtins.toJSON theme;
+
+  models = map
+    (model: {
+      id = model.id;
+      name = model.name;
+      family = model.family;
+      tool_call = model.toolCall;
+      reasoning = model.reasoning;
+      attachment = model.attachment;
+      input = model.inputTypes;
+      output = model.outputTypes;
+      open_weights = model.openWeights;
+      release_date = model.releaseDate;
+      last_updated = model.lastUpdated;
+      cost = {
+        input = model.costInput;
+        output = model.costOutput;
+        cacheRead = model.costCacheRead;
+        cacheWrite = model.costCacheWrite;
+      };
+      contextWindow = model.contextWindow;
+      maxTokens = model.maxTokens;
+      compat = {
+        supportsDeveloperRole = model.compatSupportsDeveloperRole;
+        maxTokensField = model.compatMaxTokensField;
+      };
+    })
+    nixosConfig.defaults.models.local;
+
+  # Settings.json model management
+  enabledModels = map (m: "local/${m.id}") nixosConfig.defaults.models.local
+    ++ nixosConfig.defaults.models.cloud;
+  defaultModel =
+    if (length nixosConfig.defaults.models.local) > 0
+    then "local/${(head nixosConfig.defaults.models.local).id}"
+    else null;
+
+  settingsJsonPath = "${config.home.homeDirectory}/.pi/agent/settings.json";
+
+  jqFilter = concatStringsSep " | " [
+    ".defaultProvider = ${builtins.toJSON "local"}"
+    ".defaultModel = ${builtins.toJSON defaultModel}"
+    ".enabledModels = ${builtins.toJSON enabledModels}"
+  ];
+
+in
+{
+  home.file = {
+    ".pi/agent/themes/custom.json".text = builtins.toJSON theme;
+    ".pi/agent/models.json".text = builtins.toJSON {
+      providers = {
+        local = {
+          baseUrl = "http://localhost:11434/v1";
+          apiKey = "nokey";
+          api = "openai-completions";
+          inherit models;
+        };
+      };
+    };
+  };
+
+  home.activation.updatePiAiSettings = ''
+    if command -v jq >/dev/null 2>&1 && [ -f "${settingsJsonPath}" ]; then
+      jq '${jqFilter}' "${settingsJsonPath}" > "${settingsJsonPath}.tmp" && mv "${settingsJsonPath}.tmp" "${settingsJsonPath}"
+    fi
+  '';
 }

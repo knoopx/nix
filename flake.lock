@@ -391,28 +391,6 @@
         "type": "github"
       }
     },
-    "home-manager_2": {
-      "inputs": {
-        "nixpkgs": [
-          "nix-es-de",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1785261905,
-        "narHash": "sha256-SnFtgFiAhlwOlaEuFZoVYjOxqfYoiLtHJoFGuyEgHUE=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "10174c0fe02099dbdee2bf918f1a92659fc9217f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "master",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
     "neuwaita": {
       "flake": false,
       "locked": {
@@ -553,24 +531,6 @@
         "type": "github"
       }
     },
-    "nix-es-de": {
-      "inputs": {
-        "home-manager": "home-manager_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1785349699,
-        "narHash": "sha256-c8J2R8PJxkSx/IYkfURauFtUJOLoix57GIpiiymFk+s=",
-        "path": "/home/knoopx/Projects/knoopx/nix-es-de",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/knoopx/Projects/knoopx/nix-es-de",
-        "type": "path"
-      }
-    },
     "nixos-avf": {
       "inputs": {
         "nixpkgs": [
@@ -707,7 +667,6 @@
         "niri-touch": "niri-touch",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-colors": "nix-colors",
-        "nix-es-de": "nix-es-de",
         "nixos-avf": "nixos-avf",
         "nixpkgs": "nixpkgs_2",
         "stylix": "stylix",
