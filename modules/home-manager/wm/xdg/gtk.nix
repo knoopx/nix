@@ -1,32 +1,32 @@
-{
-  nixosConfig,
-  pkgs,
-  lib,
-  ...
-}: let
+{ nixosConfig
+, pkgs
+, lib
+, ...
+}:
+let
   mkTuple = lib.hm.gvariant.mkTuple;
-in {
+in
+{
   home.packages = [
-    pkgs.adwaita-icon-theme # Default GNOME icon theme
-    (pkgs.theming.mkMoreWaitaIconTheme nixosConfig.defaults.colorScheme.palette)
     (pkgs.mkRenderMd nixosConfig.defaults.colorScheme)
   ];
 
-  xdg.dataFile."gtksourceview-5/styles/catppuccin-mocha.xml".source = let
-    themeContent = pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/catppuccin/gedit/refs/heads/main/themes/catppuccin-mocha.xml";
-      sha256 = "sha256-+Ew1IR0GjGSJJUOe4DOws+V2AtvojG+zUfXI9ZD7CAE=";
-    };
-  in
-    pkgs.runCommand "catppuccin-mocha.xml" {} ''
+  xdg.dataFile."gtksourceview-5/styles/catppuccin-mocha.xml".source =
+    let
+      themeContent = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/catppuccin/gedit/refs/heads/main/themes/catppuccin-mocha.xml";
+        sha256 = "sha256-+Ew1IR0GjGSJJUOe4DOws+V2AtvojG+zUfXI9ZD7CAE=";
+      };
+    in
+    pkgs.runCommand "catppuccin-mocha.xml" { } ''
       cp ${themeContent} $out
       substituteInPlace $out --replace-fail 'kind="dark">' 'kind="dark" version="1.0">'
     '';
 
   gtk = {
     iconTheme = {
-      name = "Neuwaita";
-      package = pkgs.neuwaita-icon-theme;
+      name = "MoreWaita";
+      package = pkgs.morewaita-icon-theme;
     };
   };
 

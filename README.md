@@ -37,7 +37,6 @@ nix run .#installer-vm-test
 
 - **Minimal clutter**: Shell has no widgets and apps take the whole vertical space. Keyboard-driven workflow throughout.
 - **Unified styling**: Consistent colors, fonts, and styles across:
-  - System GTK/Qt themes and custom Neuwaita icon theme (merged with MoreWaita)
   - Terminal emulator (Kitty)
   - Text editors (VSCode, Helix)
   - Window manager (Niri with custom color schemes)
@@ -195,7 +194,6 @@ Custom package definitions in `pkgs/`:
 
 **Applications:**
 
-- [Neuwaita Icon Theme](https://github.com/knoopx/neuwaita-icon-theme): Custom icon theme
 - [NFO Viewer](https://github.com/nfoview/nfoview): NFO file viewer
 - **browser**: Custom Firefox browser wrapper
 - **file-manager**: Custom file manager wrapper

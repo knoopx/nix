@@ -36,12 +36,6 @@
     usercontent-css.url = "github:knoopx/userContent.css";
     usercontent-css.inputs.nixpkgs.follows = "nixpkgs";
 
-    adwaita-colors.url = "github:dpejoh/Adwaita-colors";
-    adwaita-colors.flake = false;
-
-    neuwaita.url = "github:RusticBard/Neuwaita";
-    neuwaita.flake = false;
-
     vicinaehq.url = "github:vicinaehq/vicinae";
     vicinaehq.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -60,252 +54,255 @@
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   };
 
-  outputs = inputs: let
-    inherit (inputs) nixpkgs haumea home-manager niri stylix astal-shell firefox-addons vicinaehq;
+  outputs = inputs:
+    let
+      inherit (inputs) nixpkgs haumea home-manager niri stylix astal-shell firefox-addons vicinaehq;
 
-    system = "x86_64-linux";
+      system = "x86_64-linux";
 
-    specialArgs =
-      (nixpkgs.lib.removeAttrs inputs ["self"])
-      // {
-        inherit inputs;
-      };
+      specialArgs =
+        (nixpkgs.lib.removeAttrs inputs [ "self" ])
+        // {
+          inherit inputs;
+        };
 
-    haumeaInputs = prev:
-      specialArgs
-      // {
-        pkgs = prev;
-        inherit (nixpkgs) lib;
-      };
+      haumeaInputs = prev:
+        specialArgs
+        // {
+          pkgs = prev;
+          inherit (nixpkgs) lib;
+        };
 
-    globalOverlays =
-      [
-        inputs.nix-cachyos-kernel.overlays.pinned
-        inputs.astal-shell.overlays.default
-        (self: super: {firefox-addons = inputs.firefox-addons.packages.${system};})
-        (self: super: {vicinaehq = inputs.vicinaehq;})
-        (
-          final: prev:
-            haumea.lib.load {
-              src = ./pkgs;
-              loader = haumea.lib.loaders.scoped;
-              inputs =
-                haumeaInputs final;
-            }
-        )
-        (
-          final: prev: {
-            lib =
-              prev.lib.extend
-              (p: x: (haumea.lib.load {
-                src = ./lib;
-                inputs = haumeaInputs prev;
-              }));
-          }
-        )
-        (
-          final: prev:
-            haumea.lib.load {
-              src = ./builders;
-              inputs = haumeaInputs prev;
-            }
-        )
-      ]
-      ++ (nixpkgs.lib.attrsets.attrValues (haumea.lib.load {
-        src = ./overlays;
-        loader = haumea.lib.loaders.verbatim;
-      }));
-
-    mkNixosModules = hostPath: let
-      hostOverlaysPath = hostPath + "/overlays.nix";
-      hostOverlays =
-        if builtins.pathExists hostOverlaysPath
-        then [(import hostOverlaysPath)]
-        else [];
-
-      listNixModulesRecusive = import ./lib/listNixModulesRecusive.nix {inherit (nixpkgs) lib;};
-    in
-      (listNixModulesRecusive ./modules/nixos/defaults)
-      ++ [
-        {
-          nixpkgs.overlays = globalOverlays ++ hostOverlays;
-        }
-        stylix.nixosModules.stylix
-        inputs.niri.nixosModules.niri
-        inputs.home-manager.nixosModules.home-manager
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            extraSpecialArgs = specialArgs;
-            backupFileExtension = "bak";
-            sharedModules = [
-              inputs.astal-shell.homeManagerModules.default
-            ];
-          };
-        }
-        hostPath
-      ];
-
-    vmConfiguration = nixpkgs.lib.nixosSystem {
-      inherit specialArgs;
-      modules = mkNixosModules ./hosts/vm;
-    };
-
-    steamdeckVmConfiguration = nixpkgs.lib.nixosSystem {
-      inherit specialArgs;
-      modules =
-        mkNixosModules ./hosts/steamdeck
-        ++ [
-          "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
-          "${inputs.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
-          ({lib, ...}: {
-            virtualisation.memorySize = 4096;
-            virtualisation.cores = 4;
-            virtualisation.resolution.x = 1280;
-            virtualisation.resolution.y = 800;
-            virtualisation.qemu.options = [
-              "-vga virtio"
-              "-device virtio-vga-gl"
-              "-display gtk,gl=on"
-              "-device usb-tablet"
-              "-device usb-kbd"
-            ];
-            services.spice-vdagentd.enable = true;
-            boot.kernelModules = ["uinput" "evdev"];
-            boot.initrd.kernelModules = ["virtio_gpu"];
-            virtualisation.forwardPorts = [
-              {
-                from = "host";
-                host.port = 2223;
-                guest.port = 22;
+      globalOverlays =
+        [
+          inputs.nix-cachyos-kernel.overlays.pinned
+          inputs.astal-shell.overlays.default
+          (self: super: { firefox-addons = inputs.firefox-addons.packages.${system}; })
+          (self: super: { vicinaehq = inputs.vicinaehq; })
+          (
+            final: prev:
+              haumea.lib.load {
+                src = ./pkgs;
+                loader = haumea.lib.loaders.scoped;
+                inputs =
+                  haumeaInputs final;
               }
-            ];
-            fileSystems."/" = {
-              device = "/dev/disk/by-label/nixos";
-              fsType = "xfs";
-              autoResize = true;
-            };
-            fileSystems."/boot" = {
-              device = "/dev/vda1";
-              fsType = "vfat";
-            };
-            boot.loader.systemd-boot.enable = lib.mkForce false;
-            boot.loader.grub.device = "/dev/vda";
-            services.btrfs.autoScrub.enable = false;
-            services.btrfs.autoScrub.fileSystems = [];
-          })
-        ];
-    };
+          )
+          (
+            final: prev: {
+              lib =
+                prev.lib.extend
+                  (p: x: (haumea.lib.load {
+                    src = ./lib;
+                    inputs = haumeaInputs prev;
+                  }));
+            }
+          )
+          (
+            final: prev:
+              haumea.lib.load {
+                src = ./builders;
+                inputs = haumeaInputs prev;
+              }
+          )
+        ]
+        ++ (nixpkgs.lib.attrsets.attrValues (haumea.lib.load {
+          src = ./overlays;
+          loader = haumea.lib.loaders.verbatim;
+        }));
 
-    pkgsWithOverlays = import nixpkgs {
-      inherit system;
-      overlays = globalOverlays;
-      config.allowUnfree = true;
-    };
+      mkNixosModules = hostPath:
+        let
+          hostOverlaysPath = hostPath + "/overlays.nix";
+          hostOverlays =
+            if builtins.pathExists hostOverlaysPath
+            then [ (import hostOverlaysPath) ]
+            else [ ];
 
-    # Target system for the installer (what gets installed to disk)
-    installerTargetSystem = nixpkgs.lib.nixosSystem {
-      inherit specialArgs;
-      modules =
-        mkNixosModules ./hosts/minibookx
+          listNixModulesRecusive = import ./lib/listNixModulesRecusive.nix { inherit (nixpkgs) lib; };
+        in
+        (listNixModulesRecusive ./modules/nixos/defaults)
         ++ [
-          inputs.disko.nixosModules.disko
-          ./hosts/installer/system.nix
-          # Virtio modules for VM testing (harmless on real hardware)
-          {boot.initrd.availableKernelModules = ["virtio_blk" "virtio_pci"];}
+          {
+            nixpkgs.overlays = globalOverlays ++ hostOverlays;
+          }
+          stylix.nixosModules.stylix
+          inputs.niri.nixosModules.niri
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = specialArgs;
+              backupFileExtension = "bak";
+              sharedModules = [
+                inputs.astal-shell.homeManagerModules.default
+              ];
+            };
+          }
+          hostPath
         ];
-    };
 
-    # Installer ISO configuration
-    installerConfiguration = nixpkgs.lib.nixosSystem {
-      inherit specialArgs;
-      modules = [
-        ./hosts/installer
-        {
-          _module.args.targetSystem = installerTargetSystem;
-        }
-      ];
-    };
-  in {
-    packages.${system} =
-      (haumea.lib.load {
-        src = ./pkgs;
-        loader = haumea.lib.loaders.scoped;
-        inputs = haumeaInputs pkgsWithOverlays;
-      })
-      // {
-        default = vmConfiguration.config.system.build.vm;
-        steamdeck-vm = steamdeckVmConfiguration.config.system.build.vm;
-        installer-iso = installerConfiguration.config.system.build.isoImage;
-        installer-vm-test = pkgsWithOverlays.writeShellScriptBin "installer-vm-test" ''
-          set -e
-          ISO=$(find ${installerConfiguration.config.system.build.isoImage}/iso/ -name "*.iso" | head -1)
-          DISK="''${INSTALLER_VM_DISK:-''${XDG_RUNTIME_DIR:-/tmp}/installer-test-disk.qcow2}"
-
-          echo "Creating test disk: $DISK (64GB sparse)"
-          rm -f "$DISK"
-          ${pkgsWithOverlays.qemu}/bin/qemu-img create -f qcow2 "$DISK" 64G
-
-          echo "Starting VM with installer ISO..."
-          echo "ISO: $ISO"
-          exec ${pkgsWithOverlays.qemu}/bin/qemu-system-x86_64 \
-            -enable-kvm \
-            -m 8G \
-            -smp 4 \
-            -cpu host \
-            -bios ${pkgsWithOverlays.OVMF.fd}/FV/OVMF.fd \
-            -drive file="$DISK",format=qcow2,if=virtio \
-            -cdrom "$ISO" \
-            -boot d \
-            -vga virtio \
-            -display gtk,gl=on \
-            -device virtio-vga-gl \
-            -usb \
-            -device usb-tablet \
-            -nic user,model=virtio-net-pci
-        '';
-        android-image = inputs.self.nixosConfigurations.android.config.system.build.avfImage;
-      };
-
-    nixosConfigurations = {
-      vm = vmConfiguration;
-
-      installer = installerConfiguration;
-
-      live-usb = nixpkgs.lib.nixosSystem {
+      vmConfiguration = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
-        modules = mkNixosModules ./hosts/live-usb;
+        modules = mkNixosModules ./hosts/vm;
       };
 
-      desktop = nixpkgs.lib.nixosSystem {
+      steamdeckVmConfiguration = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
-        modules = mkNixosModules ./hosts/desktop;
+        modules =
+          mkNixosModules ./hosts/steamdeck
+          ++ [
+            "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
+            "${inputs.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
+            ({ lib, ... }: {
+              virtualisation.memorySize = 4096;
+              virtualisation.cores = 4;
+              virtualisation.resolution.x = 1280;
+              virtualisation.resolution.y = 800;
+              virtualisation.qemu.options = [
+                "-vga virtio"
+                "-device virtio-vga-gl"
+                "-display gtk,gl=on"
+                "-device usb-tablet"
+                "-device usb-kbd"
+              ];
+              services.spice-vdagentd.enable = true;
+              boot.kernelModules = [ "uinput" "evdev" ];
+              boot.initrd.kernelModules = [ "virtio_gpu" ];
+              virtualisation.forwardPorts = [
+                {
+                  from = "host";
+                  host.port = 2223;
+                  guest.port = 22;
+                }
+              ];
+              fileSystems."/" = {
+                device = "/dev/disk/by-label/nixos";
+                fsType = "xfs";
+                autoResize = true;
+              };
+              fileSystems."/boot" = {
+                device = "/dev/vda1";
+                fsType = "vfat";
+              };
+              boot.loader.systemd-boot.enable = lib.mkForce false;
+              boot.loader.grub.device = "/dev/vda";
+              services.btrfs.autoScrub.enable = false;
+              services.btrfs.autoScrub.fileSystems = [ ];
+            })
+          ];
       };
 
-      minibookx = nixpkgs.lib.nixosSystem {
+      pkgsWithOverlays = import nixpkgs {
+        inherit system;
+        overlays = globalOverlays;
+        config.allowUnfree = true;
+      };
+
+      # Target system for the installer (what gets installed to disk)
+      installerTargetSystem = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
-        modules = mkNixosModules ./hosts/minibookx;
+        modules =
+          mkNixosModules ./hosts/minibookx
+          ++ [
+            inputs.disko.nixosModules.disko
+            ./hosts/installer/system.nix
+            # Virtio modules for VM testing (harmless on real hardware)
+            { boot.initrd.availableKernelModules = [ "virtio_blk" "virtio_pci" ]; }
+          ];
       };
 
-      steamdeck = nixpkgs.lib.nixosSystem {
+      # Installer ISO configuration
+      installerConfiguration = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
-        modules = mkNixosModules ./hosts/steamdeck;
-      };
-
-      steamdeck-vm = steamdeckVmConfiguration;
-
-      android = nixpkgs.lib.nixosSystem {
         modules = [
-          inputs.nixos-avf.nixosModules.avf
-          ./hosts/android
+          ./hosts/installer
+          {
+            _module.args.targetSystem = installerTargetSystem;
+          }
         ];
       };
+    in
+    {
+      packages.${system} =
+        (haumea.lib.load {
+          src = ./pkgs;
+          loader = haumea.lib.loaders.scoped;
+          inputs = haumeaInputs pkgsWithOverlays;
+        })
+        // {
+          default = vmConfiguration.config.system.build.vm;
+          steamdeck-vm = steamdeckVmConfiguration.config.system.build.vm;
+          installer-iso = installerConfiguration.config.system.build.isoImage;
+          installer-vm-test = pkgsWithOverlays.writeShellScriptBin "installer-vm-test" ''
+            set -e
+            ISO=$(find ${installerConfiguration.config.system.build.isoImage}/iso/ -name "*.iso" | head -1)
+            DISK="''${INSTALLER_VM_DISK:-''${XDG_RUNTIME_DIR:-/tmp}/installer-test-disk.qcow2}"
 
-      hi10max = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-        modules = mkNixosModules ./hosts/hi10max;
+            echo "Creating test disk: $DISK (64GB sparse)"
+            rm -f "$DISK"
+            ${pkgsWithOverlays.qemu}/bin/qemu-img create -f qcow2 "$DISK" 64G
+
+            echo "Starting VM with installer ISO..."
+            echo "ISO: $ISO"
+            exec ${pkgsWithOverlays.qemu}/bin/qemu-system-x86_64 \
+              -enable-kvm \
+              -m 8G \
+              -smp 4 \
+              -cpu host \
+              -bios ${pkgsWithOverlays.OVMF.fd}/FV/OVMF.fd \
+              -drive file="$DISK",format=qcow2,if=virtio \
+              -cdrom "$ISO" \
+              -boot d \
+              -vga virtio \
+              -display gtk,gl=on \
+              -device virtio-vga-gl \
+              -usb \
+              -device usb-tablet \
+              -nic user,model=virtio-net-pci
+          '';
+          android-image = inputs.self.nixosConfigurations.android.config.system.build.avfImage;
+        };
+
+      nixosConfigurations = {
+        vm = vmConfiguration;
+
+        installer = installerConfiguration;
+
+        live-usb = nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          modules = mkNixosModules ./hosts/live-usb;
+        };
+
+        desktop = nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          modules = mkNixosModules ./hosts/desktop;
+        };
+
+        minibookx = nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          modules = mkNixosModules ./hosts/minibookx;
+        };
+
+        steamdeck = nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          modules = mkNixosModules ./hosts/steamdeck;
+        };
+
+        steamdeck-vm = steamdeckVmConfiguration;
+
+        android = nixpkgs.lib.nixosSystem {
+          modules = [
+            inputs.nixos-avf.nixosModules.avf
+            ./hosts/android
+          ];
+        };
+
+        hi10max = nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          modules = mkNixosModules ./hosts/hi10max;
+        };
       };
     };
-  };
 }
