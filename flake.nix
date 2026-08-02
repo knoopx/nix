@@ -148,52 +148,6 @@
         modules = mkNixosModules ./hosts/vm;
       };
 
-      steamdeckVmConfiguration = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-        modules =
-          mkNixosModules ./hosts/steamdeck
-          ++ [
-            "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
-            "${inputs.nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
-            ({ lib, ... }: {
-              virtualisation.memorySize = 4096;
-              virtualisation.cores = 4;
-              virtualisation.resolution.x = 1280;
-              virtualisation.resolution.y = 800;
-              virtualisation.qemu.options = [
-                "-vga virtio"
-                "-device virtio-vga-gl"
-                "-display gtk,gl=on"
-                "-device usb-tablet"
-                "-device usb-kbd"
-              ];
-              services.spice-vdagentd.enable = true;
-              boot.kernelModules = [ "uinput" "evdev" ];
-              boot.initrd.kernelModules = [ "virtio_gpu" ];
-              virtualisation.forwardPorts = [
-                {
-                  from = "host";
-                  host.port = 2223;
-                  guest.port = 22;
-                }
-              ];
-              fileSystems."/" = {
-                device = "/dev/disk/by-label/nixos";
-                fsType = "xfs";
-                autoResize = true;
-              };
-              fileSystems."/boot" = {
-                device = "/dev/vda1";
-                fsType = "vfat";
-              };
-              boot.loader.systemd-boot.enable = lib.mkForce false;
-              boot.loader.grub.device = "/dev/vda";
-              services.btrfs.autoScrub.enable = false;
-              services.btrfs.autoScrub.fileSystems = [ ];
-            })
-          ];
-      };
-
       pkgsWithOverlays = import nixpkgs {
         inherit system;
         overlays = globalOverlays;
@@ -233,7 +187,6 @@
         })
         // {
           default = vmConfiguration.config.system.build.vm;
-          steamdeck-vm = steamdeckVmConfiguration.config.system.build.vm;
           installer-iso = installerConfiguration.config.system.build.isoImage;
           installer-vm-test = pkgsWithOverlays.writeShellScriptBin "installer-vm-test" ''
             set -e
@@ -284,13 +237,6 @@
           inherit specialArgs;
           modules = mkNixosModules ./hosts/minibookx;
         };
-
-        steamdeck = nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
-          modules = mkNixosModules ./hosts/steamdeck;
-        };
-
-        steamdeck-vm = steamdeckVmConfiguration;
 
         android = nixpkgs.lib.nixosSystem {
           modules = [
