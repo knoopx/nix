@@ -146,7 +146,7 @@
         "Print".action.spawn = [ "niri" "msg" "action" "screenshot" "--show-pointer" "false" ];
         "Shift+Print".action = { "screenshot-window" = [ ]; };
         "Mod+P".action = { spawn = [ "kitty" "sh" "-c" "cd ~/Documents && pi" ]; };
-        "Mod+Shift+P".action = { spawn = [ "sh" "-c" "ls -1 ~/.pi/agent/subagents/ | grep -v AGENTS.md | vicinae dmenu --navigation-title 'Pi Agent' --placeholder 'Select agent...' | xargs -I{} kitty sh -c 'cd ~/.pi/agent/subagents/{} && pi'" ]; };
+        "Mod+Shift+P".action = { spawn = [ "sh" "-c" "for f in ~/.pi/agent/shell-tools/*.md; do basename \"$f\" .md; done | vicinae dmenu --navigation-title 'Pi Agent' --placeholder 'Select agent...' | xargs -I{} kitty sh -c 'pi --system-prompt \"$(cat ~/.pi/agent/shell-tools/{}.md)\"'" ]; };
         "Mod+Shift+Print".action = { spawn = [ "screen-recording" ]; };
         "Ctrl+Mod+Shift+Print".action = { spawn = [ "screen-recording" "--mode" "portal" ]; };
         "Mod+G".action = { spawn = [ "wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect" ]; };
