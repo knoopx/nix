@@ -21,7 +21,17 @@ let
       spec-draft-n-max = ${toString model.specDraftNMax}
       spec-draft-p-min = ${toJSON model.specDraftPMin}
       spec-type = ${model.specType}
-      no-mmproj = ${toString model.noMmproj}
+      no-mmproj = ${toString (!elem "image" model.inputTypes)}
+      parallel = ${toString model.parallel}
+      no-warmup = ${if model.warmup then "off" else "on"}
+      kv-unified = ${if model.kvUnified then "on" else "off"}
+      flash-attn = ${if model.flashAttn then "on" else "off"}
+      ngl = ${model.numGpuLayers}
+      spec-draft-ngl = ${model.specDraftNgl}
+      no-mmap = ${if model.mmap then "off" else "on"}
+      mlock = ${if model.mlock then "on" else "off"}
+      batch-size = ${toString model.batchSize}
+      ubatch-size = ${toString model.ubatchSize}
     '')
     config.defaults.models.local;
 

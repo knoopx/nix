@@ -95,7 +95,7 @@ with lib; let
       family = model.family;
       tool_call = model.toolCall;
       reasoning = model.reasoning;
-      attachment = model.attachment;
+      attachment = elem "image" model.inputTypes;
       input = model.inputTypes;
       output = model.outputTypes;
       open_weights = model.openWeights;
