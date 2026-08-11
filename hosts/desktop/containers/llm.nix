@@ -5,6 +5,11 @@
 }:
 with lib;
 let
+  qwenFixedChatTemplate = pkgs.fetchurl {
+    url = "https://huggingface.co/froggeric/Qwen-Fixed-Chat-Templates/raw/main/chat_template.jinja";
+    sha256 = "sha256-OY7fW1u4AvtrnJqNumcNCfKq7vb9yqCyyjByZfWfeNw=";
+  };
+
   modelSections = map
     (model: ''
       [${model.id}]
@@ -28,8 +33,6 @@ let
       flash-attn = ${if model.flashAttn then "on" else "off"}
       ngl = ${model.numGpuLayers}
       spec-draft-ngl = ${model.specDraftNgl}
-      no-mmap = ${if model.mmap then "off" else "on"}
-      mlock = ${if model.mlock then "on" else "off"}
       batch-size = ${toString model.batchSize}
       ubatch-size = ${toString model.ubatchSize}
     '')
@@ -50,8 +53,14 @@ let
     "300"
     "--chat-template-kwargs"
     (builtins.toJSON {
+      reasoning_effort = "medium";
       preserve_thinking = true;
     })
+    "--jinja"
+    "--chat-template-file"
+    "/chat_template.jinja"
+    "--reasoning-format"
+    "deepseek"
   ];
 in
 {
@@ -70,6 +79,7 @@ in
       volumes = [
         "/home/knoopx/.cache/huggingface/:/root/.cache/huggingface/"
         "${presets}:/presets.ini:ro"
+        "${qwenFixedChatTemplate}:/chat_template.jinja:ro"
       ];
       environment = { };
       extraOptions = [

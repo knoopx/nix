@@ -26,7 +26,7 @@ with lib; let
 
       contextWindow = mkOption {
         type = types.int;
-        default = 128000;
+        default = 131072;
         description = "Context window size";
       };
 
@@ -80,7 +80,7 @@ with lib; let
 
       specDraftNMax = mkOption {
         type = types.int;
-        default = 3;
+        default = 4;
         description = "Maximum speculative draft models";
       };
 
@@ -126,18 +126,6 @@ with lib; let
         description = "Speculative draft layers to offload";
       };
 
-      mmap = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Enable memory-mapped I/O";
-      };
-
-      mlock = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Lock model in RAM";
-      };
-
       batchSize = mkOption {
         type = types.int;
         default = 4096;
@@ -164,7 +152,7 @@ with lib; let
 
       reasoning = mkOption {
         type = types.bool;
-        default = false;
+        default = true;
         description = "Support reasoning";
       };
 
@@ -268,51 +256,25 @@ in
 
     defaults.models.local = [
       {
-        id = "bytkim/Qwen3.6-27B-MTP-pi-reasoning-GGUF";
-        name = "bytkim/Qwen3.6-27B-MTP-pi-reasoning-GGUF";
-        family = "qwen3.6";
-        hfRepo = "bytkim/Qwen3.6-27B-MTP-pi-reasoning-GGUF:Q4_K_M";
+        id = "AtomicChat/Qwen3.8-27B-GGUF";
+        name = "AtomicChat/Qwen3.8-27B-GGUF";
+        family = "qwen3.8";
+        hfRepo = "AtomicChat/Qwen3.8-27B-GGUF:AD-Q4_K";
+        contextWindow = 131072;
         specType = "draft-mtp";
-        releaseDate = "2026-06-21";
-        lastUpdated = "2026-07-18";
+        releaseDate = "2026-08-15";
+        lastUpdated = "2026-08-15";
       }
       {
-        id = "bytkim/Qwen3.6-27B-MTP-pi-tune-GGUF";
-        name = "bytkim/Qwen3.6-27B-MTP-pi-tune-GGUF";
-        family = "qwen3.6";
-        hfRepo = "bytkim/Qwen3.6-27B-MTP-pi-tune-GGUF:Q4_K_M";
+        id = "unsloth/Qwen3.8-27B-GGUF";
+        name = "unsloth/Qwen3.8-27B-GGUF";
+        family = "qwen3.8";
+        hfRepo = "unsloth/Qwen3.8-27B-GGUF:Q4_K_XL";
+        contextWindow = 131072;
+        inputTypes = [ "text" "image" ];
         specType = "draft-mtp";
-        releaseDate = "2026-06-21";
-        lastUpdated = "2026-07-18";
-      }
-      {
-        id = "protoLabsAI/ThinkingCap-Qwen3.6-27B-MTP-GGUF";
-        name = "protoLabsAI/ThinkingCap-Qwen3.6-27B-MTP-GGUF";
-        family = "qwen3.6";
-        hfRepo = "protoLabsAI/ThinkingCap-Qwen3.6-27B-MTP-GGUF:NVFP4-MTP";
-        specType = "draft-mtp";
-        releaseDate = "2026-06-21";
-        lastUpdated = "2026-07-18";
-      }
-      {
-        id = "mudler/Qwen3.6-35B-A3B-APEX-MTP-GGUF";
-        name = "mudler/Qwen3.6-35B-A3B-APEX-MTP-GGUF";
-        family = "qwen3.6";
-        hfRepo = "mudler/Qwen3.6-35B-A3B-APEX-MTP-GGUF:APEX-MTP-I-Quality";
-        contextWindow = 262144;
-        specType = "draft-mtp";
-        releaseDate = "2026-04-14";
-        lastUpdated = "2026-07-10";
-      }
-      {
-        id = "gbuzhf/KAT-Coder-V2.5-Dev-MTP-GGUF";
-        name = "gbuzhf/KAT-Coder-V2.5-Dev-MTP-GGUF";
-        family = "qwen3.6";
-        hfRepo = "gbuzhf/KAT-Coder-V2.5-Dev-MTP-GGUF:I-Balanced";
-        specType = "draft-mtp";
-        contextWindow = 262144;
-        releaseDate = "2026-07-26";
-        lastUpdated = "2026-07-27";
+        releaseDate = "2026-08-13";
+        lastUpdated = "2026-08-14";
       }
     ];
   };
