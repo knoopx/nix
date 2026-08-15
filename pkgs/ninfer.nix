@@ -11,8 +11,8 @@ pkgs.clangStdenv.mkDerivation rec {
   src = pkgs.fetchFromGitHub {
     owner = "Neroued";
     repo = "ninfer";
-    rev = "9005987486b6e53bffaee4fbaabbdaadc695a8a1";
-    hash = "sha256-FPzxfnR22i97NgjutdGVPydHeLMIfB7J30ButjuP9do=";
+    rev = "0c94153b79d84a23634f544018eba0f0d304eb26";
+    hash = "sha256-j+eqkllOBwnHs3gIWkFOKuR7kZnEMp7EvWYGVgXOIuM=";
   };
 
   nativeBuildInputs = [
@@ -46,6 +46,13 @@ pkgs.clangStdenv.mkDerivation rec {
   # clangStdenv's clang. Both share the libstdc++ ABI, so this is safe.
   enableParallelBuilding = true;
   doCheck = false; # no meaningful host-side tests; GPU-only runtime
+
+  patches = [
+    (pkgs.fetchurl {
+      url = "https://huggingface.co/Ostfralla/Qwen3.8-27B-NVFP4-NInfer/raw/main/qwen38-nvfp4-support.patch";
+      sha256 = "sha256-SEnGENH3cF4Siiq77MVmnec6/Q1P1ll7CxdJOuntlQo=";
+    })
+  ];
 
   # No cmake install() calls upstream — install the apps ourselves.
   installPhase = ''
