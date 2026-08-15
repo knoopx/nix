@@ -29,7 +29,6 @@
     # gnome-sudoku       # Sudoku puzzle game (GNOME)
     # google-chrome      # Google Chrome web browser
     # impression         # Create bootable USB drives
-    # llama-cpp
     # lmstudio
     # mission-center     # System resource monitor (CPU, RAM, Disk, Network, GPU)
     # newelle            # AI-powered virtual assistant

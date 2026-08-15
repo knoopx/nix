@@ -2,11 +2,14 @@
 , ...
 }:
 with lib; let
+  # Only the fields consumed by modules/home-manager/programs/pi-ai.nix
+  # (the models.json "local" provider). No sampling/preset fields — the local
+  # server is ninfer (hosts/desktop/containers/llm.nix) with its own flags.
   modelType = types.submodule {
     options = {
       id = mkOption {
         type = types.str;
-        description = "Model identifier";
+        description = "Model identifier (public OpenAI model name)";
       };
 
       name = mkOption {
@@ -19,129 +22,10 @@ with lib; let
         description = "Model family";
       };
 
-      hfRepo = mkOption {
-        type = types.str;
-        description = "Hugging Face repository with variant (e.g. repo:revision)";
-      };
-
       contextWindow = mkOption {
         type = types.int;
         default = 131072;
         description = "Context window size";
-      };
-
-      ctk = mkOption {
-        type = types.str;
-        default = "q8_0";
-        description = "Key cache type";
-      };
-
-      ctv = mkOption {
-        type = types.str;
-        default = "q8_0";
-        description = "Value cache type";
-      };
-
-      temp = mkOption {
-        type = types.float;
-        default = 1.0;
-        description = "Temperature";
-      };
-
-      topP = mkOption {
-        type = types.float;
-        default = 0.95;
-        description = "Top-p sampling";
-      };
-
-      topK = mkOption {
-        type = types.int;
-        default = 0;
-        description = "Top-k sampling (0 = disabled)";
-      };
-
-      minP = mkOption {
-        type = types.float;
-        default = 0.0;
-        description = "Min-p sampling";
-      };
-
-      presencePenalty = mkOption {
-        type = types.float;
-        default = 0.0;
-        description = "Presence penalty";
-      };
-
-      repeatPenalty = mkOption {
-        type = types.float;
-        default = 1.0;
-        description = "Repeat penalty";
-      };
-
-      specDraftNMax = mkOption {
-        type = types.int;
-        default = 4;
-        description = "Maximum speculative draft models";
-      };
-
-      specDraftPMin = mkOption {
-        type = types.float;
-        default = 0.85;
-        description = "Minimum speculative draft probability";
-      };
-
-      parallel = mkOption {
-        type = types.int;
-        default = 1;
-        description = "Number of parallel requests";
-      };
-
-      warmup = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Enable warmup run";
-      };
-
-      kvUnified = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Unified KV cache";
-      };
-
-      flashAttn = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Flash attention";
-      };
-
-      numGpuLayers = mkOption {
-        type = types.str;
-        default = "all";
-        description = "Number of layers to offload to GPU";
-      };
-
-      specDraftNgl = mkOption {
-        type = types.str;
-        default = "all";
-        description = "Speculative draft layers to offload";
-      };
-
-      batchSize = mkOption {
-        type = types.int;
-        default = 4096;
-        description = "Batch size for generation";
-      };
-
-      ubatchSize = mkOption {
-        type = types.int;
-        default = 512;
-        description = "Unbatched size";
-      };
-
-      specType = mkOption {
-        type = types.str;
-        default = "none";
-        description = "Speculative decoding type (e.g. draft-mtp)";
       };
 
       toolCall = mkOption {
@@ -225,6 +109,12 @@ with lib; let
         default = "max_tokens";
         description = "Compatibility: max tokens field name";
       };
+
+      thinkingLevelMap = mkOption {
+        type = types.attrsOf (types.nullOr types.str);
+        default = { };
+        description = "Map PI thinking level (off/minimal/low/medium/high/xhigh/max) to the provider's reasoning_effort value; null disables that level.";
+      };
     };
   };
 in
@@ -254,27 +144,32 @@ in
       "z-ai/glm-5.1"
     ];
 
+    # Served locally by the ninfer container (hosts/desktop/containers/llm.nix).
+    # `id` is the public OpenAI model name ninfer-serve advertises (--model-id);
+    # weights are the volume-mounted .ninfer artifact neroued/Qwen3.8-27B-NInfer.
     defaults.models.local = [
       {
-        id = "AtomicChat/Qwen3.8-27B-GGUF";
-        name = "AtomicChat/Qwen3.8-27B-GGUF";
+        id = "qwen3.8-27b";
+        name = "Qwen3.8-27B";
         family = "qwen3.8";
-        hfRepo = "AtomicChat/Qwen3.8-27B-GGUF:AD-Q4_K";
         contextWindow = 131072;
-        specType = "draft-mtp";
+        toolCall = true;
+        reasoning = true;
+        # Server runs without --vision: text in / text out.
+        inputTypes = [ "text" ];
         releaseDate = "2026-08-15";
         lastUpdated = "2026-08-15";
-      }
-      {
-        id = "unsloth/Qwen3.8-27B-GGUF";
-        name = "unsloth/Qwen3.8-27B-GGUF";
-        family = "qwen3.8";
-        hfRepo = "unsloth/Qwen3.8-27B-GGUF:Q4_K_XL";
-        contextWindow = 131072;
-        inputTypes = [ "text" "image" ];
-        specType = "draft-mtp";
-        releaseDate = "2026-08-13";
-        lastUpdated = "2026-08-14";
+        # Ninfer's chat template accepts none|low|medium|xhigh as distinct
+        # reasoning_effort values. Null hides levels without a distinct mapping.
+        thinkingLevelMap = {
+          off = "none";
+          minimal = null;
+          low = "low";
+          medium = "medium";
+          high = null;
+          xhigh = "xhigh";
+          max = null;
+        };
       }
     ];
   };

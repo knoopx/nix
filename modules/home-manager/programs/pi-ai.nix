@@ -89,8 +89,8 @@ with lib; let
   };
 
   models = map
-    (model: {
-      id = model.id;
+    (model: ({
+        id = model.id;
       name = model.name;
       family = model.family;
       tool_call = model.toolCall;
@@ -113,7 +113,10 @@ with lib; let
         supportsDeveloperRole = model.compatSupportsDeveloperRole;
         maxTokensField = model.compatMaxTokensField;
       };
-    })
+      }) // optionalAttrs (model.thinkingLevelMap != { }) {
+        thinkingLevelMap = model.thinkingLevelMap;
+      }
+    )
     nixosConfig.defaults.models.local;
 
   # Settings.json model management
