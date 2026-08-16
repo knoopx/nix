@@ -5,4 +5,7 @@ nh os switch
 nix flake update
 sudo podman pull ghcr.io/ggml-org/llama.cpp:server-cuda13
 sudo podman system prune -a
+sudo systemctl stop podman-llm.service
+sudo systemctl start podman-llm.service
 sudo systemctl restart podman-llm.service
+

@@ -49,7 +49,7 @@
         function pick_frequent_command
           if test -f ~/.frequent-commands
             set -l query (commandline)
-            set -l result (cat ~/.frequent-commands | sk --no-multi -q "$query")
+            set -l result (cat ~/.frequent-commands | sort -r | sk --no-sort --no-multi -q "$query")
             if test -n "$result"
               commandline -- $result
             end
