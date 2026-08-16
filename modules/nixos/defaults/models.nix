@@ -2,9 +2,6 @@
 , ...
 }:
 with lib; let
-  # Only the fields consumed by modules/home-manager/programs/pi-ai.nix
-  # (the models.json "local" provider). No sampling/preset fields — the local
-  # server is ninfer (hosts/desktop/containers/llm.nix) with its own flags.
   modelType = types.submodule {
     options = {
       id = mkOption {
@@ -115,6 +112,18 @@ with lib; let
         default = { };
         description = "Map PI thinking level (off/minimal/low/medium/high/xhigh/max) to the provider's reasoning_effort value; null disables that level.";
       };
+
+      ninferArtifact = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "ninfer artifact filename mounted in /models (hosts/desktop/containers/llm.nix); null = not served by ninfer";
+      };
+
+      ninferFlags = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        description = "Extra ninfer-serve flags (--max-context/--default-max-tokens come from contextWindow/maxTokens)";
+      };
     };
   };
 in
@@ -144,9 +153,6 @@ in
       "z-ai/glm-5.1"
     ];
 
-    # Served locally by the ninfer container (hosts/desktop/containers/llm.nix).
-    # `id` is the public OpenAI model name ninfer-serve advertises (--model-id);
-    # weights are the volume-mounted .ninfer artifact neroued/Qwen3.8-27B-NInfer.
     defaults.models.local = [
       {
         id = "qwen3.8-27b";
@@ -155,12 +161,19 @@ in
         contextWindow = 131072;
         toolCall = true;
         reasoning = true;
-        # Server runs without --vision: text in / text out.
         inputTypes = [ "text" ];
+        ninferArtifact = "qwen3_8_27b_nvfp4_ostfralla.ninfer";
+        ninferFlags = [
+          "--max-concurrency 2"
+          "--kv-capacity auto"
+          "--kv-dtype int8"
+          "--spec mtp"
+          "--draft-tokens 4"
+          "--lm-head-draft"
+          "--prefill-chunk 4096"
+        ];
         releaseDate = "2026-08-15";
         lastUpdated = "2026-08-15";
-        # Ninfer's chat template accepts none|low|medium|xhigh as distinct
-        # reasoning_effort values. Null hides levels without a distinct mapping.
         thinkingLevelMap = {
           off = null;
           minimal = null;

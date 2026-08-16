@@ -1,27 +1,52 @@
-{ lib
+{ config
+, lib
 , pkgs
 , ...
 }:
 with lib;
 let
+  modelsDir = "/home/knoopx/.local/share/ninfer/models";
+
+  ninferModels = filter (m: m.ninferArtifact != null) config.defaults.models.local;
+
+  llamaSwapConfig = pkgs.runCommand "llama-swap.yaml"
+    {
+      nativeBuildInputs = [ pkgs.yq-go ];
+    } ''
+        mkdir -p $out
+        cat <<'JSON' | yq -o yaml . > $out/llama-swap.yaml
+        ${builtins.toJSON {
+          healthCheckTimeout = 300;
+          logLevel = "debug";
+          models = lib.listToAttrs (map (m: {
+            name = m.id;
+            value = {
+              checkEndpoint = "/health";
+              ttl = 300;
+              cmd = "/bin/ninfer-serve /models/${m.ninferArtifact} --host 127.0.0.1 --port \${PORT} --max-context ${toString m.contextWindow} --default-max-tokens ${toString m.maxTokens} ${builtins.concatStringsSep " " m.ninferFlags}";
+            };
+          }) ninferModels);
+        }}
+    JSON
+  '';
+
   image = pkgs.dockerTools.buildImage {
-    name = "localhost/ninfer";
+    name = "localhost/llm";
     tag = "latest";
     copyToRoot = [
+      pkgs.llama-swap-minimal
       pkgs.ninfer
       pkgs.iana-etc
       pkgs.cacert
+      llamaSwapConfig
     ];
     config = {
-      Entrypoint = [ "${pkgs.ninfer}/bin/ninfer-serve" ];
+      Entrypoint = [ "/bin/llama-swap" ];
+      ExposedPorts = {
+        "11434/tcp" = { };
+      };
     };
   };
-
-  # hf download neroued/Qwen3.8-27B-NInfer \
-  #   qwen3_8_27b.ninfer \
-  #   --local-dir ${modelsDir}
-
-  modelsDir = "/home/knoopx/.local/share/ninfer/models";
 in
 {
   systemd.tmpfiles.rules = [
@@ -35,53 +60,18 @@ in
   virtualisation.oci-containers.containers.llm = {
     autoStart = true;
 
-    image = "localhost/ninfer:latest";
+    image = "localhost/llm:latest";
     imageFile = image;
 
     cmd = [
-      # "/models/qwen3_8_27b.ninfer"
-      "/models/qwen3_8_27b_nvfp4.ninfer"
-
-      "--host"
-      "0.0.0.0"
-
-      "--port"
-      "8080"
-
-      "--model-id"
-      "qwen3.8-27b"
-
-      # "--vision"
-
-      "--max-concurrency"
-      "2"
-
-      "--max-context"
-      "131072"
-
-      "--kv-capacity"
-      "auto"
-
-      "--kv-dtype"
-      "int8"
-
-      "--spec"
-      "mtp"
-
-      "--draft-tokens"
-      "4"
-
-      "--lm-head-draft"
-
-      "--default-max-tokens"
-      "16384"
-
-      "--prefill-chunk"
-      "4096"
+      "--listen"
+      ":11434"
+      "--config"
+      "/llama-swap.yaml"
     ];
 
     ports = [
-      "11434:8080"
+      "11434:11434"
     ];
 
     volumes = [
@@ -93,7 +83,7 @@ in
     ];
 
     labels = {
-      "traefik.http.services.llm.loadbalancer.server.port" = "8080";
+      "traefik.http.services.llm.loadbalancer.server.port" = "11434";
     };
   };
 }
