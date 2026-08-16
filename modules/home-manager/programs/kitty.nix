@@ -17,6 +17,8 @@
       tab_bar_margin_width = 5;
       tab_bar_style = "separator";
       window_padding_width = 10;
+      allow_remote_control = true;
+      listen_on = "unix:@kitty";
     };
 
     extraConfig = with nixosConfig.defaults.colorScheme.palette; ''
