@@ -1,4 +1,7 @@
-{ pkgs }:
+{
+  pkgs,
+  lib,
+}:
 let
   py = pkgs.python314.pkgs;
   supertonicPy = py.buildPythonPackage rec {
@@ -13,41 +16,22 @@ let
     propagatedBuildInputs = with py; [ onnxruntime numpy huggingface-hub soundfile ];
     doCheck = false;
   };
-  ttsPython = pkgs.python314.withPackages (ps: with ps; [ supertonicPy numpy onnxruntime huggingface-hub soundfile ]);
+  ttsPython = pkgs.python314.withPackages (ps: with ps; [
+    supertonicPy
+    numpy
+    onnxruntime
+    huggingface-hub
+    soundfile
+  ]);
 in
-pkgs.writeShellApplication {
-  name = "tts";
-  runtimeInputs = [ ttsPython pkgs.pipewire pkgs.playerctl ];
-  text =
-    let
-      python = ttsPython.interpreter;
-      ttsPy = ./tts.py;
-    in
-    ''
-      VOICE_STYLE="''${TTS_VOICE:-F4}"
-      TOTAL_STEPS="''${TTS_STEPS:-5}"
-      GAIN="''${TTS_GAIN:-3}"
-
-      if [ -n "''${1:-}" ]; then
-        TEXT="$1"
-      else
-        TEXT="$(cat)"
-      fi
-
-      # Kill any previously playing TTS
-      if [ -f /tmp/tts.pid ]; then
-        kill "$(cat /tmp/tts.pid)" 2>/dev/null || true
-        rm -f /tmp/tts.pid
-      fi
-
-      # Pause all MPRIS players
-      playerctl -a pause 2>/dev/null || true
-
-      ${python} ${ttsPy} "''${VOICE_STYLE}" "$TEXT" "''${TOTAL_STEPS}" "''${GAIN}" | pw-play -a --rate=44100 --channels=1 - &
-      PID=$!
-      echo "$PID" > /tmp/tts.pid
-      wait "$PID"
-      playerctl -a play 2>/dev/null || true
-      rm -f /tmp/tts.pid
-    '';
-}
+pkgs.runCommand "tts" {
+  nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+  meta.mainProgram = "tts";
+} ''
+  mkdir -p $out/bin
+  makeWrapper ${pkgs.nushell}/bin/nu $out/bin/tts \
+    --add-flags ${./tts.nu} \
+    --suffix PATH : ${ttsPython}/bin:${pkgs.pipewire}/bin:${pkgs.playerctl}/bin:${pkgs.coreutils}/bin:${pkgs.nushell}/bin \
+    --set TTS_PY ${ttsPython.interpreter} \
+    --set TTS_PY_SCRIPT ${./tts.py}
+''
