@@ -35,6 +35,7 @@
     gzip # GNU compression
     helix # Modern modal text editor
     http-nu # HTTP client (Nushell implementation)
+    cross-stream
     imagemagick # Image creation/editing/conversion suite
     inbox # Inbox tool (custom tool)
     inetutils # Network utilities (ftp, telnet, talk, rexec, rlogin)
