@@ -140,6 +140,46 @@ NIX_HIGHLIGHTING_PATCH
                  break;
              default:
 MARKDOWN_CODE_BLOCK_PATCH
+
+        # Tool output auto-expand: patches settings-manager.js and interactive-mode.js
+        # Adds "toolOutputExpanded" setting to ~/.pi/agent/settings.json
+        cat << 'TOOL_OUTPUT_EXPAND_PATCH' | patch -p1 -f --directory="$nm"
+--- a/dist/core/settings-manager.js
++++ b/dist/core/settings-manager.js
+@@ -578,6 +578,9 @@
+     getHideThinkingBlock() {
+         return this.settings.hideThinkingBlock ?? false;
+     }
++    getToolOutputExpanded() {
++        return this.settings.toolOutputExpanded ?? false;
++    }
+     getShowCacheMissNotices() {
+         return this.settings.showCacheMissNotices ?? false;
+     }
+--- a/dist/modes/interactive/interactive-mode.js
++++ b/dist/modes/interactive/interactive-mode.js
+@@ -373,5 +373,6 @@
+         // Load hide thinking block setting
+         this.hideThinkingBlock = this.settingsManager.getHideThinkingBlock();
++        this.toolOutputExpanded = this.settingsManager.getToolOutputExpanded();
+         this.outputPad = this.settingsManager.getOutputPad();
+         // Register themes from resource loader and initialize
+         setRegisteredThemes(this.session.resourceLoader.getThemes().themes);
+@@ -1462,5 +1463,6 @@
+         this.footerDataProvider.setCwd(this.sessionManager.getCwd());
+         this.hideThinkingBlock = this.settingsManager.getHideThinkingBlock();
++        this.toolOutputExpanded = this.settingsManager.getToolOutputExpanded();
+         this.outputPad = this.settingsManager.getOutputPad();
+         this.ui.setShowHardwareCursor(this.settingsManager.getShowHardwareCursor());
+         const clearOnShrink = this.settingsManager.getClearOnShrink();
+@@ -4780,5 +4782,6 @@
+             }
+             this.hideThinkingBlock = this.settingsManager.getHideThinkingBlock();
++            this.toolOutputExpanded = this.settingsManager.getToolOutputExpanded();
+             this.outputPad = this.settingsManager.getOutputPad();
+             this.rebuildChatFromMessages();
+             chatRestoredBeforeSessionStart = true;
+TOOL_OUTPUT_EXPAND_PATCH
       '';
   });
 }

@@ -133,6 +133,7 @@ with lib; let
     ".defaultProvider = ${builtins.toJSON "local"}"
     ".defaultModel = ${builtins.toJSON defaultModel}"
     ".enabledModels = ${builtins.toJSON enabledModels}"
+    ".toolOutputExpanded = true"
   ];
 
 in
