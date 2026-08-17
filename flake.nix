@@ -48,6 +48,9 @@
     nixos-avf.url = "github:nix-community/nixos-avf";
     nixos-avf.inputs.nixpkgs.follows = "nixpkgs";
 
+    ninfer.url = "github:knoopx/ninfer";
+    ninfer.inputs.nixpkgs.follows = "nixpkgs";
+
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -79,6 +82,7 @@
           inputs.astal-shell.overlays.default
           (self: super: { firefox-addons = inputs.firefox-addons.packages.${system}; })
           (self: super: { vicinaehq = inputs.vicinaehq; })
+          (final: prev: { ninfer = inputs.ninfer.packages.${system}.ninfer; })
           (
             final: prev:
               haumea.lib.load {

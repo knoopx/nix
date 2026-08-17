@@ -17,15 +17,35 @@ let
         cat <<'JSON' | yq -o yaml . > $out/llama-swap.yaml
         ${builtins.toJSON {
           healthCheckTimeout = 300;
+          logToStdout = "upstream";
           logLevel = "debug";
-          models = lib.listToAttrs (map (m: {
-            name = m.id;
-            value = {
-              checkEndpoint = "/health";
-              ttl = 300;
-              cmd = "/bin/ninfer-serve /models/${m.ninferArtifact} --host 127.0.0.1 --port \${PORT} --max-context ${toString m.contextWindow} --default-max-tokens ${toString m.maxTokens} ${builtins.concatStringsSep " " m.ninferFlags}";
-            };
-          }) ninferModels);
+          models = lib.listToAttrs (map (m:
+            {
+              name = m.id;
+              value = {
+                checkEndpoint = "/health";
+                ttl = 300;
+              cmd = builtins.concatStringsSep " " ([
+                  "/bin/ninfer-serve"
+                  "/models/${m.ninferArtifact}"
+                  "--model-id ${m.id}"
+                  "--host 127.0.0.1"
+                  "--port \${PORT}"
+                  "--max-context ${toString m.contextWindow}"
+                  "--default-max-tokens ${toString m.maxTokens}"
+                ]
+                ++ [ "--max-concurrency ${toString m.ninferMaxConcurrency}" ]
+                ++ [ "--kv-capacity ${m.ninferKvCapacity}" ]
+                ++ [ "--kv-dtype ${m.ninferKvDtype}" ]
+                ++ lib.optionals (m.ninferSpec != null) [ "--spec ${m.ninferSpec}" ]
+                ++ lib.optionals (m.ninferSpec != null) [ "--draft-tokens ${toString m.ninferDraftTokens}" ]
+                ++ lib.optionals (m.ninferSpec != null) [ "--draft-tokens-min ${toString m.ninferDraftTokensMin}" ]
+                ++ [ "--prefill-chunk ${toString m.ninferPrefillChunk}" ]
+                ++ lib.optionals m.ninferLmHeadDraft [ "--lm-head-draft" ]
+                ++ lib.optionals m.ninferVision [ "--vision" ]);
+              };
+            }
+          ) ninferModels);
         }}
     JSON
   '';
