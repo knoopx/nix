@@ -162,7 +162,7 @@ in
         # Ninfer's chat template accepts none|low|medium|xhigh as distinct
         # reasoning_effort values. Null hides levels without a distinct mapping.
         thinkingLevelMap = {
-          off = "none";
+          off = null;
           minimal = null;
           low = "low";
           medium = "medium";
