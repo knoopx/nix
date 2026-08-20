@@ -20,7 +20,6 @@
     niri.inputs.nixpkgs.follows = "nixpkgs";
     niri.inputs.nixpkgs-stable.follows = "nixpkgs";
 
-    # julianjc84's niri fork with configurable touch gestures (for minibookx)
     niri-touch.url = "github:julianjc84/niri/feat/configurable-touch-gestures";
     niri-touch.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -54,7 +53,6 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   };
 
   outputs = inputs:
@@ -78,7 +76,6 @@
 
       globalOverlays =
         [
-          inputs.nix-cachyos-kernel.overlays.pinned
           inputs.astal-shell.overlays.default
           (self: super: { firefox-addons = inputs.firefox-addons.packages.${system}; })
           (self: super: { vicinaehq = inputs.vicinaehq; })

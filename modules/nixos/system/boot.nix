@@ -36,7 +36,7 @@ in
     };
 
     # kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-zen4;
+    # kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-zen4;
 
     plymouth = {
       enable = true;
