@@ -35,6 +35,14 @@
       map ctrl+shift+left neighboring_window left
       map ctrl+shift+right neighboring_window right
 
+      # Tab navigation
+      map ctrl+shift+page_up previous_tab
+      map ctrl+shift+page_down next_tab
+
+      # Page scroll
+      map ctrl+page_up scroll_page_up
+      map ctrl+page_down scroll_page_down
+
       # unbind defaults
       map ctrl+backspace ungrabbed
       map ctrl+shift+f ungrabbed
