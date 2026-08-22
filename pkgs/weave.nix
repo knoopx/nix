@@ -1,12 +1,12 @@
 {pkgs, ...}: let
   pname = "weave";
-  version = "0.3.6";
+  version = "0.5.2";
 
   src = pkgs.fetchFromGitHub {
     owner = "Ataraxy-Labs";
     repo = "weave";
     rev = "v${version}";
-    hash = "sha256-VlJUXAXlWpFGlJgAEhhdeX35AZV/G/IJlXEjU/7SfJg=";
+    hash = "sha256-Aj2fWvur1N2VnVlPJHqg0L5hiWGdthznkTvIzWgGlIg=";
   };
 in
   pkgs.rustPlatform.buildRustPackage {
@@ -14,7 +14,7 @@ in
 
     subPackages = ["crates/weave-cli" "crates/weave-driver"];
 
-    cargoHash = "sha256-ZPe9l3S88idwYrayT5mmagW/VdA0VlUHTDXVyHoOF1w=";
+    cargoHash = "sha256-erodWNZ/E50ND2F1UXSYd5LXi8A4EIaUNoJYld6KJjQ=";
 
     nativeBuildInputs = with pkgs; [
       pkg-config
