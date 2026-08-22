@@ -306,10 +306,6 @@ let
                 url = "https://github.com/sxyazi/yazi/releases.atom";
               }
               {
-                title = "Ollama";
-                url = "https://github.com/ollama/ollama/releases.atom";
-              }
-              {
                 title = "Home Assistant";
                 url = "https://github.com/home-assistant/core/releases.atom";
               }
@@ -330,8 +326,8 @@ let
                 url = "https://github.com/badlogic/pi-mono/releases.atom";
               }
               {
-                title = "llama.cpp";
-                url = "https://github.com/ggml-org/llama.cpp/releases.atom";
+                title = "ninfer";
+                url = "https://github.com/Neroued/ninfer/releases.atom";
               }
               {
                 title = "CodeMapper";
