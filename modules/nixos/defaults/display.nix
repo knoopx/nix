@@ -107,6 +107,12 @@ with lib; {
           }
           {
             matches = [
+              {app-id = "kitty";}
+            ];
+            default-column-width.proportion = 0.33;
+          }
+          {
+            matches = [
               {title = "/dev/video0";}
             ];
             default-column-width.fixed = 400;
