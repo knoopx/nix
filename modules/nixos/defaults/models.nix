@@ -2,6 +2,60 @@
 , ...
 }:
 with lib; let
+  # --- NInfer engine (served by /bin/ninfer-serve through llama-swap on :11434) ---
+  # Engine-specific knobs are nested under the `ninfer` block so a model that uses only one
+  # engine leaves the other empty. Fields are a property of the *engine*, not the model.
+  ninferType = types.submodule {
+    options = {
+      artifact = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "ninfer artifact filename mounted in /models (hosts/desktop/containers/llm.nix); null = not served by ninfer";
+      };
+
+      kvCapacity = mkOption {
+        type = types.str;
+        default = "auto";
+        description = "ninfer-serve --kv-capacity";
+      };
+
+      kvDtype = mkOption {
+        type = types.str;
+        default = "int8";
+        # default = "nvfp4";
+        # default = "k8v4";
+        description = "ninfer-serve --kv-dtype";
+      };
+
+      spec = mkOption {
+        type = types.nullOr types.str;
+        default = "mtp";
+        description = "ninfer-serve --spec (e.g. mtp); null disables";
+      };
+
+      draftTokens = mkOption {
+        type = types.int;
+        default = 4;
+        description = "ninfer-serve --draft-tokens";
+      };
+
+      prefillChunk = mkOption {
+        type = types.int;
+        default = 4096;
+        # default = 2048;
+        # default = 1024;
+        # default = 512;
+        description = "ninfer-serve --prefill-chunk";
+      };
+
+      lmHeadDraft = mkOption {
+        type = types.bool;
+        default = true;
+        description = "ninfer-serve --lm-head-draft";
+      };
+    };
+  };
+
   modelType = types.submodule {
     options = {
       id = mkOption {
@@ -21,8 +75,8 @@ with lib; let
 
       contextWindow = mkOption {
         type = types.int;
-        default = 131072;
-        description = "Context window size";
+        default = 200000;
+        description = "Context window size (Qwen3.8-27B recommended inference default: 262144)";
       };
 
       toolCall = mkOption {
@@ -91,8 +145,10 @@ with lib; let
 
       maxTokens = mkOption {
         type = types.int;
-        default = 16384;
-        description = "Maximum output tokens for PI agent";
+        # default = 32768;
+        # default = 16384;
+        default = 24480;
+        description = "Maximum output tokens for PI agent (Qwen3.8-27B recommended inference default: 131072)";
       };
 
       compatSupportsDeveloperRole = mkOption {
@@ -110,70 +166,67 @@ with lib; let
       thinkingLevelMap = mkOption {
         type = types.attrsOf (types.nullOr types.str);
         default = { };
-        description = "Map PI thinking level (off/minimal/low/medium/high/xhigh/max) to the provider's reasoning_effort value; null disables that level.";
+        description = "Map PI thinking level (off/minimal/low/medium/high/xhigh/max) to the provider's reasoning_effort_value; null disables that level.";
       };
 
-      ninferArtifact = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = "ninfer artifact filename mounted in /models (hosts/desktop/containers/llm.nix); null = not served by ninfer";
+      # Engine-specific options: nested per engine. A model uses only the block(s) it needs;
+      # the other engine block stays `{}` (all its sub-options resolve to their null/neutral defaults).
+      ninfer = mkOption {
+        type = ninferType;
+        default = { };
+        description = "NInfer engine-specific options (served by /bin/ninfer-serve via llama-swap on :11434)";
       };
 
-      ninferMaxConcurrency = mkOption {
-        type = types.int;
-        default = 2;
-        description = "ninfer-serve --max-concurrency";
-      };
-
-      ninferKvCapacity = mkOption {
-        type = types.str;
-        default = "auto";
-        description = "ninfer-serve --kv-capacity";
-      };
-
-      ninferKvDtype = mkOption {
-        type = types.str;
-        default = "int8";
-        description = "ninfer-serve --kv-dtype";
-      };
-
-      ninferSpec = mkOption {
-        type = types.nullOr types.str;
-        default = "mtp";
-        description = "ninfer-serve --spec (e.g. mtp); null disables";
-      };
-
-      ninferDraftTokens = mkOption {
-        type = types.int;
-        default = 5;
-        description = "ninfer-serve --draft-tokens";
-      };
-
-      ninferDraftTokensMin = mkOption {
-        type = types.int;
+      maxConcurrency = mkOption {
+        type = types.nullOr types.int;
         default = 3;
-        description = "ninfer-serve --draft-tokens-min";
+        description = "Max concurrent requests";
       };
 
-      ninferPrefillChunk = mkOption {
-        type = types.int;
-        default = 4096;
-        description = "ninfer-serve --prefill-chunk";
+      temperature = mkOption {
+        type = types.nullOr types.float;
+        default = 1.0;
+        description = "Sampling temperature (Qwen3.8-27B recommended inference default: 1.0 thinking / 0.7 instruct)";
       };
 
-      ninferLmHeadDraft = mkOption {
-        type = types.bool;
+      topP = mkOption {
+        type = types.nullOr types.float;
+        default = 0.95;
+        description = "Top-p sampling (Qwen3.8-27B recommended inference default: 0.95 thinking / 0.80 instruct)";
+      };
+
+      topK = mkOption {
+        type = types.nullOr types.int;
+        default = 20;
+        description = "Top-k sampling (Qwen3.8-27B recommended inference default: 20)";
+      };
+
+      minP = mkOption {
+        type = types.nullOr types.float;
+        default = 0.0;
+        description = "Min-p sampling (Qwen3.8-27B recommended inference default: 0.0)";
+      };
+
+      presencePenalty = mkOption {
+        type = types.nullOr types.float;
+        default = 0.0;
+        description = "Presence penalty (Qwen3.8-27B recommended inference default: 0.0 thinking / 1.5 instruct)";
+      };
+
+      repetitionPenalty = mkOption {
+        type = types.nullOr types.float;
+        default = 1.0;
+        description = "Repetition penalty (Qwen3.8-27B recommended inference default: 1.0)";
+      };
+
+      preserveThinking = mkOption {
+        type = types.nullOr types.bool;
         default = true;
-        description = "Enable ninfer-serve --lm-head-draft";
-      };
-
-      ninferVision = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Enable ninfer-serve --vision";
+        description = "Retain thinking blocks across turns (Qwen3.8-27B HF model card: enabled by default)";
       };
     };
   };
+
 in
 {
   options.defaults.models = {
@@ -191,14 +244,16 @@ in
   config = {
     defaults.models.cloud = [
       "nvidia/nemotron-3-ultra-550b-a55b:free"
-      "deepseek/deepseek-v4-flash"
-      "tencent/hy3-preview"
-      "xiaomi/mimo-v2.5"
-      "stepfun/step-3.5-flash"
-      "xiaomi/mimo-v2.5-pro"
-      "minimax/minimax-m3"
-      "qwen/qwen3.7-plus"
-      "z-ai/glm-5.1"
+      "minimax/minimax-m3:free"
+      "deepseek/deepseek-v4-flash-0731" # $0.05 / $0.16per 1M
+      "xiaomi/mimo-v2.5" # $0.119 / $0.238per 1M
+      "stepfun/step-3.5-flash" # $0.10 / $0.30per 1M
+      "xiaomi/mimo-v2.5-pro" # $0.3045 / $0.609per 1M
+      "qwen/qwen3.8-flash" # $0.15 / $0.47per 1M
+      "openai/gpt-5.6-luna" # $0.20 / $1.20per 1M
+      "openai/gpt-5.6-luna-pro:nitro" # $0.20 / $1.20per 1M
+      "z-ai/glm-5.3-flash" # $0.07125 / $0.2375per 1M
+      "z-ai/glm-5.2" # $0.4875 / $1.56per 1M
     ];
 
     defaults.models.local = [
@@ -206,11 +261,10 @@ in
         id = "ostfralla/Qwen3.8-27B";
         name = "Qwen3.8-27B";
         family = "qwen3.8";
-        contextWindow = 131072;
-        maxTokens = 16384;
         toolCall = true;
         inputTypes = [ "text" "image" ];
-        ninferArtifact = "ostfralla/Qwen3.8-27B-NInfer-nvfp4-w8g32-q4g64-q5g64-q6g64-bf16.ninfer";
+        # contextWindow = 175000;
+
         releaseDate = "2026-08-15";
         lastUpdated = "2026-08-18";
         thinkingLevelMap = {
@@ -222,19 +276,77 @@ in
           xhigh = "xhigh";
           max = null;
         };
+        ninfer = {
+          artifact = "ostfralla/Qwen3.8-27B-NInfer-nvfp4-w8g32-q4g64-q5g64-q6g64-bf16.ninfer";
+        };
       }
+
+
+      {
+        id = "neroued/Qwen3.8-27B";
+        name = "Qwen3.8-27B";
+        family = "qwen3.8";
+        toolCall = true;
+        inputTypes = [ "text" "image" ];
+
+        contextWindow = 100000;
+        ninfer = {
+          artifact = "neroued/Qwen3.8-27B-nvfp4-NInfer/qwen3_8_27b_nvfp4.ninfer";
+          spec = "dflash2";
+          draftTokens = 7;
+          prefillChunk = 1024 * 4;
+        };
+
+        releaseDate = "2026-08-15";
+        lastUpdated = "2026-08-31";
+        thinkingLevelMap = {
+          off = null;
+          minimal = null;
+          low = "low";
+          medium = "medium";
+          high = null;
+          xhigh = "xhigh";
+          max = null;
+        };
+      }
+
+
+
+      {
+        id = "knoopx/ThinkingCap-Qwen3.6-27B";
+        name = "ThinkingCap-Qwen3.6-27B";
+        family = "qwen3.6";
+        # contextWindow = 150000;
+        # ninferSpec = "dflash2";
+        # ninferDraftTokens = 7;
+        # ninferDraftTokens = 11;
+        toolCall = true;
+        reasoning = false;
+        inputTypes = [ "text" ];
+        # inputTypes = [ "text" "image" ];
+        releaseDate = "2026-08-20";
+        lastUpdated = "2026-08-26";
+        ninfer = {
+          artifact = "knoopx/ThinkingCap-Qwen3.6-27B-NInfer/ThinkingCap-Qwen3.6-27B-NInfer-nvfp4-w8g32-q4g64-q5g64-bf16.ninfer";
+        };
+        # ninferArtifact = "knoopx/ThinkingCap-Qwen3.6-27B-NInfer/ThinkingCap-Qwen3.6-27B-NInfer-nvfp4-w8g32-q4g64-q5g64-q6g64-bf16.ninfer";
+      }
+
+
+
       {
         id = "ornith-ai/Ornith-1.5-35B-A3B";
         name = "Ornith-1.5-35B-A3B";
         family = "qwen3.6";
         contextWindow = 262144;
-        maxTokens = 16384;
         toolCall = true;
         reasoning = false;
         inputTypes = [ "text" ];
-        ninferArtifact = "ornith-ai/Ornith-1.5-35B-A3B-MTP-w8g32-q4g64-q5g64-q6g64-bf16.ninfer";
         releaseDate = "2026-08-15";
         lastUpdated = "2026-08-18";
+        ninfer = {
+          artifact = "ornith-ai/Ornith-1.5-35B-A3B-MTP-w8g32-q4g64-q5g64-q6g64-bf16.ninfer";
+        };
       }
     ];
   };

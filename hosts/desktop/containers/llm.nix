@@ -7,7 +7,7 @@ with lib;
 let
   modelsDir = "/home/knoopx/.local/share/ninfer/models";
 
-  ninferModels = filter (m: m.ninferArtifact != null) config.defaults.models.local;
+  ninferModels = filter (m: m.ninfer ? artifact && m.ninfer.artifact != null) config.defaults.models.local;
 
   llamaSwapConfig = pkgs.runCommand "llama-swap.yaml"
     {
@@ -19,7 +19,7 @@ let
           healthCheckTimeout = 300;
           logToStdout = "upstream";
           logLevel = "debug";
-          models = lib.listToAttrs (map (m:
+          models = (lib.listToAttrs (map (m:
             {
               name = m.id;
               value = {
@@ -27,34 +27,54 @@ let
                 ttl = 300;
               cmd = builtins.concatStringsSep " " ([
                   "/bin/ninfer-serve"
-                  "/models/${m.ninferArtifact}"
+                  "/models/${m.ninfer.artifact}"
+
                   "--model-id ${m.id}"
+
                   "--host 127.0.0.1"
                   "--port \${PORT}"
+                  "--max-pending-requests 2"
+                  "--pending-timeout-ms 120000"
+
+                  "--host-kv-mib 32768"
+                  "--media-live-mib 2048"
+                  # "--max-shared-prefixes 8"
+                  # "--response-store-max-mib 4096"
+                  # "--response-store-max-records 4096"
+
+                  # "--kv-capacity 240000"
                   "--max-context ${toString m.contextWindow}"
                   "--default-max-tokens ${toString m.maxTokens}"
+                  # "--default-thinking-budget ${toString m.maxTokens}"
+
                 ]
-                ++ [ "--max-concurrency ${toString m.ninferMaxConcurrency}" ]
-                ++ [ "--kv-capacity ${m.ninferKvCapacity}" ]
-                ++ [ "--kv-dtype ${m.ninferKvDtype}" ]
-                ++ lib.optionals (m.ninferSpec != null) [ "--spec ${m.ninferSpec}" ]
-                ++ lib.optionals (m.ninferSpec != null) [ "--draft-tokens ${toString m.ninferDraftTokens}" ]
-                ++ lib.optionals (m.ninferSpec != null) [ "--draft-tokens-min ${toString m.ninferDraftTokensMin}" ]
-                ++ [ "--prefill-chunk ${toString m.ninferPrefillChunk}" ]
-                ++ lib.optionals m.ninferLmHeadDraft [ "--lm-head-draft" ]
-                ++ lib.optionals m.ninferVision [ "--vision" ]);
+                ++ lib.optionals (m.temperature != null) [ "--temperature ${toString m.temperature}" ]
+                ++ lib.optionals (m.topP != null) [ "--top-p ${toString m.topP}" ]
+                ++ lib.optionals (m.topK != null) [ "--top-k ${toString m.topK}" ]
+                ++ lib.optionals (m.minP != null) [ "--min-p ${toString m.minP}" ]
+                ++ lib.optionals (m.presencePenalty != null) [ "--presence-penalty ${toString m.presencePenalty}" ]
+                ++ lib.optionals m.preserveThinking [ "--preserve-thinking" ]
+                ++ lib.optionals (m.maxConcurrency != null) [ "--max-concurrency ${toString m.maxConcurrency}" ]
+                ++ [ "--kv-capacity ${m.ninfer.kvCapacity}" ]
+                ++ [ "--kv-dtype ${m.ninfer.kvDtype}" ]
+                ++ lib.optionals (m.ninfer.spec != null) [ "--spec ${m.ninfer.spec}" ]
+                ++ lib.optionals (m.ninfer.spec != null) [ "--draft-tokens ${toString m.ninfer.draftTokens}" ]
+                ++ [ "--prefill-chunk ${toString m.ninfer.prefillChunk}" ]
+                ++ lib.optionals m.ninfer.lmHeadDraft [ "--lm-head-draft" ]
+                ++ lib.optionals (lib.lists.elem "image" m.inputTypes) [ "--vision" ]);
               };
             }
-          ) ninferModels);
+          ) ninferModels));
         }}
     JSON
   '';
+
 
   image = pkgs.dockerTools.buildImage {
     name = "localhost/llm";
     tag = "latest";
     copyToRoot = [
-      pkgs.llama-swap-minimal
+      pkgs.llama-swappo
       pkgs.ninfer
       pkgs.iana-etc
       pkgs.cacert
@@ -63,7 +83,7 @@ let
     config = {
       Entrypoint = [ "/bin/llama-swap" ];
       ExposedPorts = {
-        "11434/tcp" = { };
+        "11434/tcp" = { }; # llama-swap (Ollama front-end; serves NInfer models)
       };
     };
   };
