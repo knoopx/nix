@@ -29,6 +29,9 @@
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
 
+    bruvtab.url = "github:pschmitt/bruvtab";
+    bruvtab.inputs.nixpkgs.follows = "nixpkgs";
+
     betterfox.url = "github:yokoffing/BetterFox";
     betterfox.flake = false;
 
@@ -80,6 +83,7 @@
           (self: super: { firefox-addons = inputs.firefox-addons.packages.${system}; })
           (self: super: { vicinaehq = inputs.vicinaehq; })
           (final: prev: { ninfer = inputs.ninfer.packages.${system}.ninfer; })
+          (final: prev: { bruvtab = inputs.bruvtab.packages.${system}.bruvtab; })
           (
             final: prev:
               haumea.lib.load {

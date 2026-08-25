@@ -4,12 +4,14 @@
   nixosConfig,
   betterfox,
   usercontent-css,
+  bruvtab,
   ...
 }: let
   cfg = nixosConfig.defaults.firefox;
 
   c = nixosConfig.defaults.colorScheme.palette;
   system = pkgs.stdenv.hostPlatform.system;
+  bruvtabFirefoxAddon = bruvtab.packages.${system}.firefoxAddon;
   palette = builtins.mapAttrs (_: v: "#${v}") c;
   userStyles = usercontent-css.lib.${system}.mkUserStyles palette;
   uBlockRules = usercontent-css.lib.${system}.uBlockRules;
@@ -55,9 +57,8 @@ in {
     copy-selected-links
     sponsorblock
     dictionary-spanish
-    brotab
     jump
-  ]);
+  ] ++ [ bruvtabFirefoxAddon ]);
 
   extraConfig = lib.mkIf cfg.extensions ''
     ${builtins.readFile "${betterfox}/user.js"}

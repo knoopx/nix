@@ -29,7 +29,7 @@ with lib; {
     nativeMessaging = mkOption {
       type = types.bool;
       default = true;
-      description = "Enable native messaging hosts (brotab)";
+      description = "Enable native messaging hosts (bruvtab)";
     };
   };
 

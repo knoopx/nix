@@ -7,7 +7,7 @@
     bat # Binary cat with syntax highlighting and pager
     binutils # GNU binary utilities (as, ld, nm, ar, etc.)
 
-    brotab # Browser tab session manager (save/restore tabs)
+    bruvtab # Browser tab session manager (maintained fork of brotab)
     bubblewrap # Unprivileged sandboxing tool (Flatpak dependency)
     cacert # CA certificates bundle for TLS verification
     clang-tools # LLVM/Clang tooling (clang-format, clang-tidy, etc.)

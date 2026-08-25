@@ -6,20 +6,13 @@
 } @ args: let
   cfg = nixosConfig.defaults.firefox;
 
-  brotabMediatorJson = pkgs.writeTextFile {
-    name = "brotab_mediator.json";
-    text = builtins.toJSON {
-      name = "brotab_mediator";
-      description = "This mediator exposes interface over TCP to control browser's tabs";
-      path = "${pkgs.brotab}/bin/bt_mediator";
-      type = "stdio";
-      allowed_extensions = ["brotab_mediator@example.org"];
-    };
-  };
+  # Maintainer-patched manifest shipped by the bruvtab flake package
+  # (its postInstall rewrites .path to <out>/bin/bruvtab_mediator).
+  bruvtabMediatorJson = "${pkgs.bruvtab}/lib/mozilla/native-messaging-hosts/bruvtab_mediator.json";
 in {
-  home.file.".mozilla/native-messaging-hosts/brotab_mediator.json" =
+  home.file.".mozilla/native-messaging-hosts/bruvtab_mediator.json" =
     lib.mkIf cfg.nativeMessaging {
-      source = brotabMediatorJson;
+      source = bruvtabMediatorJson;
     };
 
   programs.firefox = {

@@ -215,7 +215,7 @@ in {
       providers = {
         "@brpaz/store.raycast.brotab" = {
           preferences = {
-            brotabPath = "/etc/profiles/per-user/${nixosConfig.defaults.username}/bin/brotab";
+            brotabPath = "/etc/profiles/per-user/${nixosConfig.defaults.username}/bin/bruvtab";
           };
         };
         "@knoopx/home-assistant" = {
