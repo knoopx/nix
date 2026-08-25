@@ -84,5 +84,7 @@
     xxd # Hex dumper/editor
     yazi # Terminal file manager
     zip # ZIP archive creation
+
+    obscura
   ];
 }
