@@ -9,7 +9,6 @@
   --tab-inactive-bg: var(--base00);
   --tab-active-fg: var(--base05);
   --tab-inactive-fg: var(--base04);
-  --urlbar-height-setting: 32px;
   --tab-min-height: 22px;
 
   /* arc-ui sizing (scoped to urlbar to avoid clashing with Firefox internals) */
@@ -17,8 +16,6 @@
   --arc-sm: 0.272rem;
   --arc-md: 0.618rem;
   --arc-lg: 1rem;
-  --arc-xl: 1.618rem;
-  --arc-xxl: 2.618rem;
 
   /* design tokens (tokens-brand.css / tokens-shared.css) */
   --color-accent-primary: var(--base0D);
@@ -35,7 +32,7 @@
   --text-color-error: var(--base08);
   --text-color-disabled: var(--base03);
   --border-color: var(--base02);
-  --border-color-card: var(--base02);
+  --card-border-color: var(--base02);
   --border-color-deemphasized: var(--base02);
   --border-color-interactive: var(--base03);
   --border-color-interactive-hover: var(--base04);
@@ -51,7 +48,6 @@
   --link-color-hover: var(--base0D);
   --link-color-active: var(--base0C);
   --link-color-visited: var(--base0E);
-  --outline-color-error: var(--base08);
   --focus-outline-color: var(--base08);
   --attention-dot-color: var(--base0B);
   --button-background-color: color-mix(in srgb, var(--base05) 7%, transparent);
@@ -74,32 +70,31 @@
   --box-shadow-color-lighter-layer-2: rgba(0, 0, 0, 0.4);
 
   /* toolbox (browser-colors.css) */
-  --toolbox-bgcolor: var(--base00);
-  --toolbox-bgcolor-inactive: var(--base00);
-  --toolbox-textcolor: var(--base05);
-  --toolbox-textcolor-inactive: var(--base04);
+  --toolbox-background-color: var(--base00);
+  --toolbox-background-color-inactive: var(--base00);
+  --toolbox-text-color: var(--base05);
+  --toolbox-text-color-inactive: var(--base04);
 
   /* toolbar (browser-colors.css) */
-  --toolbar-bgcolor: var(--base00);
-  --toolbar-color: var(--base05);
+  --toolbar-background-color: var(--base00);
+  --toolbar-text-color: var(--base05);
   --toolbarbutton-icon-fill: var(--base05);
   --toolbarbutton-icon-fill-attention: var(--base0D);
   --toolbarbutton-icon-fill-attention-text: var(--base00);
 
   /* toolbar fields (browser-colors.css) */
   --toolbar-field-background-color: var(--base01);
-  --toolbar-field-focus-background-color: var(--base01);
-  --toolbar-field-color: var(--base05);
-  --toolbar-field-focus-color: var(--base05);
+  --toolbar-field-background-color-focus: var(--base01);
+  --toolbar-field-text-color: var(--base05);
+  --toolbar-field-text-color-focus: var(--base05);
   --toolbar-field-border-color: transparent;
-  --toolbar-field-focus-border-color: var(--base08);
+  --toolbar-field-border-color-focus: var(--base08);
 
   /* tabs (browser-colors.css) */
-  --tab-selected-bgcolor: var(--base02);
+  --tab-background-color-selected: var(--base02);
   --tab-selected-textcolor: var(--base05);
   --tabs-navbar-separator-style: none;
   --tabs-navbar-separator-color: transparent;
-  --tabs-shadow-size: 0px;
 
   /* lwtheme (browser-colors.css) */
   --lwt-accent-color: var(--base00);
@@ -110,20 +105,18 @@
 
   /* Kill tab shadows, gaps, and content-area shadow */
   --tab-selected-shadow: none;
-  --tab-selected-shadow-size: 0px;
   --tab-block-margin: 0px;
   --tabstrip-min-height: var(--tab-min-height);
   --tab-border-radius: 0;
   --tab-overflow-clip-margin: 0px;
-  --box-shadow-tab: none;
   --content-area-shadow: none;
 
   /* panels (browser-colors.css) */
-  --arrowpanel-background: var(--base01);
-  --arrowpanel-color: var(--base05);
-  --arrowpanel-border-color: var(--base02);
-  --arrowpanel-dimmed: color-mix(in srgb, var(--base05) 12%, transparent);
-  --arrowpanel-dimmed-further: color-mix(
+  --panel-background-color: var(--base01);
+  --panel-text-color: var(--base05);
+  --panel-border-color: var(--base02);
+  --panel-background-color-dimmed: color-mix(in srgb, var(--base05) 12%, transparent);
+  --panel-background-color-dimmed-further: color-mix(
     in srgb,
     var(--base05) 20%,
     transparent
@@ -131,30 +124,25 @@
 
   /* sidebar (browser-colors.css) */
   --sidebar-background-color: var(--base00);
-  --sidebar-text-color: var(--base05);
   --sidebar-border-color: var(--base02);
+  --sidebar-text-color: var(--base05);
 
   /* input (browser-colors.css) */
   --input-border-color: var(--base02);
-  --input-bgcolor: var(--base00);
-  --input-color: var(--base05);
 
   /* urlbar box (browser-colors.css) */
-  --urlbar-box-bgcolor: var(--base02);
-  --urlbar-box-focus-bgcolor: var(--base02);
-  --urlbar-box-hover-bgcolor: var(--base03);
-  --urlbar-box-active-bgcolor: var(--base03);
+  --urlbar-box-background-color: var(--base02);
+  --urlbar-box-background-color-focus: var(--base02);
+  --urlbar-box-background-color-hover: var(--base03);
+  --urlbar-box-background-color-active: var(--base03);
   --urlbar-box-text-color: var(--base05);
-  --urlbar-box-hover-text-color: var(--base05);
+  --urlbar-box-text-color-hover: var(--base05);
   --urlbar-icon-fill-opacity: 1;
 
   /* urlbarView (browser-colors.css) */
-  --urlbarView-highlight-background: var(--base02);
-  --urlbarView-highlight-color: var(--base05);
-  --urlbarView-hover-background: var(--base01);
-  --urlbarView-separator-color: transparent;
+  --urlbarview-separator-color: transparent;
   --urlbarView-secondary-text-color: var(--base04);
-  --urlbarView-action-color: var(--base0D);
+  --urlbarview-text-color-action: var(--base0D);
 
   /* devtools splitter (splitters.css) */
   --devtools-splitter-color: var(--base02);
@@ -190,12 +178,9 @@
   padding: 0 !important;
   margin: 0 !important;
 }
-#urlbar-container {
-  visibility: visible;
-}
-
 /* --- URLBAR: arc-ui search-prompt.css (verbatim) --- */
 #urlbar-container {
+  visibility: visible;
   position: fixed !important;
   top: -10000px;
   left: 0 !important;
@@ -227,7 +212,7 @@
 }
 #urlbar[breakout][breakout-extend] {
   margin-left: 0 !important;
-  width: var(--urlbar-width) !important;
+  width: var(--uc-urlbar-width) !important;
 }
 #urlbar[breakout] > .urlbar-input-container,
 #urlbar[breakout][breakout-extend] > .urlbar-input-container {
@@ -236,7 +221,7 @@
   box-sizing: border-box !important;
 }
 
-#urlbar-background {
+.urlbar-background {
   background-color: transparent !important;
   border: none !important;
   border-radius: calc(var(--arc-lg) - 2px) !important;
@@ -282,13 +267,10 @@
   }
 }
 
-#urlbar-results {
+.urlbarView-body-inner {
   display: flex !important;
   flex-direction: column;
   gap: calc(var(--arc-sm) / 3) !important;
-}
-
-.urlbarView-body-inner {
   border: none !important;
 }
 .search-one-offs,
@@ -330,7 +312,7 @@
 #customizableui-special-spring1,
 #customizableui-special-spring2,
 #star-button-box,
-#urlbar-go-button,
+.urlbar-go-button,
 #identity-permission-box,
 #tracking-protection-icon-container,
 #reader-mode-button,
@@ -339,7 +321,6 @@
 #unified-extensions-button,
 #nav-bar-overflow-button,
 #widget-overflow,
-#urlbar-search-button,
 #searchbar,
 .titlebar-spacer,
 .titlebar-buttonbox-container,
@@ -353,7 +334,7 @@ toolbarspring,
   display: none;
 }
 #urlbar[searchmode] > .urlbar-input-container > #urlbar-search-mode-indicator,
-#urlbar[searchmode] #searchmode-switcher-chicklet {
+#urlbar[searchmode] .searchmode-switcher {
   display: none;
 }
 #urlbar-searchmode-switcher {
@@ -457,12 +438,8 @@ body {
 #tabbrowser-arrowscrollbox {
   min-height: 0 !important;
 }
-.accessibility-indicator,
 .private-browsing-indicator {
   height: unset !important;
-}
-.accessibility-indicator > hbox {
-  padding-block: 0 !important;
 }
 .tabbrowser-tab {
   height: calc(var(--tab-min-height) + 2 * var(--tab-block-margin, 0px));
@@ -475,7 +452,7 @@ body {
 }
 /* Contain periphery elements so they can't hold toolbar open */
 #tabbrowser-arrowscrollbox-periphery,
-#private-browsing-indicator-with-label,
+.private-browsing-indicator-with-label,
 #TabsToolbar > .titlebar-buttonbox-container {
   contain: strict;
   contain-intrinsic-height: 0px;
@@ -484,7 +461,7 @@ body {
   contain-intrinsic-width: 36px;
   padding-inline-end: 3px;
 }
-#private-browsing-indicator-with-label {
+.private-browsing-indicator-with-label {
   contain-intrinsic-width: 116px;
 }
 #TabsToolbar > .titlebar-buttonbox-container {
@@ -497,7 +474,6 @@ body {
 
 /* tab colors */
 .tabbrowser-tab:not([selected="true"]) {
-  background-color: var(--tab-inactive-bg);
   color: var(--identity-icon-color, var(--tab-inactive-fg));
 }
 .tabbrowser-tab:not([selected="true"]) .tab-background {
@@ -559,25 +535,20 @@ body {
 .tab-stack {
   height: var(--tab-min-height) !important;
 }
-.tab-icon-stack {
+.tab-icon-image {
   padding-bottom: 3px !important;
 }
 .tab-label-container {
   padding-bottom: 3px !important;
-}
-.tab-secondary-label {
-  display: none !important;
 }
 
 /* --- CONTEXT MENUS & POPUPS --- */
 menupopup,
 panel {
   --panel-border-radius: 12px;
-  --panel-background: var(--base01);
-  --panel-color: var(--base05);
   --panel-border-color: color-mix(in srgb, var(--base03) 40%, transparent);
   --panel-padding-block: 6px;
-  --panel-shadow:
+  --panel-box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.4),
     0 0 0 1px color-mix(in srgb, var(--base03) 20%, transparent);
   --menuitem-border-radius: 8px;
@@ -703,8 +674,6 @@ findbar .findbar-textbox:focus {
 /* --- PERMISSIONS / SECURITY POPUPS --- */
 #permission-popup,
 #identity-popup {
-  --panel-background: var(--base01);
-  --panel-color: var(--base05);
   --panel-border-color: var(--base02);
 }
 
