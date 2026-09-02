@@ -134,9 +134,9 @@ with lib; let
     ".defaultModel = ${builtins.toJSON defaultModel}"
     ".enabledModels = ${builtins.toJSON enabledModels}"
     ".toolOutputExpanded = true"
-    ".defaultThinkingLevel = ${builtins.toJSON "low"}"
+    ".defaultThinkingLevel = ${builtins.toJSON "xhigh"}"
     ".branchSummary.skipPrompt = true"
-    ".retry.maxRetries = 5"
+    ".retry.maxRetries = 10"
     ".retry.baseDelayMs = 2500"
     ".theme = ${builtins.toJSON "nix-defaults"}"
   ];
