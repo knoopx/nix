@@ -90,7 +90,7 @@ with lib; let
 
   models = map
     (model: ({
-        id = model.id;
+      id = model.id;
       name = model.name;
       family = model.family;
       tool_call = model.toolCall;
@@ -113,9 +113,9 @@ with lib; let
         supportsDeveloperRole = model.compatSupportsDeveloperRole;
         maxTokensField = model.compatMaxTokensField;
       };
-      }) // optionalAttrs (model.thinkingLevelMap != { }) {
-        thinkingLevelMap = model.thinkingLevelMap;
-      }
+    }) // optionalAttrs (model.thinkingLevelMap != { }) {
+      thinkingLevelMap = model.thinkingLevelMap;
+    }
     )
     nixosConfig.defaults.models.local;
 
@@ -134,6 +134,11 @@ with lib; let
     ".defaultModel = ${builtins.toJSON defaultModel}"
     ".enabledModels = ${builtins.toJSON enabledModels}"
     ".toolOutputExpanded = true"
+    ".defaultThinkingLevel = ${builtins.toJSON "low"}"
+    ".branchSummary.skipPrompt = true"
+    ".retry.maxRetries = 5"
+    ".retry.baseDelayMs = 2500"
+    ".theme = ${builtins.toJSON "nix-defaults"}"
   ];
 
 in
