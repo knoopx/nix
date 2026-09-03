@@ -119,7 +119,7 @@
         "Mod+D".action = { "focus-window-down-or-top" = [ ]; };
         "Mod+H".action = { spawn = [ "voice-input-control" "toggle" ]; };
         "Mod+V".action = { "center-window" = [ ]; };
-        "Mod+F".action = { "maximize-column" = [ ]; };
+        "Mod+F".action = { spawn = [ "sh" "-c" "niri msg action maximize-column; niri msg action center-window" ]; };
         "Mod+Shift+F".action = { spawn = [ "window-control" "fullscreen" ]; };
 
         "Mod+U".action = { "consume-or-expel-window-left" = [ ]; };
