@@ -2,12 +2,12 @@ final: prev: let
   python = prev.python3;
   onnxruntime-gpu = python.pkgs.buildPythonPackage rec {
     pname = "onnxruntime-gpu";
-    version = "1.24.4";
+    version = "1.29.0";
     format = "wheel";
 
     src = prev.fetchurl {
-      url = "https://files.pythonhosted.org/packages/3e/5b/82b27f766b64f97c9a98b772dc07b608e900bd2faafdfa176b86d20be7f8/onnxruntime_gpu-1.24.4-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl";
-      hash = "sha256-r53X75LZTHXlUjzwcOGA89jNuy/AB9zql7pxsD47ltY=";
+      url = "https://files.pythonhosted.org/packages/37/4f/471818d239c55e86f11d1ce21dff6019db1b06b34c6993c5117fb4013dee/onnxruntime_gpu-1.29.0-cp314-cp314-manylinux_2_28_x86_64.whl";
+      hash = "sha256-XFDSRUG/YeZo3+Cno6Yt6Y3vgZWcgyzC03aBS2YcsAY=";
     };
 
     nativeBuildInputs = with prev; [
