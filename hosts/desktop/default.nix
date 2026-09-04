@@ -36,9 +36,10 @@ in
     hostPlatform = {
       inherit system;
     };
-    config = {
-      cudaSupport = true;
-    };
+    # causes rebuilds from source for completely unwanted packages, disabled
+    # config = {
+    #   cudaSupport = true;
+    # };
   };
 
   defaults.display.idleTimeout = lib.mkForce (15 * 60);
