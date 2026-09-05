@@ -48,12 +48,12 @@ def main [--audio, --mode: string = "screen"] {
   }
 
   let timestamp = date now | format date "%Y-%m-%d-%H-%M-%S"
-  let output_file = $"($env.HOME)/Videos/Screen Recordings/($timestamp).mkv"
+  let output_file = $"($env.HOME)/Videos/Screen Recordings/($timestamp).mp4"
 
   let pid = if $audio {
-    (^bash -lc ("gpu-screen-recorder -w " + $mode + " -o \"$1\" -a default_output -fallback-cpu-encoding yes >/dev/null 2>&1 & echo $!") _ $output_file | str trim)
+    (^bash -lc ("gpu-screen-recorder -w " + $mode + " -o \"$1\" -c mp4 -k h264 -encoder gpu -q very_high -ac aac -fallback-cpu-encoding yes -a default_output >/dev/null 2>&1 & echo $!") _ $output_file | str trim)
   } else {
-    (^bash -lc ("gpu-screen-recorder -w " + $mode + " -o \"$1\" -fallback-cpu-encoding yes >/dev/null 2>&1 & echo $!") _ $output_file | str trim)
+    (^bash -lc ("gpu-screen-recorder -w " + $mode + " -o \"$1\" -c mp4 -k h264 -encoder gpu -q very_high -ac aac -fallback-cpu-encoding yes >/dev/null 2>&1 & echo $!") _ $output_file | str trim)
   }
 
   {
