@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, config, ... }: {
   virtualisation = {
     # lxd.enable = true;
     # virtualbox.host.enable = true;
@@ -42,7 +42,13 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    podman-compose # Docker-compose implementation with podman
-  ];
+  home-manager.users.${config.defaults.username} = {
+    home.packages = with pkgs; [
+      podman-compose # Docker-compose implementation with podman
+    ];
+
+    home.file.".config/containers/registries.conf".text = ''   
+      unqualified-search-registries = ["docker.io"]            
+    '';
+  };
 }
