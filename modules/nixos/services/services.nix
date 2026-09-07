@@ -1,7 +1,6 @@
-{
-  pkgs,
-  lib,
-  ...
+{ pkgs
+, lib
+, ...
 }: {
   services = {
     timesyncd.enable = lib.mkDefault true;
@@ -27,10 +26,10 @@
       packages = with pkgs; [
         darkman
         dconf
-        gcr
         gnome-keyring
         gvfs
         udisks2
+        gcr_4
       ];
     };
 
