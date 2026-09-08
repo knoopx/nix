@@ -68,7 +68,7 @@ in {
 
         # Search (like helix Ctrl-f)
         {
-          name: search_history
+          name: search_history_ctrl_f
           modifier: control
           keycode: char_f
           mode: emacs
