@@ -1,8 +1,4 @@
-{
-  lib,
-  config,
-  ...
-}: {
+{ ... }: {
   systemd.services.ModemManager.enable = false;
 
   networking = {
@@ -10,7 +6,8 @@
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [22 80];
+      allowedTCPPorts = [ 22 80 ];
+      trustedInterfaces = [ "eth0" ];
     };
   };
 }
