@@ -86,5 +86,9 @@
     zip # ZIP archive creation
 
     obscura
+
+    ffmpeg-headless
+    ffmpegthumbnailer
+    f3d
   ];
 }
