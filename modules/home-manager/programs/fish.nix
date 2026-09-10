@@ -58,9 +58,11 @@
         end
         bind ctrl-shift-r "pick_frequent_command"
 
-        bind \cj "hx"
-        bind \ck "jjui"
-        bind \cp "pi"
+        bind ctrl-j "hx"
+        bind ctrl-k "jjui"
+        bind ctrl-p "pi"
+        bind ctrl-backspace backward-kill-word
+        bind ctrl-shift-backspace backward-kill-token
       '';
     };
   };
