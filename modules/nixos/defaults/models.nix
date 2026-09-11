@@ -2,21 +2,23 @@
 , ...
 }:
 with lib; let
-  # --- NInfer engine (served by /bin/ninfer-serve through llama-swap on :11434) ---
+  # --- NInfer engine (native router on :11434) ---
   # Engine-specific knobs are nested under the `ninfer` block so a model that uses only one
   # engine leaves the other empty. Fields are a property of the *engine*, not the model.
+  # These values are emitted per model into the serve config JSON; the serving layer applies
+  # them to that model's Engine at load.
   ninferType = types.submodule {
     options = {
       artifact = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = "ninfer artifact filename mounted in /models (hosts/desktop/containers/llm.nix); null = not served by ninfer";
+        description = "NInfer artifact filename to mount into the /models volume; null = model not served by the NInfer engine";
       };
 
       kvCapacity = mkOption {
         type = types.str;
         default = "auto";
-        description = "ninfer-serve --kv-capacity";
+        description = "KV-cache capacity for this model's engine; \"auto\" sizes it from available GPU memory";
       };
 
       kvDtype = mkOption {
@@ -24,19 +26,19 @@ with lib; let
         default = "int8";
         # default = "nvfp4";
         # default = "k8v4";
-        description = "ninfer-serve --kv-dtype";
+        description = "Data type for the KV-cache storage (int8, nvfp4, k8v4, etc.)";
       };
 
       spec = mkOption {
         type = types.nullOr types.str;
         default = "mtp";
-        description = "ninfer-serve --spec (e.g. mtp); null disables";
+        description = "Speculative decoding backend (e.g. mtp, dflash2); null disables speculative decoding";
       };
 
       draftTokens = mkOption {
         type = types.int;
         default = 4;
-        description = "ninfer-serve --draft-tokens";
+        description = "Number of speculative draft tokens per step (only used when spec is set)";
       };
 
       prefillChunk = mkOption {
@@ -45,13 +47,13 @@ with lib; let
         # default = 2048;
         # default = 1024;
         # default = 512;
-        description = "ninfer-serve --prefill-chunk";
+        description = "Text-prefill chunk size in tokens (larger = faster prefill but more memory)";
       };
 
       lmHeadDraft = mkOption {
         type = types.bool;
         default = true;
-        description = "ninfer-serve --lm-head-draft";
+        description = "Enable optimized LM-head draft proposal (only used when spec is set)";
       };
     };
   };
@@ -165,7 +167,15 @@ with lib; let
 
       thinkingLevelMap = mkOption {
         type = types.attrsOf (types.nullOr types.str);
-        default = { };
+        default = {
+          off = null;
+          minimal = null;
+          low = "low";
+          medium = "medium";
+          high = null;
+          xhigh = "xhigh";
+          max = null;
+        };
         description = "Map PI thinking level (off/minimal/low/medium/high/xhigh/max) to the provider's reasoning_effort_value; null disables that level.";
       };
 
@@ -174,7 +184,7 @@ with lib; let
       ninfer = mkOption {
         type = ninferType;
         default = { };
-        description = "NInfer engine-specific options (served by /bin/ninfer-serve via llama-swap on :11434)";
+        description = "NInfer engine-specific options; emitted per model into the serve config JSON";
       };
 
       maxConcurrency = mkOption {
@@ -258,81 +268,30 @@ in
 
     defaults.models.local = [
       {
+        id = "ukisai/Swift-Qwen3.8-27B";
+        name = "Swift-Qwen3.8-27B";
+        family = "qwen3.8";
+        toolCall = true;
+        inputTypes = [ "text" "image" ];
+        releaseDate = "2026-08-15";
+        lastUpdated = "2026-09-13";
+        ninfer = {
+          artifact = "ukisai/Swift-Qwen3.8-27b-nvfp4-w8g32-q4g64-q5g64-q6g64-bf16.v3.ninfer";
+        };
+      }
+
+      {
         id = "ostfralla/Qwen3.8-27B";
         name = "Qwen3.8-27B";
         family = "qwen3.8";
         toolCall = true;
         inputTypes = [ "text" "image" ];
-        # contextWindow = 175000;
-
         releaseDate = "2026-08-15";
         lastUpdated = "2026-08-18";
-        thinkingLevelMap = {
-          off = null;
-          minimal = null;
-          low = "low";
-          medium = "medium";
-          high = null;
-          xhigh = "xhigh";
-          max = null;
-        };
         ninfer = {
-          artifact = "ostfralla/Qwen3.8-27B-NInfer-nvfp4-w8g32-q4g64-q5g64-q6g64-bf16.ninfer";
+          artifact = "ostfralla/Qwen3.8-27B-NInfer-nvfp4-w8g32-q4g64-q5g64-q6g64-bf16.v3.ninfer";
         };
       }
-
-
-      {
-        id = "neroued/Qwen3.8-27B";
-        name = "Qwen3.8-27B";
-        family = "qwen3.8";
-        toolCall = true;
-        inputTypes = [ "text" "image" ];
-
-        contextWindow = 100000;
-        ninfer = {
-          artifact = "neroued/Qwen3.8-27B-nvfp4-NInfer/qwen3_8_27b_nvfp4.ninfer";
-          spec = "dflash2";
-          draftTokens = 7;
-          prefillChunk = 1024 * 4;
-        };
-
-        releaseDate = "2026-08-15";
-        lastUpdated = "2026-08-31";
-        thinkingLevelMap = {
-          off = null;
-          minimal = null;
-          low = "low";
-          medium = "medium";
-          high = null;
-          xhigh = "xhigh";
-          max = null;
-        };
-      }
-
-
-
-      {
-        id = "knoopx/ThinkingCap-Qwen3.6-27B";
-        name = "ThinkingCap-Qwen3.6-27B";
-        family = "qwen3.6";
-        # contextWindow = 150000;
-        # ninferSpec = "dflash2";
-        # ninferDraftTokens = 7;
-        # ninferDraftTokens = 11;
-        toolCall = true;
-        reasoning = false;
-        inputTypes = [ "text" ];
-        # inputTypes = [ "text" "image" ];
-        releaseDate = "2026-08-20";
-        lastUpdated = "2026-08-26";
-        ninfer = {
-          artifact = "knoopx/ThinkingCap-Qwen3.6-27B-NInfer/ThinkingCap-Qwen3.6-27B-NInfer-nvfp4-w8g32-q4g64-q5g64-bf16.ninfer";
-        };
-        # ninferArtifact = "knoopx/ThinkingCap-Qwen3.6-27B-NInfer/ThinkingCap-Qwen3.6-27B-NInfer-nvfp4-w8g32-q4g64-q5g64-q6g64-bf16.ninfer";
-      }
-
-
 
       {
         id = "ornith-ai/Ornith-1.5-35B-A3B";
@@ -345,7 +304,7 @@ in
         releaseDate = "2026-08-15";
         lastUpdated = "2026-08-18";
         ninfer = {
-          artifact = "ornith-ai/Ornith-1.5-35B-A3B-MTP-w8g32-q4g64-q5g64-q6g64-bf16.ninfer";
+          artifact = "ornith-ai/Ornith-1.5-35B-A3B-MTP-w8g32-q4g64-q5g64-q6g64-bf16.v3.ninfer";
         };
       }
     ];

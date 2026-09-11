@@ -235,11 +235,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1789358577,
-        "narHash": "sha256-Mq0Ft/ro4yiMB2IODMvDWJKT1udx3oDVME8mlL2Os7s=",
+        "lastModified": 1789444956,
+        "narHash": "sha256-SeCy6eXX65snZ8phAVEVbsgt7TZ0/ByswaHZEVDQ1lY=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "53450d808b7ef559de667a5df31e529c00a7c9ec",
+        "rev": "78905d3799fc5c4ec2afc75f6668c00d446e3790",
         "type": "gitlab"
       },
       "original": {
@@ -348,11 +348,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789352311,
-        "narHash": "sha256-E9hlcRNSRQ1vb+UicOusX/ucroGlBAz/pYhCBorLOn4=",
+        "lastModified": 1789482455,
+        "narHash": "sha256-pD3qVlQ4mUCFoTWrYtxecpSitQMsgJvJIN0FUIDZoEU=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "cfcda3f99334c8459fa4cd46cce87502e0b48f0a",
+        "rev": "efa3ccb4c3cc90d832eab232976379058fa75aa3",
         "type": "github"
       },
       "original": {
@@ -368,11 +368,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789375084,
-        "narHash": "sha256-pjvAW3Vw7A1WGee+KNWTCzYi2kYe7/B3TKrFJf9unv8=",
+        "lastModified": 1789495862,
+        "narHash": "sha256-CxXfYmYRgstdCr6egJ1d/k0gKwbgjO8iWu7aNMRIu2Q=",
         "owner": "knoopx",
         "repo": "ninfer",
-        "rev": "a42db3bedb8bfe6c391c96b42819de2fcf9762a5",
+        "rev": "1ad31d986baf08571089ec7705e469b4a0027a41",
         "type": "github"
       },
       "original": {
@@ -505,11 +505,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1789264731,
-        "narHash": "sha256-iR1Jj6svMpvLxPWA40qp+WUpg3MStLXJy5TZrP2cPes=",
-        "rev": "02f5696b0e6097e589076d886b317b83ff0437d7",
+        "lastModified": 1789370336,
+        "narHash": "sha256-obwZbWHP7htCIoq2Z0g/uTMcEgN6yqcMNIcOMe6P2qI=",
+        "rev": "c7def046b9a883d46974757852106483d741586f",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1072974.02f5696b0e60/nixexprs.tar.xz"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1073483.c7def046b9a8/nixexprs.tar.zst"
       },
       "original": {
         "id": "nixpkgs",
@@ -595,6 +595,7 @@
         "nix-colors": "nix-colors",
         "nixos-avf": "nixos-avf",
         "nixpkgs": "nixpkgs",
+        "snapcompact-cli": "snapcompact-cli",
         "stylix": "stylix",
         "usercontent-css": "usercontent-css",
         "vicinae-extensions": "vicinae-extensions",
@@ -616,6 +617,26 @@
         "owner": "rust-lang",
         "ref": "nightly",
         "repo": "rust-analyzer",
+        "type": "github"
+      }
+    },
+    "snapcompact-cli": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789076554,
+        "narHash": "sha256-TMogr6rsGHLN2UchRiiSAkv+cgUYavILFb6q9b8ni3o=",
+        "owner": "knoopx",
+        "repo": "snapcompact-cli",
+        "rev": "01989899e1df5517713ce9173004bd53c925a0e0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "knoopx",
+        "repo": "snapcompact-cli",
         "type": "github"
       }
     },
@@ -815,11 +836,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1789264173,
-        "narHash": "sha256-0HJXRtDuLqbAF4ThAobZz1FhZjRlxitnVVJWbsSULFc=",
+        "lastModified": 1789505509,
+        "narHash": "sha256-A+8fw+lKBsO9CW9FtkJusZvGDo7Oa9KT4jAJ2JSS5vQ=",
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "rev": "602f510c3404b57ad45148de55a046dc8f194e0f",
+        "rev": "cf0f36a0563a3fa69f5eec76506e729dabce8fb9",
         "type": "github"
       },
       "original": {

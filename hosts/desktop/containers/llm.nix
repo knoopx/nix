@@ -9,81 +9,55 @@ let
 
   ninferModels = filter (m: m.ninfer ? artifact && m.ninfer.artifact != null) config.defaults.models.local;
 
-  llamaSwapConfig = pkgs.runCommand "llama-swap.yaml"
-    {
-      nativeBuildInputs = [ pkgs.yq-go ];
-    } ''
-        mkdir -p $out
-        cat <<'JSON' | yq -o yaml . > $out/llama-swap.yaml
-        ${builtins.toJSON {
-          healthCheckTimeout = 300;
-          logToStdout = "upstream";
-          logLevel = "debug";
-          models = (lib.listToAttrs (map (m:
-            {
-              name = m.id;
-              value = {
-                checkEndpoint = "/health";
-                ttl = 300;
-              cmd = builtins.concatStringsSep " " ([
-                  "/bin/ninfer-serve"
-                  "/models/${m.ninfer.artifact}"
+  # 5-minute idle timeout (TTL): the router unloads a loaded model once it has been idle longer
+  # than the per-model `ttl` (if set) or `globalTTL` (below).
+  idleTimeoutSeconds = 5 * 60;
 
-                  "--model-id ${m.id}"
+  # Per-model serve-config entry. The engine knobs come from the model's `ninfer` block
+  # (modules/nixos/defaults/models.nix) plus its context/output budgets; the serving layer
+  # applies them to that model's Engine at load. `null` fields are dropped so the engine
+  # falls back to its registered defaults.
+  modelValue = m: filterAttrs (n: v: v != null) {
+    artifact = "/models/${m.ninfer.artifact}";
+    identity = m.id;
+    ttl = idleTimeoutSeconds;
+    maxContext = m.contextWindow;
+    defaultMaxTokens = m.maxTokens;
+    kvCapacity = m.ninfer.kvCapacity;
+    kvDtype = m.ninfer.kvDtype;
+    prefillChunk = m.ninfer.prefillChunk;
+    # The speculative trio is emitted only when a backend is enabled (spec != null).
+    spec = if m.ninfer.spec == null then null else m.ninfer.spec;
+    draftTokens = if m.ninfer.spec == null then null else m.ninfer.draftTokens;
+    lmHeadDraft = if m.ninfer.spec == null then null else m.ninfer.lmHeadDraft;
+    # Vision only for models with image/video input (the engine default is off).
+    vision = if (any (t: t == "image" || t == "video") m.inputTypes) then true else null;
+  };
 
-                  "--host 127.0.0.1"
-                  "--port \${PORT}"
-                  "--max-pending-requests 2"
-                  "--pending-timeout-ms 120000"
-
-                  "--host-kv-mib 32768"
-                  "--media-live-mib 2048"
-                  # "--max-shared-prefixes 8"
-                  # "--response-store-max-mib 4096"
-                  # "--response-store-max-records 4096"
-
-                  # "--kv-capacity 240000"
-                  "--max-context ${toString m.contextWindow}"
-                  "--default-max-tokens ${toString m.maxTokens}"
-                  # "--default-thinking-budget ${toString m.maxTokens}"
-
-                ]
-                ++ lib.optionals (m.temperature != null) [ "--temperature ${toString m.temperature}" ]
-                ++ lib.optionals (m.topP != null) [ "--top-p ${toString m.topP}" ]
-                ++ lib.optionals (m.topK != null) [ "--top-k ${toString m.topK}" ]
-                ++ lib.optionals (m.minP != null) [ "--min-p ${toString m.minP}" ]
-                ++ lib.optionals (m.presencePenalty != null) [ "--presence-penalty ${toString m.presencePenalty}" ]
-                ++ lib.optionals m.preserveThinking [ "--preserve-thinking" ]
-                ++ lib.optionals (m.maxConcurrency != null) [ "--max-concurrency ${toString m.maxConcurrency}" ]
-                ++ [ "--kv-capacity ${m.ninfer.kvCapacity}" ]
-                ++ [ "--kv-dtype ${m.ninfer.kvDtype}" ]
-                ++ lib.optionals (m.ninfer.spec != null) [ "--spec ${m.ninfer.spec}" ]
-                ++ lib.optionals (m.ninfer.spec != null) [ "--draft-tokens ${toString m.ninfer.draftTokens}" ]
-                ++ [ "--prefill-chunk ${toString m.ninfer.prefillChunk}" ]
-                ++ lib.optionals m.ninfer.lmHeadDraft [ "--lm-head-draft" ]
-                ++ lib.optionals (lib.lists.elem "image" m.inputTypes) [ "--vision" ]);
-              };
-            }
-          ) ninferModels));
-        }}
-    JSON
-  '';
-
+  # Native ninfer-serve multi-model router config (JSON; consumed by --config).
+  # Must be writeTextDir (a directory), not writeText: dockerTools' layer builder
+  # rsyncs each copyToRoot item as `item/` into the layer, which chdirs INTO it.
+  ninferServeConfig = pkgs.writeTextDir "ninfer-serve-config.json" (
+    builtins.toJSON {
+      healthCheckTimeout = 300;
+      globalTTL = idleTimeoutSeconds; # 5-minute idle timeout (unloads the last-loaded model)
+      models = listToAttrs (map (m: { name = m.id; value = modelValue m; }) ninferModels);
+    }
+  );
 
   image = pkgs.dockerTools.buildImage {
     name = "localhost/llm";
     tag = "latest";
     copyToRoot = [
-      pkgs.llama-swappo
       pkgs.ninfer
       pkgs.iana-etc
       pkgs.cacert
-      llamaSwapConfig
+      ninferServeConfig
     ];
     config = {
-      Entrypoint = [ "/bin/llama-swap" ];
+      Entrypoint = [ "/bin/ninfer-serve" ];
       ExposedPorts = {
-        "11434/tcp" = { }; # llama-swap (Ollama front-end; serves NInfer models)
+        "11434/tcp" = { }; # ninfer-serve (native multi-model router; OpenAI + Anthropic APIs)
       };
     };
   };
@@ -103,11 +77,35 @@ in
     image = "localhost/llm:latest";
     imageFile = image;
 
+    # Native multi-model router: one process, in-process Engine swaps, FIFO scheduling.
+    # Per-model engine options (max-context, default-max-tokens, kv-capacity, kv-dtype, spec,
+    # draft-tokens, prefill-chunk, lm-head-draft, vision) live in the serve-config JSON, derived
+    # from each model's ninfer block. The CLI keeps only the global memory/ingress options.
     cmd = [
-      "--listen"
-      ":11434"
       "--config"
-      "/llama-swap.yaml"
+      "/ninfer-serve-config.json"
+      "--host"
+      "0.0.0.0"
+      "--port"
+      "11434"
+
+      "--webui"
+
+      # The single concurrency setting: --max-concurrency (the engine's decode-batch count and
+      # the router's admission gate for every model), the max of each model's `maxConcurrency`
+      # option (models.nix, default 3).
+      "--max-concurrency"
+      (toString (foldl' (acc: m: max acc (m.maxConcurrency or 1)) 1 ninferModels))
+
+      # --- Global memory / ingress (shared across all models) ---
+      "--host-kv-mib"
+      "32768"
+      "--media-live-mib"
+      "2048"
+      "--max-pending-requests"
+      "2"
+      "--pending-timeout-ms"
+      "120000"
     ];
 
     ports = [
