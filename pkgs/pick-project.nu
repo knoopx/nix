@@ -17,10 +17,11 @@ def visible-subdirs [dir: string] {
   }
 
   ls $dir
-  | where type == dir
+  | where { |entry| ($entry.type in [dir symlink]) }
   | where { |entry| not (($entry.name | path basename) | str starts-with ".") }
   | where { |entry| has-visible-entries $entry.name }
   | get name
+  | each { |p| ^readlink -f $p | str trim }
 }
 
 def sort-key [path: string] {
@@ -40,7 +41,7 @@ def list-projects [] {
   )
 
   let documents = if (has-visible-entries $documents_dir) {
-    [$documents_dir]
+    [ (^readlink -f $documents_dir | str trim) ]
   } else {
     []
   }
