@@ -126,7 +126,7 @@
         "Mod+I".action = { "consume-or-expel-window-right" = [ ]; };
 
         "Mod+Q".action = { "close-window" = [ ]; };
-        "Mod+R".action = { "switch-preset-column-width" = [ ]; };
+        "Mod+R".action = { spawn = [ "sh" "-c" "niri msg action switch-preset-column-width; niri msg action center-window" ]; };
         "Mod+Return".action = { spawn = [ "window-control" "float-to-corner" ]; };
         "Mod+Tab".action = { "focus-monitor-next" = [ ]; };
         "Mod+Shift+Tab".action = { "switch-focus-between-floating-and-tiling" = [ ]; };
