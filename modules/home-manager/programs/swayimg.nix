@@ -130,7 +130,7 @@ in
       os.execute("xdg-open " .. image.path .. " &")
     end)
 
-    swayimg.gallery.on_key("d", function()
+    swayimg.gallery.on_key("delete", function()
       local image = swayimg.gallery.get_image()
       os.execute("trash " .. image.path)
       swayimg.imagelist.remove(image.path)
@@ -177,6 +177,7 @@ in
     end)
 
     swayimg.gallery.on_key("Escape", function()
+        swayimg.exit()      
     end)
   '';
 }
