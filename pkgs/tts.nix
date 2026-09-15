@@ -6,12 +6,12 @@ let
   py = pkgs.python314.pkgs;
   onnxruntime-gpu = py.buildPythonPackage rec {
     pname = "onnxruntime-gpu";
-    version = "1.29.0";
+    version = "1.30.0";
     format = "wheel";
 
     src = pkgs.fetchurl {
-      url = "https://files.pythonhosted.org/packages/37/4f/471818d239c55e86f11d1ce21dff6019db1b06b34c6993c5117fb4013dee/onnxruntime_gpu-1.29.0-cp314-cp314-manylinux_2_28_x86_64.whl";
-      hash = "sha256-XFDSRUG/YeZo3+Cno6Yt6Y3vgZWcgyzC03aBS2YcsAY=";
+      url = "https://files.pythonhosted.org/packages/bb/75/09a6c97136c747608867a63114d988384e6ddb5507e08bbe9ced08744a4c/onnxruntime_gpu-1.30.0-cp314-cp314-manylinux_2_28_x86_64.whl";
+      hash = "sha256-WqzJjzlKE/SJHAoH5gR52PsLHqbzMotrOM/Ij537Beo=";
     };
 
     nativeBuildInputs = [ pkgs.autoPatchelfHook ];
