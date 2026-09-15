@@ -1,18 +1,18 @@
 {pkgs}: let
   pname = "jj-hunk";
-  version = "0.4.1";
+  version = "0.5.0";
 
   src = pkgs.fetchFromGitHub {
     owner = "laulauland";
     repo = "jj-hunk";
     rev = "v${version}";
-    sha256 = "sha256-lFuYTg6TW/Lsz4wwaaWFi37F2aGKpLwQgq40VTdDUKE=";
+    sha256 = "sha256-oUlr2nTMZIMKII3cErRd3dGwHvyDBsjunxymun20i+Y=";
   };
 in
   pkgs.rustPlatform.buildRustPackage {
     inherit pname version src;
 
-    cargoHash = "sha256-7yCA4a2NM20o7z757lbMtyvFC+72ScTd+N7AKWCH1KU=";
+    cargoHash = "sha256-5neR3opBFqU0J5GJDzeujjGquT0tf8uIvmaZtbwUFeo=";
 
     doCheck = false;
 
