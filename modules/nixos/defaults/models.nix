@@ -176,8 +176,6 @@ with lib; let
         description = "Map PI thinking level (off/minimal/low/medium/high/xhigh/max) to the provider's reasoning_effort_value; null disables that level.";
       };
 
-      # Engine-specific options: nested per engine. A model uses only the block(s) it needs;
-      # the other engine block stays `{}` (all its sub-options resolve to their null/neutral defaults).
       ninfer = mkOption {
         type = ninferType;
         default = { };
@@ -258,7 +256,7 @@ in
       "xiaomi/mimo-v2.5-pro" # $0.3045 / $0.609per 1M
       "qwen/qwen3.8-flash" # $0.15 / $0.47per 1M
       "openai/gpt-5.6-luna" # $0.20 / $1.20per 1M
-      "openai/gpt-5.6-luna-pro:nitro" # $0.20 / $1.20per 1M
+      "openai/gpt-5.6-luna-pro" # $0.20 / $1.20per 1M
       "z-ai/glm-5.3-flash" # $0.07125 / $0.2375per 1M
       "z-ai/glm-5.2" # $0.4875 / $1.56per 1M
     ];
@@ -273,7 +271,21 @@ in
         releaseDate = "2026-08-15";
         lastUpdated = "2026-09-13";
         ninfer = {
-          artifact = "ukisai/Swift-Qwen3.8-27b-nvfp4-w8g32-q4g64-q5g64-q6g64-bf16.v3.ninfer";
+          artifact = "ukisai/Swift-1.5-Qwen3.8-27b-nvfp4-w8g32-q4g64-q5g64-q6g64-bf16.v3.ninfer";
+        };
+      }
+
+      {
+        id = "neroued/Qwen3.8-27B-nvfp4-NInfer";
+        name = "Qwen3.8-27B-nvfp4-NInfer";
+        family = "qwen3.8";
+        toolCall = true;
+        inputTypes = [ "text" "image" ];
+        releaseDate = "2026-08-15";
+        lastUpdated = "2026-09-13";
+        contextWindow = 150000;
+        ninfer = {
+          artifact = "neroued/Qwen3.8-27B-nvfp4-NInfer/qwen3_8_27b_nvfp4.ninfer";
         };
       }
 
@@ -289,19 +301,6 @@ in
         lastUpdated = "2026-08-18";
         ninfer = {
           artifact = "ornith-ai/Ornith-1.5-35B-A3B-MTP-w8g32-q4g64-q5g64-q6g64-bf16.v3.ninfer";
-        };
-      }
-
-      {
-        id = "thinkingcap/ThinkingCap-Qwen3.6-27B";
-        name = "ThinkingCap-Qwen3.6-27B";
-        family = "qwen3.6";
-        toolCall = true;
-        inputTypes = [ "text" ];
-        releaseDate = "2026-09-17";
-        lastUpdated = "2026-09-17";
-        ninfer = {
-          artifact = "thinkingcap/ThinkingCap-Qwen3.6-27B-nvfp4-w8g32-q4g64-q5g64-q6g64-bf16.v3.ninfer";
         };
       }
     ];
