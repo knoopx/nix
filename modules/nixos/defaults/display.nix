@@ -1,4 +1,4 @@
-{lib, ...}:
+{ lib, ... }:
 with lib; {
   options.defaults = {
     display = mkOption {
@@ -57,10 +57,10 @@ with lib; {
         width = 1920 * 2;
         height = 1080 * 2;
         idleTimeout = 5 * 60;
-        windowSize = [1240 900];
+        windowSize = [ 1240 900 ];
         sidebarWidth = 200;
         defaultColumnWidthPercent = 0.5;
-        columnWidthPercentPresets = [0.66 0.5 0.33];
+        columnWidthPercentPresets = [ 0.5 0.33 ];
 
         windowRules = [
           {
@@ -74,7 +74,7 @@ with lib; {
             clip-to-geometry = true;
           }
           {
-            matches = [{is-floating = true;}];
+            matches = [{ is-floating = true; }];
             geometry-corner-radius = {
               top-left = 16.0;
               top-right = 16.0;
@@ -83,7 +83,7 @@ with lib; {
             };
           }
           {
-            matches = [{app-id = "scrcpy";}];
+            matches = [{ app-id = "scrcpy"; }];
             open-floating = false;
             default-column-width.fixed = 472;
             geometry-corner-radius = {
@@ -94,26 +94,26 @@ with lib; {
             };
           }
           {
-            matches = [{app-id = "org.gnome.NautilusPreviewer";}];
+            matches = [{ app-id = "org.gnome.NautilusPreviewer"; }];
             open-floating = true;
             default-window-height.proportion = 0.75;
           }
           {
             matches = [
-              {app-id = "io.bassi.Amberol";}
-              {app-id = "plexamp";}
+              { app-id = "io.bassi.Amberol"; }
+              { app-id = "plexamp"; }
             ];
             default-column-width.proportion = 0.25;
           }
           {
             matches = [
-              {app-id = "kitty";}
+              { app-id = "kitty"; }
             ];
             default-column-width.proportion = 0.33;
           }
           {
             matches = [
-              {title = "/dev/video0";}
+              { title = "/dev/video0"; }
             ];
             default-column-width.fixed = 400;
             default-window-height.fixed = 300;
@@ -127,48 +127,48 @@ with lib; {
           }
           {
             matches = [
-              {app-id = "mpv";}
+              { app-id = "mpv"; }
             ];
             open-fullscreen = true;
           }
           {
             matches = [
-              {app-id = "scrcpy";}
-              {title = "[Ll]ogin";}
-              {title = "Photos";}
-              {title = "[Ss]ign-?in";}
-              {title = "[Pp]assword";}
-              {title = "Calendar";}
-              {title = "Meet";}
-              {title = "Notion";}
-              {title = "Slack";}
-              {title = "Reddit";}
-              {title = "Telegram";}
-              {title = "Discord";}
-              {title = "WhatsApp";}
-              {title = "Vicinae Launcher";}
-              {title = "Gmail";}
-              {app-id = "org.gnome.Nautilus";}
+              { app-id = "scrcpy"; }
+              { title = "[Ll]ogin"; }
+              { title = "Photos"; }
+              { title = "[Ss]ign-?in"; }
+              { title = "[Pp]assword"; }
+              { title = "Calendar"; }
+              { title = "Meet"; }
+              { title = "Notion"; }
+              { title = "Slack"; }
+              { title = "Reddit"; }
+              { title = "Telegram"; }
+              { title = "Discord"; }
+              { title = "WhatsApp"; }
+              { title = "Vicinae Launcher"; }
+              { title = "Gmail"; }
+              { app-id = "org.gnome.Nautilus"; }
             ];
             block-out-from = "screen-capture";
           }
           {
-            matches = [{is-active = false;}];
+            matches = [{ is-active = false; }];
             opacity = 0.9;
           }
           {
-            matches = [{is-floating = true;}];
+            matches = [{ is-floating = true; }];
             opacity = 1.0;
           }
         ];
 
         layerRules = [
           {
-            matches = [{namespace = "notifications";}];
+            matches = [{ namespace = "notifications"; }];
             block-out-from = "screen-capture";
           }
           {
-            matches = [{namespace = "^wallpaper$";}];
+            matches = [{ namespace = "^wallpaper$"; }];
             place-within-backdrop = true;
           }
         ];
