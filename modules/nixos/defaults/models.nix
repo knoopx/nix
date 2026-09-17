@@ -38,9 +38,9 @@ with lib; let
 
       prefillChunk = mkOption {
         type = types.int;
-        default = 4096;
+        # default = 4096;
         # default = 2048;
-        # default = 1024;
+        default = 1024;
         # default = 512;
         description = "Text-prefill chunk size in tokens (larger = faster prefill but more memory)";
       };
@@ -72,7 +72,9 @@ with lib; let
 
       contextWindow = mkOption {
         type = types.int;
-        default = 262144;
+        # default = 262144;
+        default = 200000;
+        # default = 175000;
         description = "Context window size (Qwen3.8-27B recommended inference default: 262144)";
       };
 
@@ -142,7 +144,7 @@ with lib; let
 
       maxTokens = mkOption {
         type = types.int;
-        default = 32768;
+        default = 32768 * 2;
         # default = 16384;
         # default = 24480;
         description = "Maximum output tokens for PI agent (Qwen3.8-27B recommended inference default: 131072)";
