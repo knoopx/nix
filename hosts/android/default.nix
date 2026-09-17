@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
   networking.hostName = "android";
 
@@ -16,20 +15,21 @@
   time.timeZone = "Europe/Madrid";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   security.sudo.wheelNeedsPassword = false;
 
   users.users.knoopx = {
     isNormalUser = true;
-    extraGroups = ["wheel"];
+    extraGroups = [ "wheel" ];
     initialHashedPassword = "";
-    openssh.authorizedKeys.keyFiles = [
-      (pkgs.fetchurl {
-        url = "https://github.com/knoopx.keys";
-        sha256 = "sha256-+NTzRTwtXfCJvO+YJdIByVowK9uof/MvHpoYyqwIHiA=";
-      })
-    ];
+
+    openssh.authorizedKeys.keys =
+      let
+        authorizedKeys = config.defaults.pubKeys;
+      in
+      lib.splitString "\n" (builtins.readFile authorizedKeys);
+
   };
 
   services.openssh = {
