@@ -87,7 +87,7 @@ in
       "--max-pending-requests"
       "2"
       "--pending-timeout-ms"
-      "120000"
+      "300000"
     ];
 
     ports = [
