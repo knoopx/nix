@@ -2,11 +2,6 @@
 , ...
 }:
 with lib; let
-  # --- NInfer engine (native router on :11434) ---
-  # Engine-specific knobs are nested under the `ninfer` block so a model that uses only one
-  # engine leaves the other empty. Fields are a property of the *engine*, not the model.
-  # These values are emitted per model into the serve config JSON; the serving layer applies
-  # them to that model's Engine at load.
   ninferType = types.submodule {
     options = {
       artifact = mkOption {
@@ -147,9 +142,9 @@ with lib; let
 
       maxTokens = mkOption {
         type = types.int;
-        # default = 32768;
+        default = 32768;
         # default = 16384;
-        default = 24480;
+        # default = 24480;
         description = "Maximum output tokens for PI agent (Qwen3.8-27B recommended inference default: 131072)";
       };
 
