@@ -96,7 +96,6 @@
     # vllm                 # LLM inference engine
     # w3m                  # Text-based web browser
     # walk                 # Terminal file manager (Go)
-    # weave                # Visual merge tool for jj (Ataraxy-Labs)
     # wlrctl               # Wayland compositor control utility
     # xq-xml               # XML query tool (jq-like for XML)
     # xz                   # LZMA compression tool

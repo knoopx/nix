@@ -346,10 +346,6 @@ let
                 url = "https://github.com/Ataraxy-Labs/inspect/releases.atom";
               }
               {
-                title = "Weave";
-                url = "https://github.com/Ataraxy-Labs/weave/releases.atom";
-              }
-              {
                 title = "GOG CLI";
                 url = "https://github.com/steipete/gogcli/releases.atom";
               }
