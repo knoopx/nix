@@ -1,4 +1,5 @@
-{ pkgs
+{ inputs
+, pkgs
 , ...
 }: {
   environment.systemPackages = with pkgs; [
@@ -110,6 +111,7 @@
     gogcli # google services cli
     inspect # Semantic git change inspector (Ataraxy-Labs)
     # rclip # Commandline CLIP based search
+    inputs.snapcompact-cli.packages."x86_64-linux".snapcompact # snapcompact CLI (github:knoopx/snapcompact-cli)
     tts # Text-to-speech CLI
   ];
 }

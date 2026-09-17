@@ -53,6 +53,9 @@
     ninfer.url = "github:knoopx/ninfer";
     ninfer.inputs.nixpkgs.follows = "nixpkgs";
 
+    snapcompact-cli.url = "github:knoopx/snapcompact-cli";
+    snapcompact-cli.inputs.nixpkgs.follows = "nixpkgs";
+
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
