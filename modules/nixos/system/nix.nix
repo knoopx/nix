@@ -4,11 +4,11 @@ _: {
     gc.dates = "5:00";
 
     optimise.automatic = true;
-    optimise.dates = ["4:00"];
+    optimise.dates = [ "4:00" ];
 
     settings = {
       sandbox = true;
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
 
       substituters = [
@@ -17,7 +17,6 @@ _: {
         "https://cache.lix.systems"
         "https://nix-community.cachix.org"
         "https://niri.cachix.org"
-        "https://cuda-maintainers.cachix.org"
         "https://cache.flox.dev"
         # "https://nyx.chaotic.cx"
         # "https://hyprland.cachix.org"
@@ -41,7 +40,6 @@ _: {
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-        "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
       ];
     };
 
