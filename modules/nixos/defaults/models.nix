@@ -72,7 +72,7 @@ with lib; let
 
       contextWindow = mkOption {
         type = types.int;
-        default = 200000;
+        default = 262144;
         description = "Context window size (Qwen3.8-27B recommended inference default: 262144)";
       };
 
@@ -276,19 +276,6 @@ in
       }
 
       {
-        id = "ostfralla/Qwen3.8-27B";
-        name = "Qwen3.8-27B";
-        family = "qwen3.8";
-        toolCall = true;
-        inputTypes = [ "text" "image" ];
-        releaseDate = "2026-08-15";
-        lastUpdated = "2026-08-18";
-        ninfer = {
-          artifact = "ostfralla/Qwen3.8-27B-NInfer-nvfp4-w8g32-q4g64-q5g64-q6g64-bf16.v3.ninfer";
-        };
-      }
-
-      {
         id = "ornith-ai/Ornith-1.5-35B-A3B";
         name = "Ornith-1.5-35B-A3B";
         family = "qwen3.6";
@@ -300,6 +287,19 @@ in
         lastUpdated = "2026-08-18";
         ninfer = {
           artifact = "ornith-ai/Ornith-1.5-35B-A3B-MTP-w8g32-q4g64-q5g64-q6g64-bf16.v3.ninfer";
+        };
+      }
+
+      {
+        id = "thinkingcap/ThinkingCap-Qwen3.6-27B";
+        name = "ThinkingCap-Qwen3.6-27B";
+        family = "qwen3.6";
+        toolCall = true;
+        inputTypes = [ "text" ];
+        releaseDate = "2026-09-17";
+        lastUpdated = "2026-09-17";
+        ninfer = {
+          artifact = "thinkingcap/ThinkingCap-Qwen3.6-27B-nvfp4-w8g32-q4g64-q5g64-q6g64-bf16.v3.ninfer";
         };
       }
     ];
