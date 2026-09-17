@@ -113,5 +113,6 @@
     # rclip # Commandline CLIP based search
     inputs.snapcompact-cli.packages."x86_64-linux".snapcompact # snapcompact CLI (github:knoopx/snapcompact-cli)
     tts # Text-to-speech CLI
+    android-tools
   ];
 }
