@@ -5,9 +5,9 @@ let
   # body is not inlined into this overlay. `name` is required: the URL-derived
   # store path would otherwise contain the illegal ':' character.
   piPatch = final.fetchurl {
-    url = "https://github.com/earendil-works/pi/compare/v0.85.1...knoopx:pi-coding-agent:main.patch";
+    url = "https://github.com/earendil-works/pi/compare/main...knoopx:pi-coding-agent:main.patch";
     name = "pi-coding-agent-patch";
-    sha256 = "sha256-GjJ/gosdO0+4+V9TAkXGDWBdUN6dZnUBvFhKQ82VsQA=";
+    sha256 = "sha256-YIzeIfXg0P1p6n1LVoqU6Y82SaQkSO/J6G3ws6nMPao=";
   };
 in
 {
