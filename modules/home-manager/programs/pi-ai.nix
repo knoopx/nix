@@ -148,7 +148,7 @@ in
     ".pi/agent/models.json".text = builtins.toJSON {
       providers = {
         local = {
-          baseUrl = "http://localhost:11434/v1";
+          baseUrl = "http://localhost:5090/v1";
           apiKey = "nokey";
           api = "openai-completions";
           inherit models;

@@ -48,7 +48,7 @@ let
     config = {
       Entrypoint = [ "/bin/ninfer-serve" ];
       ExposedPorts = {
-        "11434/tcp" = { };
+        "5090/tcp" = { };
       };
     };
   };
@@ -74,12 +74,13 @@ in
       "--host"
       "0.0.0.0"
       "--port"
-      "11434"
+      "5090"
 
       "--webui"
       "--max-concurrency"
       (toString (foldl' (acc: m: max acc (m.maxConcurrency or 1)) 1 ninferModels))
 
+      # "--host-cache-mib"
       "--host-kv-mib"
       "32768"
       "--media-live-mib"
@@ -88,10 +89,13 @@ in
       "2"
       "--pending-timeout-ms"
       "300000"
+
+      # Opt-in permissive browser CORS headers (Access-Control-Allow-Origin: *).
+      "--cors"
     ];
 
     ports = [
-      "11434:11434"
+      "5090:5090"
     ];
 
     volumes = [
@@ -103,7 +107,7 @@ in
     ];
 
     labels = {
-      "traefik.http.services.llm.loadbalancer.server.port" = "11434";
+      "traefik.http.services.llm.loadbalancer.server.port" = "5090";
     };
   };
 }

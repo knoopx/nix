@@ -21,19 +21,19 @@ with lib; let
         default = "int8";
         # default = "nvfp4";
         # default = "k8v4";
-        description = "Data type for the KV-cache storage (int8, nvfp4, k8v4, etc.)";
+        description = "Data type for the KV-cache storage";
       };
 
       spec = mkOption {
         type = types.nullOr types.str;
         default = "mtp";
-        description = "Speculative decoding backend (e.g. mtp, dflash2); null disables speculative decoding";
+        description = "Speculative decoding backend; null disables speculative decoding";
       };
 
       draftTokens = mkOption {
         type = types.int;
         default = 4;
-        description = "Number of speculative draft tokens per step (only used when spec is set)";
+        description = "Number of speculative draft tokens per step";
       };
 
       prefillChunk = mkOption {
@@ -42,13 +42,13 @@ with lib; let
         # default = 2048;
         default = 1024;
         # default = 512;
-        description = "Text-prefill chunk size in tokens (larger = faster prefill but more memory)";
+        description = "Text-prefill chunk size in tokens";
       };
 
       lmHeadDraft = mkOption {
         type = types.bool;
         default = true;
-        description = "Enable optimized LM-head draft proposal (only used when spec is set)";
+        description = "Enable optimized LM-head draft proposal";
       };
     };
   };
@@ -57,7 +57,7 @@ with lib; let
     options = {
       id = mkOption {
         type = types.str;
-        description = "Model identifier (public OpenAI model name)";
+        description = "Model identifier";
       };
 
       name = mkOption {
@@ -72,10 +72,10 @@ with lib; let
 
       contextWindow = mkOption {
         type = types.int;
-        # default = 262144;
-        default = 200000;
-        # default = 175000;
-        description = "Context window size (Qwen3.8-27B recommended inference default: 262144)";
+        # default = 262144; # C2
+        default = 224531; # C3
+        # default = 164,463; # C4
+        description = "Context window size";
       };
 
       toolCall = mkOption {
@@ -110,12 +110,12 @@ with lib; let
 
       releaseDate = mkOption {
         type = types.str;
-        description = "Release date (ISO 8601)";
+        description = "Release date";
       };
 
       lastUpdated = mkOption {
         type = types.str;
-        description = "Last updated date (ISO 8601)";
+        description = "Last updated date";
       };
 
       costInput = mkOption {
@@ -144,10 +144,8 @@ with lib; let
 
       maxTokens = mkOption {
         type = types.int;
-        default = 32768 * 2;
-        # default = 16384;
-        # default = 24480;
-        description = "Maximum output tokens for PI agent (Qwen3.8-27B recommended inference default: 131072)";
+        default = 32768;
+        description = "Maximum output tokens";
       };
 
       compatSupportsDeveloperRole = mkOption {
@@ -173,7 +171,7 @@ with lib; let
           xhigh = "xhigh";
           max = null;
         };
-        description = "Map PI thinking level (off/minimal/low/medium/high/xhigh/max) to the provider's reasoning_effort_value; null disables that level.";
+        description = "Map PI thinking level to the provider's reasoning_effort_value; null disables that level.";
       };
 
       ninfer = mkOption {
@@ -191,43 +189,43 @@ with lib; let
       temperature = mkOption {
         type = types.nullOr types.float;
         default = 1.0;
-        description = "Sampling temperature (Qwen3.8-27B recommended inference default: 1.0 thinking / 0.7 instruct)";
+        description = "Sampling temperature";
       };
 
       topP = mkOption {
         type = types.nullOr types.float;
         default = 0.95;
-        description = "Top-p sampling (Qwen3.8-27B recommended inference default: 0.95 thinking / 0.80 instruct)";
+        description = "Top-p sampling";
       };
 
       topK = mkOption {
         type = types.nullOr types.int;
         default = 20;
-        description = "Top-k sampling (Qwen3.8-27B recommended inference default: 20)";
+        description = "Top-k sampling";
       };
 
       minP = mkOption {
         type = types.nullOr types.float;
         default = 0.0;
-        description = "Min-p sampling (Qwen3.8-27B recommended inference default: 0.0)";
+        description = "Min-p sampling";
       };
 
       presencePenalty = mkOption {
         type = types.nullOr types.float;
         default = 0.0;
-        description = "Presence penalty (Qwen3.8-27B recommended inference default: 0.0 thinking / 1.5 instruct)";
+        description = "Presence penalty";
       };
 
       repetitionPenalty = mkOption {
         type = types.nullOr types.float;
         default = 1.0;
-        description = "Repetition penalty (Qwen3.8-27B recommended inference default: 1.0)";
+        description = "Repetition penalty";
       };
 
       preserveThinking = mkOption {
         type = types.nullOr types.bool;
         default = true;
-        description = "Retain thinking blocks across turns (Qwen3.8-27B HF model card: enabled by default)";
+        description = "Retain thinking blocks across turns";
       };
     };
   };
@@ -242,7 +240,7 @@ in
 
     cloud = mkOption {
       type = types.listOf types.str;
-      description = "Cloud model identifiers (provider/model[:variant]) for settings.json enabledModels";
+      description = "Cloud model identifiers for settings.json enabledModels";
     };
   };
 
@@ -250,15 +248,16 @@ in
     defaults.models.cloud = [
       "nvidia/nemotron-3-ultra-550b-a55b:free"
       "minimax/minimax-m3:free"
-      "deepseek/deepseek-v4-flash-0731" # $0.05 / $0.16per 1M
-      "xiaomi/mimo-v2.5" # $0.119 / $0.238per 1M
-      "stepfun/step-3.5-flash" # $0.10 / $0.30per 1M
-      "xiaomi/mimo-v2.5-pro" # $0.3045 / $0.609per 1M
-      "qwen/qwen3.8-flash" # $0.15 / $0.47per 1M
-      "openai/gpt-5.6-luna" # $0.20 / $1.20per 1M
-      "openai/gpt-5.6-luna-pro" # $0.20 / $1.20per 1M
-      "z-ai/glm-5.3-flash" # $0.07125 / $0.2375per 1M
-      "z-ai/glm-5.2" # $0.4875 / $1.56per 1M
+      "deepseek/deepseek-v4-flash-0731" # $0.05 / $0.16 per 1M
+      "deepseek/deepseek-v4.1-flash" # 0.035 / $0.29 per 1M 
+      "xiaomi/mimo-v2.5" # $0.119 / $0.238 per 1M
+      "stepfun/step-3.5-flash" # $0.10 / $0.30 per 1M
+      "xiaomi/mimo-v2.5-pro" # $0.3045 / $0.609 per 1M
+      "qwen/qwen3.8-flash" # $0.15 / $0.47 per 1M
+      "openai/gpt-5.6-luna" # $0.20 / $1.20 per 1M
+      "openai/gpt-5.6-luna-pro" # $0.20 / $1.20 per 1M
+      "z-ai/glm-5.3-flash" # $0.07125 / $0.2375 per 1M
+      "z-ai/glm-5.2" # $0.4875 / $1.56 per 1M
     ];
 
     defaults.models.local = [
@@ -296,7 +295,7 @@ in
         contextWindow = 262144;
         toolCall = true;
         reasoning = false;
-        inputTypes = [ "text" ];
+        inputTypes = [ "text" "image" ];
         releaseDate = "2026-08-15";
         lastUpdated = "2026-08-18";
         ninfer = {
