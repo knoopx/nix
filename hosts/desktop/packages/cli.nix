@@ -107,7 +107,6 @@
     # zlib                 # Compression library
     # zstd                 # Zstandard compression tool
     # android-tools # Android debugging bridge (adb) and fastboot
-    # wacli # WhatsApp CLI (sync, search, send messages)
     gogcli # google services cli
     inspect # Semantic git change inspector (Ataraxy-Labs)
     # rclip # Commandline CLIP based search

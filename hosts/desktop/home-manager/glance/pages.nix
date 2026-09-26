@@ -350,10 +350,6 @@ let
                 url = "https://github.com/steipete/gogcli/releases.atom";
               }
               {
-                title = "WA CLI";
-                url = "https://github.com/steipete/wacli/releases.atom";
-              }
-              {
                 title = "MDTT";
                 url = "https://github.com/szktkfm/mdtt/releases.atom";
               }
