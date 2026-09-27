@@ -172,15 +172,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1780486859,
-        "narHash": "sha256-+SzMH5oF//Bjd/GjQ4vcMEMHwe9KJLgWn45W+fcitSs=",
-        "owner": "pschmitt",
+        "lastModified": 1790550225,
+        "narHash": "sha256-tzoSRTikqrA2Bqq3WcySbhDdGa6k9nUqGyjeRHFMn+8=",
+        "owner": "knoopx",
         "repo": "bruvtab",
-        "rev": "2df0a01b99e59ce81b6ece0e0be4c65138b284c2",
+        "rev": "504e5aa9d45fb9fa20cda9008cc4232c8520ec89",
         "type": "github"
       },
       "original": {
-        "owner": "pschmitt",
+        "owner": "knoopx",
         "repo": "bruvtab",
         "type": "github"
       }
@@ -368,11 +368,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790546754,
-        "narHash": "sha256-k1H5V/QG5vLeIyilC44J5n2xynmqZi9uTcPBYI8zN60=",
+        "lastModified": 1790548499,
+        "narHash": "sha256-5DmmFUB02wA+LXLCogzg7FIwy0VuGEiC0yFZnsinYGM=",
         "owner": "knoopx",
         "repo": "ninfer",
-        "rev": "4a92390a0e90dd2019f2039f951bf6309f898739",
+        "rev": "9d92d0ebe62bbbc4cc7fd6ebdd5d504b06d009ad",
         "type": "github"
       },
       "original": {

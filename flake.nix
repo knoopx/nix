@@ -29,7 +29,7 @@
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
 
-    bruvtab.url = "github:pschmitt/bruvtab";
+    bruvtab.url = "github:knoopx/bruvtab";
     bruvtab.inputs.nixpkgs.follows = "nixpkgs";
 
     betterfox.url = "github:yokoffing/BetterFox";
