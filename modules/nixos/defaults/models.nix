@@ -32,15 +32,15 @@ with lib; let
 
       draftTokens = mkOption {
         type = types.int;
-        default = 4;
+        default = 5;
         description = "Number of speculative draft tokens per step";
       };
 
       prefillChunk = mkOption {
         type = types.int;
-        # default = 4096;
+        default = 4096;
         # default = 2048;
-        default = 1024;
+        # default = 1024;
         # default = 512;
         description = "Text-prefill chunk size in tokens";
       };
