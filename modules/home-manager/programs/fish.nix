@@ -28,8 +28,6 @@
 
       interactiveShellInit = ''
         set fish_greeting
-        ${pkgs.dashboard}/bin/dashboard
-
         fish_add_path -g "$HOME/.cache/.bun/bin"
         fish_add_path -g "$HOME/.cargo/bin"
         fish_add_path -g "$HOME/.local/bin/"

@@ -6,6 +6,7 @@
 pkgs.runCommand "inbox"
 {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.gogcli];
   meta.mainProgram = "inbox";
 } ''
   mkdir -p $out/bin
