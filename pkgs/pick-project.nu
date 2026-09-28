@@ -29,7 +29,7 @@ def sort-key [path: string] {
   | split row "/"
   | where { |part| $part != "" }
   | reverse
-  | each { |part| $part | str downcase }
+  | each { |part| $part | str lowercase }
   | str join "\u{0}"
 }
 
