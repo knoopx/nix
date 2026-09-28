@@ -250,7 +250,7 @@ in
   };
 
   config = {
-    defaults.models.localBaseUrl = "https://llm.knoopx.net";
+    defaults.models.localBaseUrl = "https://llm.knoopx.net/v1";
 
     defaults.models.cloud = [
       "nvidia/nemotron-3-ultra-550b-a55b:free"
