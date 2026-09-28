@@ -56,31 +56,6 @@ in
   defaults.display.columnWidthPercentPresets = lib.mkForce [ 0.5 0.75 ];
   defaults.display.windowRules = lib.mkForce [
     {
-      excludes = [
-        { app-id = "scrcpy"; }
-        { app-id = "org.gnome.Nautilus"; }
-        { app-id = "org.gnome.NautilusPreviewer"; }
-        { app-id = "io.bassi.Amberol"; }
-        { app-id = "plexamp"; }
-        { title = "[Ll]ogin"; }
-        { title = "Photos"; }
-        { title = "[Ss]ign-?in"; }
-        { title = "[Pp]assword"; }
-        { title = "Calendar"; }
-        { title = "Meet"; }
-        { title = "Notion"; }
-        { title = "Slack"; }
-        { title = "Reddit"; }
-        { title = "Telegram"; }
-        { title = "Discord"; }
-        { title = "WhatsApp"; }
-        { title = "Vicinae Launcher"; }
-        { title = "Gmail"; }
-        { title = "/dev/video0"; }
-      ];
-      open-fullscreen = true;
-    }
-    {
       draw-border-with-background = false;
       geometry-corner-radius = {
         top-left = 8.0;
@@ -267,12 +242,12 @@ in
             "Mod+D" { focus-window-down-or-top; }
             "Mod+H" { spawn "voice-input-control" "toggle"; }
             "Mod+V" { center-window; }
-            "Mod+F" { maximize-column; }
+            "Mod+F" { spawn "sh" "-c" "niri msg action maximize-column; niri msg action center-window"; }
             "Mod+Shift+F" { spawn "window-control" "fullscreen"; }
             "Mod+U" { consume-or-expel-window-left; }
             "Mod+I" { consume-or-expel-window-right; }
             "Mod+Q" { close-window; }
-            "Mod+R" { switch-preset-column-width; }
+            "Mod+R" { spawn "sh" "-c" "niri msg action switch-preset-column-width; niri msg action center-window"; }
             "Mod+Return" { spawn "window-control" "float-to-corner"; }
             "Mod+Tab" { focus-monitor-next; }
             "Mod+Shift+Tab" { switch-focus-between-floating-and-tiling; }
@@ -290,8 +265,8 @@ in
             "Mod+W" { close-window; }
             "Print" { spawn "niri" "msg" "action" "screenshot" "--show-pointer" "false"; }
             "Shift+Print" { screenshot-window; }
-            "Mod+Shift+P" { spawn "window-control" "webcam"; }
-            "Mod+P" { spawn "kitty" "sh" "-c" "cd ~/.assistant && pi"; }
+            "Mod+Shift+P" { spawn "pick-agent"; }
+            "Mod+P" { spawn "kitty" "sh" "-c" "cd ~/.pi && pi"; }
             "Mod+Shift+Print" { spawn "screen-recording"; }
             "Ctrl+Mod+Shift+Print" { spawn "screen-recording" "--mode" "portal"; }
             "Mod+G" { spawn "wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect"; }
