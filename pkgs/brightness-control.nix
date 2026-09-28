@@ -4,6 +4,7 @@
 }:
 pkgs.runCommand "brightness-control" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nushell pkgs.brightnessctl pkgs.pipewire pkgs.sound-theme-freedesktop];
   meta.mainProgram = "brightness-control";
 } ''
   mkdir -p $out/bin

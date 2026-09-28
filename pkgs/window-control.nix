@@ -1,6 +1,7 @@
 {pkgs}:
 pkgs.runCommand "window-control" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nushell pkgs.niri pkgs.ffmpeg];
   meta.mainProgram = "window-control";
 } ''
   mkdir -p $out/bin

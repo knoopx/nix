@@ -4,6 +4,7 @@
 }:
 pkgs.runCommand "pi-project" {
   meta.mainProgram = "pi-project";
+  runtimeInputs = [pkgs.pick-project pkgs.terminal];
 } ''
   mkdir -p $out/bin
 

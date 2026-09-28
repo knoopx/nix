@@ -1,6 +1,7 @@
 {pkgs}:
 pkgs.runCommand "media-control" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nushell pkgs.playerctl];
   meta.mainProgram = "media-control";
 } ''
   mkdir -p $out/bin

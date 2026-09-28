@@ -1,6 +1,7 @@
 {pkgs}:
 pkgs.runCommand "recording-indicator" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nushell pkgs.kitty pkgs.bash pkgs.procps];
   meta.mainProgram = "recording-indicator";
 } ''
   mkdir -p $out/bin

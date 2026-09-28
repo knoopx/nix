@@ -1,6 +1,7 @@
 {pkgs}:
 pkgs.runCommand "pick-project" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nushell pkgs.vicinae];
   meta.mainProgram = "pick-project";
 } ''
   mkdir -p $out/bin

@@ -1,6 +1,7 @@
 {pkgs}:
 pkgs.runCommand "voice-input-control" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nushell pkgs.voxtype-vulkan pkgs.recording-indicator];
   meta.mainProgram = "voice-input-control";
 } ''
   mkdir -p $out/bin

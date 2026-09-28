@@ -4,6 +4,7 @@
 }:
 pkgs.runCommand "terminal" {
   meta.mainProgram = "terminal";
+  runtimeInputs = [pkgs.kitty];
 } ''
   mkdir -p $out/bin
 

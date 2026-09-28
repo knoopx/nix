@@ -1,6 +1,7 @@
 {pkgs}:
 pkgs.runCommand "toggle-panel" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nushell pkgs.kitty];
   meta.mainProgram = "toggle-panel";
 } ''
   mkdir -p $out/bin

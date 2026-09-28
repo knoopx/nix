@@ -1,6 +1,7 @@
 {pkgs}:
 pkgs.runCommand "display-control" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nushell pkgs.niri];
   meta.mainProgram = "display-control";
 } ''
   mkdir -p $out/bin

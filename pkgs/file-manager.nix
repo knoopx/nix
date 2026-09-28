@@ -4,6 +4,7 @@
 }:
 pkgs.runCommand "file-manager" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nautilus];
   meta.mainProgram = "file-manager";
 } ''
   mkdir -p $out/bin

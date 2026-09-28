@@ -1,6 +1,7 @@
 {pkgs}:
 pkgs.runCommand "session-control" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nushell pkgs.hyprlock pkgs.niri pkgs.systemd];
   meta.mainProgram = "session-control";
 } ''
   mkdir -p $out/bin

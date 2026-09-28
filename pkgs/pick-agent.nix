@@ -1,6 +1,7 @@
 {pkgs}:
 pkgs.runCommand "pick-agent" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nushell pkgs.vicinae pkgs.terminal];
   meta.mainProgram = "pick-agent";
 } ''
   mkdir -p $out/bin

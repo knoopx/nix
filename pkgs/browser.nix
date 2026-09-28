@@ -4,6 +4,7 @@
 }:
 pkgs.runCommand "browser" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.firefox-esr];
   meta.mainProgram = "browser";
 } ''
   mkdir -p $out/bin

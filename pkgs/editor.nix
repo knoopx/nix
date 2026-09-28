@@ -6,6 +6,7 @@
 in
   pkgs.runCommand "editor" {
     meta.mainProgram = "editor";
+    runtimeInputs = [terminal pkgs.helix];
   } ''
     mkdir -p $out/bin
 

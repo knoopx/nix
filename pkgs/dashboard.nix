@@ -6,6 +6,7 @@
 pkgs.runCommand "dashboard"
 {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nushell (pkgs.callPackage ./events.nix {}) (pkgs.callPackage ./inbox.nix {}) (pkgs.callPackage ./project-summary.nix {}) pkgs.gum];
   meta.mainProgram = "dashboard";
 } ''
   mkdir -p $out/bin

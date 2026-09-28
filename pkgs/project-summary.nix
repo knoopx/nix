@@ -2,6 +2,7 @@
 pkgs.runCommand "project-summary"
 {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nushell pkgs.git];
   meta.mainProgram = "project-summary";
 } ''
   mkdir -p $out/bin

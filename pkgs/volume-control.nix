@@ -4,6 +4,7 @@
 }:
 pkgs.runCommand "volume-control" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nushell pkgs.wireplumber pkgs.pipewire pkgs.sound-theme-freedesktop];
   meta.mainProgram = "volume-control";
 } ''
   mkdir -p $out/bin

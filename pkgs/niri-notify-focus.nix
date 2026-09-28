@@ -18,6 +18,7 @@ in
     dontBuild = true;
 
     nativeBuildInputs = [pkgs.makeWrapper];
+    runtimeInputs = [pkgs.python3 dbus-python pygobject3];
 
     installPhase = ''
       mkdir -p $out/bin $out/lib/systemd/user $out/share/doc/${pname}

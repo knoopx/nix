@@ -66,6 +66,7 @@ let
 in
 pkgs.runCommand "tts" {
   nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+  runtimeInputs = [pkgs.nushell ttsPython pkgs.pipewire pkgs.playerctl pkgs.coreutils];
   meta.mainProgram = "tts";
 } ''
   mkdir -p $out/bin

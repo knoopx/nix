@@ -1,6 +1,7 @@
 {pkgs}:
 pkgs.runCommand "pick-document" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nushell pkgs.vicinae];
   meta.mainProgram = "pick-document";
 } ''
   mkdir -p $out/bin

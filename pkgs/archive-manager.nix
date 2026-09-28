@@ -4,6 +4,7 @@
 }:
 pkgs.runCommand "archive-manager" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.file-roller];
   meta.mainProgram = "archive-manager";
 } ''
   mkdir -p $out/bin

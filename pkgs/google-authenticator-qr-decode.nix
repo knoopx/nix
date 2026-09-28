@@ -1,7 +1,7 @@
 {pkgs}:
 pkgs.runCommand "google-authenticator-qr-decode" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
-  runtimeInputs = [pkgs.zbar pkgs.otpauth];
+  runtimeInputs = [pkgs.nushell pkgs.zbar pkgs.otpauth];
   meta.mainProgram = "google-authenticator-qr-decode";
 } ''
   mkdir -p $out/bin

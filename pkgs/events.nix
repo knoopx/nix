@@ -6,7 +6,7 @@
 pkgs.runCommand "events"
 {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
-  runtimeInputs = [pkgs.gogcli];
+  runtimeInputs = [pkgs.nushell pkgs.gogcli];
   meta.mainProgram = "events";
 } ''
   mkdir -p $out/bin

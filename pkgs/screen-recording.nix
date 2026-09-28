@@ -1,6 +1,7 @@
 {pkgs}:
 pkgs.runCommand "screen-recording" {
   nativeBuildInputs = [pkgs.makeBinaryWrapper];
+  runtimeInputs = [pkgs.nushell pkgs.gpu-screen-recorder pkgs.libnotify pkgs.xdg-utils pkgs.recording-indicator pkgs.dbus];
   meta.mainProgram = "screen-recording";
 } ''
   mkdir -p $out/bin
