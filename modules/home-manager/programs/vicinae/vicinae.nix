@@ -148,6 +148,7 @@ in {
       close_on_focus_loss = false;
       consider_preedit = false;
       pop_to_root_on_close = false;
+      wrap_navigation = true;
       escape_key_behavior = "navigate_back";
       favicon_service = "google";
       keybinding = "default";
