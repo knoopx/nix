@@ -286,29 +286,6 @@ in
             tablet-mode-on { spawn "tablet-mode-control" "on"; }
         }
         window-rule {
-            exclude app-id="scrcpy"
-            exclude app-id="org.gnome.Nautilus"
-            exclude app-id="org.gnome.NautilusPreviewer"
-            exclude app-id="io.bassi.Amberol"
-            exclude app-id="plexamp"
-            exclude title="[Ll]ogin"
-            exclude title="Photos"
-            exclude title="[Ss]ign-?in"
-            exclude title="[Pp]assword"
-            exclude title="Calendar"
-            exclude title="Meet"
-            exclude title="Notion"
-            exclude title="Slack"
-            exclude title="Reddit"
-            exclude title="Telegram"
-            exclude title="Discord"
-            exclude title="WhatsApp"
-            exclude title="Vicinae Launcher"
-            exclude title="Gmail"
-            exclude title="/dev/video0"
-            open-fullscreen true
-        }
-        window-rule {
             draw-border-with-background false
             geometry-corner-radius 8 8 8 8
             clip-to-geometry true
