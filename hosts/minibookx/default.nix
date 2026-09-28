@@ -18,9 +18,8 @@ in
     ++ (listNixModulesRecusive ./packages)
     ++ (listNixModulesRecusive ../../modules/nixos);
 
-  # Use julianjc84's niri fork (feat/configurable-touch-gestures) for
-  # configurable touchscreen and touchpad gesture support on the Himax
-  # touchscreen.
+  # Use knoopx/niri (configurable touch gestures) for configurable
+  # touchscreen and touchpad gesture support on the Himax touchscreen.
   nixpkgs.overlays = [
     (final: prev: {
       niri = inputs.niri-touch.packages.${system}.niri.overrideAttrs {
@@ -367,12 +366,12 @@ in
         }
         xwayland-satellite { path "${xwaylandPath}"; }
 
-        // niri-touch-config gesture includes (julianjc84's fork)
+        // niri-touch-config gesture includes (knoopx/niri)
         include "touchscreen-gestures.kdl" optional=true
         include "touchpad-gestures.kdl"    optional=true
       '';
 
-    # Gesture KDL files for julianjc84's niri fork (feat/configurable-touch-gestures).
+    # Gesture KDL files for knoopx/niri (configurable touch gestures).
     # Included via `include` directives in config.kdl above.
     xdg.configFile = {
       "niri/touchscreen-gestures.kdl".text = builtins.readFile ./touchscreen-gestures.kdl;

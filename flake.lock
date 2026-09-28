@@ -368,11 +368,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790586318,
-        "narHash": "sha256-xvYbQR51MYaOD75BJnbVchH4gffwGGyKg7qThzY14r4=",
+        "lastModified": 1790619722,
+        "narHash": "sha256-GZoXIGNgEQdnYRmxDoD6wS8HlH5ljbJTG+rirTkQvuU=",
         "owner": "knoopx",
         "repo": "ninfer",
-        "rev": "eba304e7bd0c18924dd971f5121e8cc29c3a4055",
+        "rev": "11c9fae31827c84b70ea7de91e27b4dfe3d533d7",
         "type": "github"
       },
       "original": {
@@ -432,16 +432,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1787266677,
-        "narHash": "sha256-xnFArJ99OZo3glCvDifocKTwuR5LUlo8TtLo2m1VoBQ=",
-        "owner": "julianjc84",
+        "lastModified": 1790602628,
+        "narHash": "sha256-n0R72n2kl94qDhzlnLnYuGdOGrzjvOV3yZjYSyBw7ag=",
+        "owner": "knoopx",
         "repo": "niri",
-        "rev": "57291d0bb3f1d8e896b9d49bdbfed25d92e95130",
+        "rev": "9fdf749ac188ed21473b10b1cfc8f7fd89fd5969",
         "type": "github"
       },
       "original": {
-        "owner": "julianjc84",
-        "ref": "feat/configurable-touch-gestures",
+        "owner": "knoopx",
         "repo": "niri",
         "type": "github"
       }
@@ -505,11 +504,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1790510107,
-        "narHash": "sha256-KveNUoALIFda3G7m2VWk38jiTIky80vwY3h9gGOoF2g=",
-        "rev": "3181085bfd08663b6b9e60bc7a8395c2aaa741bd",
+        "lastModified": 1790570722,
+        "narHash": "sha256-XfhTbc76cWAtJ9fmly6V04gaAQxjY+O445z80Ol6Pu4=",
+        "rev": "419fe0f449b3fbe3bdd53d9840288db4509ec32e",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1080404.3181085bfd08/nixexprs.tar.zst"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1080803.419fe0f449b3/nixexprs.tar.zst"
       },
       "original": {
         "id": "nixpkgs",
@@ -541,16 +540,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1789761689,
-        "narHash": "sha256-kZmr3Bd0ehbq43/rDXtkuexWpMN8HyE0iqw1LlaartM=",
+        "lastModified": 1790166579,
+        "narHash": "sha256-+mz4dMdNgEx/GfGophP2B1WCrWonBrFFM1cF+pEz2h8=",
         "owner": "vicinaehq",
         "repo": "numen",
-        "rev": "7379178f9c2fc4dc0c1965c1800e62ef764118f4",
+        "rev": "7db7b2069412d3f6bed4b0cf83167c7ad413f231",
         "type": "github"
       },
       "original": {
         "owner": "vicinaehq",
-        "ref": "v0.6.2",
+        "ref": "v0.7.0",
         "repo": "numen",
         "type": "github"
       }
@@ -836,11 +835,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1790526610,
-        "narHash": "sha256-rmgEQklUdHJ4wLCX5sa1rVkeiu2atFWJ3likgVw/5gA=",
+        "lastModified": 1790603180,
+        "narHash": "sha256-dL6vBixuwf/cpLJXcSZvSuZgjius/2LdOxfkqXy6C4w=",
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "rev": "8d80bf6011de177a19f1b5f1243ec505f441b7e7",
+        "rev": "e40f8aeb47e7abb42767db5da5013ffa77d343de",
         "type": "github"
       },
       "original": {

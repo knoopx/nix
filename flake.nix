@@ -20,7 +20,7 @@
     niri.inputs.nixpkgs.follows = "nixpkgs";
     niri.inputs.nixpkgs-stable.follows = "nixpkgs";
 
-    niri-touch.url = "github:julianjc84/niri/feat/configurable-touch-gestures";
+    niri-touch.url = "github:knoopx/niri";
     niri-touch.inputs.nixpkgs.follows = "nixpkgs";
 
     astal-shell.url = "github:knoopx/astal-shell";
