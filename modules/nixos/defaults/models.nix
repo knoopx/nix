@@ -282,6 +282,23 @@ in
       }
 
       {
+        id = "ukisai/Swift-Bonsai-2-27B";
+        name = "Swift-Bonsai-2-27B";
+        family = "qwen3.8";
+        contextWindow = 262144;
+        toolCall = true;
+        inputTypes = [ "text" "image" ];
+        releaseDate = "2026-09-28";
+        lastUpdated = "2026-09-28";
+        ninfer = {
+          artifact = "ukisai/Swift-Bonsai-2-27B-NInfer-pq2-w8g32-q4g64-q5g64-q6g64-bf16.v3.ninfer";
+          spec = "mtp";
+          draftTokens = 3;
+          lmHeadDraft = true;
+        };
+      }
+
+      {
         id = "neroued/Qwen3.8-27B-nvfp4-NInfer";
         name = "Qwen3.8-27B-nvfp4-NInfer";
         family = "qwen3.8";
