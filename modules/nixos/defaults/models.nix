@@ -242,9 +242,16 @@ in
       type = types.listOf types.str;
       description = "Cloud model identifiers for settings.json enabledModels";
     };
+
+    localBaseUrl = mkOption {
+      type = types.str;
+      description = "Base URL of the local LLM engine for the pi agent's local provider";
+    };
   };
 
   config = {
+    defaults.models.localBaseUrl = "https://llm.knoopx.net";
+
     defaults.models.cloud = [
       "nvidia/nemotron-3-ultra-550b-a55b:free"
       "minimax/minimax-m3:free"

@@ -44,6 +44,8 @@ in
 
   defaults.display.idleTimeout = lib.mkForce (15 * 60);
 
+  defaults.models.localBaseUrl = lib.mkForce "http://localhost:5090/v1";
+
   home-manager.users.${config.defaults.username} = {
     imports = [ ../../home/${config.defaults.username}.nix ] ++ (listNixModulesRecusive ./home-manager);
 

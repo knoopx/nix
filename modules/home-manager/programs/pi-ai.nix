@@ -127,6 +127,24 @@ with lib; let
     then "local/${(head nixosConfig.defaults.models.local).id}"
     else null;
 
+  baseUrl = nixosConfig.defaults.models.localBaseUrl;
+
+  settingsJson = {
+    defaultProvider = "local";
+    inherit defaultModel;
+    inherit enabledModels;
+    toolOutputExpanded = true;
+    defaultThinkingLevel = "xhigh";
+    branchSummary = { skipPrompt = true; };
+    retry = {
+      maxRetries = 10;
+      baseDelayMs = 2500;
+    };
+    theme = "nix-defaults";
+  };
+
+  settingsJsonText = builtins.toJSON settingsJson;
+
   settingsJsonPath = "${config.home.homeDirectory}/.pi/agent/settings.json";
 
   jqFilter = concatStringsSep " | " [
@@ -148,7 +166,7 @@ in
     ".pi/agent/models.json".text = builtins.toJSON {
       providers = {
         local = {
-          baseUrl = "http://localhost:5090/v1";
+          inherit baseUrl;
           apiKey = "nokey";
           api = "openai-completions";
           inherit models;
@@ -157,9 +175,16 @@ in
     };
   };
 
+  # Seed settings.json on fresh hosts, then merge the managed model-management
+  # fields into it. The file is not home-managed, so user edits are preserved.
   home.activation.updatePiAiSettings = ''
-    if command -v jq >/dev/null 2>&1 && [ -f "${settingsJsonPath}" ]; then
-      jq '${jqFilter}' "${settingsJsonPath}" > "${settingsJsonPath}.tmp" && mv "${settingsJsonPath}.tmp" "${settingsJsonPath}"
+    if command -v jq >/dev/null 2>&1; then
+      mkdir -p "$(dirname "${settingsJsonPath}")"
+      if [ ! -f "${settingsJsonPath}" ]; then
+        printf '%s\n' '${settingsJsonText}' > "${settingsJsonPath}"
+      fi
+      jq '${jqFilter}' "${settingsJsonPath}" > "${settingsJsonPath}.tmp" \
+        && mv "${settingsJsonPath}.tmp" "${settingsJsonPath}"
     fi
   '';
 }
