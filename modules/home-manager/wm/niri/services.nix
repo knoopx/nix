@@ -20,7 +20,7 @@
       markup = true;
       icons = true;
       layer = "overlay";
-      anchor = "top-right";
+      anchor = "top-left";
       border-size = 0;
       border-radius = 10;
       padding = 10;
