@@ -1,0 +1,72 @@
+From: knoopx <knoopx@users.noreply.github.com>
+Subject: [PATCH 7/7] int3472: force 24 MHz mclk for the GC5035 sensor
+
+The CHUWI Hi10 Max front GC5035 sensor needs a 24 MHz master clock, but
+the firmware SSDB (the LNK1 ACPI device, whose _HID resolves to GCTI5035)
+reports a 19.2 MHz MCLK (the L1CK crystal) in its MCLKSPEED DWord at SSDB
+offset 86. skl_int3472_get_clk_frequency() reads that DWord, so the
+int3472 per-sensor clock reports 19.2 MHz and the gc5035 driver logs
+"mclk rate set to 19200000 instead of requested ...".
+
+Force the reported rate to 24000000 for the GC5035 sensor (HID GCTI5035)
+so the int3472 clock and the gc5035 mclk both read 24000000. This is a
+reporting override: if the physical crystal is genuinely 19.2 MHz the
+sensor may still not stream (hardware limit).
+
+The sensor's ACPI HID is matched with acpi_dev_hid_match() from
+<acpi/acpi_bus.h>: int3472->sensor is a struct acpi_device * (see
+struct int3472_discrete_device in <linux/platform_data/x86/int3472.h>),
+which is exactly what the matcher takes. acpi_dev_hid_match() is stable
+API in 7.2.8.
+
+7.2.8-adapted from the 6.18.54 series: the v7.0 clk_and_regulator.c
+skl_int3472_get_clk_frequency() carries an early-return IS_ERR check and
+a buffer-length guard that the 6.18.54 version lacked, so the hunk line
+numbers differ (the force block lands after kfree(obj) at line 97, not
+the 6.18.54 position). The force-block body is unchanged. The explicit
+<acpi/acpi_bus.h> include is placed AFTER <linux/acpi.h>: the v7.0 file
+already includes <linux/acpi.h>, which pulls in <acpi/acpi.h> (the ACPICA
+wrapper that defines acpi_handle et al.) and <acpi/acpi_bus.h> itself,
+while <acpi/acpi_bus.h> alone does not provide the ACPICA types —
+including it first breaks the out-of-tree build.
+
+SPDX-License-Identifier: GPL-2.0-only
+---
+ clk_and_regulator.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/clk_and_regulator.c b/clk_and_regulator.c
+--- a/clk_and_regulator.c
++++ b/clk_and_regulator.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /* Author: Dan Scally <djrscally@gmail.com> */
+ 
+ #include <linux/acpi.h>
++#include <acpi/acpi_bus.h>
+ #include <linux/clkdev.h>
+ #include <linux/clk-provider.h>
+@@ -9,6 +10,7 @@
+ #include <linux/platform_data/x86/int3472.h>
+ #include <linux/regulator/driver.h>
+ #include <linux/slab.h>
++#include <linux/string.h>
+ 
+ /*
+  * 82c0d13a-78c5-4244-9bb1-eb8b539a8d11
+@@ -97,6 +99,16 @@
+ 	freq = *(u32 *)(obj->buffer.pointer + CIO2_SENSOR_SSDB_MCLKSPEED_OFFSET);
+ 
+ 	kfree(obj);
++
++	/*
++	 * CHUWI Hi10 Max GC5035: the firmware SSDB (LNK1.SSDB) reports a 19.2 MHz
++	 * MCLK (the L1CK crystal), but the GC5035 sensor needs 24 MHz. Force the
++	 * reported rate for the GC5035 so the int3472 per-sensor clock and the
++	 * gc5035 mclk both read 24000000.
++	 */
++	if (acpi_dev_hid_match(int3472->sensor, "GCTI5035"))
++		freq = 24000000;
++
+ 	return freq;
+ }

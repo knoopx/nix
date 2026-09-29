@@ -1,0 +1,39 @@
+From: knoopx <knoopx@users.noreply.github.com>
+Subject: [PATCH 6/7] media: gc5035: acquire the INT3472 camera clock as mclk
+
+The probe never obtains a clock for gc5035->mclk, so the field stays NULL:
+clk_set_rate() is a no-op and clk_get_rate() reports 0, leaving the sensor
+without a master clock ("mclk rate set to 0 instead of requested
+192000000" in dmesg on the CHUWI Hi10 Max, 7.2.8 kernel).
+
+The int3472 discrete driver already registers a per-camera clock
+("<INT3472:0x>-clk", rate from the sensor SSDB) and publishes it through
+clkdev under the sensor's i2c device name. Acquire it as the sensor mclk
+and enable it so the clock line is actually driven; the rate is
+whatever ACPI SSDB provides (no .set_rate op), which is non-zero on the
+CHUWI Hi10 Max.
+
+7.2.8-adapted from the 6.18.54 series: the v7.0 gc5035.c probe context is
+byte-identical to the 6.18.54 text, so the hunk body is unchanged; only
+the hunk line numbers shift (probe body now starts at line 2081).
+gc5035.c already includes <linux/clk.h>.
+
+SPDX-License-Identifier: GPL-2.0-only
+---
+ gc5035.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/gc5035.c b/gc5035.c
+--- a/gc5035.c
++++ b/gc5035.c
+@@ -2081,6 +2081,11 @@ static int gc5035_probe(struct i2c_client *client)
+ 	gc5035->client = client;
+ 	gc5035_init_power_ctrl(gc5035);
+ 	gc5035_set_power(gc5035, 1);
++
++	gc5035->mclk = devm_clk_get_enabled(dev, "mclk");
++	if (IS_ERR(gc5035->mclk))
++		return dev_err_probe(dev, PTR_ERR(gc5035->mclk),
++				     "Failed to get mclk\n");
+ 	
+ 	gc5035->cur_mode = &gc5035_modes[0];

@@ -1,0 +1,20 @@
+--- a/src/v4l2/MediaControl.cpp
++++ b/src/v4l2/MediaControl.cpp
+@@ -479,6 +479,17 @@
+     if (ret != 0)
+         return ret;
+ 
++    if (mediaCfgId == IPU6_MEDIA_CFG_MAX) {
++        /* The first enumerated entity did not identify the media
++         * configuration: graphs whose first entity is an ISYS capture
++         * node (as on the upstream kernel IPU6 driver, where the CSI2
++         * port entities carry higher ids) leave mediaCfgId unset.
++         * Fall back to the device model: "ipu6" is the upstream
++         * configuration, "ipu6-downstream" the downstream one. */
++        mediaCfgId = (!strcmp(devInfo.model, IPU6_DOWNSTREAM_DEV_MODEL))
++                         ? IPU6_DOWNSTREAM_MEDIA_CFG
++                         : IPU6_UPSTREAM_MEDIA_CFG;
++    }
+     if (mediaCfgId != IPU6_MEDIA_CFG_MAX)
+         mMediaCfgId = mediaCfgId;
+ 

@@ -1,0 +1,25 @@
+Adapt the v7.0-pinned int3472 sources to the 7.2.8 LED API
+(skl_int3472_register_led/unregister_leds). con_id "privacy" preserves
+the v7.0 privacy-LED behavior exactly (7.2.8 in-tree led.c names the
+LED "%s::%s_led" with con_id, i.e. the same name v7.0 hardcoded).
+
+--- a/discrete.c
++++ b/discrete.c
+@@ -385,7 +385,7 @@
+ 
+ 			break;
+ 		case INT3472_GPIO_TYPE_PRIVACY_LED:
+-			ret = skl_int3472_register_pled(int3472, gpio);
++			ret = skl_int3472_register_led(int3472, gpio, "privacy");
+ 			if (ret)
+ 				err_msg = "Failed to register LED\n";
+ 
+@@ -460,7 +460,7 @@
+ 	gpiod_remove_lookup_table(&int3472->gpios);
+ 
+ 	skl_int3472_unregister_clock(int3472);
+-	skl_int3472_unregister_pled(int3472);
++	skl_int3472_unregister_leds(int3472);
+ 	skl_int3472_unregister_regulator(int3472);
+ }
+ EXPORT_SYMBOL_NS_GPL(int3472_discrete_cleanup, "INTEL_INT3472_DISCRETE");

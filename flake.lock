@@ -368,11 +368,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790773921,
-        "narHash": "sha256-ftI4TjOYCqmXSPMbI/qXZiskT3xw5UOE3tDGPPMmQOo=",
+        "lastModified": 1790779245,
+        "narHash": "sha256-1CMLCJa058AalfOivdYei7gU1VHbl+ij3azOt3xV4c0=",
         "owner": "knoopx",
         "repo": "ninfer",
-        "rev": "5ab1777d3775386a2747e29b332b0ac471a744d4",
+        "rev": "02d5c08c2dfa2b2638183738e60ea4d68d0f493d",
         "type": "github"
       },
       "original": {
