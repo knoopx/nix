@@ -10,6 +10,8 @@
   onAC = "${pkgs.upower}/bin/upower --dump | grep -q 'online.*yes'";
   idleTimeout = nixosConfig.defaults.display.idleTimeout;
   idleTimeoutAC = nixosConfig.defaults.display.idleTimeoutAC;
+  lockEnabled = nixosConfig.defaults.display.lockEnabled;
+  beforeSleep = if lockEnabled then "${sc} lock" else "${dc} power-off-monitors";
 in {
   services.swayidle = {
     enable = true;
@@ -18,36 +20,42 @@ in {
       after-resume = "${dc} power-on-monitors";
       lock = "${dc} power-off-monitors";
       unlock = "${dc} power-on-monitors";
-      before-sleep = "${sc} lock";
+      before-sleep = beforeSleep;
     };
     timeouts =
-      (lib.optionals (idleTimeoutAC != null) [
-        {
-          timeout = idleTimeout;
-          command = "${onBattery} && ${dc} power-off-monitors";
-        }
-        {
-          timeout = idleTimeout + 5;
-          command = "${onBattery} && ${sc} lock";
-        }
-        {
-          timeout = idleTimeoutAC;
-          command = "${onAC} && ${dc} power-off-monitors";
-        }
-        {
-          timeout = idleTimeoutAC + 5;
-          command = "${onAC} && ${sc} lock";
-        }
-      ])
-      ++ (lib.optionals (idleTimeoutAC == null) [
-        {
-          timeout = idleTimeout;
-          command = "${dc} power-off-monitors";
-        }
-        {
-          timeout = idleTimeout + 5;
-          command = "${sc} lock";
-        }
-      ]);
+      (lib.optionals (idleTimeoutAC != null) (
+        [
+          {
+            timeout = idleTimeout;
+            command = "${onBattery} && ${dc} power-off-monitors";
+          }
+          {
+            timeout = idleTimeoutAC;
+            command = "${onAC} && ${dc} power-off-monitors";
+          }
+        ]
+        ++ lib.optionals lockEnabled [
+          {
+            timeout = idleTimeout + 5;
+            command = "${onBattery} && ${sc} lock";
+          }
+          {
+            timeout = idleTimeoutAC + 5;
+            command = "${onAC} && ${sc} lock";
+          }
+        ]))
+      ++ (lib.optionals (idleTimeoutAC == null) (
+        [
+          {
+            timeout = idleTimeout;
+            command = "${dc} power-off-monitors";
+          }
+        ]
+        ++ lib.optionals lockEnabled [
+          {
+            timeout = idleTimeout + 5;
+            command = "${sc} lock";
+          }
+        ]));
   };
 }

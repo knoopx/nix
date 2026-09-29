@@ -21,6 +21,11 @@ with lib; {
             default = null;
             description = "Idle timeout in seconds on AC (null to use idleTimeout)";
           };
+          lockEnabled = mkOption {
+            type = types.bool;
+            default = true;
+            description = "Lock the screen on sleep and idle";
+          };
           windowSize = mkOption {
             type = types.listOf types.int;
             description = "Default window size [width, height]";
