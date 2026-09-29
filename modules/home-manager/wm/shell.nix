@@ -15,6 +15,7 @@ in {
     pkgs.media-control # Media playback controls
     pkgs.session-control # Session lock, logout, suspend, etc.
     pkgs.tablet-mode-control # Enable/disable screen keyboard
+    pkgs.virtual-keyboard-control # Show/hide the virtual keyboard
     apps.terminal.package
     pkgs.window-control # Window button theming
     pkgs.volume-control # Audio volume control

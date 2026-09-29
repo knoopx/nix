@@ -1,6 +1,6 @@
 // Touchscreen gesture recognition tuning + binds for hi10max.
 //
-// Requires julianjc84's niri fork (feat/configurable-touch-gestures branch).
+// Requires knoopx/niri (configurable touch gestures).
 // On upstream niri, gesture nodes are unknown and will fail to parse.
 
 input {
@@ -89,13 +89,23 @@ binds {
     TouchRotate fingers=4 direction="cw"  { focus-column-right; }
 
     // -------------------------------------------------------------------------
-    // Edge swipes — column / workspace navigation
+    // Edge swipes — overview from the top corners and bottom-center.
+    // Workspace / column navigation is handled by 3-finger swipes, so the
+    // plain top/bottom edge binds are intentionally omitted; the left/right
+    // center edges drive Firefox back / forward below.
     // -------------------------------------------------------------------------
-    TouchEdge edge="left"   sensitivity=0.6 natural-scroll=true { focus-column-right; }
-    TouchEdge edge="right"  sensitivity=0.6 natural-scroll=true { focus-column-left; }
-    TouchEdge edge="top"    sensitivity=0.5 natural-scroll=true { focus-workspace-up; }
-    TouchEdge edge="bottom" sensitivity=0.5 natural-scroll=true { focus-workspace-down; }
+    TouchEdge edge="top"    zone="right"  natural-scroll=true { toggle-overview; }
+    TouchEdge edge="left"   zone="top"    natural-scroll=true { toggle-overview; }
+    // Bottom swipe-up yields a negative delta_y; natural-scroll would invert it
+    // to a close, so omit it (natural=false) so swiping up opens the overview.
+    TouchEdge edge="bottom" zone="center" { toggle-overview; }
 
-    TouchEdge edge="top" zone="right" natural-scroll=true { toggle-overview; }
-    TouchEdge edge="left" zone="top" natural-scroll=true { toggle-overview; }
+    // -------------------------------------------------------------------------
+    // Edge swipes — Firefox back / forward.
+    // One-finger edge swipes press Alt then Left/Right (Firefox's default
+    // back / forward keys) on the focused window via wtype: -M holds the
+    // modifier, -k types the key, and wtype releases modifiers on exit.
+    // -------------------------------------------------------------------------
+    TouchEdge edge="left"  zone="center" { spawn "wtype" "-M" "alt" "-k" "Left"; }
+    TouchEdge edge="right" zone="center" { spawn "wtype" "-M" "alt" "-k" "Right"; }
 }

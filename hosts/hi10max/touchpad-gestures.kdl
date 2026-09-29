@@ -1,6 +1,6 @@
 // Touchpad gesture recognition tuning + binds for hi10max.
 //
-// Requires julianjc84's niri fork (feat/configurable-touch-gestures branch).
+// Requires knoopx/niri (configurable touch gestures).
 // On upstream niri, gesture nodes are unknown and will fail to parse.
 
 input {
