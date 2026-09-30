@@ -4,148 +4,152 @@
 
 :root {
   /* custom vars */
-  --uc-urlbar-width: min(600px, 80vw);
-  --tab-active-bg: var(--base02);
-  --tab-inactive-bg: var(--base00);
-  --tab-active-fg: var(--base05);
-  --tab-inactive-fg: var(--base04);
-  --tab-min-height: 22px;
+  --uc-urlbar-width: min(600px, 80vw) !important;
+  --tab-active-bg: var(--base02) !important;
+  --tab-inactive-bg: var(--base00) !important;
+  --tab-active-fg: var(--base05) !important;
+  --tab-inactive-fg: var(--base04) !important;
+  --tab-min-height: 32px !important;
 
   /* arc-ui sizing (scoped to urlbar to avoid clashing with Firefox internals) */
-  --arc-xs: 0.129rem;
-  --arc-sm: 0.272rem;
-  --arc-md: 0.618rem;
-  --arc-lg: 1rem;
+  --arc-xs: 0.129rem !important;
+  --arc-sm: 0.272rem !important;
+  --arc-md: 0.618rem !important;
+  --arc-lg: 1rem !important;
 
   /* design tokens (tokens-brand.css / tokens-shared.css) */
-  --color-accent-primary: var(--base0D);
-  --color-accent-primary-hover: var(--base0C);
-  --color-accent-primary-active: var(--base0D);
-  --background-color-canvas: var(--base00);
-  --background-color-box: var(--base01);
-  --background-color-critical: var(--base08);
-  --background-color-information: var(--base0D);
-  --background-color-success: var(--base0B);
-  --background-color-warning: var(--base0A);
-  --text-color: var(--base05);
-  --text-color-deemphasized: var(--base04);
-  --text-color-error: var(--base08);
-  --text-color-disabled: var(--base03);
-  --border-color: var(--base02);
-  --card-border-color: var(--base02);
-  --border-color-deemphasized: var(--base02);
-  --border-color-interactive: var(--base03);
-  --border-color-interactive-hover: var(--base04);
-  --border-color-interactive-active: var(--base05);
-  --border-color-interactive-disabled: var(--base02);
-  --border-color-transparent: transparent;
-  --icon-color: var(--base04);
-  --icon-color-critical: var(--base08);
-  --icon-color-information: var(--base0D);
-  --icon-color-success: var(--base0B);
-  --icon-color-warning: var(--base0A);
-  --link-color: var(--base0C);
-  --link-color-hover: var(--base0D);
-  --link-color-active: var(--base0C);
-  --link-color-visited: var(--base0E);
-  --focus-outline-color: var(--base08);
-  --attention-dot-color: var(--base0B);
-  --button-background-color: color-mix(in srgb, var(--base05) 7%, transparent);
+  /* Every token below needs !important: Firefox's browser-colors.css declares
+     the same tokens on :root (author-normal), which beats a user-normal
+     :root rule. Without !important these theme tokens silently lose and the
+     panels / popups / sidebar fall back to Firefox defaults. */
+  --color-accent-primary: var(--base0D) !important;
+  --color-accent-primary-hover: var(--base0C) !important;
+  --color-accent-primary-active: var(--base0D) !important;
+  --background-color-canvas: var(--base00) !important;
+  --background-color-box: var(--base01) !important;
+  --background-color-critical: var(--base08) !important;
+  --background-color-information: var(--base0D) !important;
+  --background-color-success: var(--base0B) !important;
+  --background-color-warning: var(--base0A) !important;
+  --text-color: var(--base05) !important;
+  --text-color-deemphasized: var(--base04) !important;
+  --text-color-error: var(--base08) !important;
+  --text-color-disabled: var(--base03) !important;
+  --border-color: var(--base02) !important;
+  --card-border-color: var(--base02) !important;
+  --border-color-deemphasized: var(--base02) !important;
+  --border-color-interactive: var(--base03) !important;
+  --border-color-interactive-hover: var(--base04) !important;
+  --border-color-interactive-active: var(--base05) !important;
+  --border-color-interactive-disabled: var(--base02) !important;
+  --border-color-transparent: transparent !important;
+  --icon-color: var(--base04) !important;
+  --icon-color-critical: var(--base08) !important;
+  --icon-color-information: var(--base0D) !important;
+  --icon-color-success: var(--base0B) !important;
+  --icon-color-warning: var(--base0A) !important;
+  --link-color: var(--base0C) !important;
+  --link-color-hover: var(--base0D) !important;
+  --link-color-active: var(--base0C) !important;
+  --link-color-visited: var(--base0E) !important;
+  --focus-outline-color: var(--base08) !important;
+  --attention-dot-color: var(--base0B) !important;
+  --button-background-color: color-mix(in srgb, var(--base05) 7%, transparent) !important;
   --button-background-color-hover: color-mix(
     in srgb,
     var(--base05) 14%,
     transparent
-  );
+  ) !important;
   --button-background-color-active: color-mix(
     in srgb,
     var(--base05) 21%,
     transparent
-  );
-  --button-text-color: var(--base05);
-  --button-text-color-primary: var(--base00);
-  --table-row-background-color-alternate: var(--base01);
-  --box-shadow-color-darker-layer-1: rgba(0, 0, 0, 0.2);
-  --box-shadow-color-darker-layer-2: rgba(0, 0, 0, 0.4);
-  --box-shadow-color-lighter-layer-1: rgba(0, 0, 0, 0.2);
-  --box-shadow-color-lighter-layer-2: rgba(0, 0, 0, 0.4);
+  ) !important;
+  --button-text-color: var(--base05) !important;
+  --button-text-color-primary: var(--base00) !important;
+  --table-row-background-color-alternate: var(--base01) !important;
+  --box-shadow-color-darker-layer-1: rgba(0, 0, 0, 0.2) !important;
+  --box-shadow-color-darker-layer-2: rgba(0, 0, 0, 0.4) !important;
+  --box-shadow-color-lighter-layer-1: rgba(0, 0, 0, 0.2) !important;
+  --box-shadow-color-lighter-layer-2: rgba(0, 0, 0, 0.4) !important;
 
   /* toolbox (browser-colors.css) */
-  --toolbox-background-color: var(--base00);
-  --toolbox-background-color-inactive: var(--base00);
-  --toolbox-text-color: var(--base05);
-  --toolbox-text-color-inactive: var(--base04);
+  --toolbox-background-color: var(--base00) !important;
+  --toolbox-background-color-inactive: var(--base00) !important;
+  --toolbox-text-color: var(--base05) !important;
+  --toolbox-text-color-inactive: var(--base04) !important;
 
   /* toolbar (browser-colors.css) */
-  --toolbar-background-color: var(--base00);
-  --toolbar-text-color: var(--base05);
-  --toolbarbutton-icon-fill: var(--base05);
-  --toolbarbutton-icon-fill-attention: var(--base0D);
-  --toolbarbutton-icon-fill-attention-text: var(--base00);
+  --toolbar-background-color: var(--base00) !important;
+  --toolbar-text-color: var(--base05) !important;
+  --toolbarbutton-icon-fill: var(--base05) !important;
+  --toolbarbutton-icon-fill-attention: var(--base0D) !important;
+  --toolbarbutton-icon-fill-attention-text: var(--base00) !important;
 
   /* toolbar fields (browser-colors.css) */
-  --toolbar-field-background-color: var(--base01);
-  --toolbar-field-background-color-focus: var(--base01);
-  --toolbar-field-text-color: var(--base05);
-  --toolbar-field-text-color-focus: var(--base05);
-  --toolbar-field-border-color: transparent;
-  --toolbar-field-border-color-focus: var(--base08);
+  --toolbar-field-background-color: var(--base01) !important;
+  --toolbar-field-background-color-focus: var(--base01) !important;
+  --toolbar-field-text-color: var(--base05) !important;
+  --toolbar-field-text-color-focus: var(--base05) !important;
+  --toolbar-field-border-color: transparent !important;
+  --toolbar-field-border-color-focus: var(--base08) !important;
 
   /* tabs (browser-colors.css) */
-  --tab-background-color-selected: var(--base02);
-  --tab-selected-textcolor: var(--base05);
-  --tabs-navbar-separator-style: none;
-  --tabs-navbar-separator-color: transparent;
+  --tab-background-color-selected: var(--base02) !important;
+  --tab-selected-textcolor: var(--base05) !important;
+  --tabs-navbar-separator-style: none !important;
+  --tabs-navbar-separator-color: transparent !important;
 
   /* lwtheme (browser-colors.css) */
-  --lwt-accent-color: var(--base00);
-  --lwt-text-color: var(--base05);
+  --lwt-accent-color: var(--base00) !important;
+  --lwt-text-color: var(--base05) !important;
 
   /* content separator (browser-colors.css) */
-  --chrome-content-separator-color: transparent;
+  --chrome-content-separator-color: transparent !important;
 
   /* Kill tab shadows, gaps, and content-area shadow */
-  --tab-selected-shadow: none;
-  --tab-block-margin: 0px;
-  --tabstrip-min-height: var(--tab-min-height);
-  --tab-border-radius: 0;
-  --tab-overflow-clip-margin: 0px;
-  --content-area-shadow: none;
+  --tab-selected-shadow: none !important;
+  --tab-block-margin: 0px !important;
+  --tabstrip-min-height: var(--tab-min-height) !important;
+  --tab-border-radius: 0 !important;
+  --tab-overflow-clip-margin: 0px !important;
+  --content-area-shadow: none !important;
 
   /* panels (browser-colors.css) */
-  --panel-background-color: var(--base01);
-  --panel-text-color: var(--base05);
-  --panel-border-color: var(--base02);
-  --panel-background-color-dimmed: color-mix(in srgb, var(--base05) 12%, transparent);
+  --panel-background-color: var(--base01) !important;
+  --panel-text-color: var(--base05) !important;
+  --panel-border-color: var(--base02) !important;
+  --panel-background-color-dimmed: color-mix(in srgb, var(--base05) 12%, transparent) !important;
   --panel-background-color-dimmed-further: color-mix(
     in srgb,
     var(--base05) 20%,
     transparent
-  );
+  ) !important;
 
   /* sidebar (browser-colors.css) */
-  --sidebar-background-color: var(--base00);
-  --sidebar-border-color: var(--base02);
-  --sidebar-text-color: var(--base05);
+  --sidebar-background-color: var(--base00) !important;
+  --sidebar-border-color: var(--base02) !important;
+  --sidebar-text-color: var(--base05) !important;
 
   /* input (browser-colors.css) */
-  --input-border-color: var(--base02);
+  --input-border-color: var(--base02) !important;
 
   /* urlbar box (browser-colors.css) */
-  --urlbar-box-background-color: var(--base02);
-  --urlbar-box-background-color-focus: var(--base02);
-  --urlbar-box-background-color-hover: var(--base03);
-  --urlbar-box-background-color-active: var(--base03);
-  --urlbar-box-text-color: var(--base05);
-  --urlbar-box-text-color-hover: var(--base05);
-  --urlbar-icon-fill-opacity: 1;
+  --urlbar-box-background-color: var(--base02) !important;
+  --urlbar-box-background-color-focus: var(--base02) !important;
+  --urlbar-box-background-color-hover: var(--base03) !important;
+  --urlbar-box-background-color-active: var(--base03) !important;
+  --urlbar-box-text-color: var(--base05) !important;
+  --urlbar-box-text-color-hover: var(--base05) !important;
+  --urlbar-icon-fill-opacity: 1 !important;
 
   /* urlbarView (browser-colors.css) */
-  --urlbarview-separator-color: transparent;
-  --urlbarView-secondary-text-color: var(--base04);
-  --urlbarview-text-color-action: var(--base0D);
+  --urlbarview-separator-color: transparent !important;
+  --urlbarView-secondary-text-color: var(--base04) !important;
+  --urlbarview-text-color-action: var(--base0D) !important;
 
   /* devtools splitter (splitters.css) */
-  --devtools-splitter-color: var(--base02);
+  --devtools-splitter-color: var(--base02) !important;
 }
 
 /* --- TOOLBOX BORDERS: kill all top/bottom borders and pseudo-elements --- */
@@ -347,9 +351,9 @@ toolbarspring,
 
 /* --- URLBAR INPUT STYLE --- */
 #urlbar-input {
-  color: var(--base05);
+  color: var(--base05) !important;
   text-align: left;
-  font-size: 14px;
+  font-size: 14px !important;
 }
 
 /* --- TAB BAR (bottom via CSS grid) --- */
@@ -407,7 +411,7 @@ body {
 
 /* Kill the inner border line above/below tab strip (tabs.css) */
 #TabsToolbar {
-  --tabstrip-inner-border: none;
+  --tabstrip-inner-border: none !important;
   background: var(--base00);
   padding: 0;
   margin: 0;
@@ -472,13 +476,14 @@ body {
   display: none;
 }
 
-/* tab colors */
+/* tab colors (need !important: default tabs.css is author-normal and beats
+   user-normal, so the tab strip kept its default colors) */
 .tabbrowser-tab:not([selected="true"]) {
-  color: var(--identity-icon-color, var(--tab-inactive-fg));
+  color: var(--identity-icon-color, var(--tab-inactive-fg)) !important;
 }
 .tabbrowser-tab:not([selected="true"]) .tab-background {
-  background-color: var(--tab-inactive-bg);
-  background-image: none;
+  background-color: var(--tab-inactive-bg) !important;
+  background-image: none !important;
 }
 .tabbrowser-tab {
   font-weight: normal;
@@ -486,11 +491,11 @@ body {
   padding-inline: 0px !important;
 }
 #tabbrowser-tabs .tabbrowser-tab[selected] .tab-content {
-  background: var(--tab-active-bg);
-  color: var(--identity-icon-color, var(--tab-active-fg));
+  background: var(--tab-active-bg) !important;
+  color: var(--identity-icon-color, var(--tab-active-fg)) !important;
 }
 #tabbrowser-tabs .tabbrowser-tab:hover:not([selected]) .tab-content {
-  background: var(--tab-active-bg);
+  background: var(--tab-active-bg) !important;
 }
 .tabbrowser-tab[fadein] {
   max-width: 100vw;
@@ -499,7 +504,7 @@ body {
 .tabbrowser-tab {
   flex: 0 1 auto;
   width: auto;
-  --tab-label-mask-size: 1em;
+  --tab-label-mask-size: 1em !important;
   overflow-clip-margin: 0px;
 }
 .tab-label {
@@ -545,16 +550,16 @@ body {
 /* --- CONTEXT MENUS & POPUPS --- */
 menupopup,
 panel {
-  --panel-border-radius: 12px;
-  --panel-border-color: color-mix(in srgb, var(--base03) 40%, transparent);
-  --panel-padding-block: 6px;
+  --panel-border-radius: 12px !important;
+  --panel-border-color: color-mix(in srgb, var(--base03) 40%, transparent) !important;
+  --panel-padding-block: 6px !important;
   --panel-box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.4),
-    0 0 0 1px color-mix(in srgb, var(--base03) 20%, transparent);
-  --menuitem-border-radius: 8px;
-  --menuitem-margin: 0 6px;
-  --menuitem-padding: 6px 8px;
-  --panel-separator-color: color-mix(in srgb, var(--base03) 30%, transparent);
+    0 2px 8px rgba(0, 0, 0, 0.4) !important,
+    0 0 0 1px color-mix(in srgb, var(--base03) 20%, transparent) !important;
+  --menuitem-border-radius: 8px !important;
+  --menuitem-margin: 0 6px !important;
+  --menuitem-padding: 6px 8px !important;
+  --panel-separator-color: color-mix(in srgb, var(--base03) 30%, transparent) !important;
 }
 menupopup > #context-navigation {
   display: none;
@@ -564,70 +569,86 @@ menupopup > #context-sep-navigation {
 }
 menuitem,
 menu {
-  color: var(--base05);
+  color: var(--base05) !important;
 }
 menuitem:hover,
 menu:hover,
 menuitem[_moz-menuactive="true"],
 menu[_moz-menuactive="true"] {
-  background-color: var(--base02);
-  color: var(--base05);
+  background-color: var(--base02) !important;
+  color: var(--base05) !important;
 }
 menuitem[disabled="true"],
 menu[disabled="true"] {
-  color: var(--base03);
+  color: var(--base03) !important;
 }
 menuseparator {
   margin-inline: 12px;
 }
 
-/* --- FINDBAR --- */
+/* --- FINDBAR ---
+ * The findbar is a chrome (author) element: its default styles come from the
+ * global findbar.css (xul|findbar { background-color: -moz-dialog }) and the
+ * smartbar/urlbar author rules. Author-normal beats user-normal, so every rule
+ * here needs !important to win the cascade (same as the urlbar section). */
 findbar {
-  background-color: var(--base01);
-  color: var(--base05);
-  border-color: var(--base02);
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+  border-color: var(--base02) !important;
+}
+findbar .findbar-container {
+  background-color: transparent !important;
 }
 findbar .findbar-textbox {
-  background-color: var(--base00);
-  color: var(--base05);
-  border-color: var(--base02);
+  background-color: var(--base00) !important;
+  color: var(--base05) !important;
+  border-color: var(--base02) !important;
 }
 findbar .findbar-textbox:focus {
-  border-color: var(--base08);
+  border-color: var(--base08) !important;
+}
+/* Theme the native option checkboxes (Highlight All / Match Case / ...) */
+findbar checkbox {
+  accent-color: var(--base0D) !important;
+}
+/* Up/down find buttons */
+findbar .findbar-find-previous,
+findbar .findbar-find-next {
+  fill: var(--base05) !important;
 }
 .findbar-find-status,
 .found-matches {
-  color: var(--base04);
+  color: var(--base04) !important;
 }
 
 /* --- SIDEBAR --- */
 #sidebar-box {
-  background-color: var(--base00);
-  color: var(--base05);
+  background-color: var(--base00) !important;
+  color: var(--base05) !important;
 }
 #sidebar-header {
-  background-color: var(--base01);
-  color: var(--base05);
-  border-bottom-color: var(--base02);
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
+  border-bottom-color: var(--base02) !important;
 }
 #sidebar {
-  background-color: var(--base00);
-  color: var(--base05);
+  background-color: var(--base00) !important;
+  color: var(--base05) !important;
 }
 
 /* --- AUTOCOMPLETE / AWESOMEBAR RESULTS --- */
 .urlbarView-row[selected] {
-  background-color: var(--base02);
-  color: var(--base05);
+  background-color: var(--base02) !important;
+  color: var(--base05) !important;
 }
 .urlbarView-row:hover {
-  background-color: var(--base01);
+  background-color: var(--base01) !important;
 }
 .urlbarView-url {
-  color: var(--base0C);
+  color: var(--base0C) !important;
 }
 .urlbarView-title strong {
-  color: var(--base0D);
+  color: var(--base0D) !important;
 }
 
 /* --- SELECTION --- */
@@ -644,57 +665,57 @@ findbar .findbar-textbox:focus {
 
 /* --- FULLSCREEN & STATUS --- */
 #fullscreen-warning {
-  border: none;
-  background-color: var(--base01);
-  color: var(--base05);
+  border: none !important;
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
 }
 #statuspanel-label {
   border-radius: 0px;
   border: 0px;
-  background-color: var(--base01);
-  color: var(--base04);
+  background-color: var(--base01) !important;
+  color: var(--base04) !important;
 }
 
 /* --- DOWNLOADS PANEL --- */
 #downloadsPanel {
-  background-color: var(--base01);
-  color: var(--base05);
+  background-color: var(--base01) !important;
+  color: var(--base05) !important;
 }
 #downloadsListBox richlistitem:hover {
-  background-color: var(--base02);
+  background-color: var(--base02) !important;
 }
 #downloadsListBox richlistitem[selected] {
-  background-color: var(--base02);
-  color: var(--base05);
+  background-color: var(--base02) !important;
+  color: var(--base05) !important;
 }
 #emptyDownloads {
-  color: var(--base04);
+  color: var(--base04) !important;
 }
 
 /* --- PERMISSIONS / SECURITY POPUPS --- */
 #permission-popup,
 #identity-popup {
-  --panel-border-color: var(--base02);
+  --panel-border-color: var(--base02) !important;
 }
 
 /* --- BUTTONS --- */
 button,
 toolbarbutton {
-  color: var(--base05);
+  color: var(--base05) !important;
 }
 button:hover,
 toolbarbutton:hover {
-  background-color: var(--base02);
+  background-color: var(--base02) !important;
 }
 button:active,
 toolbarbutton[checked="true"] {
-  background-color: var(--base03);
+  background-color: var(--base03) !important;
 }
 
 /* --- TAB LOADING INDICATOR --- */
 .tabbrowser-tab[busy] .tab-throbber {
-  color: var(--base0D);
+  color: var(--base0D) !important;
 }
 .tabbrowser-tab[progress] .tab-throbber {
-  color: var(--base0B);
+  color: var(--base0B) !important;
 }
