@@ -3,9 +3,6 @@
 , pkgs
 , ...
 }@ inputs:
-let
-  vaDri = import ./va-dri.nix { inherit pkgs lib; };
-in
 # CHUWI Hi10 Max front camera (GC5035 over IPU6EP).
 #
 # The tablet's MIPI front camera is a GalaxyCore GC5035 behind the Intel
@@ -74,7 +71,6 @@ in
   # lookup fails with "libcamhal_profile.xml is not found".
   systemd.services.v4l2-relayd-ipu6 = {
     environment.CAMERA_CFG_PATH = "/run/camera/ipu6ep/";
-    environment.LIBVA_DRIVERS_PATH = "${vaDri}/lib/dri";
 
     # Idempotent pre-start. The nixpkgs default relies on
     # `v4l2loopback-ctl add ... || [ $? -eq 17 ]` (EEXIST) to tolerate an

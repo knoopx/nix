@@ -28,7 +28,6 @@ in
     [
       ./boot.nix
       ./camera.nix
-      ./dsdt.nix
       ./hardware.nix
       ./services.nix
     ]
