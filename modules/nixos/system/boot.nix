@@ -35,8 +35,7 @@ in
       "fs.suid_dumpable" = 0;
     };
 
-    # kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
-    # kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-zen4;
+    kernelPackages = pkgs.linuxPackages_zen;
 
     plymouth = {
       enable = true;
