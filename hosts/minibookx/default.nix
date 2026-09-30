@@ -51,7 +51,7 @@ in
   defaults.display.height = lib.mkForce 1200;
   defaults.display.idleTimeout = lib.mkForce 60; # 1 minute for battery conservation
   defaults.display.idleTimeoutAC = lib.mkForce (15 * 60);
-  defaults.display.defaultColumnWidthPercent = lib.mkForce 1.0;
+  defaults.display.defaultColumnWidthPercent = lib.mkForce 0.75;
   defaults.display.columnWidthPercentPresets = lib.mkForce [ 0.5 0.75 ];
   defaults.display.windowRules = lib.mkForce [
     {
@@ -210,7 +210,7 @@ in
                 inactive-color "#${borderColor}"
             }
             insert-hint { color "rgb(${insertHintRGB} / 50%)"; }
-            default-column-width { proportion 1.0; }
+            default-column-width { proportion 0.75; }
             preset-column-widths {
                 proportion 0.5
                 proportion 0.75
