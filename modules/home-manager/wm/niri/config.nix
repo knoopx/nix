@@ -66,14 +66,10 @@
           top = 0;
           bottom = 0;
         };
-        focus-ring = {
-          enable = true;
-          width = 3;
-          active.color = "#${nixosConfig.defaults.colorScheme.palette.base0D}";
-        };
+        focus-ring.enable = false;
         border = {
           width = 3;
-          active.color = "#${nixosConfig.defaults.colorScheme.palette.base03}";
+          active.color = "#${nixosConfig.defaults.colorScheme.palette.base0D}";
           inactive.color = "#${nixosConfig.defaults.colorScheme.palette.base03}";
         };
         insert-hint.display.color = "rgb(${nix-colors.lib-core.conversions.hexToRGBString " " nixosConfig.defaults.colorScheme.palette.base0D} / 50%)";
