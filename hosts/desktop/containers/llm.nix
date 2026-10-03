@@ -81,8 +81,8 @@ in
       (toString (foldl' (acc: m: max acc (m.maxConcurrency or 1)) 1 ninferModels))
 
       # "--host-cache-mib"
-      "--host-kv-mib"
-      "32768"
+      # "--host-kv-mib"
+      # "32768"
       "--media-live-mib"
       "2048"
       "--max-pending-requests"
