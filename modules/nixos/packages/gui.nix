@@ -65,5 +65,6 @@
     nautilus # File manager (GNOME)
     plexamp # Plex music player (amp/Tidal integration)
     swayimg # Image viewer for Wayland (swaywm)
+    gnome-maps
   ];
 }
