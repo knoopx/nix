@@ -1,6 +1,6 @@
 {pkgs, ...}: let
   pname = "nfoview";
-  version = "2.1";
+  version = "2.2";
 in
   pkgs.stdenv.mkDerivation {
     inherit pname version;
@@ -8,7 +8,7 @@ in
     src = pkgs.fetchgit {
       url = "https://github.com/otsaloma/nfoview.git";
       rev = version;
-      sha256 = "sha256-ZwYRyo4vTnEqPmISQ1bwcvosmbxjSOyrlYeWkxol/Yk=";
+      sha256 = "sha256-tEsZU+2znwOKt6FI9mnS+9U7TsowdWZeQKfKcLZpy8w=";
     };
 
     makeFlags = ["PREFIX=${placeholder "out"}"];
