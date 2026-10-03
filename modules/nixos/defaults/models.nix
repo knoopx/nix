@@ -72,8 +72,8 @@ with lib; let
 
       contextWindow = mkOption {
         type = types.int;
-        # default = 262144; # C2
-        default = 224531; # C3
+        default = 262144; # C2
+        # default = 224531; # C3
         # default = 164,463; # C4
         description = "Context window size";
       };
