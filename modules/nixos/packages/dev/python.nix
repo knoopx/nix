@@ -8,6 +8,7 @@ in
     black # Python code formatter
     isort # Python import sorter
     pyright # Type checker for Python
+    ruff # Fast Python linter and formatter
     (python314.withPackages (ps: [
       ps.pygobject3 # Python GObject introspection bindings
       ps.pillow # Python imaging library
