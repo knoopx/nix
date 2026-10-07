@@ -56,6 +56,9 @@
     snapcompact-cli.url = "github:knoopx/snapcompact-cli";
     snapcompact-cli.inputs.nixpkgs.follows = "nixpkgs";
 
+    markdown-viewer.url = "github:knoopx/markdown-viewer";
+    markdown-viewer.inputs.nixpkgs.follows = "nixpkgs";
+
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 

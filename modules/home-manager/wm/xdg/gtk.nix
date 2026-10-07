@@ -1,6 +1,7 @@
 { nixosConfig
 , pkgs
 , lib
+, inputs
 , ...
 }:
 let
@@ -8,7 +9,7 @@ let
 in
 {
   home.packages = [
-    (pkgs.mkRenderMd nixosConfig.defaults.colorScheme)
+    inputs.markdown-viewer.packages.x86_64-linux.default
   ];
 
   xdg.dataFile."gtksourceview-5/styles/catppuccin-mocha.xml".source =

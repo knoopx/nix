@@ -361,6 +361,26 @@
         "type": "github"
       }
     },
+    "markdown-viewer": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791460961,
+        "narHash": "sha256-o8+yM0C3V3gTbafsmSjqYnSDOpM2eiNeqLVQ7NWeS3U=",
+        "owner": "knoopx",
+        "repo": "markdown-viewer",
+        "rev": "68ad5d59a6d0e2a9e19f6e9bc27570ed154fa384",
+        "type": "github"
+      },
+      "original": {
+        "owner": "knoopx",
+        "repo": "markdown-viewer",
+        "type": "github"
+      }
+    },
     "ninfer": {
       "inputs": {
         "nixpkgs": [
@@ -368,11 +388,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791197012,
-        "narHash": "sha256-HJj5eVp/8Ig1hciqdzvDjzHw/C8c2QFaEuv7JJrPDFc=",
+        "lastModified": 1791456615,
+        "narHash": "sha256-xGdt2NfU3tjUjRAN/sOTwx4K8VVUmr2J+7OIu3iZB0s=",
         "owner": "knoopx",
         "repo": "ninfer",
-        "rev": "8335bd644aed43ac4c8c3e660061480147ab0355",
+        "rev": "f2aa3e04a9e333d736e05f7a253244552c1f50fe",
         "type": "github"
       },
       "original": {
@@ -579,6 +599,26 @@
         "type": "github"
       }
     },
+    "pointerless": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791391569,
+        "narHash": "sha256-6YqyOVTtUgbP16W+aPGKi/g0W4VTtr8x9faGhc2TobE=",
+        "owner": "knoopx",
+        "repo": "pointerless",
+        "rev": "834aa53c9728f18c081e3f693f1b663d674a7ec9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "knoopx",
+        "repo": "pointerless",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "astal-shell": "astal-shell",
@@ -588,12 +628,14 @@
         "firefox-addons": "firefox-addons",
         "haumea": "haumea",
         "home-manager": "home-manager",
+        "markdown-viewer": "markdown-viewer",
         "ninfer": "ninfer",
         "niri": "niri",
         "niri-touch": "niri-touch",
         "nix-colors": "nix-colors",
         "nixos-avf": "nixos-avf",
         "nixpkgs": "nixpkgs",
+        "pointerless": "pointerless",
         "snapcompact-cli": "snapcompact-cli",
         "stylix": "stylix",
         "usercontent-css": "usercontent-css",
